@@ -1,4 +1,4 @@
-# performance_man
+# 📈performance_man
 knu 종합프로젝트 5팀
 
 ## 📢회의록 및 일정관리
