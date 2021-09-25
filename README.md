@@ -1,4 +1,5 @@
-# 📈performance_man
+# 📈FLOW
+![01_시작화면](https://user-images.githubusercontent.com/70834586/134759575-723d138b-e2f9-45ce-b367-e2d20efd2204.png)
 knu 종합프로젝트 5팀  
 기업 성과관리 APP 개발 / 연구
 
