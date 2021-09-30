@@ -13,7 +13,7 @@ class _contracted_price extends State<contracted_price> {
       appBar: AppBar(
         title: Text('계약 금액'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
