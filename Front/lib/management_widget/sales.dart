@@ -13,7 +13,7 @@ class _sales extends State<sales> {
       appBar: AppBar(
         title: Text('매출 금액'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
