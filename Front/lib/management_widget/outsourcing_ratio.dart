@@ -13,7 +13,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
       appBar: AppBar(
         title: Text('외주 비율'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
