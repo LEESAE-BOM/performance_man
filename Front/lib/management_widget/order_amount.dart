@@ -13,7 +13,7 @@ class _order_amount extends State<order_amount> {
       appBar: AppBar(
         title: Text('수주 금액'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
