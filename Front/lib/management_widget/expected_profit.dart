@@ -13,7 +13,7 @@ class _expected_profit extends State<expected_profit> {
       appBar: AppBar(
         title: Text('예상 수익'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
