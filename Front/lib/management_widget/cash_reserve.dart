@@ -13,7 +13,7 @@ class _cash_reserve extends State<cash_reserve> {
       appBar: AppBar(
         title: Text('현금 보유액'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
