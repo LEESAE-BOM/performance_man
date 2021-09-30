@@ -13,7 +13,7 @@ class _labor_ratio extends State<labor_ratio> {
       appBar: AppBar(
         title: Text('인건 비율'),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color.fromRGBO(43, 63, 107,1),
       ),
       body: SafeArea(
         child: Padding(
