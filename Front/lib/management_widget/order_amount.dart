@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+
 class order_amount extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _order_amount();
@@ -134,123 +135,126 @@ class _order_amount extends State<order_amount> {
                     Center(
                       child: Container(
                         width: double.infinity,
-                        child: Theme(
-                          data: Theme.of(context)
-                              .copyWith(dividerColor: Colors.grey),
-                          child: DataTable(
-                            showBottomBorder: true,
-                            headingRowColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.black12),
-                            columns: <DataColumn>[
-                              DataColumn(
-                                label: Container(
-                                  width: 150.0,
-                                  child: Text(
-                                    '종류',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 23.0,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Container(
-                                  width: 300.0,
-                                  child: Text('금액',
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Theme(
+                            data: Theme.of(context)
+                                .copyWith(dividerColor: Colors.grey),
+                            child: DataTable(
+                              showBottomBorder: true,
+                              headingRowColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.black12),
+                              columns: <DataColumn>[
+                                DataColumn(
+                                  label: Container(
+                                    width: 150.0,
+                                    child: Text(
+                                      '종류',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 23.0)),
+                                          fontSize: 23.0,
+                                          color: Colors.black),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                            rows: <DataRow>[
-                              DataRow(
-                                cells: <DataCell>[
-                                  DataCell(Text('')),
-                                  DataCell(Container(
-                                      width: 300.0,
-                                      child: Text(
-                                        '최근 1개월',
-                                        textAlign: TextAlign.right,
+                                DataColumn(
+                                  label: Container(
+                                    width: 300.0,
+                                    child: Text('금액',
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold),
-                                      )))
-                                ],
-                              ),
-                              DataRow(
-                                cells: <DataCell>[
-                                  DataCell(
-                                    Container(
-                                      child: Text(
-                                        '수금 금액',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 18.0),
-                                      ),
-                                      width: 150.0,
-                                    ),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 23.0)),
                                   ),
-                                  DataCell(
-                                    Container(
+                                ),
+                              ],
+                              rows: <DataRow>[
+                                DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(Text('')),
+                                    DataCell(Container(
                                         width: 300.0,
                                         child: Text(
-                                          '45,600원',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 18.0),
-                                        )),
-                                  ),
-                                ],
-                              ),
-                              DataRow(
-                                cells: <DataCell>[
-                                  DataCell(
-                                    Container(
-                                      child: Text(
-                                        '미수금 금액',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 18.0),
-                                      ),
-                                      width: 150.0,
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Container(
-                                        width: 300.0,
+                                          '최근 1개월',
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold),
+                                        )))
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(
+                                      Container(
                                         child: Text(
-                                          '41,500원',
+                                          '수금 금액',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(fontSize: 18.0),
-                                        )),
-                                  ),
-                                ],
-                              ),
-                              DataRow(
-                                cells: <DataCell>[
-                                  DataCell(
-                                    Container(
-                                      child: Text(
-                                        '채권 금액',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 18.0),
+                                        ),
+                                        width: 150.0,
                                       ),
-                                      width: 150.0,
                                     ),
-                                  ),
-                                  DataCell(
-                                    Container(
-                                        width: 300.0,
+                                    DataCell(
+                                      Container(
+                                          width: 300.0,
+                                          child: Text(
+                                            '45,600원',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 18.0),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(
+                                      Container(
                                         child: Text(
-                                          '62,300원',
+                                          '미수금 금액',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(fontSize: 18.0),
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                        ),
+                                        width: 150.0,
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Container(
+                                          width: 300.0,
+                                          child: Text(
+                                            '41,500원',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 18.0),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(
+                                      Container(
+                                        child: Text(
+                                          '채권 금액',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 18.0),
+                                        ),
+                                        width: 150.0,
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Container(
+                                          width: 300.0,
+                                          child: Text(
+                                            '62,300원',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 18.0),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
