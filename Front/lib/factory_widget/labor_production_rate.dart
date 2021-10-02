@@ -40,7 +40,7 @@ class _labor_production_rate extends State<labor_production_rate> {
             '2021년 9월의 노동 생산성 74입니다 '
             '전월 대비 13 증가하였습니다.',
         softWrap: true,
-        style: TextStyle(fontSize: 25, fontFamily: 'DoHyeonRegular'),
+        style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),
         textAlign: TextAlign.center,
       ),
     );
@@ -78,7 +78,7 @@ class _labor_production_rate extends State<labor_production_rate> {
             label:
               Align(
                   alignment: Alignment.centerRight,
-                  child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'DoHyeonRegular'),
+                  child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
                   ),
 
               ),
@@ -88,14 +88,14 @@ class _labor_production_rate extends State<labor_production_rate> {
             label:
             Align(
               alignment: Alignment.centerLeft,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'DoHyeonRegular'),
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
               ),
             )
         ),
         /*DataColumn(
           label: Center(
               widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'DoHyeonRegular'),)
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
           ),
         ),*/
       ],
@@ -113,7 +113,7 @@ class _labor_production_rate extends State<labor_production_rate> {
       home:Scaffold(
         appBar: AppBar(
          title: Text('노동 생산율',
-           style: TextStyle(fontSize: 25, fontFamily: 'DoHyeonRegular'),),
+           style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
            centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
             leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
