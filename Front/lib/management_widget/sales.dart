@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
+import 'package:flow_project/tabbar/factory.dart';
 
 class sales extends StatefulWidget {
   @override
@@ -9,273 +11,285 @@ class sales extends StatefulWidget {
 
 class _sales extends State<sales> {
   List<ChartData> chartData = <ChartData>[
-    ChartData('1월', 84452000,74642000,48624000),
-    ChartData('2월', 68175000,45678000,45612000),
-    ChartData('3월', 77774000,12312444,45612000),
-    ChartData('4월', 50732000,74185000,96385000),
-    ChartData('5월', 2093000,74185000,78645000),
-    ChartData('6월', 34436000,12349000,48612000),
-    ChartData('7월', 4356000,74501000,45671000),
-    ChartData('8월', 24636000,14714000,58258000),
-    ChartData('9월', 54636000,69312000,65432000),
+    ChartData('5월', 2093000, 74185000, 78645000),
+    ChartData('6월', 34436000, 12349000, 48612000),
+    ChartData('7월', 4356000, 74501000, 45671000),
+    ChartData('8월', 24636000, 14714000, 58258000),
+    ChartData('9월', 54636000, 69312000, 65432000),
   ];
+
+  Widget textSection1 = Padding(
+      padding: EdgeInsets.all(5),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text.rich(
+              TextSpan(
+                  text: '이번 달 ',
+                  style: TextStyle(
+                      fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '매출 금액',
+                      style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.0),
+                    ),
+                    TextSpan(
+                        text: '은',
+                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                  ]),
+            )
+          ]));
+
+  Widget textSection2 = Padding(
+      padding: EdgeInsets.all(5),
+      child: Column(
+        children: <Widget>[
+          Text.rich(TextSpan(text: '', children: <TextSpan>[
+            TextSpan(
+              text: '123,456,789원 ',
+              style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.blue,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'AppleB'),
+            ),
+            TextSpan(
+                text: '이에요.',
+                style: TextStyle(
+                    fontSize: 25.0,
+                    letterSpacing: 2.0,
+                    color: Colors.black,
+                    fontFamily: 'AppleB')),
+          ]))
+        ],
+      ));
+
+  Widget textSection3 = Padding(
+      padding: EdgeInsets.all(5),
+      child: Column(
+        children: <Widget>[
+          Text.rich(TextSpan(
+              text: '전월 대비 ',
+              style: TextStyle(
+                  fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+              children: <TextSpan>[
+                TextSpan(
+                  text: '1,000원 증가 ',
+                  style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2.0),
+                ),
+                TextSpan(
+                    text: '했어요.',
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      letterSpacing: 2.0,
+                    )),
+              ]))
+        ],
+      ));
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('매출 금액'),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+    Widget chartSection = Center(
+      child: Container(
+        child: SfCartesianChart(
+          palette: <Color>[
+            Colors.blueAccent,
+            Colors.lightBlueAccent,
+            Colors.teal,
+          ],
+          primaryXAxis: CategoryAxis(),
+          legend: Legend(
+              isVisible: true,
+              // Legend will be placed at the left
+              position: LegendPosition.bottom),
+          series: <ColumnSeries<ChartData, String>>[
+            ColumnSeries<ChartData, String>(
+              // Binding the chartData to the dataSource of the column series.
+              dataSource: chartData,
+              xValueMapper: (ChartData sales, _) => sales.x,
+              yValueMapper: (ChartData sales, _) => sales.y,
+            ),
+            ColumnSeries<ChartData, String>(
+              // Binding the chartData to the dataSource of the column series.
+              dataSource: chartData,
+              xValueMapper: (ChartData sales, _) => sales.x,
+              yValueMapper: (ChartData sales, _) => sales.y1,
+            ),
+            ColumnSeries<ChartData, String>(
+              // Binding the chartData to the dataSource of the column series.
+              dataSource: chartData,
+              xValueMapper: (ChartData sales, _) => sales.x,
+              yValueMapper: (ChartData sales, _) => sales.y2,
+            ),
+          ],
+        ),
       ),
-      body: SafeArea(
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(40.0, 40.0, 40.0, 0),
-            child: ListView(
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text.rich(TextSpan(
-                        text: '이번 달 ',
+    );
+
+    Widget datatableSection = Center(
+      child: Container(
+        width: double.infinity,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.grey),
+            child: DataTable(
+              showBottomBorder: true,
+              headingRowColor:
+                  MaterialStateColor.resolveWith((states) => Colors.black12),
+              columns: <DataColumn>[
+                DataColumn(
+                  label: Container(
+                    width: 100.0,
+                    child: Text(
+                      '',
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Container(
+                    width: 150.0,
+                    alignment: Alignment.center,
+                    child: Text('매출 금액 내역',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 25.0,
-                            letterSpacing: 2.0,
-                            fontFamily: 'AppleB'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '매출 금액',
-                            style: TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 2.0),
-                          ),
-                          TextSpan(
-                              text: '은',
-                              style: TextStyle(
-                                  fontSize: 25.0, letterSpacing: 2.0)),
-                        ])),
-                    SizedBox(
-                      height: 15.0,
+                            fontWeight: FontWeight.bold, fontSize: 23.0)),
+                  ),
+                ),
+                DataColumn(
+                  label: Container(
+                    width: 100.0,
+                    child: Text(
+                      '',
                     ),
-                    Column(
-                      children: <Widget>[
-                        Text.rich(TextSpan(text: '', children: <TextSpan>[
-                          TextSpan(
-                            text: '123,456,789원 ',
-                            style: TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.blue,
-                                letterSpacing: 2.0,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'AppleB'),
-                          ),
-                          TextSpan(
-                              text: '이에요.',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  letterSpacing: 2.0,
-                                  color: Colors.black,
-                                  fontFamily: 'AppleB')),
-                        ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text.rich(TextSpan(
-                            text: '전월 대비 ',
-                            style: TextStyle(
-                                fontSize: 25.0,
-                                letterSpacing: 2.0,
-                                fontFamily: 'AppleB'),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: '1,000원 증가 ',
-                                style: TextStyle(
-                                    fontSize: 30.0,
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 2.0),
-                              ),
-                              TextSpan(
-                                  text: '했어요.',
-                                  style: TextStyle(
-                                    fontSize: 25.0,
-                                    letterSpacing: 2.0,
-                                  )),
-                            ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    Center(
-                      child: Container(
-                        child: SfCartesianChart(
-                          palette: <Color>[
-                            Colors.blueAccent,
-                            Colors.lightBlueAccent,
-                            Colors.teal,
-                          ],
-                          primaryXAxis: CategoryAxis(),
-                          legend: Legend(
-                              isVisible: true,
-                              // Legend will be placed at the left
-                              position: LegendPosition.bottom),
-                          series: <ColumnSeries<ChartData, String>>[
-                            ColumnSeries<ChartData, String>(
-                              // Binding the chartData to the dataSource of the column series.
-                              dataSource: chartData,
-                              xValueMapper: (ChartData sales, _) => sales.x,
-                              yValueMapper: (ChartData sales, _) => sales.y,
-                            ),
-                            ColumnSeries<ChartData, String>(
-                              // Binding the chartData to the dataSource of the column series.
-                              dataSource: chartData,
-                              xValueMapper: (ChartData sales, _) => sales.x,
-                              yValueMapper: (ChartData sales, _) => sales.y1,
-                            ),
-                            ColumnSeries<ChartData, String>(
-                              // Binding the chartData to the dataSource of the column series.
-                              dataSource: chartData,
-                              xValueMapper: (ChartData sales, _) => sales.x,
-                              yValueMapper: (ChartData sales, _) => sales.y2,
-                            ),
-                          ],
+                  ),
+                ),
+              ],
+              rows: <DataRow>[
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('')),
+                    DataCell(Text('')),
+                    DataCell(Container(
+                        width: 200.0,
+                        child: Text(
+                          '최근 1개월',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold),
+                        )))
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(
+                      Container(
+                        child: Text(
+                          '월',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 18.0),
                         ),
+                        width: 100.0,
                       ),
                     ),
-                    SizedBox(
-                      height: 30.0,
+                    DataCell(Container(child:Text(''),width: 50,)),
+                    DataCell(
+                      Container(
+                          width: 200.0,
+                          child: Text(
+                            '45,600원',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18.0),
+                          )),
                     ),
-                    Center(
-                      child: Container(
-                        width: double.infinity,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.grey),
-                            child: DataTable(
-                              showBottomBorder: true,
-                              headingRowColor: MaterialStateColor.resolveWith(
-                                  (states) => Colors.black12),
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Container(
-                                    width: 100.0,
-                                    child: Text(
-                                      '',
-                                    ),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Container(
-                                    width: 150.0,
-                                    alignment: Alignment.center,
-                                    child: Text('매출 금액 내역',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 23.0)),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Container(
-                                    width: 100.0,
-                                    child: Text(
-                                      '',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                              rows: <DataRow>[
-                                DataRow(
-                                  cells: <DataCell>[
-                                    DataCell(Text('')),
-                                    DataCell(Text('')),
-                                    DataCell(Container(
-                                        width: 150.0,
-                                        child: Text(
-                                          '최근 1개월',
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold),
-                                        )))
-                                  ],
-                                ),
-                                DataRow(
-                                  cells: <DataCell>[
-                                    DataCell(
-                                      Container(
-                                        child: Text(
-                                          '월',
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(fontSize: 18.0),
-                                        ),
-                                        width: 100.0,
-                                      ),
-                                    ),
-                                    DataCell(Text('')),
-                                    DataCell(
-                                      Container(
-                                          width: 150.0,
-                                          child: Text(
-                                            '45,600원',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontSize: 18.0),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                DataRow(
-                                  color: MaterialStateColor.resolveWith(
-                                      (states) => Colors.black12),
-                                  cells: <DataCell>[
-                                    DataCell(
-                                      Container(
-                                        child: Text(
-                                          '10월',
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(fontSize: 18.0),
-                                        ),
-                                        width: 100.0,
-                                      ),
-                                    ),
-                                    DataCell(Text('')),
-                                    DataCell(
-                                      Container(
-                                          width: 150.0,
-                                          child: Text(
-                                            '123,123,568원',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontSize: 18.0),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                  ],
+                ),
+                DataRow(
+                  color: MaterialStateColor.resolveWith(
+                      (states) => Colors.black12),
+                  cells: <DataCell>[
+                    DataCell(
+                      Container(
+                        child: Text(
+                          '10월',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 18.0),
                         ),
+                        width: 100.0,
                       ),
-                    )
+                    ),
+                    DataCell(Container(child:Text(''),width: 50,)),
+                    DataCell(
+                      Container(
+                          width: 200.0,
+                          child: Text(
+                            '123,123,568원',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18.0),
+                          )),
+                    ),
                   ],
                 ),
               ],
-            )),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('매출 금액', style: TextStyle(fontSize: 25.0)),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              factory_main();
+            }),
+      ),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+        child: SafeArea(
+            child: ListView(
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                textSection1,
+                textSection2,
+                textSection3,
+                SizedBox(
+                  height: 30.0,
+                ),
+                chartSection,
+                SizedBox(
+                  height: 30.0,
+                ),
+                datatableSection
+              ],
+            ),
+          ],
+        )),
       ),
     );
   }
 }
 
 class ChartData {
-  ChartData(this.x, this.y,this.y1,this.y2);
+  ChartData(this.x, this.y, this.y1, this.y2);
 
   final String? x;
   final int y;
