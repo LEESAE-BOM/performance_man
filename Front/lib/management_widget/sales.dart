@@ -98,8 +98,8 @@ class _sales extends State<sales> {
 
   @override
   Widget build(BuildContext context) {
-    Widget chartSection = Center(
-      child: Container(
+    Widget chartSection = Container(
+      child: Center(
         child: SfCartesianChart(
           palette: <Color>[
             Colors.blueAccent,
@@ -107,29 +107,43 @@ class _sales extends State<sales> {
             Colors.teal,
           ],
           primaryXAxis: CategoryAxis(),
+            primaryYAxis: NumericAxis(
+              // Y axis labels will be rendered with currency format
+                numberFormat: NumberFormat.simpleCurrency()
+            ),
           legend: Legend(
               isVisible: true,
               // Legend will be placed at the left
               position: LegendPosition.bottom),
-          series: <ColumnSeries<ChartData, String>>[
+          series: <CartesianSeries>[
             ColumnSeries<ChartData, String>(
-              // Binding the chartData to the dataSource of the column series.
+              name: '2019',
               dataSource: chartData,
               xValueMapper: (ChartData sales, _) => sales.x,
               yValueMapper: (ChartData sales, _) => sales.y,
             ),
             ColumnSeries<ChartData, String>(
-              // Binding the chartData to the dataSource of the column series.
+              name: '2020',
               dataSource: chartData,
               xValueMapper: (ChartData sales, _) => sales.x,
               yValueMapper: (ChartData sales, _) => sales.y1,
             ),
             ColumnSeries<ChartData, String>(
-              // Binding the chartData to the dataSource of the column series.
+              name: '2021',
               dataSource: chartData,
               xValueMapper: (ChartData sales, _) => sales.x,
               yValueMapper: (ChartData sales, _) => sales.y2,
             ),
+            LineSeries<ChartData, String>(
+                name: '2021',
+                color: Colors.teal,
+                dataSource: chartData,
+                xValueMapper: (ChartData sales, _) => sales.x,
+                yValueMapper: (ChartData sales, _) => sales.y2,
+                dataLabelSettings: DataLabelSettings(
+                    // Renders the data label
+                    isVisible: true),
+                markerSettings: MarkerSettings(isVisible: true))
           ],
         ),
       ),
@@ -201,7 +215,10 @@ class _sales extends State<sales> {
                         width: 100.0,
                       ),
                     ),
-                    DataCell(Container(child:Text(''),width: 50,)),
+                    DataCell(Container(
+                      child: Text(''),
+                      width: 50,
+                    )),
                     DataCell(
                       Container(
                           width: 200.0,
@@ -227,7 +244,10 @@ class _sales extends State<sales> {
                         width: 100.0,
                       ),
                     ),
-                    DataCell(Container(child:Text(''),width: 50,)),
+                    DataCell(Container(
+                      child: Text(''),
+                      width: 50,
+                    )),
                     DataCell(
                       Container(
                           width: 200.0,
