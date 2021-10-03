@@ -10,106 +10,314 @@ class lead_time extends StatefulWidget {
 }
 
 class _lead_time extends State<lead_time> {
-  late List<lead_data> _chartData;
+  late List<ChartData> chartData;
   late TooltipBehavior _toolTipBehavior;
 
   void initState() {
-    _chartData = getChartData();
+    chartData = getChartData();
     _toolTipBehavior = TooltipBehavior();
     super.initState();
   }
 
-  List<lead_data> getChartData(){
-    final List<lead_data> chartData = [
-      lead_data(5, 51)
+  List<ChartData>  getChartData(){
+    final List<ChartData>  getChartData = [
+      ChartData('LeadTIME', 2,3,4),
     ];
-    return chartData;
+    return getChartData;
   }
 
   @override
   Widget build(BuildContext context) {
+    //TextStyle ts = TextStyle(color:Colors.red);
 
-    Widget textSection = const Padding(
-      padding: EdgeInsets.all(32),
-      child: Text(
-          'Lead-time은'
-              '총 9일 소요되었습니다.'
-        '예정일까지 3일 남았어요.',
-        softWrap: true,
-        style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),
-        textAlign: TextAlign.center,
-      ),
-    );
-
-    Widget daySection = const Padding(
-      padding: EdgeInsets.all(32),
-      child: Text(
-        '9 Days',
-        softWrap: true,
-        style: TextStyle(fontSize: 35, fontFamily: 'applesdneom'),
-        textAlign: TextAlign.center,
-      ),
-    );
-    Widget chartSection= Center(
-        child: Container(
-          child: SfCartesianChart(
-            tooltipBehavior: _toolTipBehavior,
-            series: <ChartSeries>[
-              BarSeries<lead_data,double>(dataSource: _chartData,
-                xValueMapper: (dataset, _) =>dataset.year,
-                yValueMapper: (dataset, _) =>dataset.labor,
-                //dataLabelSettings: DataLabelSettings(isVisible: true),
-                //enableTooltip: true,
-                color: Colors.blueAccent,
+    Widget textSection = Padding(
+        padding: EdgeInsets.all(40),
+        child: Column(
+          children: [
+            Text.rich(
+              TextSpan(// default text style
+                children: <TextSpan>[
+                  TextSpan(text: 'Lead-time',
+                    style:TextStyle(
+                        fontSize: 40.0,
+                        color: Colors.blue,
+                        letterSpacing: 5.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob',
+                    ),),
+                  TextSpan(text: ' 은\n',
+                    style:TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '총 ',
+                    style:TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        //  fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: ' 9일 ',
+                    style:TextStyle(
+                        fontSize: 45.0,
+                        color: Colors.blue,
+                        letterSpacing: 5.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: ' 소요되었어요\n',
+                    style:TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '예정일까지 3일 남았어요.',
+                    style:TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         )
     );
 
-    Widget datatableSection=
-    DataTable(
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-      columns: [
-        DataColumn(
-          label:
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-            ),
-
-          ),
-          // numeric: true,
-        ),
-        DataColumn(
-            label:
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
+    Widget daySection =Padding(
+        padding: EdgeInsets.all(15),
+        child: Column(
+            children:  <Widget>[
+              Text.rich(
+                TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '9 ', style:TextStyle(
+                        fontSize: 65.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                    TextSpan(text: 'Days',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                  ],
+                ),
               ),
+              SizedBox(height: 15.0),
+            ]
+        )
+
+    );
+
+    Widget chartSection= Padding(
+        padding: EdgeInsets.all(32),
+        child:Center(
+            child: Container(
+                child: SfCartesianChart(
+                  legend: Legend(
+                      isVisible: true,
+                      // Legend will be placed at the left
+                      position: LegendPosition.bottom)
+                  ,
+                  primaryXAxis: CategoryAxis(
+                      edgeLabelPlacement: EdgeLabelPlacement.shift,
+                      isVisible: false
+                  ),
+                  //backgroundColor: Colors.white,
+                  primaryYAxis: NumericAxis(
+                    edgeLabelPlacement: EdgeLabelPlacement.shift,
+                    isVisible: false,
+                  ),
+                  series: <ChartSeries>[
+                    StackedBar100Series<ChartData, String>(
+                        name:'제품 소요시간',
+                        dataSource: chartData,
+                        xValueMapper: (ChartData sales, _) => sales.x,
+                        yValueMapper: (ChartData sales, _) => sales.y1,
+                        dataLabelSettings: DataLabelSettings(
+                          isVisible: true,
+                          textStyle: TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.white,
+                          fontFamily: 'applesdneob',),
+                          labelAlignment: ChartDataLabelAlignment.middle
+                        ),
+
+                    ),
+                    StackedBar100Series<ChartData, String>(
+                        name:'누적 소요시간',
+                        dataSource: chartData,
+                        xValueMapper: (ChartData sales, _) => sales.x,
+                        yValueMapper: (ChartData sales, _) => sales.y2,
+                        dataLabelSettings: DataLabelSettings(isVisible: true, textStyle: TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.white,
+                          fontFamily: 'applesdneob',)
+                        ,labelAlignment: ChartDataLabelAlignment.middle
+                        )
+                    ),
+                    StackedBar100Series<ChartData, String>(
+                        name:'납기 소요시간',
+                        dataSource: chartData,
+                        xValueMapper: (ChartData sales, _) => sales.x,
+                        yValueMapper: (ChartData sales, _) => sales.y3,
+                        dataLabelSettings: DataLabelSettings(isVisible: true, textStyle: TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.white,
+                          fontFamily: 'applesdneob',),
+                            labelAlignment: ChartDataLabelAlignment.middle
+                        )
+                    )
+                  ],
+
+                )
             )
-        ),
-        /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+        )
+    );
+
+    Widget daySection2 =
+    ListView(
+      scrollDirection: Axis.horizontal,
+      // padding: EdgeInsets.all(20),
+      children:  <Widget>[
+        //SizedBox(width: 15.0),
+        Text.rich(
+          TextSpan(// default text style
+            children: <TextSpan>[
+              TextSpan(text: '9/1 ', style:TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                  fontFamily: 'applesdneob'),),
+              TextSpan(text: '9/1',
+                style:TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                    fontFamily: 'applesdneob'),),
+              TextSpan(text: '9/1',
+                style:TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                    fontFamily: 'applesdneob'),),
+              TextSpan(text: '9/1',
+                style:TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                    fontFamily: 'applesdneob'),),
+            ],
           ),
-        ),*/
-      ],
-      rows: [
-        DataRow(
-            cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
-        DataRow(
-            cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
+        ),
+        //     SizedBox(width: 15.0)
       ],
     );
 
+    Widget daySection3 =Padding(
+        padding: EdgeInsets.all(45),
+        child: Column(
+            children:  <Widget>[
+              Text.rich(
+                TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '예정일 ', style:TextStyle(
+                        fontSize: 35.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneol'),),
 
+                    TextSpan(text: 'D-3',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.0),
+              Text.rich(
+                TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '제품 소요시간', style:TextStyle(
+                        fontSize: 35.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneol'),),
+                    TextSpan(text: ' 3 ',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                    TextSpan(text: 'Days',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.0),
+              Text.rich(
+                TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '누적 소요시간', style:TextStyle(
+                        fontSize: 35.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneol'),),
+                    TextSpan(text: ' 2 ',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                    TextSpan(text: 'Days',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.0),
+              Text.rich(
+                TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '납기 소요시간', style:TextStyle(
+                        fontSize: 35.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneol'),),
+                    TextSpan(text: ' 3 ',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                    TextSpan(text: 'Days',
+                      style:TextStyle(
+                          fontSize: 35.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneob'),),
+                  ],
+                ),
+              )
+            ]
+        )
+
+    );
 
     return MaterialApp(
       home:Scaffold(
         appBar: AppBar(
-          title: Text('노동 생산율',
+          title: const Text('노동 생산율',
             style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
           centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
@@ -118,27 +326,29 @@ class _lead_time extends State<lead_time> {
           }),
         ),
         body: SafeArea(
-         //child: Padding(padding: const EdgeInsets.all(36.0),
+          //child: Padding(padding: const EdgeInsets.all(36.0),
             child: ListView(
               // crossAxisAlignment: CrossAxisAlignment.center,
-            //  mainAxisAlignment: MainAxisAlignment.center,
+              //  mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 textSection,
                 daySection,
                 chartSection,
-                datatableSection
-            ],
+                // daySection2, //error fixing
+                SizedBox(height: 23,),
+                daySection3
+              ],
 
             )
-         // )
+          // )
         ),
       ),
     );
   }
 }
 
-class lead_data{
-  lead_data(this.year,this.labor);
-  final double year;
-  final double labor;
+class ChartData {
+  ChartData(this.x, this.y1,this.y2,this.y3);
+  final String x;
+  final double y1; final double y2; final double y3;
 }
