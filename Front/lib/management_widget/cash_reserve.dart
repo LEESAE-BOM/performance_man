@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 class cash_reserve extends StatefulWidget {
   @override
@@ -9,54 +10,56 @@ class cash_reserve extends StatefulWidget {
 
 class _cash_reserve extends State<cash_reserve> {
   late List<ChartData> chartdata;
-  late TooltipBehavior _tooltipBehavior;
-
 
   void initState() {
     chartdata = getChartData();
-    _tooltipBehavior = TooltipBehavior(
-      enable: true,
-      activationMode: ActivationMode.longPress,
-    );
     super.initState();
   }
 
-
   List<ChartData> getChartData() {
     final List<ChartData> chartdata = [
-      ChartData(2021, 230340890),
-      ChartData(2020, 223456789),
-      ChartData(2019, 213654978)
+      ChartData(2019, 253654978),
+      ChartData(2020, 323456789),
+      ChartData(2021, 450340890)
     ];
     return chartdata;
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget chartSection=Center(
+    Widget chartSection = Center(
       child: Container(
           child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              primaryYAxis: NumericAxis(
+                  edgeLabelPlacement: EdgeLabelPlacement.shift,
+                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+              ),
               series: <ChartSeries>[
-                BarSeries<ChartData,double>(
-                  dataSource: chartdata,
-                  xValueMapper: (ChartData sales, _) => sales.x,
-                  yValueMapper: (ChartData sales, _) => sales.y,
-                ),]
-          )
-      ),);
+            BarSeries<ChartData, double>(
+                dataSource: chartdata,
+                xValueMapper: (ChartData sales, _) => sales.x,
+                yValueMapper: (ChartData sales, _) => sales.y,
+                dataLabelSettings: DataLabelSettings(
+                  // Renders the data label
+                    isVisible: true
+                ),
+                width: 0.6,
+                spacing: 0.2),
+          ])),
+    );
 
-    Widget datatableSection=Center(
+    Widget datatableSection = Center(
       child: Container(
         width: double.infinity,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Theme(
-            data: Theme.of(context)
-                .copyWith(dividerColor: Colors.grey),
+            data: Theme.of(context).copyWith(dividerColor: Colors.grey),
             child: DataTable(
               showBottomBorder: true,
-              headingRowColor: MaterialStateColor.resolveWith(
-                      (states) => Colors.black12),
+              headingRowColor:
+                  MaterialStateColor.resolveWith((states) => Colors.black12),
               columns: <DataColumn>[
                 DataColumn(
                   label: Container(
@@ -77,8 +80,7 @@ class _cash_reserve extends State<cash_reserve> {
                     child: Text('금액',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 23.0)),
+                            fontWeight: FontWeight.bold, fontSize: 23.0)),
                   ),
                 ),
               ],
@@ -92,8 +94,7 @@ class _cash_reserve extends State<cash_reserve> {
                           '최근 1개월',
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 15.0, fontWeight: FontWeight.bold),
                         )))
                   ],
                 ),
@@ -279,9 +280,8 @@ class _cash_reserve extends State<cash_reserve> {
 }
 
 class ChartData {
-  ChartData(this.x,this.y);
+  ChartData(this.x, this.y);
 
   final double x;
   final double y;
-
 }
