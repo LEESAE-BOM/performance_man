@@ -27,13 +27,89 @@ class _cash_reserve extends State<cash_reserve> {
 
   @override
   Widget build(BuildContext context) {
+    Widget textSection = Padding(
+        padding: EdgeInsets.all(5),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text.rich(TextSpan(
+                  text: '2021년 ',
+                  style: TextStyle(
+                      fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '현금 보유액 ',
+                      style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.0),
+                    ),
+                    TextSpan(
+                        text: '은',
+                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                  ]))
+            ]));
+
+    Widget textSection1 = Padding(
+        padding: EdgeInsets.all(5),
+        child: Column(
+          children: <Widget>[
+            Text.rich(TextSpan(text: '', children: <TextSpan>[
+              TextSpan(
+                text: '230,340,890원 ',
+                style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.blue,
+                    letterSpacing: 2.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'AppleB'),
+              ),
+              TextSpan(
+                  text: '이에요.',
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      letterSpacing: 2.0,
+                      color: Colors.black,
+                      fontFamily: 'AppleB')),
+            ]))
+          ],
+        ));
+
+    Widget textSection2 = Padding(
+        padding: EdgeInsets.all(5),
+        child: Column(
+          children: <Widget>[
+            Text.rich(TextSpan(
+                text: '전년 대비 ',
+                style: TextStyle(
+                    fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '33% 상승 ',
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2.0),
+                  ),
+                  TextSpan(
+                      text: '했어요.',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        letterSpacing: 2.0,
+                      )),
+                ]))
+          ],
+        ));
+
     Widget chartSection = Center(
       child: Container(
           child: SfCartesianChart(
               primaryXAxis: CategoryAxis(),
               primaryYAxis: NumericAxis(
-                  edgeLabelPlacement: EdgeLabelPlacement.shift,
-                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
               ),
               series: <ChartSeries>[
             BarSeries<ChartData, double>(
@@ -41,9 +117,8 @@ class _cash_reserve extends State<cash_reserve> {
                 xValueMapper: (ChartData sales, _) => sales.x,
                 yValueMapper: (ChartData sales, _) => sales.y,
                 dataLabelSettings: DataLabelSettings(
-                  // Renders the data label
-                    isVisible: true
-                ),
+                    // Renders the data label
+                    isVisible: true),
                 width: 0.6,
                 spacing: 0.2),
           ])),
@@ -176,105 +251,29 @@ class _cash_reserve extends State<cash_reserve> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('현금 보유액'),
+        title: Text('현금 보유액',style: TextStyle(fontSize: 25.0),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
       ),
       body: SafeArea(
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(40.0, 40.0, 40.0, 0),
-            child: ListView(
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text.rich(TextSpan(
-                        text: '2021년 ',
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            letterSpacing: 2.0,
-                            fontFamily: 'AppleB'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '현금 보유액 ',
-                            style: TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 2.0),
-                          ),
-                          TextSpan(
-                              text: '은',
-                              style: TextStyle(
-                                  fontSize: 25.0, letterSpacing: 2.0)),
-                        ])),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text.rich(TextSpan(text: '', children: <TextSpan>[
-                          TextSpan(
-                            text: '230,340,890원 ',
-                            style: TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.blue,
-                                letterSpacing: 2.0,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'AppleB'),
-                          ),
-                          TextSpan(
-                              text: '이에요.',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  letterSpacing: 2.0,
-                                  color: Colors.black,
-                                  fontFamily: 'AppleB')),
-                        ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text.rich(TextSpan(
-                            text: '전년 대비 ',
-                            style: TextStyle(
-                                fontSize: 25.0,
-                                letterSpacing: 2.0,
-                                fontFamily: 'AppleB'),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: '33% 상승 ',
-                                style: TextStyle(
-                                    fontSize: 30.0,
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 2.0),
-                              ),
-                              TextSpan(
-                                  text: '했어요.',
-                                  style: TextStyle(
-                                    fontSize: 25.0,
-                                    letterSpacing: 2.0,
-                                  )),
-                            ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    chartSection,
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    datatableSection
-                  ],
-                ),
-              ],
-            )),
-      ),
+          child: Padding(
+        padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+        child: ListView(
+          children: <Widget>[
+            textSection,
+            textSection1,
+            textSection2,
+            SizedBox(
+              height: 15.0,
+            ),
+            chartSection,
+            SizedBox(
+              height: 30.0,
+            ),
+            datatableSection
+          ],
+        ),
+      )),
     );
   }
 }
