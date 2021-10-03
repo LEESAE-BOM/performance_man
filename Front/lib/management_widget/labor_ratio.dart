@@ -4,6 +4,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flow_project/tabbar/management.dart';
 import 'package:intl/intl.dart';
 
+
+
 class labor_ratio extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _labor_ratio();
@@ -144,94 +146,85 @@ class _labor_ratio extends State<labor_ratio> {
       ),
     );
 
+
     Widget datatableSection = Center(
       child: Container(
         width: double.infinity,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.grey),
-            child: DataTable(
-              showBottomBorder: true,
-              headingRowColor:
-                  MaterialStateColor.resolveWith((states) => Colors.black12),
-              columns: <DataColumn>[
-                DataColumn(
-                  label: Container(
-                    width: 100.0,
-                    child: Text(
-                      '',
-                    ),
+        child: Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.grey),
+          child: DataTable(
+            showBottomBorder: true,
+            headingRowColor:
+                MaterialStateColor.resolveWith((states) => Colors.black12),
+            columns: <DataColumn>[
+              DataColumn(
+                label: Container(
+                  child: Text(
+                    '',
                   ),
                 ),
-                DataColumn(
-                  label: Container(
-                    width: 150.0,
-                    alignment: Alignment.center,
-                    child: Text('인건비 내역',
-                        textAlign: TextAlign.center,
+              ),
+              DataColumn(
+                label: Container(
+                  alignment: Alignment.center,
+                  child: Text('인건비 내역',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.0)),
+                ),
+              ),
+              DataColumn(
+                label: Container(
+                  child: Text(
+                    '',
+                  ),
+                ),
+              ),
+            ],
+            rows: <DataRow>[
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('')),
+                  DataCell(Text('')),
+                  DataCell(Container(
+                      child: Text(
+                        '최근 1개월',
+                        textAlign: TextAlign.right,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 23.0)),
-                  ),
-                ),
-                DataColumn(
-                  label: Container(
-                    width: 100.0,
-                    child: Text(
-                      '',
-                    ),
-                  ),
-                ),
-              ],
-              rows: <DataRow>[
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('')),
-                    DataCell(Text('')),
-                    DataCell(Container(
-                        width: 150.0,
-                        child: Text(
-                          '최근 1개월',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 15.0, fontWeight: FontWeight.bold),
-                        )))
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(
-                      Container(
-                        child: Text(
-                          '####.##.##',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        width: 100.0,
+                            fontSize: 15.0, fontWeight: FontWeight.bold),
+                      )))
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(
+                    Container(
+                      child: Text(
+                        '####.##.##',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
-                    DataCell(
-                      Container(
-                          width: 150.0,
-                          child: Text(
-                            '???',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18.0),
-                          )),
-                    ),
-                    DataCell(
-                      Container(
-                          width: 150.0,
-                          child: Text(
-                            '#,##,###원',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18.0),
-                          )),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  DataCell(
+                    Container(
+                        child: Text(
+                          '???',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.0),
+                        )),
+                  ),
+                  DataCell(
+                    Container(
+                        child: Text(
+                          '#,##,###원',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.0),
+                        )),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
