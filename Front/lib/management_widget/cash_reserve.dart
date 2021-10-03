@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:flow_project/tabbar/management.dart';
 import 'package:intl/intl.dart';
 
-
-
-class labor_ratio extends StatefulWidget {
+class cash_reserve extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _labor_ratio();
+  State<StatefulWidget> createState() => _cash_reserve();
 }
 
-class _labor_ratio extends State<labor_ratio> {
-  late TooltipBehavior _tooltipBehavior;
+class _cash_reserve extends State<cash_reserve> {
+  late List<ChartData> chartdata;
 
-  @override
   void initState() {
-    _tooltipBehavior = TooltipBehavior(
-      enable: true,
-      activationMode: ActivationMode.longPress,
-    );
+    chartdata = getChartData();
     super.initState();
   }
 
-  final List<ChartData> chartData = [
-    ChartData('간접인건비', 202031684),
-    ChartData('직접인건비', 275146845),
-  ];
+  List<ChartData> getChartData() {
+    final List<ChartData> chartdata = [
+      ChartData(2019, 253654978),
+      ChartData(2020, 323456789),
+      ChartData(2021, 450340890)
+    ];
+    return chartdata;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +32,23 @@ class _labor_ratio extends State<labor_ratio> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text.rich(TextSpan(text: '', children: <TextSpan>[
-                TextSpan(
-                  text: '2021년 10월은 ',
+              Text.rich(TextSpan(
+                  text: '2021년 ',
                   style: TextStyle(
                       fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
-                ),
-              ]))
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '현금 보유액 ',
+                      style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.0),
+                    ),
+                    TextSpan(
+                        text: '은',
+                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                  ]))
             ]));
 
     Widget textSection1 = Padding(
@@ -49,103 +56,75 @@ class _labor_ratio extends State<labor_ratio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Text.rich(TextSpan(text: '', children: <TextSpan>[
+              TextSpan(
+                text: '230,340,890원 ',
+                style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.blue,
+                    letterSpacing: 2.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'AppleB'),
+              ),
+              TextSpan(
+                  text: '이에요.',
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      letterSpacing: 2.0,
+                      color: Colors.black,
+                      fontFamily: 'AppleB')),
+            ]))
+          ],
+        ));
+
+    Widget textSection2 = Padding(
+        padding: EdgeInsets.all(5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Text.rich(TextSpan(
-                text: '간접 인건비가 ',
+                text: '전년 대비 ',
                 style: TextStyle(
                     fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '12% ',
+                    text: '33% 상승 ',
                     style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 30.0,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2.0),
                   ),
                   TextSpan(
-                      text: '높아요. ',
+                      text: '했어요.',
                       style: TextStyle(
-                          fontSize: 25.0,
-                          letterSpacing: 2.0,
-                          color: Colors.black)),
+                        fontSize: 25.0,
+                        letterSpacing: 2.0,
+                      )),
                 ]))
           ],
         ));
 
     Widget chartSection = Center(
-        child: Container(
-            width: 500.0,
-            height: 500.0,
-            child: SfCircularChart(
-                palette: <Color>[
-                  Colors.indigo,
-                  Colors.lightBlueAccent,
-                ],
-                title: ChartTitle(
-                    text: '2021',
-                    textStyle:
-                        TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold)),
-                legend: Legend(
-                    isVisible: true,
-                    // Legend will be placed at the left
-                    position: LegendPosition.bottom),
-                series: <CircularSeries>[
-                  // Render pie chart
-                  PieSeries<ChartData, String>(
-                      dataSource: chartData,
-                      xValueMapper: (ChartData data, _) => data.x,
-                      yValueMapper: (ChartData data, _) => data.y,
-                      dataLabelSettings: DataLabelSettings(
-                          isVisible: true,
-                          // Positioning the data label
-                          labelPosition: ChartDataLabelPosition.outside)),
-                ])));
-
-    Widget chartSection2 = Center(
       child: Container(
-        child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            tooltipBehavior: _tooltipBehavior,
-            legend: Legend(
-                isVisible: true,
-                // Legend will be placed at the left
-                position: LegendPosition.bottom),
-            series: <CartesianSeries>[
-              LineSeries<laborData, String>(
-                name: '직접인건비',
-                  dataSource: [
-                    // Bind data source
-                    laborData('2018년', 2.6),
-                    laborData('2019년', 2.0),
-                    laborData('2020년', 1.8),
-                    laborData('2021년', 2.5),
-                  ],
-                  xValueMapper: (laborData sales, _) => sales.month,
-                  yValueMapper: (laborData sales, _) => sales.sales,
-                  dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
-                      isVisible: true),
-                  markerSettings: MarkerSettings(isVisible: true)),
-              LineSeries<laborData, String>(
-                name: '간접인건비',
-                  dataSource: [
-                    // Bind data source
-                    laborData('2018년', 2.2),
-                    laborData('2019년', 2.9),
-                    laborData('2020년', 2.0),
-                    laborData('2021년', 3.2),
-                  ],
-                  xValueMapper: (laborData sales, _) => sales.month,
-                  yValueMapper: (laborData sales, _) => sales.sales,
-                  dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
-                      isVisible: true),
-                  markerSettings: MarkerSettings(isVisible: true))
-            ]),
-      ),
+          child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              primaryYAxis: NumericAxis(
+                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+              ),
+              series: <ChartSeries>[
+            BarSeries<ChartData, double>(
+                dataSource: chartdata,
+                xValueMapper: (ChartData sales, _) => sales.x,
+                yValueMapper: (ChartData sales, _) => sales.y,
+                dataLabelSettings: DataLabelSettings(
+                    // Renders the data label
+                    isVisible: true),
+                width: 0.6,
+                spacing: 0.2),
+          ])),
     );
-
 
     Widget datatableSection = Center(
       child: Container(
@@ -160,31 +139,26 @@ class _labor_ratio extends State<labor_ratio> {
               DataColumn(
                 label: Container(
                   child: Text(
-                    '',
+                    '연도',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                 ),
               ),
               DataColumn(
                 label: Container(
-                  alignment: Alignment.center,
-                  child: Text('인건비 내역',
+                  child: Text('금액',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15.0)),
-                ),
-              ),
-              DataColumn(
-                label: Container(
-                  child: Text(
-                    '',
-                  ),
                 ),
               ),
             ],
             rows: <DataRow>[
               DataRow(
                 cells: <DataCell>[
-                  DataCell(Text('')),
                   DataCell(Text('')),
                   DataCell(Container(
                       child: Text(
@@ -200,24 +174,58 @@ class _labor_ratio extends State<labor_ratio> {
                   DataCell(
                     Container(
                       child: Text(
-                        '####.##.##',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 18.0),
+                        '2019',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15.0),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '???',
+                          '253,654,978원',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 15.0),
                         )),
                   ),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(
+                    Container(
+                      child: Text(
+                        '2020',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15.0),
+                      ),
+                    ),
+                  ),
                   DataCell(
                     Container(
                         child: Text(
-                          '#,##,###원',
+                          '323,456,789원',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.0),
+                        )),
+                  ),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(
+                    Container(
+                      child: Text(
+                        '2021',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15.0),
+                      ),
+                    ),
+                  ),
+                  DataCell(
+                    Container(
+                        child: Text(
+                          '450,340,890원',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 15.0),
                         )),
@@ -232,17 +240,9 @@ class _labor_ratio extends State<labor_ratio> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('인건 비율', style: TextStyle(fontSize: 25.0)),
+        title: Text('현금 보유액',style: TextStyle(fontSize: 25.0),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              management_main();
-            }),
       ),
       body: SafeArea(
           child: Padding(
@@ -251,18 +251,15 @@ class _labor_ratio extends State<labor_ratio> {
           children: <Widget>[
             textSection,
             textSection1,
+            textSection2,
             SizedBox(
-              height: 30.0,
+              height: 15.0,
             ),
             chartSection,
             SizedBox(
               height: 30.0,
             ),
-            chartSection2,
-            SizedBox(
-              height: 30.0,
-            ),
-            datatableSection,
+            datatableSection
           ],
         ),
       )),
@@ -273,13 +270,6 @@ class _labor_ratio extends State<labor_ratio> {
 class ChartData {
   ChartData(this.x, this.y);
 
-  final String x;
+  final double x;
   final double y;
-}
-
-class laborData {
-  laborData(this.month, this.sales);
-
-  final String? month;
-  final double sales;
 }
