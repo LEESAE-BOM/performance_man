@@ -1,8 +1,8 @@
+import 'package:flow_project/tabbar/management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-import 'package:flow_project/tabbar/factory.dart';
 
 class sales extends StatefulWidget {
   @override
@@ -152,115 +152,102 @@ class _sales extends State<sales> {
     Widget datatableSection = Center(
       child: Container(
         width: double.infinity,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.grey),
-            child: DataTable(
-              showBottomBorder: true,
-              headingRowColor:
-                  MaterialStateColor.resolveWith((states) => Colors.black12),
-              columns: <DataColumn>[
-                DataColumn(
-                  label: Container(
-                    width: 100.0,
-                    child: Text(
-                      '',
-                    ),
+        child: Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.grey),
+          child: DataTable(
+            showBottomBorder: true,
+            headingRowColor:
+                MaterialStateColor.resolveWith((states) => Colors.black12),
+            columns: <DataColumn>[
+              DataColumn(
+                label: Container(
+                  child: Text(
+                    '',
                   ),
                 ),
-                DataColumn(
-                  label: Container(
-                    width: 150.0,
-                    alignment: Alignment.center,
-                    child: Text('매출 금액 내역',
-                        textAlign: TextAlign.center,
+              ),
+              DataColumn(
+                label: Container(
+                  alignment: Alignment.center,
+                  child: Text('매출 금액 내역',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.0)),
+                ),
+              ),
+              DataColumn(
+                label: Container(
+                  child: Text(
+                    '',
+                  ),
+                ),
+              ),
+            ],
+            rows: <DataRow>[
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('')),
+                  DataCell(Text('')),
+                  DataCell(Container(
+                      child: Text(
+                        '최근 1개월',
+                        textAlign: TextAlign.right,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 23.0)),
-                  ),
-                ),
-                DataColumn(
-                  label: Container(
-                    width: 100.0,
-                    child: Text(
-                      '',
-                    ),
-                  ),
-                ),
-              ],
-              rows: <DataRow>[
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('')),
-                    DataCell(Text('')),
-                    DataCell(Container(
-                        width: 200.0,
-                        child: Text(
-                          '최근 1개월',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 15.0, fontWeight: FontWeight.bold),
-                        )))
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(
-                      Container(
-                        child: Text(
-                          '월',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        width: 100.0,
+                            fontSize: 15.0, fontWeight: FontWeight.bold),
+                      )))
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(
+                    Container(
+                      child: Text(
+                        '월',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 15.0),
                       ),
                     ),
-                    DataCell(Container(
-                      child: Text(''),
-                      width: 50,
-                    )),
-                    DataCell(
-                      Container(
-                          width: 200.0,
-                          child: Text(
-                            '45,600원',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18.0),
-                          )),
-                    ),
-                  ],
-                ),
-                DataRow(
-                  color: MaterialStateColor.resolveWith(
-                      (states) => Colors.black12),
-                  cells: <DataCell>[
-                    DataCell(
-                      Container(
+                  ),
+                  DataCell(Container(
+                    child: Text(''),
+                  )),
+                  DataCell(
+                    Container(
                         child: Text(
-                          '10월',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        width: 100.0,
+                          '45,600원',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.0),
+                        )),
+                  ),
+                ],
+              ),
+              DataRow(
+                color: MaterialStateColor.resolveWith(
+                    (states) => Colors.black12),
+                cells: <DataCell>[
+                  DataCell(
+                    Container(
+                      child: Text(
+                        '10월',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 15.0),
                       ),
                     ),
-                    DataCell(Container(
-                      child: Text(''),
-                      width: 50,
-                    )),
-                    DataCell(
-                      Container(
-                          width: 200.0,
-                          child: Text(
-                            '123,123,568원',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18.0),
-                          )),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  DataCell(Container(
+                    child: Text(''),
+                  )),
+                  DataCell(
+                    Container(
+                        child: Text(
+                          '123,123,568원',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.0),
+                        )),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -277,7 +264,7 @@ class _sales extends State<sales> {
               color: Colors.white,
             ),
             onPressed: () {
-              factory_main();
+              management_main();
             }),
       ),
       body: Padding(
