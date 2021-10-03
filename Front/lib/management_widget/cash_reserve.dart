@@ -54,6 +54,7 @@ class _cash_reserve extends State<cash_reserve> {
     Widget textSection1 = Padding(
         padding: EdgeInsets.all(5),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text.rich(TextSpan(text: '', children: <TextSpan>[
               TextSpan(
@@ -79,6 +80,7 @@ class _cash_reserve extends State<cash_reserve> {
     Widget textSection2 = Padding(
         padding: EdgeInsets.all(5),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text.rich(TextSpan(
                 text: '전년 대비 ',
