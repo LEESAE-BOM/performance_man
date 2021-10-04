@@ -243,6 +243,14 @@ class _cash_reserve extends State<cash_reserve> {
         title: Text('현금 보유액',style: TextStyle(fontSize: 25.0),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+        leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
       ),
       body: SafeArea(
           child: Padding(
