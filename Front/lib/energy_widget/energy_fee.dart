@@ -5,33 +5,47 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
 class energy_fee extends StatefulWidget {
-@override
-    State<StatefulWidget> createState() => _energy_fee();
+  @override
+  State<StatefulWidget> createState() => _energy_fee();
 }
 
 class _energy_fee extends State<energy_fee> {
-  late List<Chart_Data> _chart_Data;
+  late List<Chart_Data>? _chart_Data;
+  late List<Chart_Data>? _chart_Data2;
+  late List<Chart_Data3> _chart_Data3;
   late TooltipBehavior _toolTipBehavior;
 
   void initState() {
     _chart_Data = getChartData();
+    _chart_Data2 = getChartData2();
+    _chart_Data3 = getChartData3();
     _toolTipBehavior = TooltipBehavior();
     super.initState();
   }
 
-
-
   List<Chart_Data>  getChartData(){
     final List<Chart_Data>  getChartData = [
-      Chart_Data('David', 25, Color.fromRGBO(9,0,136,1)),
-      Chart_Data('Steve', 38, Color.fromRGBO(147,0,119,1)),
-      Chart_Data('Jack', 34, Color.fromRGBO(228,0,124,1)),
-      Chart_Data('Others', 52, Color.fromRGBO(255,189,57,1))
+      Chart_Data('Completed', 43, Color.fromRGBO(43, 63, 107,1)),
+      Chart_Data('unCompleted', 57,  Colors.grey),
     ];
     return getChartData;
   }
 
-
+  List<Chart_Data>  getChartData2(){
+    final List<Chart_Data>  getChartData = [
+      Chart_Data('Completed', 74, Color.fromRGBO(43, 63, 107,1)),
+      Chart_Data('unCompleted', 26, Colors.grey),
+    ];
+    return getChartData;
+  }
+  List<Chart_Data3>  getChartData3(){
+    final List<Chart_Data3>  getChartData = [
+      Chart_Data3(1, 1,1, Color.fromRGBO(225,198,198,1)),
+      Chart_Data3(2, 2,1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data3(3, 3,1, Color.fromRGBO(226,226,226,1)),
+    ];
+    return getChartData;
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -45,20 +59,117 @@ class _energy_fee extends State<energy_fee> {
         textAlign: TextAlign.center,
       ),
     );
-    Widget chartSection= Center(
-        child: Container(
-          child: SfCircularChart(
+
+    Widget chartSection=SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child:Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          SfCircularChart(
+              annotations: <CircularChartAnnotation>[
+                CircularChartAnnotation(
+                    height: '80%', // Setting height and width for the circular chart annotation
+                    width: '80%',
+                    widget: Container(
+                        child: PhysicalModel(
+                            child: Container(),
+                            shape: BoxShape.circle,
+                            elevation: 10,
+                            color: Colors.white))),
+
+                CircularChartAnnotation(
+                    widget: Container(
+                        child: const Text('43000\n /63000',
+                            style: TextStyle(
+                                color: Color.fromRGBO(0, 0, 0, 0.5),
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            )
+                        )
+                    )
+                ),
+              ],
+
               series: <CircularSeries>[
-                // Renders doughnut chart
                 DoughnutSeries<Chart_Data, String>(
                     dataSource: _chart_Data,
-                    pointColorMapper:(Chart_Data data,  _) => data.color,
                     xValueMapper: (Chart_Data data, _) => data.x,
-                    yValueMapper: (Chart_Data data, _) => data.y
+                    yValueMapper: (Chart_Data data, _) => data.y,
+                    pointColorMapper:(Chart_Data data,  _) => data.color,
+                    // Radius of doughnut
+                    radius: '60%'
                 )
               ]
           ),
-        )
+          SfCircularChart(
+              annotations: <CircularChartAnnotation>[
+                CircularChartAnnotation(
+                    height: '80%', // Setting height and width for the circular chart annotation
+                    width: '80%',
+                    widget: Container(
+                        child: PhysicalModel(
+                            child: Container(),
+                            shape: BoxShape.circle,
+                            elevation: 10,
+                           // shadowColor: Colors.black,
+                            color: Colors.white
+                        ))),
+
+                CircularChartAnnotation(
+                    widget: Container(
+                        child: const Text('18250kwh\n/50000kwh',
+                            style: TextStyle(
+                                color: Color.fromRGBO(0, 0, 0, 0.5),
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            )
+                        )
+                    )
+                )
+              ],
+              series: <CircularSeries>[
+                DoughnutSeries<Chart_Data, String>(
+                    dataSource: _chart_Data2,
+                    xValueMapper: (Chart_Data data, _) => data.x,
+                    yValueMapper: (Chart_Data data, _) => data.y,
+                    pointColorMapper:(Chart_Data data,  _) => data.color,
+                    // Radius of doughnut
+                    radius: '60%'
+                )
+              ]
+          )
+
+        ]
+    )
+    );
+
+    Widget chartSection2=Container(
+      child:Center(
+          child: SfCartesianChart(
+            tooltipBehavior: _toolTipBehavior,
+            series: <ChartSeries>[
+              StackedBar100Series<Chart_Data3,double>(
+                dataSource: _chart_Data3,
+                pointColorMapper:(Chart_Data3 data,  _) => data.color,
+                xValueMapper: (Chart_Data3 data, _) => data.x,
+                yValueMapper: (Chart_Data3 data, _) => data.y1,
+                dataLabelSettings: DataLabelSettings(isVisible: true),
+                enableTooltip: true,
+                color: Colors.blueAccent,
+              ),
+            ],
+            primaryXAxis: NumericAxis(
+                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+                labelFormat: '{value}월',
+                isVisible: false
+            ),
+            primaryYAxis: NumericAxis(
+                isVisible: false
+              // edgeLabelPlacement: EdgeLabelPlacement.shift
+            ),
+          )
+      ),
     );
 
     Widget datatableSection=
@@ -120,6 +231,7 @@ class _energy_fee extends State<energy_fee> {
             children: [
               textSection,
               chartSection,
+              chartSection2,
               datatableSection,
             ],
           ),
@@ -136,4 +248,12 @@ class Chart_Data {
   final String x;
   final double y;
   final Color color;
+}
+class Chart_Data3{
+  Chart_Data3(this.x,this.y1,this.y2,this.color);
+  final double x;
+  final double y1;
+  final double y2;
+  final Color color;
+
 }
