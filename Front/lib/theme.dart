@@ -33,5 +33,6 @@ ThemeData theme(){
     textTheme: textTheme(),
     appBarTheme: appTheme(),
     primaryColor: Colors.blue,
+    unselectedWidgetColor: Colors.black26,
   );
 }
