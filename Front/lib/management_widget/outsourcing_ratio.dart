@@ -199,6 +199,14 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
         ),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
       ),
       body: SafeArea(
           child: Padding(
