@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../tabbar/factory.dart';
+import '.././screens/factory/factory_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
@@ -239,7 +239,7 @@ class _development_completion_rate extends State<development_completion_rate>{
           centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
           leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            factory_main();
+            Factory_Screen();
           }),
         ),
         body: Center(

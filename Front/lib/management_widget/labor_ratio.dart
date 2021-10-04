@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:flow_project/tabbar/management.dart';
+import '.././screens/management/management_screen.dart';
 import 'package:intl/intl.dart';
 
 
@@ -241,7 +241,7 @@ class _labor_ratio extends State<labor_ratio> {
               color: Colors.white,
             ),
             onPressed: () {
-              management_main();
+              Management_Screen();
             }),
       ),
       body: SafeArea(
