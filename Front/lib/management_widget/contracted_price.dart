@@ -258,6 +258,14 @@ class _contracted_price extends State<contracted_price> {
         title: Text('계약 금액', style: TextStyle(fontSize: 25.0)),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+        leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
       ),
       body: SafeArea(
           child: Padding(
