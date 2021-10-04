@@ -105,7 +105,8 @@ class _development_completion_rate extends State<development_completion_rate>{
     );
 
     Widget chartSection=
-    Container(
+    SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -146,7 +147,6 @@ class _development_completion_rate extends State<development_completion_rate>{
                     )
                   ]
               ),
-
               SfCircularChart(
                   annotations: <CircularChartAnnotation>[
                     CircularChartAnnotation(

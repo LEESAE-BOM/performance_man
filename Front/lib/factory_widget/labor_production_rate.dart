@@ -34,21 +34,157 @@ class _labor_production_rate extends State<labor_production_rate> {
   @override
   Widget build(BuildContext context) {
 
-    Widget textSection = const Padding(
-      padding: EdgeInsets.all(32),
-      child: Text(
-            '2021년 9월의 노동 생산성 74입니다 '
-            '전월 대비 13 증가하였습니다.',
-        softWrap: true,
-        style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),
-        textAlign: TextAlign.center,
-      ),
+    Widget textSection =
+       SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+           child: Row(
+            children:[
+              Padding(
+                  padding: EdgeInsets.all(40), child: Column(
+                  children: [Text.rich(
+                      TextSpan(// default text style
+                children: <TextSpan>[
+                  TextSpan(text: '2021년 9월의\n',
+                    style:TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.black,
+                      letterSpacing: 5.0,
+                      fontFamily: 'applesdneob',
+                    ),),
+                  TextSpan(text: '노동생산율 ',
+                    style:TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 5.0, //fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneob',),),
+                  TextSpan(text: '은 ',
+                    style:TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '74',
+                    style:TextStyle(
+                        fontSize: 30.0,
+                        color: Colors.blue,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '이에요\n',
+                    style:TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '전월대비',
+                    style:TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '13 증가',
+                    style:TextStyle(
+                        fontSize: 30.0,
+                        color: Colors.blue,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                  TextSpan(text: '했어요',
+                    style:TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneob'),),
+                ],)
+                  ),
+                  ]
+              )
+              ),
+              Padding(
+                  padding: EdgeInsets.all(40),
+                  child:Column(
+                  children: [Text.rich(
+                      TextSpan(// default text style
+                        children: <TextSpan>[
+                          TextSpan(text: '2021년 9월의\n',
+                            style:TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.black,
+                              letterSpacing: 5.0,
+                              fontFamily: 'applesdneob',
+                            ),),
+                          TextSpan(text: '노동생산율 ',
+                            style:TextStyle(
+                              fontSize: 30.0,
+                              color: Colors.blue,
+                              letterSpacing: 5.0, //fontWeight: FontWeight.bold,
+                              fontFamily: 'applesdneob',),),
+                          TextSpan(text: '은 ',
+                            style:TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.black,
+                                letterSpacing: 5.0,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'applesdneob'),),
+                          TextSpan(text: '74',
+                            style:TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.blue,
+                                letterSpacing: 5.0,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'applesdneob'),),
+                          TextSpan(text: '이에요\n',
+                            style:TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.black,
+                                letterSpacing: 5.0,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'applesdneob'),),
+                          TextSpan(text: '전년대비 ',
+                            style:TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.black,
+                                letterSpacing: 5.0,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'applesdneob'),),
+                          TextSpan(text: '2 증가',
+                            style:TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.blue,
+                                letterSpacing: 5.0,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'applesdneob'),),
+                          TextSpan(text: '했어요',
+                            style:TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.black,
+                                letterSpacing: 5.0,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'applesdneob'),),
+                        ],)
+                  ),
+                  ]
+                  )
+              )
+
+            ],
+            )
     );
 
-    Widget chartSection= Center(
-        child: Container(
-            child: SfCartesianChart(
-              tooltipBehavior: _toolTipBehavior,
+    Widget chartSection=
+    SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+        child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:[
+            SizedBox(width: 60,),
+            Center(
+                child:SfCartesianChart(
+              //tooltipBehavior: _toolTipBehavior,
               series: <ChartSeries>[
                 AreaSeries<labor_data,double>(dataSource: _chartData,
                   xValueMapper: (labor_data labors, _) =>labors.year,
@@ -59,15 +195,48 @@ class _labor_production_rate extends State<labor_production_rate> {
               ),
             ],
               primaryXAxis: NumericAxis(
-                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                //edgeLabelPlacement: EdgeLabelPlacement.shift,
                 numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-                labelFormat: '{value}월'
+                labelFormat: '{value}월',
+                  isVisible: false
               ),
               primaryYAxis: NumericAxis(
-                edgeLabelPlacement: EdgeLabelPlacement.shift
+                  isVisible: false
+               // edgeLabelPlacement: EdgeLabelPlacement.shift
               ),
+            //  borderWidth: 0.4,
+            )
             ),
+            SizedBox(width: 60,),
+            Center(
+                child:SfCartesianChart(
+              tooltipBehavior: _toolTipBehavior,
+              series: <ChartSeries>[
+                BarSeries<labor_data,double>(dataSource: _chartData,
+                  xValueMapper: (labor_data labors, _) =>labors.year,
+                  yValueMapper: (labor_data labors, _) =>labors.labor,
+                  dataLabelSettings: DataLabelSettings(isVisible: true),
+                  enableTooltip: true,
+                  color: Colors.blueAccent,
+                ),
+              ],
+              primaryXAxis: NumericAxis(
+                  edgeLabelPlacement: EdgeLabelPlacement.shift,
+                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+                  labelFormat: '{value}월',
+                  isVisible: false
+              ),
+              primaryYAxis: NumericAxis(
+                  isVisible: false
+                 // edgeLabelPlacement: EdgeLabelPlacement.shift
+              ),
+            )
+            ),
+            SizedBox(width: 60,),
+          ]
+
         )
+
     );
 
     Widget datatableSection=
@@ -116,16 +285,17 @@ class _labor_production_rate extends State<labor_production_rate> {
            style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
            centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-            leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-              Factory_Screen();
+            leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,),
+                onPressed: (){Factory_Screen();
             }),
         ),
         body: SafeArea(
-           child: ListView(
+           child:ListView(
              children: [
                textSection,
-               chartSection,
-               datatableSection,
+                  chartSection,
+               SizedBox(height: 60,),
+                 datatableSection,
              ],
            ),
       ),

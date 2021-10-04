@@ -11,13 +11,15 @@ class capacity_ratio extends StatefulWidget {
 
 class _capacity_ratio extends State<capacity_ratio> {
 
-  late List<Chart_Data> _chart_Data;
-  late List<Chart_Data> _chart_Data2;
+  late List<Chart_Data>? _chart_Data;
+  late List<Chart_Data>? _chart_Data2;
+  late List<Chart_Data>? _chart_Data3;
   late TooltipBehavior _toolTipBehavior;
 
   void initState() {
     _chart_Data = getChartData();
     _chart_Data2 = getChartData2();
+    _chart_Data3 = getChartData3();
     _toolTipBehavior = TooltipBehavior();
     super.initState();
   }
@@ -31,6 +33,14 @@ class _capacity_ratio extends State<capacity_ratio> {
   }
 
   List<Chart_Data>  getChartData2(){
+    final List<Chart_Data>  getChartData = [
+      Chart_Data('Completed', 74, Colors.lightBlue),
+      Chart_Data('unCompleted', 26, Colors.lightBlueAccent),
+    ];
+    return getChartData;
+  }
+
+  List<Chart_Data>  getChartData3(){
     final List<Chart_Data>  getChartData = [
       Chart_Data('Completed', 74, Colors.lightBlue),
       Chart_Data('unCompleted', 26, Colors.lightBlueAccent),
@@ -91,10 +101,11 @@ class _capacity_ratio extends State<capacity_ratio> {
     );
 
     Widget chartSection=
-    Container(
+    SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: <Widget>[
               SfCircularChart(
                   annotations: <CircularChartAnnotation>[
                     CircularChartAnnotation(
@@ -118,7 +129,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                                 )
                             )
                         )
-                    )
+                    ),
                   ],
 
                   series: <CircularSeries>[
@@ -132,7 +143,6 @@ class _capacity_ratio extends State<capacity_ratio> {
                     )
                   ]
               ),
-
               SfCircularChart(
                   annotations: <CircularChartAnnotation>[
                     CircularChartAnnotation(
@@ -198,7 +208,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                   ],
                   series: <CircularSeries>[
                     DoughnutSeries<Chart_Data, String>(
-                        dataSource: _chart_Data2,
+                        dataSource: _chart_Data3,
                         xValueMapper: (Chart_Data data, _) => data.x,
                         yValueMapper: (Chart_Data data, _) => data.y,
                         pointColorMapper:(Chart_Data data,  _) => data.color,
