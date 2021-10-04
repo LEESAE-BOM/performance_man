@@ -58,5 +58,6 @@ flutter:
     - image/safe.png
     - image/warning.png
     - image/danger.png
+    - image/logo.png
 
 
