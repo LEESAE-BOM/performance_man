@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/management_widget/contracted_price.dart';
 
 class Contracted_Price_Widget extends StatefulWidget {
   @override
@@ -8,7 +9,12 @@ class Contracted_Price_Widget extends StatefulWidget {
 class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+
+        onTap: (){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>contracted_price()));
+    },
+    child:Container(
         height: 180,
         width: 180,
         decoration: BoxDecoration(
@@ -49,6 +55,6 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                   style: TextStyle(color: Colors.black54, fontSize: 20),
                 ),
               )
-            ]));
+            ])));
   }
 }

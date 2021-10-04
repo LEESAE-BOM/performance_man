@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/management_widget/sales.dart';
 
 class Sales_Widget extends StatefulWidget {
   @override
@@ -8,7 +9,12 @@ class Sales_Widget extends StatefulWidget {
 class _Sales_Widget extends State<Sales_Widget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+
+        onTap: (){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>sales()));
+    },
+    child:Container(
         height: 180,
         width: 180,
         decoration: BoxDecoration(
@@ -49,6 +55,6 @@ class _Sales_Widget extends State<Sales_Widget> {
                   style: TextStyle(color: Colors.black54, fontSize: 20),
                 ),
               )
-            ]));
+            ])));
   }
 }

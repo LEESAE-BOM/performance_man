@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/management_widget/outsourcing_ratio.dart';
 
 class Outsourcing_Ratio_Widget extends StatefulWidget {
   @override
@@ -8,7 +9,12 @@ class Outsourcing_Ratio_Widget extends StatefulWidget {
 class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+
+        onTap: (){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>outsourcing_ratio()));
+    },
+    child:Container(
         height: 180,
         width: 180,
         decoration: BoxDecoration(
@@ -49,6 +55,6 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                   style: TextStyle(color: Colors.black54, fontSize: 20),
                 ),
               )
-            ]));
+            ])));
   }
 }

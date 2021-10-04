@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/management_widget/expected_profit.dart';
 
 class Expected_Profit_Widget extends StatefulWidget {
   @override
@@ -8,7 +9,12 @@ class Expected_Profit_Widget extends StatefulWidget {
 class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+
+        onTap: (){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>expected_profit()));
+    },
+    child: Container(
         height: 180,
         width: 180,
         decoration: BoxDecoration(
@@ -49,6 +55,6 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                   style: TextStyle(color: Colors.black54, fontSize: 20),
                 ),
               )
-            ]));
+            ])));
   }
 }
