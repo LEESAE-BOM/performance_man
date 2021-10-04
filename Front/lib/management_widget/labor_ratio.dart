@@ -241,7 +241,7 @@ class _labor_ratio extends State<labor_ratio> {
               color: Colors.white,
             ),
             onPressed: () {
-              Management_Screen();
+              Navigator.of(context).pop();
             }),
       ),
       body: SafeArea(
