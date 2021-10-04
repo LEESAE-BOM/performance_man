@@ -264,7 +264,7 @@ class _sales extends State<sales> {
               color: Colors.white,
             ),
             onPressed: () {
-              Management_Screen();
+              Navigator.of(context).pop();
             }),
       ),
       body: Padding(
