@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Cash_Reserve_Widget extends StatefulWidget {
+class Capacity_Ratio_Widget extends StatefulWidget {
   @override
-  _Cash_Reserve_Widget createState() => _Cash_Reserve_Widget();
+  _Capacity_Ratio_Widget createState() => _Capacity_Ratio_Widget();
 }
 
-class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
+class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,11 +32,11 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 child: Row(
                   children: [
                     Text(
-                      '현금보유액',
+                      '설비가동율',
                       style: TextStyle(color: Colors.black54, fontSize: 15),
                     ),
                     Image.asset(
-                      'image/safe.png',
+                      'image/danger.png',
                       width: 10,
                       height: 10,
                     ),

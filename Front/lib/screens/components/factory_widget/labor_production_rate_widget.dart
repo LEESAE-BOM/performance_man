@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Cash_Reserve_Widget extends StatefulWidget {
+class Labor_Production_Rate_Widget extends StatefulWidget {
   @override
-  _Cash_Reserve_Widget createState() => _Cash_Reserve_Widget();
+  _Labor_Production_Rate_Widget createState() => _Labor_Production_Rate_Widget();
 }
 
-class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
+class _Labor_Production_Rate_Widget extends State<Labor_Production_Rate_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +32,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 child: Row(
                   children: [
                     Text(
-                      '현금보유액',
+                      '노동생산성',
                       style: TextStyle(color: Colors.black54, fontSize: 15),
                     ),
                     Image.asset(
