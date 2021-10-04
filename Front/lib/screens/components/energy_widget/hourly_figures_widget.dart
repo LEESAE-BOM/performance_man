@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Monthly_Figures_Widget extends StatefulWidget {
+class Hourly_Figures_Widget extends StatefulWidget {
   @override
-  _Monthly_Figures_Widget createState() => _Monthly_Figures_Widget();
+  _Hourly_Figures_Widget createState() => _Hourly_Figures_Widget();
 }
 
-class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
+class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +32,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                 child: Row(
                   children: [
                     Text(
-                      '월별 에너지',
+                      '피크예상시간',
                       style: TextStyle(color: Colors.black54, fontSize: 15),
                     ),
                     Image.asset(
