@@ -28,19 +28,27 @@ class _contracted_price extends State<contracted_price> {
               Text.rich(TextSpan(
                   text: '이번 달 ',
                   style: TextStyle(
-                      fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                      fontSize: 25.0,
+                      letterSpacing: 2.0,
+                      fontFamily: 'applesdneoeb',
+                      color: Colors.black),
                   children: <TextSpan>[
                     TextSpan(
                       text: '계약 금액',
                       style: TextStyle(
-                          fontSize: 30.0,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2.0),
+                        fontSize: 30.0,
+                        color: Colors.blue,
+                        letterSpacing: 2.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     TextSpan(
                         text: '은',
-                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb',
+                            color: Colors.black)),
                   ])),
             ]));
 
@@ -53,19 +61,19 @@ class _contracted_price extends State<contracted_price> {
               TextSpan(
                 text: '321,654,987원 ',
                 style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.blue,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'AppleB'),
+                  fontSize: 30.0,
+                  color: Colors.blue,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               TextSpan(
                   text: '이에요.',
                   style: TextStyle(
                       fontSize: 25.0,
                       letterSpacing: 2.0,
-                      color: Colors.black,
-                      fontFamily: 'AppleB')),
+                      fontFamily: 'applesdneoeb',
+                      color: Colors.black)),
             ]))
           ],
         ));
@@ -78,22 +86,27 @@ class _contracted_price extends State<contracted_price> {
             Text.rich(TextSpan(
                 text: '전월 대비 ',
                 style: TextStyle(
-                    fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                    fontSize: 25.0,
+                    letterSpacing: 2.0,
+                    fontFamily: 'applesdneoeb',
+                    color: Colors.black),
                 children: <TextSpan>[
                   TextSpan(
                     text: '1,000원 증가 ',
                     style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2.0),
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   TextSpan(
                       text: '했어요.',
                       style: TextStyle(
-                        fontSize: 25.0,
-                        letterSpacing: 2.0,
-                      )),
+                          fontSize: 25.0,
+                          letterSpacing: 2.0,
+                          fontFamily: 'applesdneoeb',
+                          color: Colors.black)),
                 ]))
           ],
         ));
@@ -162,7 +175,9 @@ class _contracted_price extends State<contracted_price> {
                   child: Text('매출 금액 내역',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0)),
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb')),
                 ),
               ),
               DataColumn(
@@ -180,11 +195,13 @@ class _contracted_price extends State<contracted_price> {
                   DataCell(Text('')),
                   DataCell(Container(
                       child: Text(
-                        '최근 1개월',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0, fontWeight: FontWeight.bold),
-                      )))
+                    '최근 1개월',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black54,
+                        fontFamily: 'applesdneoeb'),
+                  )))
                 ],
               ),
               DataRow(
@@ -194,56 +211,74 @@ class _contracted_price extends State<contracted_price> {
                       child: Text(
                         '기업',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '계약 금액',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '계약 금액',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '수주 잔고 금액',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '수주 잔고 금액',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                 ],
               ),
               DataRow(
-                color: MaterialStateColor.resolveWith(
-                    (states) => Colors.black12),
+                color:
+                    MaterialStateColor.resolveWith((states) => Colors.black12),
                 cells: <DataCell>[
                   DataCell(
                     Container(
                       child: Text(
                         'A기업',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '4,123,123원',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '4,123,123원',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '456,789원',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '456,789원',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                 ],
               ),
@@ -255,17 +290,18 @@ class _contracted_price extends State<contracted_price> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('계약 금액', style: TextStyle(fontSize: 25.0)),
+        title: Text('계약 금액',
+            style: TextStyle(fontSize: 25.0, color: Colors.white)),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
         leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
       ),
       body: SafeArea(
           child: Padding(
