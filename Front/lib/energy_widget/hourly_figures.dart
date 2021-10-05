@@ -14,6 +14,11 @@ class _hourly_figures extends State<hourly_figures> {
   late List<Chart_Data2> _chart_Data2;
   late TooltipBehavior _toolTipBehavior;
 
+  // index가 0인 페이지 먼저 보여줌
+  final PageController pageController = PageController(
+    initialPage: 0,
+  );
+
   void initState() {
     _chart_Data = getChartData();
     _chart_Data2 = getChartData2();
@@ -66,152 +71,232 @@ class _hourly_figures extends State<hourly_figures> {
   @override
   Widget build(BuildContext context) {
 
-    Widget textSection = Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Text.rich(
-              TextSpan(// default text style
-                  children: <TextSpan>[
-                    TextSpan(text: '최대전력 발생 시간은',
-                      style:TextStyle(
-                        fontSize:17.0,
-                        color: Colors.black,
-                        letterSpacing: 0.3,
-                        fontFamily: 'applesdneob',
-                      ),),
-                    TextSpan(text: '9시에서 10시',
-                      style:TextStyle(
-                          fontSize: 30.0,
-                          color: Colors.blue,
-                          letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneob'),),
-                    TextSpan(text: ',\n최대전력은 ',
-                      style:TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.black,
-                          letterSpacing: 5.0,
-                          fontFamily: 'applesdneob'),),
-                    TextSpan(text: ' 71,700MW',
-                      style:TextStyle(
-                          fontSize: 30.0,
-                          color: Colors.blue,
-                          letterSpacing: 3.0,
-                          fontFamily: 'applesdneob'),),
-                    TextSpan(text: '로 예상돼요',
-                      style:TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneob'),
-                    ),
+    Widget textSection1 = Column(
+      children: [
+        Text.rich(
+          TextSpan(// default text style
+              children: <TextSpan>[
+                TextSpan(text: '최대전력 발생 시간은',
+                  style:TextStyle(
+                    fontSize:17.0,
+                    color: Colors.black,
+                    letterSpacing: 0.3,
+                    fontFamily: 'applesdneob',
+                  ),),
+                TextSpan(text: '9시에서 10시',
+                  style:TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 5.0,
+                      // fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneob'),),
+                TextSpan(text: ',\n최대전력은 ',
+                  style:TextStyle(
+                      fontSize: 17.0,
+                      color: Colors.black,
+                      letterSpacing: 5.0,
+                      fontFamily: 'applesdneob'),),
+                TextSpan(text: ' 71,700MW',
+                  style:TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 3.0,
+                      fontFamily: 'applesdneob'),),
+                TextSpan(text: '로 예상돼요',
+                  style:TextStyle(
+                      fontSize: 17.0,
+                      color: Colors.black,
+                      letterSpacing: 1.0,
+                      // fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneob'),
+                ),
 
-                  ]
-              ),
-            )
-          ],
+              ]
+          ),
         )
+      ],
     );
 
-    Widget chartSection= Center(
-        child: Container(
-          child: Column(
-            children:[
-              SfCircularChart(
-              annotations: <CircularChartAnnotation>[
-                CircularChartAnnotation(
-                    widget: Container(
-                        child: const Text('9시~10시',
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 25,
-                                fontFamily: 'applesdneom'
-                            )
-                        )
-                    )
-                )
-              ],
-              series: <CircularSeries>[
-                // Renders doughnut chart
-                DoughnutSeries<Chart_Data, String>(
-                    dataSource: _chart_Data,
-                    pointColorMapper:(Chart_Data data,  _) => data.color,
-                    xValueMapper: (Chart_Data data, _) => data.x,
-                    yValueMapper: (Chart_Data data, _) => data.y,
-                   // explode: true
-                )
-              ]),
-              Center(
-                  child:
-                  SfCartesianChart(
-                    tooltipBehavior: _toolTipBehavior,
-                    series: <ChartSeries>[
-                      StackedBar100Series<Chart_Data2,double>(
-                        dataSource: _chart_Data2,
-                        pointColorMapper:(Chart_Data2 data,  _) => data.color,
-                        xValueMapper: (Chart_Data2 data, _) => data.x,
-                        yValueMapper: (Chart_Data2 data, _) => data.y1,
-                        dataLabelSettings: DataLabelSettings(isVisible: true),
-                        enableTooltip: true,
-                        color: Colors.blueAccent,
-                      ),
-                    ],
-                    primaryXAxis: NumericAxis(
-                        edgeLabelPlacement: EdgeLabelPlacement.shift,
-                        numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-                        labelFormat: '{value}월',
-                        isVisible: false
-                    ),
-                    primaryYAxis: NumericAxis(
-                        isVisible: false
-                      // edgeLabelPlacement: EdgeLabelPlacement.shift
-                    ),
-                  )
-              ),
-              SizedBox(width: 60,),
+    Widget textSection2 = Column(
+      children: [
+        Text.rich(
+          TextSpan(// default text style
+              children: <TextSpan>[
+                TextSpan(text: '최대전력 발생 시간은',
+                  style:TextStyle(
+                    fontSize:17.0,
+                    color: Colors.black,
+                    letterSpacing: 0.3,
+                    fontFamily: 'applesdneob',
+                  ),),
+                TextSpan(text: '9시에서 10시',
+                  style:TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 5.0,
+                      // fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneob'),),
+                TextSpan(text: ',\n최대전력은 ',
+                  style:TextStyle(
+                      fontSize: 17.0,
+                      color: Colors.black,
+                      letterSpacing: 5.0,
+                      fontFamily: 'applesdneob'),),
+                TextSpan(text: ' 71,700MW',
+                  style:TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 3.0,
+                      fontFamily: 'applesdneob'),),
+                TextSpan(text: '로 예상돼요',
+                  style:TextStyle(
+                      fontSize: 17.0,
+                      color: Colors.black,
+                      letterSpacing: 1.0,
+                      // fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneob'),
+                ),
 
+              ]
+          ),
+        )
+      ],
+    );
+
+    Widget chartSection1= Center(
+        child:SfCircularChart(
+            annotations: <CircularChartAnnotation>[
+              CircularChartAnnotation(
+                  widget: Container(
+                      child: const Text('9시~10시',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 25,
+                              fontFamily: 'applesdneom'
+                          )
+                      )
+                  )
+              )
+            ],
+            series: <CircularSeries>[
+              // Renders doughnut chart
+              DoughnutSeries<Chart_Data, String>(
+                dataSource: _chart_Data,
+                pointColorMapper:(Chart_Data data,  _) => data.color,
+                xValueMapper: (Chart_Data data, _) => data.x,
+                yValueMapper: (Chart_Data data, _) => data.y,
+                // explode: true
+              )
             ]
         )
+    );
+
+    Widget chartSection2 =Center(
+        child:SfCartesianChart(
+          tooltipBehavior: _toolTipBehavior,
+          series: <ChartSeries>[
+            StackedBar100Series<Chart_Data2,double>(
+              dataSource: _chart_Data2,
+              pointColorMapper:(Chart_Data2 data,  _) => data.color,
+              xValueMapper: (Chart_Data2 data, _) => data.x,
+              yValueMapper: (Chart_Data2 data, _) => data.y1,
+              dataLabelSettings: DataLabelSettings(isVisible: true),
+              enableTooltip: true,
+              color: Colors.blueAccent,
+            ),
+          ],
+          primaryXAxis: NumericAxis(
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+              labelFormat: '{value}월',
+              isVisible: false
+          ),
+          primaryYAxis: NumericAxis(
+              isVisible: false
+            // edgeLabelPlacement: EdgeLabelPlacement.shift
+          ),
         )
     );
 
-    Widget datatableSection=
-    DataTable(
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-      columns: [
-        DataColumn(
-          label:
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-            ),
-
-          ),
-          // numeric: true,
-        ),
-        DataColumn(
-            label:
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-              ),
-            )
-        ),
-        /*DataColumn(
+    Widget datatableSection1=
+    Center(
+        child: Container(
+            width: double.infinity,
+            child: DataTable(
+              headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
+              columns: [
+                DataColumn(
+                  label:
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
+                    ),
+                  ),
+                  // numeric: true,
+                ),
+                DataColumn(
+                    label:
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
+                      ),
+                    )
+                ),
+                /*DataColumn(
           label: Center(
               widthFactor: 4.0,
               child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
           ),
         ),*/
-      ],
-      rows: [
-        DataRow(
-            cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
-        DataRow(
-            cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
-      ],
+              ],
+              rows: [
+                DataRow(
+                    cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
+                DataRow(
+                    cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
+              ],
+            )
+        )
+    );
+    Widget datatableSection2=
+    Center(
+        child: Container(
+            width: double.infinity,
+            child: DataTable(
+              headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
+              columns: [
+                DataColumn(
+                  label:
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
+                    ),
+                  ),
+                  // numeric: true,
+                ),
+                DataColumn(
+                    label:
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
+                      ),
+                    )
+                ),
+                /*DataColumn(
+          label: Center(
+              widthFactor: 4.0,
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+          ),
+        ),*/
+              ],
+              rows: [
+                DataRow(
+                    cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
+                DataRow(
+                    cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
+              ],
+            )
+        )
     );
 
 
@@ -221,26 +306,60 @@ class _hourly_figures extends State<hourly_figures> {
     //Widget dataSection=();
 
     return MaterialApp(
-      home:Scaffold(
-        appBar: AppBar(
-          title: Text('시간별 전력 사용량',
-            style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            Navigator.of(context).pop();
-          }),
-        ),
-        body: Center(
-          child: ListView(
-            children: [
-              textSection,
-              chartSection,
-              datatableSection,
-            ],
-          ),
-        ),
-      ),
+        home:Scaffold(
+            appBar: AppBar(
+              title: Text('시간별 전력 사용량',
+                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+              centerTitle: true,
+              backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+              leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color:Colors.white,
+                  ),
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  }),
+            ),
+            body: SafeArea(
+                child:Padding(
+                  padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                  child: PageView(
+                      controller: pageController,
+                      children:<Widget>[
+                        ListView(
+                            children: <Widget>[
+                              textSection1,
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              chartSection1,
+                              SizedBox(
+                                height: 40.0,
+                              ),
+                              datatableSection1,
+                            ],
+
+                        ),
+                        ListView(
+                          children: <Widget>[
+                            textSection2,
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            chartSection2,
+                            SizedBox(
+                              height: 40.0,
+                            ),
+                            datatableSection2,
+                          ],
+
+                        ),
+                      ]
+                  ),
+                )
+            )
+        )
     );
 
   }
