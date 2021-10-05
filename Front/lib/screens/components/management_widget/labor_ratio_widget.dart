@@ -16,7 +16,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
     },
     child: Container(
         height: 180,
-        width: 180,
+        width: 205,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),

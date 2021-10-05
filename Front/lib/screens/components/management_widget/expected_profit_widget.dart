@@ -16,7 +16,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
     },
     child: Container(
         height: 180,
-        width: 180,
+       // width: 180,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
