@@ -27,19 +27,26 @@ class _sales extends State<sales> {
               TextSpan(
                   text: '이번 달 ',
                   style: TextStyle(
-                      fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                      fontSize: 25.0,
+                      letterSpacing: 2.0,
+                      fontFamily: 'applesdneoeb',
+                      color: Colors.black),
                   children: <TextSpan>[
                     TextSpan(
                       text: '매출 금액',
                       style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2.0),
+                          fontFamily: 'applesdneoeb',
+                          letterSpacing: 2.0)
                     ),
                     TextSpan(
                         text: '은',
-                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb',
+                            color: Colors.black),),
                   ]),
             )
           ]));
@@ -54,17 +61,16 @@ class _sales extends State<sales> {
               style: TextStyle(
                   fontSize: 30.0,
                   color: Colors.blue,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'AppleB'),
+                  fontFamily: 'applesdneoeb',
+                  letterSpacing: 2.0),
             ),
             TextSpan(
                 text: '이에요.',
                 style: TextStyle(
                     fontSize: 25.0,
                     letterSpacing: 2.0,
-                    color: Colors.black,
-                    fontFamily: 'AppleB')),
+                    fontFamily: 'applesdneoeb',
+                    color: Colors.black),),
           ]))
         ],
       ));
@@ -76,22 +82,26 @@ class _sales extends State<sales> {
           Text.rich(TextSpan(
               text: '전월 대비 ',
               style: TextStyle(
-                  fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                  fontSize: 25.0,
+                  letterSpacing: 2.0,
+                  fontFamily: 'applesdneoeb',
+                  color: Colors.black),
               children: <TextSpan>[
                 TextSpan(
                   text: '1,000원 증가 ',
                   style: TextStyle(
                       fontSize: 30.0,
                       color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0),
+                      fontFamily: 'applesdneoeb',
+                      letterSpacing: 2.0)
                 ),
                 TextSpan(
                     text: '했어요.',
                     style: TextStyle(
-                      fontSize: 25.0,
-                      letterSpacing: 2.0,
-                    )),
+                        fontSize: 25.0,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black),),
               ]))
         ],
       ));
@@ -107,10 +117,10 @@ class _sales extends State<sales> {
             Colors.teal,
           ],
           primaryXAxis: CategoryAxis(),
-            primaryYAxis: NumericAxis(
-              // Y axis labels will be rendered with currency format
-                numberFormat: NumberFormat.simpleCurrency()
-            ),
+          primaryYAxis: NumericAxis(
+            // Y axis labels will be rendered with currency format
+              numberFormat: NumberFormat.simpleCurrency()
+          ),
           legend: Legend(
               isVisible: true,
               // Legend will be placed at the left
@@ -141,7 +151,7 @@ class _sales extends State<sales> {
                 xValueMapper: (ChartData sales, _) => sales.x,
                 yValueMapper: (ChartData sales, _) => sales.y2,
                 dataLabelSettings: DataLabelSettings(
-                    // Renders the data label
+                  // Renders the data label
                     isVisible: true),
                 markerSettings: MarkerSettings(isVisible: true))
           ],
@@ -157,7 +167,7 @@ class _sales extends State<sales> {
           child: DataTable(
             showBottomBorder: true,
             headingRowColor:
-                MaterialStateColor.resolveWith((states) => Colors.black12),
+            MaterialStateColor.resolveWith((states) => Colors.black12),
             columns: <DataColumn>[
               DataColumn(
                 label: Container(
@@ -172,7 +182,9 @@ class _sales extends State<sales> {
                   child: Text('매출 금액 내역',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0)),
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb')),
                 ),
               ),
               DataColumn(
@@ -193,7 +205,9 @@ class _sales extends State<sales> {
                         '최근 1개월',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                            fontSize: 15.0, fontWeight: FontWeight.bold),
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       )))
                 ],
               ),
@@ -204,7 +218,10 @@ class _sales extends State<sales> {
                       child: Text(
                         '월',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
@@ -216,21 +233,27 @@ class _sales extends State<sales> {
                         child: Text(
                           '45,600원',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
+                          style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb'),
                         )),
                   ),
                 ],
               ),
               DataRow(
                 color: MaterialStateColor.resolveWith(
-                    (states) => Colors.black12),
+                        (states) => Colors.black12),
                 cells: <DataCell>[
                   DataCell(
                     Container(
                       child: Text(
                         '10월',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
@@ -242,7 +265,10 @@ class _sales extends State<sales> {
                         child: Text(
                           '123,123,568원',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
+                          style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb'),
                         )),
                   ),
                 ],
@@ -255,7 +281,7 @@ class _sales extends State<sales> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('매출 금액', style: TextStyle(fontSize: 25.0)),
+        title: Text('매출 금액', style: TextStyle(fontSize: 25.0,color: Colors.white)),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
         leading: IconButton(
@@ -271,25 +297,25 @@ class _sales extends State<sales> {
         padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
         child: SafeArea(
             child: ListView(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                textSection1,
-                textSection2,
-                textSection3,
-                SizedBox(
-                  height: 30.0,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    textSection1,
+                    textSection2,
+                    textSection3,
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    chartSection,
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    datatableSection
+                  ],
                 ),
-                chartSection,
-                SizedBox(
-                  height: 30.0,
-                ),
-                datatableSection
               ],
-            ),
-          ],
-        )),
+            )),
       ),
     );
   }
