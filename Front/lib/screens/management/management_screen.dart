@@ -21,11 +21,12 @@ class Management_Screen extends StatelessWidget {
                   style: TextStyle(color: Colors.black54, fontSize: 20),)
             ),
             Sales_Widget(),
-            Order_Amount_Widget(),
-            Cash_Reserve_Widget(),
+            Row (children: [Order_Amount_Widget(),
+            Cash_Reserve_Widget(),],),
             Contracted_Price_Widget(),
-            Labor_Ratio_Widget(),
-            Outsourcing_Ratio_Widget(),
+        Row (children: [Order_Amount_Widget(),
+          Labor_Ratio_Widget(),
+            Outsourcing_Ratio_Widget(),],),
             Expected_Profit_Widget(),
           ],
         )
