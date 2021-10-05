@@ -24,19 +24,29 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
               Text.rich(TextSpan(
                   text: '전체 ',
                   style: TextStyle(
-                      fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                    fontSize: 25.0,
+                    letterSpacing: 2.0,
+                    fontFamily: 'applesdneoeb',
+                    color: Colors.black,
+                  ),
                   children: <TextSpan>[
                     TextSpan(
                       text: '수주 비용 ',
                       style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.blue,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'applesdneoeb',
                           letterSpacing: 2.0),
                     ),
                     TextSpan(
-                        text: '중 ',
-                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                      text: '중 ',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black,
+                      ),
+                    ),
                   ]))
             ]));
 
@@ -51,17 +61,18 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                 style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.blue,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'AppleB'),
+                    fontFamily: 'applesdneoeb',
+                    letterSpacing: 2.0),
               ),
               TextSpan(
-                  text: '이 차지하는 비율은 ',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      letterSpacing: 2.0,
-                      color: Colors.black,
-                      fontFamily: 'AppleB')),
+                text: '이 차지하는 비율은 ',
+                style: TextStyle(
+                  fontSize: 25.0,
+                  letterSpacing: 2.0,
+                  fontFamily: 'applesdneoeb',
+                  color: Colors.black,
+                ),
+              ),
             ]))
           ],
         ));
@@ -76,16 +87,18 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                 style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'AppleB',
+                    fontFamily: 'applesdneoeb',
                     letterSpacing: 2.0),
               ),
               TextSpan(
-                  text: '이에요.',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      letterSpacing: 2.0,
-                      fontFamily: 'AppleB')),
+                text: '이에요.',
+                style: TextStyle(
+                  fontSize: 25.0,
+                  letterSpacing: 2.0,
+                  fontFamily: 'applesdneoeb',
+                  color: Colors.black,
+                ),
+              ),
             ]))
           ],
         ));
@@ -138,7 +151,9 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                   child: Text('외주 내역',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0)),
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb')),
                 ),
               ),
               DataColumn(
@@ -156,11 +171,14 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                   DataCell(Text('')),
                   DataCell(Container(
                       child: Text(
-                        '최근 3개월',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0, fontWeight: FontWeight.bold),
-                      )))
+                    '최근 3개월',
+                    textAlign: TextAlign.right,
+                    style:
+                    TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black54,
+                        fontFamily: 'applesdneoeb'),
+                  )))
                 ],
               ),
               DataRow(
@@ -170,17 +188,23 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                       child: Text(
                         '#,###,###',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '##사',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '##사',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                   DataCell(Text('')),
                 ],
@@ -195,7 +219,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
       appBar: AppBar(
         title: Text(
           '외주 비율',
-          style: TextStyle(fontSize: 25.0),
+          style: TextStyle(fontSize: 25.0, color: Colors.white),
         ),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
