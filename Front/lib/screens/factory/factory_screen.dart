@@ -18,8 +18,8 @@ class Factory_Screen extends StatelessWidget {
                   style: TextStyle(color: Colors.black54, fontSize: 20),)
             ),
             Developmentcompletion_Rate_Widget(),
-            Capacity_Ratio_Widget(),
-            Lead_Time_Widget(),
+        Row (children: [Capacity_Ratio_Widget(),
+            Lead_Time_Widget(),],),
             Labor_Production_Rate_Widget(),
           ],
         )
