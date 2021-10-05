@@ -39,8 +39,6 @@ class _expected_profit extends State<expected_profit> {
 
   @override
   Widget build(BuildContext context) {
-
-
     Widget textSection = Padding(
         padding: EdgeInsets.all(5),
         child: Column(
@@ -49,19 +47,30 @@ class _expected_profit extends State<expected_profit> {
               Text.rich(TextSpan(
                   text: '2021년 ',
                   style: TextStyle(
-                      fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                    fontSize: 25.0,
+                    letterSpacing: 2.0,
+                    fontFamily: 'applesdneoeb',
+                    color: Colors.black,
+                  ),
                   children: <TextSpan>[
                     TextSpan(
                       text: '예상 수익',
                       style: TextStyle(
-                          fontSize: 30.0,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2.0),
+                        fontSize: 30.0,
+                        color: Colors.blue,
+                        letterSpacing: 2.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     TextSpan(
-                        text: '은',
-                        style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)),
+                      text: '은',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black,
+                      ),
+                    ),
                   ]))
             ]));
 
@@ -74,19 +83,21 @@ class _expected_profit extends State<expected_profit> {
               TextSpan(
                 text: '303,650,990원 ',
                 style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.blue,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'AppleB'),
+                  fontSize: 30.0,
+                  color: Colors.blue,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               TextSpan(
-                  text: '이에요.',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      letterSpacing: 2.0,
-                      color: Colors.black,
-                      fontFamily: 'AppleB')),
+                text: '이에요.',
+                style: TextStyle(
+                  fontSize: 25.0,
+                  letterSpacing: 2.0,
+                  fontFamily: 'applesdneoeb',
+                  color: Colors.black,
+                ),
+              ),
             ]))
           ],
         ));
@@ -99,21 +110,27 @@ class _expected_profit extends State<expected_profit> {
             Text.rich(TextSpan(
                 text: '전월 대비 ',
                 style: TextStyle(
-                    fontSize: 25.0, letterSpacing: 2.0, fontFamily: 'AppleB'),
+                  fontSize: 25.0,
+                  letterSpacing: 2.0,
+                  fontFamily: 'applesdneoeb',
+                  color: Colors.black,
+                ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '14% ',
+                    text: '14% 하락',
                     style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2.0),
+                      fontSize: 30.0,
+                      color: Colors.blue,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   TextSpan(
-                      text: '하락했어요.',
+                      text: '했어요.',
                       style: TextStyle(
                         fontSize: 25.0,
                         letterSpacing: 2.0,
+                        color: Colors.black,
                       )),
                 ]))
           ],
@@ -198,9 +215,9 @@ class _expected_profit extends State<expected_profit> {
                     '종류',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
                         fontSize: 15.0,
-                        color: Colors.black),
+                        color: Colors.black54,
+                        fontFamily: 'applesdneoeb'),
                   ),
                 ),
               ),
@@ -209,7 +226,9 @@ class _expected_profit extends State<expected_profit> {
                   child: Text('금액',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0)),
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb')),
                 ),
               ),
             ],
@@ -219,11 +238,14 @@ class _expected_profit extends State<expected_profit> {
                   DataCell(Text('')),
                   DataCell(Container(
                       child: Text(
-                        '최근 1개월',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0, fontWeight: FontWeight.bold),
-                      )))
+                    '최근 1개월',
+                    textAlign: TextAlign.right,
+                    style:
+                    TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black54,
+                        fontFamily: 'applesdneoeb'),
+                  )))
                 ],
               ),
               DataRow(
@@ -233,17 +255,23 @@ class _expected_profit extends State<expected_profit> {
                       child: Text(
                         '현금',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                 ],
               ),
@@ -254,17 +282,20 @@ class _expected_profit extends State<expected_profit> {
                       child: Text(
                         '현금성 자산',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15.0),
+                    )),
                   ),
                 ],
               ),
@@ -275,17 +306,23 @@ class _expected_profit extends State<expected_profit> {
                       child: Text(
                         '단기 금융 상품',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15.0),
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
                       ),
                     ),
                   ),
                   DataCell(
                     Container(
                         child: Text(
-                          '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.0),
-                        )),
+                      '',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black54,
+                          fontFamily: 'applesdneoeb'),
+                    )),
                   ),
                 ],
               ),
@@ -296,7 +333,10 @@ class _expected_profit extends State<expected_profit> {
     );
     return Scaffold(
         appBar: AppBar(
-          title: Text('예상 수익'),
+          title: Text(
+            '추정수익률',
+            style: TextStyle(color: Colors.white,fontSize: 25.0),
+          ),
           centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
           leading: IconButton(
