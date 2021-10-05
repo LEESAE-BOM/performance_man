@@ -17,7 +17,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
         },
         child: Container(
             height: 180,
-            width: 180,
+            width: 205,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
