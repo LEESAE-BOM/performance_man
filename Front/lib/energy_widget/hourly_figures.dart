@@ -228,7 +228,7 @@ class _hourly_figures extends State<hourly_figures> {
           centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
           leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            Energy_Screen();
+            Navigator.of(context).pop();
           }),
         ),
         body: Center(
