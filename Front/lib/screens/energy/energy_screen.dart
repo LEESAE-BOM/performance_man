@@ -17,8 +17,8 @@ class Energy_Screen extends StatelessWidget {
                   style: TextStyle(color: Colors.black54, fontSize: 20),)
             ),
             Monthly_Figures_Widget(),
-            Energy_Fee_Widget(),
-            Hourly_Figures_Widget(),
+        Row (children: [Energy_Fee_Widget(),
+            Hourly_Figures_Widget(),],),
           ],
         )
     );
