@@ -12,7 +12,8 @@ class Factory_Screen extends StatelessWidget {
         body: ListView(
           children: [
             Container(
-                color: Colors.indigo,
+                alignment: Alignment.center,
+                color: Color.fromRGBO(43, 63, 107, 1),
                 height: 50,
                 child: Text('개발완료 105% 달성',
                   style: TextStyle(color: Colors.black54, fontSize: 20),)
