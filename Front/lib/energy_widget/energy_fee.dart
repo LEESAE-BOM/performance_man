@@ -63,84 +63,84 @@ class _energy_fee extends State<energy_fee> {
     Widget chartSection=SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child:Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          SfCircularChart(
-              annotations: <CircularChartAnnotation>[
-                CircularChartAnnotation(
-                    height: '80%', // Setting height and width for the circular chart annotation
-                    width: '80%',
-                    widget: Container(
-                        child: PhysicalModel(
-                            child: Container(),
-                            shape: BoxShape.circle,
-                            elevation: 10,
-                            color: Colors.white))),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SfCircularChart(
+                  tooltipBehavior: _toolTipBehavior,
+                  annotations: <CircularChartAnnotation>[
+                    CircularChartAnnotation(
+                        height: '80%', // Setting height and width for the circular chart annotation
+                        width: '80%',
+                        widget: Container(
+                            child: PhysicalModel(
+                                child: Container(),
+                                shape: BoxShape.circle,
+                                elevation: 10,
+                                color: Colors.white))),
 
-                CircularChartAnnotation(
-                    widget: Container(
-                        child: const Text('43000\n /63000',
-                            style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.5),
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
+                    CircularChartAnnotation(
+                        widget: Container(
+                            child: const Text('43000\n /63000',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 0.5),
+                                    fontSize: 15,
+                                    fontFamily: 'applesdneom'
+                                )
+                            )
+                        )
+                    ),
+                  ],
+
+                  series: <CircularSeries>[
+                    DoughnutSeries<Chart_Data, String>(
+                        dataSource: _chart_Data,
+                        xValueMapper: (Chart_Data data, _) => data.x,
+                        yValueMapper: (Chart_Data data, _) => data.y,
+                        pointColorMapper:(Chart_Data data,  _) => data.color,
+                        // Radius of doughnut
+                        radius: '60%'
+                    )
+                  ]
+              ),
+              SfCircularChart(
+                  annotations: <CircularChartAnnotation>[
+                    CircularChartAnnotation(
+                        height: '80%', // Setting height and width for the circular chart annotation
+                        width: '80%',
+                        widget: Container(
+                            child: PhysicalModel(
+                                child: Container(),
+                                shape: BoxShape.circle,
+                                elevation: 10,
+                                // shadowColor: Colors.black,
+                                color: Colors.white
+                            ))),
+
+                    CircularChartAnnotation(
+                        widget: Container(
+                            child: const Text('18250kwh\n/50000kwh',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 0.5),
+                                    fontSize: 15,
+                                    fontFamily: 'applesdneom'
+                                )
                             )
                         )
                     )
-                ),
-              ],
-
-              series: <CircularSeries>[
-                DoughnutSeries<Chart_Data, String>(
-                    dataSource: _chart_Data,
-                    xValueMapper: (Chart_Data data, _) => data.x,
-                    yValueMapper: (Chart_Data data, _) => data.y,
-                    pointColorMapper:(Chart_Data data,  _) => data.color,
-                    // Radius of doughnut
-                    radius: '60%'
-                )
-              ]
-          ),
-          SfCircularChart(
-              annotations: <CircularChartAnnotation>[
-                CircularChartAnnotation(
-                    height: '80%', // Setting height and width for the circular chart annotation
-                    width: '80%',
-                    widget: Container(
-                        child: PhysicalModel(
-                            child: Container(),
-                            shape: BoxShape.circle,
-                            elevation: 10,
-                           // shadowColor: Colors.black,
-                            color: Colors.white
-                        ))),
-
-                CircularChartAnnotation(
-                    widget: Container(
-                        child: const Text('18250kwh\n/50000kwh',
-                            style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.5),
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
-                            )
-                        )
+                  ],
+                  series: <CircularSeries>[
+                    DoughnutSeries<Chart_Data, String>(
+                        dataSource: _chart_Data2,
+                        xValueMapper: (Chart_Data data, _) => data.x,
+                        yValueMapper: (Chart_Data data, _) => data.y,
+                        pointColorMapper:(Chart_Data data,  _) => data.color,
+                        // Radius of doughnut
+                        radius: '60%'
                     )
-                )
-              ],
-              series: <CircularSeries>[
-                DoughnutSeries<Chart_Data, String>(
-                    dataSource: _chart_Data2,
-                    xValueMapper: (Chart_Data data, _) => data.x,
-                    yValueMapper: (Chart_Data data, _) => data.y,
-                    pointColorMapper:(Chart_Data data,  _) => data.color,
-                    // Radius of doughnut
-                    radius: '60%'
-                )
-              ]
-          )
-
-        ]
-    )
+                  ]
+              )
+            ]
+        )
     );
 
     Widget chartSection2=Container(
@@ -172,43 +172,147 @@ class _energy_fee extends State<energy_fee> {
       ),
     );
 
-    Widget datatableSection=
-    DataTable(
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-      columns: [
-        DataColumn(
-          label:
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-            ),
-
-          ),
-          // numeric: true,
-        ),
-        DataColumn(
-            label:
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-              ),
-            )
-        ),
-        /*DataColumn(
+    Widget datatableSection1= Center(
+        child: Container(
+            width: double.infinity,
+            child: Theme(
+                data: Theme.of(context).copyWith(
+                    dividerColor: Colors.black12
+                ),
+                child: DataTable(
+                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
+                  columns: [
+                    DataColumn(
+                      label: Align(
+                        alignment: Alignment.center,
+                        child:
+                        Text('구분',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'applesdneom'
+                          ),
+                        ),
+                      ),
+                      // numeric: true,
+                    ),
+                    DataColumn(
+                        label:
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text('요금현황',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            ),
+                          ),
+                        )
+                    ),
+                    /*DataColumn(
           label: Center(
               widthFactor: 4.0,
               child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
           ),
         ),*/
-      ],
-      rows: [
-        DataRow(
-            cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
-        DataRow(
-            cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
-      ],
+                  ],
+                  rows: [
+                    DataRow(
+                        cells: [
+                          DataCell(Text('')),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Text(
+                                    '9월',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),
+                                  )
+                              )
+                          )
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('전월요금',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),)
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('54,000원',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),
+                                  )
+                              )
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('당월누적요금',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'
+                                    ),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('165,000원',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('당일 누적요금',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'
+                                    ),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('125,000원',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    )
+                  ],
+                )
+            )
+        )
     );
-
 
 
     //Widget chartSection= const ();
@@ -216,27 +320,32 @@ class _energy_fee extends State<energy_fee> {
     //Widget dataSection=();
 
     return MaterialApp(
-      home:Scaffold(
-        appBar: AppBar(
-          title: Text('노동 생산율',
-            style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            Navigator.of(context).pop();
-          }),
-        ),
-        body: Center(
-          child: ListView(
-            children: [
-              textSection,
-              chartSection,
-              chartSection2,
-              datatableSection,
-            ],
-          ),
-        ),
-      ),
+        home:Scaffold(
+            appBar: AppBar(
+              title: Text('요금 현황',
+                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+              centerTitle: true,
+              backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+              leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
+                Navigator.of(context).pop();
+              }),
+            ),
+            body: SafeArea(
+              child:Padding(
+                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                child:Center(
+                  child: ListView(
+                    children: [
+                      textSection,
+                      chartSection,
+                      chartSection2,
+                      datatableSection1,
+                    ],
+                  ),
+                ),
+              ),
+            )
+        )
     );
 
   }
