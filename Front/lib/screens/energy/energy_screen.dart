@@ -11,7 +11,8 @@ class Energy_Screen extends StatelessWidget {
         body: ListView(
           children: [
             Container(
-                color: Colors.indigo,
+                alignment: Alignment.center,
+                color: Color.fromRGBO(43, 63, 107, 1),
                 height: 50,
                 child: Text('이번달 전력 사용량\n123,456kWh',
                   style: TextStyle(color: Colors.black54, fontSize: 20),)
