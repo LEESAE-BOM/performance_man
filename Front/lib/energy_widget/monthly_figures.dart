@@ -77,44 +77,44 @@ class _monthly_figures extends State<monthly_figures> {
           children: [
             Text.rich(
               TextSpan(// default text style
-                children: <TextSpan>[
-                  TextSpan(text: '9월의 전력 사용량은',
-                    style:TextStyle(
-                      fontSize:17.0,
-                      color: Colors.black,
-                      letterSpacing: 0.3,
-                      fontFamily: 'applesdneob',
-                    ),),
-                  TextSpan(text: '13,588 kWh\n',
-                    style:TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.blue,
-                        letterSpacing: 5.0,
-                        // fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneob'),),
-                  TextSpan(text: '전월대비 ',
-                    style:TextStyle(
-                        fontSize: 17.0,
+                  children: <TextSpan>[
+                    TextSpan(text: '9월의 전력 사용량은',
+                      style:TextStyle(
+                        fontSize:17.0,
                         color: Colors.black,
-                        letterSpacing: 5.0,
-                        fontFamily: 'applesdneob'),),
-                  TextSpan(text: ' 2000만큼 감소',
-                    style:TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.blue,
-                        letterSpacing: 3.0,
-                        fontFamily: 'applesdneob'),),
-                  TextSpan(text: ' 했어요',
-                    style:TextStyle(
-                        fontSize: 17.0,
-                        color: Colors.black,
-                        letterSpacing: 1.0,
-                        // fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneob'),
-                  ),
+                        letterSpacing: 0.3,
+                        fontFamily: 'applesdneob',
+                      ),),
+                    TextSpan(text: '13,588 kWh\n',
+                      style:TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.blue,
+                          letterSpacing: 5.0,
+                          // fontWeight: FontWeight.bold,
+                          fontFamily: 'applesdneob'),),
+                    TextSpan(text: '전월대비 ',
+                      style:TextStyle(
+                          fontSize: 17.0,
+                          color: Colors.black,
+                          letterSpacing: 5.0,
+                          fontFamily: 'applesdneob'),),
+                    TextSpan(text: ' 2000만큼 감소',
+                      style:TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.blue,
+                          letterSpacing: 3.0,
+                          fontFamily: 'applesdneob'),),
+                    TextSpan(text: ' 했어요',
+                      style:TextStyle(
+                          fontSize: 17.0,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
+                          // fontWeight: FontWeight.bold,
+                          fontFamily: 'applesdneob'),
+                    ),
 
-              ]
-            ),
+                  ]
+              ),
             )
           ],
         )
@@ -123,6 +123,13 @@ class _monthly_figures extends State<monthly_figures> {
     Widget chartSection= Center(
         child: Container(
           child: SfCartesianChart(
+              tooltipBehavior: _toolTipBehavior,
+              palette: <Color>[
+                Colors.blueAccent,
+                Colors.cyan,
+                Colors.orangeAccent,
+                Colors.amberAccent
+              ],
               legend: Legend(
                   isVisible: true,
                   // Legend will be placed at the left
@@ -132,7 +139,7 @@ class _monthly_figures extends State<monthly_figures> {
               series: <CartesianSeries>[
                 // Render column series
                 ColumnSeries<monthly_data, String>(
-                  name:'전 년도 전력사용량',
+                    name:'전 년도 전력사용량',
                     dataSource: _monthly_data,
                     xValueMapper: (monthly_data data, _) => data.x,
                     yValueMapper: (monthly_data data, _) => data.y
@@ -157,45 +164,256 @@ class _monthly_figures extends State<monthly_figures> {
                     yValueMapper: (monthly_data data, _) => data.y1
                 )
               ]
+              ,
           ),
         )
     );
 
-    Widget datatableSection=
-    DataTable(
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-      columns: [
-        DataColumn(
-          label:
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-            ),
-
-          ),
-          // numeric: true,
-        ),
-        DataColumn(
-            label:
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-              ),
-            )
-        ),
-        /*DataColumn(
+    Widget datatableSection1=Center(
+        child: Container(
+            width: double.infinity,
+            child: Theme(
+                data: Theme.of(context).copyWith(
+                    dividerColor: Colors.black12
+                ),
+                child: DataTable(
+                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
+                  columns: [
+                    DataColumn(
+                      label: Align(
+                        alignment: Alignment.center,
+                        child:
+                        Text('구분',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'applesdneom'
+                          ),
+                        ),
+                      ),
+                      // numeric: true,
+                    ),
+                    DataColumn(
+                        label:
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text('8월',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            ),
+                          ),
+                        )
+                    ),
+                    DataColumn(
+                        label:
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text('9월',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            ),
+                          ),
+                        )
+                    ),
+                    DataColumn(
+                        label:
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text('10월',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            ),
+                          ),
+                        )
+                    )
+                    /*DataColumn(
           label: Center(
               widthFactor: 4.0,
               child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
           ),
         ),*/
-      ],
-      rows: [
-        DataRow(
-            cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
-        DataRow(
-            cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
-      ],
+                  ],
+                  rows: [
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('2021년 전력사용량',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),)
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('14,000',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('12,980',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('10,290',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('2020년 전력사용량',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'
+                                    ),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('120,84',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('11,980',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('11,980',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('2021년 최대전력',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'
+                                    ),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('11,980',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('85,780',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('70,122',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('2020년 최대전력',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),)
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('14,000',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('11,980',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('11,980',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+
+                        ]
+                    ),
+                  ],
+
+                )
+            )
+        )
     );
 
 
@@ -205,30 +423,35 @@ class _monthly_figures extends State<monthly_figures> {
     //Widget dataSection=();
 
     return MaterialApp(
-      home:Scaffold(
-        appBar: AppBar(
-          title: Text('월별 전력 사용량',
-            style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            Navigator.of(context).pop();
-          }),
-        ),
-        body: Center(
-          child: ListView(
-            children: [
-              SizedBox(height:35),
-              textSection,
-              SizedBox(height:35),
-              chartSection,
-              SizedBox(height:35),
-              datatableSection,
-              SizedBox(height:15)
-            ],
-          ),
-        ),
-      ),
+        home:Scaffold(
+            appBar: AppBar(
+              title: Text('월별 전력 사용량',
+                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+              centerTitle: true,
+              backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+              leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
+                Navigator.of(context).pop();
+              }),
+            ),
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                child:Center(
+                  child: ListView(
+                    children: [
+                      SizedBox(height:35),
+                      textSection,
+                      SizedBox(height:35),
+                      chartSection,
+                      SizedBox(height:35),
+                      datatableSection1,
+                      SizedBox(height:15)
+                    ],
+                  ),
+                ),
+              ),
+            )
+        )
     );
 
   }
