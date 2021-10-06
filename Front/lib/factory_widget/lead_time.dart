@@ -10,7 +10,7 @@ class lead_time extends StatefulWidget {
 }
 
 class _lead_time extends State<lead_time> {
-  late List<ChartData> chartData;
+  late List<Chart_Data> chartData;
   late TooltipBehavior _toolTipBehavior;
 
   void initState() {
@@ -19,9 +19,9 @@ class _lead_time extends State<lead_time> {
     super.initState();
   }
 
-  List<ChartData>  getChartData(){
-    final List<ChartData>  getChartData = [
-      ChartData('LeadTIME', 2,3,4),
+  List<Chart_Data>  getChartData(){
+    final List<Chart_Data>  getChartData = [
+      Chart_Data('LeadTIME', 2,3,4),
     ];
     return getChartData;
   }
@@ -39,11 +39,11 @@ class _lead_time extends State<lead_time> {
                 children: <TextSpan>[
                   TextSpan(text: 'Lead-time',
                     style:TextStyle(
-                        fontSize: 40.0,
-                        color: Colors.blue,
-                        letterSpacing: 5.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneob',
+                      fontSize: 40.0,
+                      color: Colors.blue,
+                      letterSpacing: 5.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneob',
                     ),),
                   TextSpan(text: ' 은\n',
                     style:TextStyle(
@@ -119,6 +119,7 @@ class _lead_time extends State<lead_time> {
         child:Center(
             child: Container(
                 child: SfCartesianChart(
+                  tooltipBehavior: _toolTipBehavior,
                   legend: Legend(
                       isVisible: true,
                       // Legend will be placed at the left
@@ -134,47 +135,49 @@ class _lead_time extends State<lead_time> {
                     isVisible: false,
                   ),
                   series: <ChartSeries>[
-                    StackedBar100Series<ChartData, String>(
-                        name:'제품 소요시간',
-                        dataSource: chartData,
-                        xValueMapper: (ChartData sales, _) => sales.x,
-                        yValueMapper: (ChartData sales, _) => sales.y1,
-                        dataLabelSettings: DataLabelSettings(
+                    StackedBar100Series<Chart_Data, String>(
+                      name:'제품 소요시간',
+                      dataSource: chartData,
+                      xValueMapper: (Chart_Data sales, _) => sales.x,
+                      yValueMapper: (Chart_Data sales, _) => sales.y1,
+
+                      dataLabelSettings: DataLabelSettings(
                           isVisible: true,
                           textStyle: TextStyle(
-                          fontSize: 35.0,
-                          color: Colors.white,
-                          fontFamily: 'applesdneob',),
+                            fontSize: 35.0,
+                            color: Colors.white,
+                            fontFamily: 'applesdneob',),
                           labelAlignment: ChartDataLabelAlignment.middle
-                        ),
+                      ),
 
                     ),
-                    StackedBar100Series<ChartData, String>(
+                    StackedBar100Series<Chart_Data, String>(
                         name:'누적 소요시간',
                         dataSource: chartData,
-                        xValueMapper: (ChartData sales, _) => sales.x,
-                        yValueMapper: (ChartData sales, _) => sales.y2,
+                        xValueMapper: (Chart_Data sales, _) => sales.x,
+                        yValueMapper: (Chart_Data sales, _) => sales.y2,
                         dataLabelSettings: DataLabelSettings(isVisible: true, textStyle: TextStyle(
                           fontSize: 35.0,
                           color: Colors.white,
                           fontFamily: 'applesdneob',)
-                        ,labelAlignment: ChartDataLabelAlignment.middle
+                            ,labelAlignment: ChartDataLabelAlignment.middle
                         )
                     ),
-                    StackedBar100Series<ChartData, String>(
+                    StackedBar100Series<Chart_Data, String>(
                         name:'납기 소요시간',
                         dataSource: chartData,
-                        xValueMapper: (ChartData sales, _) => sales.x,
-                        yValueMapper: (ChartData sales, _) => sales.y3,
+                        xValueMapper: (Chart_Data sales, _) => sales.x,
+                        yValueMapper: (Chart_Data sales, _) => sales.y3,
                         dataLabelSettings: DataLabelSettings(isVisible: true, textStyle: TextStyle(
                           fontSize: 35.0,
                           color: Colors.white,
                           fontFamily: 'applesdneob',),
                             labelAlignment: ChartDataLabelAlignment.middle
-                        )
+                        ),
                     )
                   ],
-
+                  plotAreaBorderWidth: 0,//chart 테두리 삭제
+                  borderWidth: 40,
                 )
             )
         )
@@ -315,40 +318,43 @@ class _lead_time extends State<lead_time> {
     );
 
     return MaterialApp(
-      home:Scaffold(
-        appBar: AppBar(
-          title: const Text('노동 생산율',
-            style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            Navigator.of(context).pop();
-          }),
-        ),
-        body: SafeArea(
-          //child: Padding(padding: const EdgeInsets.all(36.0),
-            child: ListView(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              //  mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                textSection,
-                daySection,
-                chartSection,
-                // daySection2, //error fixing
-                SizedBox(height: 23,),
-                daySection3
-              ],
+        home:Scaffold(
+          appBar: AppBar(
+            title: const Text('노동 생산율',
+              style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+            centerTitle: true,
+            backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+            leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
+              Navigator.of(context).pop();
+            }),
+          ),
+          body: SafeArea(
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                //child: Padding(padding: const EdgeInsets.all(36.0),
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  //  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    textSection,
+                    daySection,
+                    chartSection,
+                    // daySection2, //error fixing
+                    SizedBox(height: 23,),
+                    daySection3
+                  ],
 
-            )
-          // )
-        ),
-      ),
+                )
+              // )
+            ),
+          ),
+        )
     );
   }
 }
 
-class ChartData {
-  ChartData(this.x, this.y1,this.y2,this.y3);
+class Chart_Data {
+  Chart_Data(this.x, this.y1,this.y2,this.y3);
   final String x;
   final double y1; final double y2; final double y3;
 }
