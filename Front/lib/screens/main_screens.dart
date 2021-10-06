@@ -22,7 +22,7 @@ class _MainScreensState extends State<MainScreens>{
       endDrawer: MenuDrawer(),
 
       appBar: AppBar(
-        title: Text('FLOW'),
+        title: Text('FLOW',style: TextStyle(color: Colors.white),),
         centerTitle: true,
         elevation: 0.0,
       ),
