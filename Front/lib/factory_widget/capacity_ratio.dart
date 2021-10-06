@@ -107,6 +107,7 @@ class _capacity_ratio extends State<capacity_ratio> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SfCircularChart(
+                  tooltipBehavior: _toolTipBehavior,
                   annotations: <CircularChartAnnotation>[
                     CircularChartAnnotation(
                         height: '80%', // Setting height and width for the circular chart annotation
@@ -117,7 +118,9 @@ class _capacity_ratio extends State<capacity_ratio> {
                                 shape: BoxShape.circle,
                                 elevation: 10,
                                 shadowColor: Colors.black,
-                                color: Colors.white))),
+                                color: Colors.white)
+                        )
+                    ),
 
                     CircularChartAnnotation(
                         widget: Container(
@@ -144,6 +147,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                   ]
               ),
               SfCircularChart(
+                  tooltipBehavior: _toolTipBehavior,
                   annotations: <CircularChartAnnotation>[
                     CircularChartAnnotation(
                         height: '80%', // Setting height and width for the circular chart annotation
@@ -222,41 +226,146 @@ class _capacity_ratio extends State<capacity_ratio> {
 
     );
 
-    Widget datatableSection=
-    DataTable(
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-      columns: [
-        DataColumn(
-          label:
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text('월', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-            ),
-
-          ),
-          // numeric: true,
-        ),
-        DataColumn(
-            label:
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),
-              ),
-            )
-        ),
-        /*DataColumn(
+    Widget datatableSection1=Center(
+        child: Container(
+            width: double.infinity,
+            child: Theme(
+                data: Theme.of(context).copyWith(
+                    dividerColor: Colors.black12
+                ),
+                child: DataTable(
+                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
+                  columns: [
+                    DataColumn(
+                      label: Align(
+                        alignment: Alignment.center,
+                        child:
+                        Text('월',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'applesdneom'
+                          ),
+                        ),
+                      ),
+                      // numeric: true,
+                    ),
+                    DataColumn(
+                        label:
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text('설비 완료율',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'applesdneom'
+                            ),
+                          ),
+                        )
+                    ),
+                    /*DataColumn(
           label: Center(
               widthFactor: 4.0,
               child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
           ),
         ),*/
-      ],
-      rows: [
-        DataRow(
-            cells: [ DataCell(Text('A1')), DataCell(Text('B1')), ] ),
-        DataRow(
-            cells: [ DataCell(Text('A2')), DataCell(Text('B2')), ] ),
-      ],
+                  ],
+                  rows: [
+                    DataRow(
+                        cells: [
+                          DataCell(Text('')),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Text(
+                                    '최근 3개월',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),
+                                  )
+                              )
+                          )
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('2021.09',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),)
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('14',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),
+                                  )
+                              )
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('2021.09',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'
+                                    ),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('84',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    ),
+                    DataRow(
+                        cells: [
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('2021.10',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'
+                                    ),
+                                  )
+                              )
+                          ),
+                          DataCell(
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Text('72',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontFamily: 'applesdneom'),))
+                          ),
+                        ]
+                    )
+                  ],
+                )
+            )
+        )
     );
 
 
@@ -266,26 +375,30 @@ class _capacity_ratio extends State<capacity_ratio> {
     //Widget dataSection=();
 
     return MaterialApp(
-      home:Scaffold(
-        appBar: AppBar(
-          title: Text('설비가동율',
-            style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-          leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-            Navigator.of(context).pop();
-          }),
-        ),
-        body: Center(
-          child: ListView(
-            children: [
-              textSection,
-              chartSection,
-              datatableSection,
-            ],
-          ),
-        ),
-      ),
+        home:Scaffold(
+            appBar: AppBar(
+              title: Text('설비가동율',
+                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+              centerTitle: true,
+              backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+              leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
+                Navigator.of(context).pop();
+              }),
+            ),
+            body:SafeArea(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                child:Center(
+                  child: ListView(
+                    children: [
+                      textSection,
+                      chartSection,
+                      datatableSection1,
+                    ],
+                  ),
+                ),
+              ),)
+        )
     );
 
   }
