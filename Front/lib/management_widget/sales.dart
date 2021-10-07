@@ -119,7 +119,7 @@ class _sales extends State<sales> {
           primaryXAxis: CategoryAxis(),
           primaryYAxis: NumericAxis(
             // Y axis labels will be rendered with currency format
-              numberFormat: NumberFormat.simpleCurrency()
+              numberFormat: NumberFormat.compact()
           ),
           legend: Legend(
               isVisible: true,
