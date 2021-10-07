@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/cash_reserve.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 class Cash_Reserve_Widget extends StatefulWidget {
   @override
@@ -9,14 +11,45 @@ class Cash_Reserve_Widget extends StatefulWidget {
 class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final List<ChartData> chartdata = [
+      ChartData(2019, 253654978),
+      ChartData(2020, 323456789),
+      ChartData(2021, 450340890)
+    ];
+    Widget chartSection = Center(
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          height: 250,
+          child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(
+                majorGridLines: MajorGridLines(width: 0),
+              ),
+              primaryYAxis: NumericAxis(
+                majorGridLines: MajorGridLines(width: 0),
+                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                numberFormat: NumberFormat.compact(),
+              ),
+              series: <ChartSeries>[
+                BarSeries<ChartData, double>(
+                    dataSource: chartdata,
+                    xValueMapper: (ChartData sales, _) => sales.x,
+                    yValueMapper: (ChartData sales, _) => sales.y,
 
-        onTap: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>cash_reserve()));
+                    dataLabelSettings: DataLabelSettings(
+                        // Renders the data label
+                        isVisible: false),
+                    width: 0.6,
+                    spacing: 0.2),
+              ])),
+    );
+    return GestureDetector(
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => cash_reserve()));
         },
         child: Container(
-            height: 180,
-            width: 205,
+            height: 300,
+            width: MediaQuery.of(context).size.width * 0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -33,8 +66,8 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
 
             child: Column(children: <Widget>[
               Container(
-                height: 50,
-                padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                height: 40,
+                padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
                 child: Row(
                   children: [
                     Text(
@@ -50,11 +83,15 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 ),
               ),
               Container(
-                child: Text(
-                  '내용',
-                  style: TextStyle(color: Colors.black54, fontSize: 20),
-                ),
+                child: chartSection
               )
             ])));
   }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+
+  final double x;
+  final double y;
 }
