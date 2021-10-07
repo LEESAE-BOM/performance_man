@@ -25,6 +25,7 @@ class _MainScreensState extends State<MainScreens>{
         title: Text('FLOW',style: TextStyle(color: Colors.white),),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: Color.fromRGBO(43, 63, 107, 1),
       ),
 
       body: IndexedStack(
