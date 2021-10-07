@@ -29,6 +29,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 edgeLabelPlacement: EdgeLabelPlacement.shift,
                 numberFormat: NumberFormat.compact(),
               ),
+              plotAreaBorderWidth:0,
               series: <ChartSeries>[
                 BarSeries<ChartData, double>(
                     dataSource: chartdata,
