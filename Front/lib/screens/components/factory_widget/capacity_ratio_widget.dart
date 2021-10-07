@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/factory_widget/capacity_ratio.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Capacity_Ratio_Widget extends StatefulWidget {
   @override
@@ -7,17 +10,55 @@ class Capacity_Ratio_Widget extends StatefulWidget {
 }
 
 class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
+  late List<Chart_Data>? _chart_Data;
+  late TooltipBehavior _toolTipBehavior;
+
+  void initState() {
+    _chart_Data = getChartData();
+    _toolTipBehavior = TooltipBehavior();
+    super.initState();
+  }
+
+  List<Chart_Data>  getChartData(){
+    final List<Chart_Data>  getChartData = [
+      Chart_Data('Completed', 43, Colors.blue),
+      Chart_Data('unCompleted', 57,  Colors.grey),
+    ];
+    return getChartData;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    Widget chartSection= Center(
+        child:
+        Container(
+            height: ScreenUtil().setHeight(150) , // Setting height and width for the circular chart annotation
+            width: ScreenUtil().setWidth(180),
+            child:
+              SfCircularChart(
+                  series: <CircularSeries>[
+                    DoughnutSeries<Chart_Data, String>(
+                        dataSource: _chart_Data,
+                        xValueMapper: (Chart_Data data, _) => data.x,
+                        yValueMapper: (Chart_Data data, _) => data.y,
+                        pointColorMapper:(Chart_Data data,  _) => data.color,
+                        dataLabelSettings: DataLabelSettings(
+                          isVisible: true,
+                        )
+                    )
+                  ]
+              )
+    )
+    );
 
+    return GestureDetector(
         onTap: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => capacity_ratio()));
         },
         child: Container(
-            height: 180,
-            width: 205,
+            width: ScreenUtil().setWidth(180),
+            height: ScreenUtil().setHeight(200),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -51,11 +92,14 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                     ),
                   ),
                   Container(
-                    child: Text(
-                      '내용',
-                      style: TextStyle(color: Colors.black54, fontSize: 20),
-                    ),
+                    child:chartSection
                   )
                 ])));
   }
+}
+class Chart_Data {
+  Chart_Data(this.x, this.y, this.color);
+  final String x;
+  final double y;
+  final Color color;
 }
