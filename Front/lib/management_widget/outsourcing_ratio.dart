@@ -234,7 +234,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+        padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
         child: ListView(
           children: <Widget>[
             textSection,
