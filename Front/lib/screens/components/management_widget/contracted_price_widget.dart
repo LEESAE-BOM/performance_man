@@ -16,7 +16,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
     },
     child:Container(
         height: 180,
-        width: 180,
+        width:MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -34,7 +34,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
             children: <Widget>[
               Container(
                 height: 50,
-                padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
                 child: Row(
                   children: [
                     Text(
@@ -51,10 +51,10 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
               ),
               Container(
                 child: Text(
-                  '내용',
-                  style: TextStyle(color: Colors.black54, fontSize: 20),
-                ),
-              )
+                  '이번달 계약금액은\n321,654,987원입니다.',
+                  style: TextStyle(color: Colors.black54,
+                  ),
+              ))
             ])));
   }
 }
