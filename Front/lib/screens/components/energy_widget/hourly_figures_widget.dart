@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/energy_widget/hourly_figures.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Hourly_Figures_Widget extends StatefulWidget {
   @override
@@ -8,16 +10,78 @@ class Hourly_Figures_Widget extends StatefulWidget {
 
 class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   @override
+  late List<Sales_Data> _Sales_Data;
+  void initState() {
+    _Sales_Data = getChartData();
+    super.initState();
+  }
+  List<Sales_Data>  getChartData(){
+    final List<Sales_Data>  getChartData = [
+      Sales_Data('24~01', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('01~02', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('02~03', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('03~04', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('04~05', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('05~06', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('06~07', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('07~08', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('08~09', 1, Color.fromRGBO(225,72,72,1)),
+      Sales_Data('09~10', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('11~12', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('12~13', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('13~14', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('14~15', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('15~16', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('17~18', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('18~19', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('19~20', 1,Color.fromRGBO(226,226,226,1)),
+      Sales_Data('15~16', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('17~18', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('18~19', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('20~21', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('21~22', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('22~23', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('23~24', 1, Color.fromRGBO(226,226,226,1))
+    ];
+    return getChartData;
+  }
   Widget build(BuildContext context) {
-    return GestureDetector(
 
+    Widget chartSection= Center(
+        child:SfCircularChart(
+            annotations: <CircularChartAnnotation>[
+              CircularChartAnnotation(
+                  widget: Container(
+                      child: const Text('9시~10시',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 25,
+                              fontFamily: 'applesdneom'
+                          )
+                      )
+                  )
+              )
+            ],
+            series: <CircularSeries>[
+              // Renders doughnut chart
+              DoughnutSeries<Sales_Data, String>(
+                dataSource: _Sales_Data,
+                pointColorMapper:(Sales_Data data,  _) => data.color,
+                xValueMapper: (Sales_Data data, _) => data.x,
+                yValueMapper: (Sales_Data data, _) => data.y,
+                // explode: true
+              )
+            ]
+        )
+    );
+    return GestureDetector(
         onTap: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => hourly_figures()));
         },
         child: Container(
-            height: 180,
-           width: 205,
+            width: ScreenUtil().setWidth(180),
+            height: ScreenUtil().setHeight(200),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -34,12 +98,12 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
             child: Column(
                 children: <Widget>[
                   Container(
-                    height: 50,
+                    height: ScreenUtil().setHeight(30),
                     padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
                     child: Row(
                       children: [
                         Text(
-                          '피크예상시간',
+                          '시간별 에너지',
                           style: TextStyle(color: Colors.black54, fontSize: 15),
                         ),
                         Image.asset(
@@ -51,11 +115,16 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                     ),
                   ),
                   Container(
-                    child: Text(
-                      '내용',
-                      style: TextStyle(color: Colors.black54, fontSize: 20),
-                    ),
+                    width: ScreenUtil().setWidth(170),
+                    height: ScreenUtil().setHeight(160),
+                    child: chartSection,
                   )
                 ])));
   }
+}
+class Sales_Data {
+  Sales_Data(this.x, this.y, this.color);
+  final String x;
+  final double y;
+  final Color color;
 }
