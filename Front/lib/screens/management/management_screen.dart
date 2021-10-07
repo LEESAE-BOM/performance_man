@@ -25,7 +25,7 @@ class Management_Screen extends StatelessWidget {
             Row (children: [Order_Amount_Widget(),
             Cash_Reserve_Widget(),],),
             Contracted_Price_Widget(),
-        Row (children: [Order_Amount_Widget(),
+        Row (children: [
           Labor_Ratio_Widget(),
             Outsourcing_Ratio_Widget(),],),
             Expected_Profit_Widget(),
