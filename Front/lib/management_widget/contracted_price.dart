@@ -305,7 +305,7 @@ class _contracted_price extends State<contracted_price> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.fromLTRB(40.0, 40.0, 40.0, 0),
+        padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
         child: ListView(
           children: <Widget>[
             textSection,
