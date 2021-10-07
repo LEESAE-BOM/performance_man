@@ -10,6 +10,20 @@ class contracted_price extends StatefulWidget {
 }
 
 class _contracted_price extends State<contracted_price> {
+  late ZoomPanBehavior _zoomPanBehavior;
+
+  @override
+  void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(
+      // Enables pinch zooming
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
+        enableMouseWheelZooming : true
+    );
+    super.initState();
+  }
+
   List<ChartData> chartData = <ChartData>[
     ChartData('5월', 2093000, 74185000, 78645000),
     ChartData('6월', 34436000, 12349000, 48612000),
@@ -119,6 +133,7 @@ class _contracted_price extends State<contracted_price> {
             Colors.lightBlueAccent,
             Colors.teal,
           ],
+          zoomPanBehavior: _zoomPanBehavior,
           primaryXAxis: CategoryAxis(),
           primaryYAxis: NumericAxis(
             edgeLabelPlacement: EdgeLabelPlacement.shift,
