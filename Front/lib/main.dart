@@ -3,6 +3,8 @@ import 'package:flutter_app/login.dart';
 import './theme.dart';
 import './screens/main_screens.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
+import 'package:flutter_app/screens/main_screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,7 +30,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScreenUtilInit(
+        designSize: Size(360, 690),
+      builder: () => MaterialApp(
         title: 'default_main',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -52,6 +56,8 @@ class MyApp extends StatelessWidget {
               fontSize: 18.0,
             ),
           ),
-        ));
+        )
+    )
+    );
   }
 }
