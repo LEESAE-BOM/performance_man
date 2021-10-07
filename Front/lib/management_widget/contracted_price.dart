@@ -122,7 +122,7 @@ class _contracted_price extends State<contracted_price> {
           primaryXAxis: CategoryAxis(),
           primaryYAxis: NumericAxis(
             edgeLabelPlacement: EdgeLabelPlacement.shift,
-            numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+            numberFormat: NumberFormat.compact()
           ),
           legend: Legend(
               isVisible: true,
