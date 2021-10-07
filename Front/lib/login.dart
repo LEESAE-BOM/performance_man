@@ -42,7 +42,9 @@ class _login_flow extends State<login_flow> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+        },
         child: Text("LOGIN",
             textAlign: TextAlign.center,
             style:  TextStyle(fontSize: 25, fontFamily: 'applesdneom',
