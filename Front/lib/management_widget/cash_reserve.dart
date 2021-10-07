@@ -509,7 +509,7 @@ class _cash_reserve extends State<cash_reserve> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+          padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
           child: PageView(
             controller: pageController,
             children: <Widget>[
