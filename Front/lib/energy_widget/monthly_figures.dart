@@ -10,14 +10,21 @@ class monthly_figures extends StatefulWidget {
 }
 
 class _monthly_figures extends State<monthly_figures> {
+  late ZoomPanBehavior _zoomPanBehavior;
   late List<monthly_data> _monthly_data;
   late List<monthly_data> _monthly_data2;
   late List<monthly_data> _monthly_data3;
   late List<monthly_data> _monthly_data4;
-
   late TooltipBehavior _toolTipBehavior;
 
   void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(
+      // Enables pinch zooming
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
+        enableMouseWheelZooming : true
+    );
     _monthly_data = get_data();
     _monthly_data2 = get_data2();
     _monthly_data3 = get_data3();
@@ -123,6 +130,7 @@ class _monthly_figures extends State<monthly_figures> {
     Widget chartSection= Center(
         child: Container(
           child: SfCartesianChart(
+            zoomPanBehavior: _zoomPanBehavior,
               tooltipBehavior: _toolTipBehavior,
               palette: <Color>[
                 Colors.blueAccent,
@@ -435,7 +443,7 @@ class _monthly_figures extends State<monthly_figures> {
             ),
             body: SafeArea(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
                 child:Center(
                   child: ListView(
                     children: [
