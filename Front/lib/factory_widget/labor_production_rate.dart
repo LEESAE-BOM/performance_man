@@ -229,14 +229,13 @@ class _labor_production_rate extends State<labor_production_rate> {
           ],
           primaryXAxis: NumericAxis(
               edgeLabelPlacement: EdgeLabelPlacement.shift,
-              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-              labelFormat: '{value}월',
               isVisible: false
           ),
           primaryYAxis: NumericAxis(
-              isVisible: false
-            // edgeLabelPlacement: EdgeLabelPlacement.shift
+              isVisible: false,
+              edgeLabelPlacement: EdgeLabelPlacement.shift
           ),
+          plotAreaBorderWidth: 0,
         )
     );
 
@@ -545,7 +544,7 @@ class _labor_production_rate extends State<labor_production_rate> {
             ),
             body: SafeArea(
               child:Padding(
-                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
                 child: PageView(
                     controller: pageController,
                     children:<Widget>[
