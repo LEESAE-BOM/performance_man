@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/factory_widget/labor_production_rate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Labor_Production_Rate_Widget extends StatefulWidget {
   @override
@@ -9,8 +11,53 @@ class Labor_Production_Rate_Widget extends StatefulWidget {
 
 class _Labor_Production_Rate_Widget
     extends State<Labor_Production_Rate_Widget> {
+  late List<Chart_Data> _chartData;
+
+  void initState() {
+    _chartData = getChartData();
+
+    super.initState();
+  }
+
+  List<Chart_Data> getChartData(){
+    final List<Chart_Data> chartData = [
+      Chart_Data(4, 60),
+      Chart_Data(5, 51),
+      Chart_Data(6, 152),
+      Chart_Data(7, 202),
+      Chart_Data(8, 259),
+      Chart_Data(9, 500)
+    ];
+    return chartData;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    Widget chartSection1=
+    Center(
+        child:SfCartesianChart(
+          series: <ChartSeries>[
+            AreaSeries<Chart_Data,double>(
+              dataSource: _chartData,
+              xValueMapper: (Chart_Data labors, _) =>labors.year,
+              yValueMapper: (Chart_Data labors, _) =>labors.labor,
+              dataLabelSettings: DataLabelSettings(isVisible: true),
+              enableTooltip: true,
+              color: Colors.indigo,
+            ),
+          ],
+          primaryXAxis: NumericAxis(
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+              isVisible: false
+          ),
+          primaryYAxis: NumericAxis(
+              isVisible: false,
+              edgeLabelPlacement: EdgeLabelPlacement.shift
+          ),
+          plotAreaBorderWidth: 0,
+        )
+    );
     return GestureDetector(
 
         onTap: () {
@@ -18,8 +65,8 @@ class _Labor_Production_Rate_Widget
               MaterialPageRoute(builder: (context) => labor_production_rate()));
         },
         child: Container(
-            height: 180,
-            width: 180,
+            width: ScreenUtil().setWidth(360),
+            height: ScreenUtil().setHeight(200),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -33,7 +80,8 @@ class _Labor_Production_Rate_Widget
               ],
             ),
             //margin: EdgeInsets.all(30),
-            child: Column(
+            child:
+                Column(
                 children: <Widget>[
                   Container(
                     height: 50,
@@ -53,11 +101,20 @@ class _Labor_Production_Rate_Widget
                     ),
                   ),
                   Container(
-                    child: Text(
-                      '내용',
-                      style: TextStyle(color: Colors.black54, fontSize: 20),
-                    ),
+                      width: ScreenUtil().setWidth(340),
+                      height: ScreenUtil().setHeight(140),
+                    child: chartSection1
                   )
-                ])));
+                ]
+            )
+        )
+    );
   }
+}
+
+
+class Chart_Data{
+  Chart_Data(this.year,this.labor);
+  final double year;
+  final double labor;
 }
