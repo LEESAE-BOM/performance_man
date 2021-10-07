@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/outsourcing_ratio.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Outsourcing_Ratio_Widget extends StatefulWidget {
   @override
@@ -7,34 +8,54 @@ class Outsourcing_Ratio_Widget extends StatefulWidget {
 }
 
 class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
+
+  final List<ChartData> chartData = [
+    ChartData('A사', 45),
+    ChartData('B사', 55),
+  ];
   @override
   Widget build(BuildContext context) {
+    Widget chartSection = Center(
+        child: Container(
+            height: 250.0,
+            width:MediaQuery.of(context).size.width*0.5,
+            child: SfCircularChart(
+                series: <CircularSeries>[
+                  // Render pie chart
+                  PieSeries<ChartData, String>(
+                      dataSource: chartData,
+                      xValueMapper: (ChartData data, _) => data.x,
+                      yValueMapper: (ChartData data, _) => data.y,
+                      dataLabelSettings: DataLabelSettings(
+                          isVisible: true,
+                          // Positioning the data label
+                          labelPosition: ChartDataLabelPosition.inside)),
+                ])));
     return GestureDetector(
-
-        onTap: (){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>outsourcing_ratio()));
-    },
-    child:Container(
-        height: 180,
-        width: 205,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.black12, width: 3),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 6.0,
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => outsourcing_ratio()));
+        },
+        child: Container(
+            height: 300,
+            width: MediaQuery.of(context).size.width*0.5,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.black12, width: 3),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
             ),
-          ],
-        ),
-        //margin: EdgeInsets.all(30),
-        child: Column(
-            children: <Widget>[
+            //margin: EdgeInsets.all(30),
+            child: Column(children: <Widget>[
               Container(
-                height: 50,
-                padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                height: 40,
+                padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
                 child: Row(
                   children: [
                     Text(
@@ -50,11 +71,15 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                 ),
               ),
               Container(
-                child: Text(
-                  '내용',
-                  style: TextStyle(color: Colors.black54, fontSize: 20),
-                ),
+                child: chartSection,
               )
             ])));
   }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+
+  final String x;
+  final double y;
 }
