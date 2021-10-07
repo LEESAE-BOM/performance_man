@@ -17,8 +17,8 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
 
     Widget chartSection = Center(
         child: Container(
-            width: 250.0,
             height: 250.0,
+            width: MediaQuery.of(context).size.width*0.5,
             child: SfCircularChart(palette: <Color>[
               Colors.indigo,
               Colors.lightBlueAccent,
@@ -40,7 +40,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
         },
         child: Container(
             height: 300,
-            width: 250,
+            width: MediaQuery.of(context).size.width*0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
