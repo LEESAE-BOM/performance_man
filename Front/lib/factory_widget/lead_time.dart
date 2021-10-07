@@ -320,7 +320,7 @@ class _lead_time extends State<lead_time> {
     return MaterialApp(
         home:Scaffold(
           appBar: AppBar(
-            title: const Text('노동 생산율',
+            title: const Text('Lead-time',
               style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
             centerTitle: true,
             backgroundColor: Color.fromRGBO(43, 63, 107, 1),
@@ -330,7 +330,7 @@ class _lead_time extends State<lead_time> {
           ),
           body: SafeArea(
             child: Padding(
-                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
                 //child: Padding(padding: const EdgeInsets.all(36.0),
                 child: ListView(
                   // crossAxisAlignment: CrossAxisAlignment.center,
