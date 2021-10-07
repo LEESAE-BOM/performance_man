@@ -317,7 +317,7 @@ class _sales extends State<sales> {
             }),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+        padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
         child: SafeArea(
             child: ListView(
           children: <Widget>[
