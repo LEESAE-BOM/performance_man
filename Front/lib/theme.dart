@@ -15,7 +15,7 @@ TextTheme textTheme(){
 AppBarTheme appTheme() {
   return AppBarTheme(
     centerTitle: false,
-    color: Colors.indigo,
+    color: Color.fromRGBO(43, 63, 107, 1),
     elevation: 0.0,
     textTheme: TextTheme(
       headline6: GoogleFonts.nanumGothic(
