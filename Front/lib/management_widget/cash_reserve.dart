@@ -177,7 +177,7 @@ class _cash_reserve extends State<cash_reserve> {
               primaryXAxis: CategoryAxis(),
               primaryYAxis: NumericAxis(
                 edgeLabelPlacement: EdgeLabelPlacement.shift,
-                numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+                numberFormat: NumberFormat.compact()
               ),
               series: <ChartSeries>[
             BarSeries<ChartData, double>(
