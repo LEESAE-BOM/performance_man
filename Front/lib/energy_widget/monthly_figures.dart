@@ -131,48 +131,48 @@ class _monthly_figures extends State<monthly_figures> {
         child: Container(
           child: SfCartesianChart(
             zoomPanBehavior: _zoomPanBehavior,
-              tooltipBehavior: _toolTipBehavior,
-              palette: <Color>[
-                Colors.blueAccent,
-                Colors.cyan,
-                Colors.orangeAccent,
-                Colors.amberAccent
-              ],
-              legend: Legend(
-                  isVisible: true,
-                  // Legend will be placed at the left
-                  position: LegendPosition.top)
-              ,
-              primaryXAxis: CategoryAxis(),
-              series: <CartesianSeries>[
-                // Render column series
-                ColumnSeries<monthly_data, String>(
-                    name:'전 년도 전력사용량',
-                    dataSource: _monthly_data,
-                    xValueMapper: (monthly_data data, _) => data.x,
-                    yValueMapper: (monthly_data data, _) => data.y
-                ),
-                ColumnSeries<monthly_data, String>(
-                    name:'현 년도 전력사용량',
-                    dataSource: _monthly_data2,
-                    xValueMapper: (monthly_data data, _) => data.x,
-                    yValueMapper: (monthly_data data, _) => data.y
-                ),
-                // Render line series
-                LineSeries<monthly_data, String>(
-                    name:'전 년도 최대전력',
-                    dataSource: _monthly_data3,
-                    xValueMapper: (monthly_data data, _) => data.x,
-                    yValueMapper: (monthly_data data, _) => data.y1
-                ),
-                LineSeries<monthly_data, String>(
-                    name:'현 년도 최대전력',
-                    dataSource: _monthly_data4,
-                    xValueMapper: (monthly_data data, _) => data.x,
-                    yValueMapper: (monthly_data data, _) => data.y1
-                )
-              ]
-              ,
+            tooltipBehavior: _toolTipBehavior,
+            palette: <Color>[
+              Colors.blueAccent,
+              Colors.cyan,
+              Colors.orangeAccent,
+              Colors.amberAccent
+            ],
+            legend: Legend(
+                isVisible: true,
+                // Legend will be placed at the left
+                position: LegendPosition.top)
+            ,
+            primaryXAxis: CategoryAxis(),
+            series: <CartesianSeries>[
+              // Render column series
+              ColumnSeries<monthly_data, String>(
+                  name:'전 년도 전력사용량',
+                  dataSource: _monthly_data,
+                  xValueMapper: (monthly_data data, _) => data.x,
+                  yValueMapper: (monthly_data data, _) => data.y
+              ),
+              ColumnSeries<monthly_data, String>(
+                  name:'현 년도 전력사용량',
+                  dataSource: _monthly_data2,
+                  xValueMapper: (monthly_data data, _) => data.x,
+                  yValueMapper: (monthly_data data, _) => data.y
+              ),
+              // Render line series
+              LineSeries<monthly_data, String>(
+                  name:'전 년도 최대전력',
+                  dataSource: _monthly_data3,
+                  xValueMapper: (monthly_data data, _) => data.x,
+                  yValueMapper: (monthly_data data, _) => data.y1
+              ),
+              LineSeries<monthly_data, String>(
+                  name:'현 년도 최대전력',
+                  dataSource: _monthly_data4,
+                  xValueMapper: (monthly_data data, _) => data.x,
+                  yValueMapper: (monthly_data data, _) => data.y1
+              )
+            ]
+            ,
           ),
         )
     );
