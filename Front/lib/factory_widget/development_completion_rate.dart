@@ -327,7 +327,7 @@ class _development_completion_rate extends State<development_completion_rate>{
           body:
           SafeArea(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                padding: EdgeInsets.fromLTRB(15.0,15.0,15.0,, 0),
                 child:Center(
                   child: ListView(
                     children: [
