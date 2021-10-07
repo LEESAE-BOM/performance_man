@@ -11,30 +11,23 @@ class expected_profit extends StatefulWidget {
 class _expected_profit extends State<expected_profit> {
   late List<SalesData> chartdata;
   late TooltipBehavior _tooltipBehavior;
+  late ZoomPanBehavior _zoomPanBehavior;
+
 
   @override
   void initState() {
-    chartdata = getChartData();
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       activationMode: ActivationMode.longPress,
     );
+    _zoomPanBehavior = ZoomPanBehavior(
+      // Enables pinch zooming
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
+        enableMouseWheelZooming : true
+    );
     super.initState();
-  }
-
-  List<SalesData> getChartData() {
-    final List<SalesData> chartdata = [
-      SalesData('1월', 3.5),
-      SalesData('2월', 2.8),
-      SalesData('3월', 3.4),
-      SalesData('4월', 3.2),
-      SalesData('5월', 4.0),
-      SalesData('6월', 4.4),
-      SalesData('7월', 3.8),
-      SalesData('8월', 4.9),
-      SalesData('9월', 5.2),
-    ];
-    return chartdata;
   }
 
   @override
@@ -141,6 +134,7 @@ class _expected_profit extends State<expected_profit> {
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
             tooltipBehavior: _tooltipBehavior,
+            zoomPanBehavior: _zoomPanBehavior,
             legend: Legend(
                 isVisible: true,
                 // Legend will be placed at the left
@@ -148,7 +142,17 @@ class _expected_profit extends State<expected_profit> {
             series: <CartesianSeries>[
               FastLineSeries<SalesData, String>(
                   name: '2019',
-                  dataSource: chartdata,
+                  dataSource: [
+                    SalesData('1월', 3.5),
+                    SalesData('2월', 2.8),
+                    SalesData('3월', 3.4),
+                    SalesData('4월', 3.2),
+                    SalesData('5월', 4.0),
+                    SalesData('6월', 4.4),
+                    SalesData('7월', 3.8),
+                    SalesData('8월', 4.9),
+                    SalesData('9월', 5.2),
+                  ],
                   xValueMapper: (SalesData sales, _) => sales.month,
                   yValueMapper: (SalesData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
