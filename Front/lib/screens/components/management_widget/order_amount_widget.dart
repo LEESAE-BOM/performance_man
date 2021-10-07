@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/order_amount.dart';
-import 'package:flutter_app/management_widget/chart_widget.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Order_Amount_Widget extends StatefulWidget {
   @override
@@ -10,6 +10,27 @@ class Order_Amount_Widget extends StatefulWidget {
 class _Order_Amount_Widget extends State<Order_Amount_Widget> {
   @override
   Widget build(BuildContext context) {
+    final List<ChartData> chartData = [
+      ChartData('수금', 40000, '40%'),
+      ChartData('미수금', 50000, '50%'),
+      ChartData('채권', 10000, '10%'),
+    ];
+
+    Widget chartSection = Center(
+        child: Container(
+            width:MediaQuery.of(context).size.width*0.5,
+            height: 250.0,
+            child: SfCircularChart(series: <CircularSeries>[
+              // Render pie chart
+              PieSeries<ChartData, String>(
+                  dataSource: chartData,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y,
+                  dataLabelMapper: (ChartData data, _) => data.text,
+                  dataLabelSettings: DataLabelSettings(
+                    isVisible: true,
+                  )),
+            ])));
     return GestureDetector(
         onTap: () {
           Navigator.of(context)
@@ -17,7 +38,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
         },
         child: Container(
             height: 300,
-            width: 250,
+            width: MediaQuery.of(context).size.width*0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -31,33 +52,35 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
               ],
             ),
             //margin: EdgeInsets.all(30),
-            child: ListView(
-                children: <Widget>[
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Column(children: <Widget>[
-                  Container(
-                    height: 50,
-                    padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                    child: Row(
-                      children: [
-                        Text(
-                          '수주금액',
-                          style: TextStyle(color: Colors.black54, fontSize: 15),
-                        ),
-                        Image.asset(
-                          'image/safe.png',
-                          width: 10,
-                          height: 10,
-                        ),
-                      ],
+            child: Column(children: <Widget>[
+              Container(
+                height: 40,
+                padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      '수주금액',
+                      style: TextStyle(color: Colors.black54, fontSize: 15),
                     ),
-                  ),
-                  Container(
-                    child: chart_widget(),
-                  )
-                ]),
+                    Image.asset(
+                      'image/safe.png',
+                      width: 10,
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
+              Container(
+                child: chartSection,
+              )
             ])));
   }
+}
+
+class ChartData {
+  ChartData(this.x, this.y, this.text);
+
+  final String x;
+  final double y;
+  final String text;
 }
