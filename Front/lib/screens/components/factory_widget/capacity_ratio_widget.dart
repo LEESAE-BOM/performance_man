@@ -29,13 +29,8 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    Widget chartSection= Center(
-        child:
-        Container(
-            height: ScreenUtil().setHeight(150) , // Setting height and width for the circular chart annotation
-            width: ScreenUtil().setWidth(180),
-            child:
-              SfCircularChart(
+    Widget chartSection=
+    SfCircularChart(
                   series: <CircularSeries>[
                     DoughnutSeries<Chart_Data, String>(
                         dataSource: _chart_Data,
@@ -44,11 +39,13 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                         pointColorMapper:(Chart_Data data,  _) => data.color,
                         dataLabelSettings: DataLabelSettings(
                           isVisible: true,
+                          textStyle:TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'applesdneom'
+                          )
                         )
                     )
                   ]
-              )
-    )
     );
 
     return GestureDetector(
@@ -92,6 +89,8 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                     ),
                   ),
                   Container(
+                      width: ScreenUtil().setWidth(150),
+                      height: ScreenUtil().setHeight(140),
                     child:chartSection
                   )
                 ])));
