@@ -693,7 +693,7 @@ class _hourly_figures extends State<hourly_figures> {
             ),
             body: SafeArea(
                 child:Padding(
-                  padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0),
+                  padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
                   child: PageView(
                       controller: pageController,
                       children:<Widget>[
