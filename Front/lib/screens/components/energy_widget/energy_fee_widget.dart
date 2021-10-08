@@ -11,16 +11,14 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: ScreenUtil().setWidth(180),
-        height: ScreenUtil().setHeight(200),
+        width: 500.w,
+        height: 200,
         child:GestureDetector(
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => energy_fee()));
             },
             child: Container(
-                width: ScreenUtil().setWidth(180),
-                height: ScreenUtil().setHeight(200),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -37,7 +35,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                 child: Column(
                     children: <Widget>[
                       Container(
-                        height: ScreenUtil().setHeight(30),
+                        height: 50,
                         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [
