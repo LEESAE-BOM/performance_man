@@ -3,6 +3,7 @@ import 'package:flutter_app/energy_widget/hourly_figures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+//작은 위젯
 class Hourly_Figures_Widget extends StatefulWidget {
   @override
   _Hourly_Figures_Widget createState() => _Hourly_Figures_Widget();
@@ -80,9 +81,10 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
               MaterialPageRoute(builder: (context) => hourly_figures()));
         },
         child: Container(
-            width: 500.w,
+            width: 540.w,
             height: 200,
             decoration: BoxDecoration(
+              //color: Colors.white,
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: Colors.black12, width: 3),
@@ -98,7 +100,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
             child: Column(
                 children: <Widget>[
                   Container(
-                    height: 50,
+                    //height: 50,
                     padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
@@ -116,8 +118,8 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                     ),
                   ),
                   Container(
-                    width: 450.w,
-                    height: 140,
+                    width: 540.w,
+                    height: 152,
                     child: chartSection,
                   )
                 ])));

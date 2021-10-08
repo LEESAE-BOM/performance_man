@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/energy_widget/monthly_figures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+//큰 위젯
 
 class Monthly_Figures_Widget extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 1000.w,
+        width: 1080.w,
         height: 200,
         child:GestureDetector(
             onTap: () {
@@ -37,7 +38,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                 child: Column(
                     children: <Widget>[
                       Container(
-                        height: 50,
+                        //height: 50,
                         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/energy_widget/energy_fee.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+//작은 위젯
 class Energy_Fee_Widget extends StatefulWidget {
   @override
   _Energy_Fee_Widget createState() => _Energy_Fee_Widget();
@@ -11,7 +12,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 500.w,
+        width: 540.w,
         height: 200,
         child:GestureDetector(
             onTap: () {
@@ -35,7 +36,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                 child: Column(
                     children: <Widget>[
                       Container(
-                        height: 50,
+                        //height: 50,
                         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [
