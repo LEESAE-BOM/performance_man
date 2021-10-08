@@ -38,13 +38,14 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                     children: <Widget>[
                       Container(
                         height: ScreenUtil().setHeight(30),
-                        padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [
                             Text(
                               '월별 에너지',
                               style: TextStyle(color: Colors.black54, fontSize: 15),
                             ),
+                            SizedBox(width:5),
                             Image.asset(
                               'image/safe.png',
                               width: 10,
