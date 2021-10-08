@@ -10,20 +10,56 @@ class Factory_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-          children: [
-            Container(
-                alignment: Alignment.center,
-                color: Color.fromRGBO(43, 63, 107, 1),
-                height: 50,
-                child: Text('개발완료 105% 달성',
-                  style: TextStyle(color: Colors.black54, fontSize: 20),)
+      children: [
+        Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+              color: Color.fromRGBO(43, 63, 107, 1),
             ),
-            Developmentcompletion_Rate_Widget(),
-        Row (children: [Capacity_Ratio_Widget(),
-            Lead_Time_Widget(),],),
-            Labor_Production_Rate_Widget(),
+            alignment: Alignment.center,
+            height: 180,
+            child: //Text('목표대비 총 105% 달성', style: TextStyle(color: Colors.black54, fontSize: 20),)
+                RichText(
+              text: TextSpan(children: <TextSpan>[
+                TextSpan(
+                  text: '개발완료\n',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    letterSpacing: 1,
+                    fontFamily: 'applesdnoeb',
+                  ),
+                ),
+
+                TextSpan(
+                  text: '72%',
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      letterSpacing: 5,
+                      fontFamily: 'applesdneob'),
+                ),
+                TextSpan(
+                  text: ' 달성',
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      letterSpacing: 1.0,
+                      fontFamily: 'applesdneob'),
+                ),
+              ]),
+            )),
+        Developmentcompletion_Rate_Widget(),
+        Row(
+          children: [
+            Capacity_Ratio_Widget(),
+            Lead_Time_Widget(),
           ],
-        )
-    );
+        ),
+        Labor_Production_Rate_Widget(),
+      ],
+    ));
   }
 }
