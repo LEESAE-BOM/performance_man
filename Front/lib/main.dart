@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(1080, 1920),
+        designSize: Size(1080, 1920),//pixel 2 api
       builder: () => MaterialApp(
         title: 'default_main',
         debugShowCheckedModeBanner: false,
