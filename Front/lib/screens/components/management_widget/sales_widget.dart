@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/sales.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+//큰 위젯
 class Sales_Widget extends StatefulWidget {
   @override
   _Sales_Widget createState() => _Sales_Widget();
@@ -16,8 +17,10 @@ class _Sales_Widget extends State<Sales_Widget> {
               MaterialPageRoute(builder: (context) => sales()));
         },
         child: Container(
-            height: 160,
-            width: MediaQuery.of(context).size.width ,
+            //height: 160,
+            //width: MediaQuery.of(context).size.width ,
+            width: 1080.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -51,6 +54,7 @@ class _Sales_Widget extends State<Sales_Widget> {
                     ),
                   ),
                   Center(
+
                       child: Text(
                         '이번달 매출금액은\n123,456,789원입니다.',
                         style: TextStyle(color: Colors.black54,

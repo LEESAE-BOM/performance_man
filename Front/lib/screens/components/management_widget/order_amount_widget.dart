@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/order_amount.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+//작은 위젯
 class Order_Amount_Widget extends StatefulWidget {
   @override
   _Order_Amount_Widget createState() => _Order_Amount_Widget();
@@ -18,8 +19,10 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
 
     Widget chartSection = Center(
         child: Container(
-            width:MediaQuery.of(context).size.width*0.5,
-            height: 250.0,
+            //width:MediaQuery.of(context).size.width*0.5,
+            //height: 250.0,
+            width: 540.w,
+            height: 152,
             child: SfCircularChart(series: <CircularSeries>[
               // Render pie chart
               PieSeries<ChartData, String>(
@@ -37,8 +40,10 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
               .push(MaterialPageRoute(builder: (context) => order_amount()));
         },
         child: Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width*0.5,
+            //height: 300,
+           // width: MediaQuery.of(context).size.width*0.5,
+            width: 540.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -54,7 +59,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
             //margin: EdgeInsets.all(30),
             child: Column(children: <Widget>[
               Container(
-                height: 40,
+               // height: 40,
                 padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
@@ -72,6 +77,8 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
                 ),
               ),
               Container(
+                width: 540.w,
+                height: 152,
                 child: chartSection,
               )
             ])));

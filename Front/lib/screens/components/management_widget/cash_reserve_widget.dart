@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/cash_reserve.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+//작은 위젯
 class Cash_Reserve_Widget extends StatefulWidget {
   @override
   _Cash_Reserve_Widget createState() => _Cash_Reserve_Widget();
@@ -18,8 +20,10 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
     ];
     Widget chartSection = Center(
       child: Container(
-          width: MediaQuery.of(context).size.width * 0.5,
-          height: 250,
+         // width: MediaQuery.of(context).size.width * 0.5,
+         // height: 250,
+          width: 520.w,
+          height: 152,
           child: SfCartesianChart(
               primaryXAxis: CategoryAxis(
                 majorGridLines: MajorGridLines(width: 0),
@@ -49,8 +53,10 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               .push(MaterialPageRoute(builder: (context) => cash_reserve()));
         },
         child: Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width * 0.5,
+            //height: 300,
+            //width: MediaQuery.of(context).size.width * 0.5,
+            width: 540.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -67,7 +73,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
 
             child: Column(children: <Widget>[
               Container(
-                height: 40,
+               // height: 40,
                 padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
@@ -85,6 +91,8 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 ),
               ),
               Container(
+                  width: 540.w,
+                  height: 152,
                 child: chartSection
               )
             ])));

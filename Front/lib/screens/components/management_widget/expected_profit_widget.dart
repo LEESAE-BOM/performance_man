@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/expected_profit.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+//큰 위젯
 class Expected_Profit_Widget extends StatefulWidget {
   @override
   _Expected_Profit_Widget createState() => _Expected_Profit_Widget();
@@ -23,8 +24,10 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
     ];
     Widget chartSection = Center(
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 250,
+        //width: MediaQuery.of(context).size.width,
+        //height: 250,
+        width: 1080.w,
+        height: 152,
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(
               majorGridLines: MajorGridLines(width: 0),
@@ -53,8 +56,10 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
               .push(MaterialPageRoute(builder: (context) => expected_profit()));
         },
         child: Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width * 0.5,
+            //height: 300,
+            //width: MediaQuery.of(context).size.width * 0.5,
+            width: 1080.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -70,7 +75,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
             //margin: EdgeInsets.all(30),
             child: Column(children: <Widget>[
               Container(
-                height: 40,
+               // height: 40,
                 padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
@@ -87,7 +92,10 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                   ],
                 ),
               ),
-              Container(child: chartSection)
+              Container(
+                  width: 1080.w,
+                  height: 152,
+                  child: chartSection)
             ])));
   }
 }

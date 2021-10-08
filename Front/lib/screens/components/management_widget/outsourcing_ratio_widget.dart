@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/outsourcing_ratio.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+//작은 위젯
 class Outsourcing_Ratio_Widget extends StatefulWidget {
   @override
   _Outsourcing_Ratio_Widget createState() => _Outsourcing_Ratio_Widget();
@@ -17,8 +18,10 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
   Widget build(BuildContext context) {
     Widget chartSection = Center(
         child: Container(
-            height: 250.0,
-            width:MediaQuery.of(context).size.width*0.5,
+            //height: 250.0,
+            //width:MediaQuery.of(context).size.width*0.5,
+            width: 540.w,
+            height: 152,
             child: SfCircularChart(
                 series: <CircularSeries>[
                   // Render pie chart
@@ -37,8 +40,10 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
               MaterialPageRoute(builder: (context) => outsourcing_ratio()));
         },
         child: Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width*0.5,
+            //height: 300,
+            //width: MediaQuery.of(context).size.width*0.5,
+            width: 540.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -54,7 +59,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
             //margin: EdgeInsets.all(30),
             child: Column(children: <Widget>[
               Container(
-                height: 40,
+               // height: 40,
                 padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
@@ -72,6 +77,8 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                 ),
               ),
               Container(
+                width: 540.w,
+                height: 152,
                 child: chartSection,
               )
             ])));

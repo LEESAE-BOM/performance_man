@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/contracted_price.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+//큰 위젯
 class Contracted_Price_Widget extends StatefulWidget {
   @override
   _Contracted_Price_Widget createState() => _Contracted_Price_Widget();
@@ -15,8 +16,10 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>contracted_price()));
     },
     child:Container(
-        height: 180,
-        width:MediaQuery.of(context).size.width,
+        //height: 180,
+        //width:MediaQuery.of(context).size.width,
+        width: 1080.w,
+        height: 200,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -33,7 +36,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
         child: Column(
             children: <Widget>[
               Container(
-                height: 50,
+                //height: 50,
                 padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
@@ -51,6 +54,8 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                 ),
               ),
               Container(
+                  width: 1080.w,
+                  height: 152,
                 child: Text(
                   '이번달 계약금액은\n321,654,987원입니다.',
                   style: TextStyle(color: Colors.black54,
