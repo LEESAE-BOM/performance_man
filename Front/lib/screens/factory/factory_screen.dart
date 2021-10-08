@@ -4,6 +4,7 @@ import '.././components/factory_widget/capacity_ratio_widget.dart';
 import '.././components/factory_widget/developmentcompletion_rate_widget.dart';
 import '.././components/factory_widget/labor_production_rate_widget.dart';
 import '.././components/factory_widget/lead_time_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Factory_Screen extends StatelessWidget {
   @override
@@ -51,14 +52,14 @@ class Factory_Screen extends StatelessWidget {
                 ),
               ]),
             )),
-        Developmentcompletion_Rate_Widget(),
+            Padding ( padding: EdgeInsets.all(10.w),child :Developmentcompletion_Rate_Widget(),),
         Row(
           children: [
-            Capacity_Ratio_Widget(),
-            Lead_Time_Widget(),
+    Padding ( padding: EdgeInsets.all(10.w),child :Capacity_Ratio_Widget(),),
+    Padding ( padding: EdgeInsets.all(10.w),child :Lead_Time_Widget(),),
           ],
         ),
-        Labor_Production_Rate_Widget(),
+    Padding ( padding: EdgeInsets.all(10.w),child :Labor_Production_Rate_Widget(),),
       ],
     ));
   }
