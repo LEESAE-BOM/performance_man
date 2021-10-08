@@ -3,6 +3,7 @@ import 'package:flutter_app/factory_widget/labor_production_rate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+//큰 위젯
 class Labor_Production_Rate_Widget extends StatefulWidget {
   @override
   _Labor_Production_Rate_Widget createState() =>
@@ -84,7 +85,7 @@ class _Labor_Production_Rate_Widget
                 Column(
                 children: <Widget>[
                   Container(
-                    height: 50,
+                    //height: 50,
                     padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
@@ -102,8 +103,8 @@ class _Labor_Production_Rate_Widget
                     ),
                   ),
                   Container(
-                      width: 1000.w,
-                      height: 140,
+                      width: 1080.w,
+                      height: 152,
                     child: chartSection1
                   )
                 ]

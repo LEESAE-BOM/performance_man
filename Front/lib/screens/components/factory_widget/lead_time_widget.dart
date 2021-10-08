@@ -3,6 +3,8 @@ import 'package:flutter_app/factory_widget/lead_time.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+
+//작은 위젯
 class Lead_Time_Widget extends StatefulWidget {
   @override
   _Lead_Time_Widget createState() => _Lead_Time_Widget();
@@ -39,7 +41,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                 child: Column(
                     children: <Widget>[
                       Container(
-                        height:20,
+                       // height:20,
                         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [

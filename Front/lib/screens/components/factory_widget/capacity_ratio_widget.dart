@@ -4,6 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+//작은 위젯
 class Capacity_Ratio_Widget extends StatefulWidget {
   @override
   _Capacity_Ratio_Widget createState() => _Capacity_Ratio_Widget();
@@ -72,7 +73,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
             child: Column(
                 children: <Widget>[
                   Container(
-                    height: 50,
+                    //height: 50,
                     padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
@@ -91,7 +92,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                   ),
                   Container(
                       width: 540.w,
-                      height: 140,
+                      height: 152,
                     child:chartSection
                   )
                 ])));
