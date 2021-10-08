@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '.././components/energy_widget/Hourly_Figures_Widget.dart';
 import '.././components/energy_widget/energy_fee_widget.dart';
 import '.././components/energy_widget/monthly_figures_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Energy_Screen extends StatelessWidget {
   @override
@@ -49,11 +50,11 @@ class Energy_Screen extends StatelessWidget {
                 ),
               ]),
             )),
-        Monthly_Figures_Widget(),
+        Padding ( padding: EdgeInsets.all(10.w),child : Monthly_Figures_Widget(),),
         Row(
           children: [
-            Energy_Fee_Widget(),
-            Hourly_Figures_Widget(),
+    Padding ( padding: EdgeInsets.all(10.w),child :Energy_Fee_Widget(),),
+    Padding ( padding: EdgeInsets.all(10.w),child :Hourly_Figures_Widget(),),
           ],
         ),
       ],
