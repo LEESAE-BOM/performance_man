@@ -164,6 +164,20 @@ class _Menu_Drawer extends State<Menu_Drawer> {
               )
             ],
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+                onPressed: (){},
+                child: Text('로그아웃'),
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(43, 63, 107, 1),
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder( //to set border radius to button
+                    borderRadius: BorderRadius.circular(15)
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
