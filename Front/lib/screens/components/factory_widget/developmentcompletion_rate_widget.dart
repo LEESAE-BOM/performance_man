@@ -93,13 +93,14 @@ class _Developmentcompletion_Rate_Widget extends State<Developmentcompletion_Rat
                 children: <Widget>[
                   Container(
                     height: 50,
-                    padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
                         Text(
                           '개발완료율',
                           style: TextStyle(color: Colors.black54, fontSize: 15),
                         ),
+                        SizedBox(width:5),
                         Image.asset(
                           'image/safe.png',
                           width: 10,

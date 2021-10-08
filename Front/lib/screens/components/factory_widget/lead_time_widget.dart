@@ -40,13 +40,14 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                     children: <Widget>[
                       Container(
                         height: ScreenUtil().setHeight(30),
-                        padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [
                             Text(
                               'lead-time',
                               style: TextStyle(color: Colors.black54, fontSize: 15),
                             ),
+                            SizedBox(width:5),
                             Image.asset(
                               'image/safe.png',
                               width: 10,

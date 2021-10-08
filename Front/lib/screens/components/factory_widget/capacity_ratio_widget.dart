@@ -73,13 +73,14 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                 children: <Widget>[
                   Container(
                     height: 50,
-                    padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
                         Text(
                           '설비가동율',
                           style: TextStyle(color: Colors.black54, fontSize: 15),
                         ),
+                        SizedBox(width:5),
                         Image.asset(
                           'image/danger.png',
                           width: 10,
