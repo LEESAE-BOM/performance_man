@@ -65,8 +65,8 @@ class _Labor_Production_Rate_Widget
               MaterialPageRoute(builder: (context) => labor_production_rate()));
         },
         child: Container(
-            width: ScreenUtil().setWidth(360),
-            height: ScreenUtil().setHeight(200),
+            width: 1080.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -102,8 +102,8 @@ class _Labor_Production_Rate_Widget
                     ),
                   ),
                   Container(
-                      width: ScreenUtil().setWidth(340),
-                      height: ScreenUtil().setHeight(140),
+                      width: 1000.w,
+                      height: 140,
                     child: chartSection1
                   )
                 ]
