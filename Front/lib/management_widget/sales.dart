@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:interactive_chart/interactive_chart.dart';
 import 'package:intl/intl.dart';
 
 class sales extends StatefulWidget {
