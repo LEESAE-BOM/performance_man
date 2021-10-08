@@ -34,13 +34,14 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
             children: <Widget>[
               Container(
                 height: 50,
-                padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
                     Text(
                       '계약금액',
                       style: TextStyle(color: Colors.black54, fontSize: 15),
                     ),
+                    SizedBox(width:5),
                     Image.asset(
                       'image/warning.png',
                       width: 10,

@@ -57,13 +57,14 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
             child: Column(children: <Widget>[
               Container(
                 height: 40,
-                padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                 child: Row(
                   children: [
                     Text(
                       '인건비율',
                       style: TextStyle(color: Colors.black54, fontSize: 15),
                     ),
+                    SizedBox(width:5),
                     Image.asset(
                       'image/warning.png',
                       width: 10,

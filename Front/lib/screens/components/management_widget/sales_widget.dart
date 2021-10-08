@@ -16,7 +16,7 @@ class _Sales_Widget extends State<Sales_Widget> {
               MaterialPageRoute(builder: (context) => sales()));
         },
         child: Container(
-            height: 100,
+            height: 160,
             width: MediaQuery.of(context).size.width ,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -34,13 +34,14 @@ class _Sales_Widget extends State<Sales_Widget> {
             child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
                         Text(
                           '매출금액',
                           style: TextStyle(color: Colors.black54, fontSize: 15),
                         ),
+                        SizedBox(width:5),
                         Image.asset(
                           'image/safe.png',
                           width: 10,
