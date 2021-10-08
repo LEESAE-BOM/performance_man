@@ -13,24 +13,70 @@ class Management_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-          children: [
-            Container(
-              alignment: Alignment.center,
-                color: Color.fromRGBO(43, 63, 107, 1),
-                height: 50,
-                child: Text('목표대비 총 105% 달성',
-                  style: TextStyle(color: Colors.black54, fontSize: 20),)
+      children: [
+        Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+              color: Color.fromRGBO(43, 63, 107, 1),
             ),
-            Sales_Widget(),
-            Row (children: [Order_Amount_Widget(),
-            Cash_Reserve_Widget(),],),
-            Contracted_Price_Widget(),
-        Row (children: [
-          Labor_Ratio_Widget(),
-            Outsourcing_Ratio_Widget(),],),
-            Expected_Profit_Widget(),
+            alignment: Alignment.center,
+            height: 180,
+            child: //Text('목표대비 총 105% 달성', style: TextStyle(color: Colors.black54, fontSize: 20),)
+                RichText(
+              text: TextSpan(children: <TextSpan>[
+                TextSpan(
+                  text: '목표대비',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    letterSpacing: 1,
+                    fontFamily: 'applesdnoeb',
+                  ),
+                ),
+                TextSpan(
+                  text: '\n총 ',
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      letterSpacing: 1,
+                      fontFamily: 'applesdneob'),
+                ),
+                TextSpan(
+                  text: '105%',
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      letterSpacing: 5,
+                      fontFamily: 'applesdneob'),
+                ),
+                TextSpan(
+                  text: ' 달성',
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      letterSpacing: 1.0,
+                      fontFamily: 'applesdneob'),
+                ),
+              ]),
+            )),
+        Sales_Widget(),
+        Row(
+          children: [
+            Order_Amount_Widget(),
+            Cash_Reserve_Widget(),
           ],
-        )
-    );
+        ),
+        Contracted_Price_Widget(),
+        Row(
+          children: [
+            Labor_Ratio_Widget(),
+            Outsourcing_Ratio_Widget(),
+          ],
+        ),
+        Expected_Profit_Widget(),
+      ],
+    ));
   }
 }
