@@ -15,8 +15,8 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
   Widget build(BuildContext context) {
 
     return Container(
-        width: ScreenUtil().setWidth(180),
-        height: ScreenUtil().setHeight(200),
+        width: 540.w,
+        height: 200,
         child:GestureDetector(
             onTap: () {
               Navigator.of(context).push(
@@ -39,7 +39,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                 child: Column(
                     children: <Widget>[
                       Container(
-                        height: ScreenUtil().setHeight(30),
+                        height:20,
                         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [
@@ -60,14 +60,14 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                           children: <TextSpan>[
                             TextSpan(text: '9',
                               style:TextStyle(
-                                fontSize: 85.sp,
+                                fontSize: 100,
                                 color: Color.fromRGBO(43, 63, 107, 1),
                                 letterSpacing: 5.0,
                                 fontFamily: 'applesdneob',
                               ),),
                             TextSpan(text: 'days ',
                               style:TextStyle(
-                                fontSize: 25.sp,
+                                fontSize: 25,
                                 color:  Colors.black87,
                                 letterSpacing: 5.0,
                                 fontFamily: 'applesdneob',),
