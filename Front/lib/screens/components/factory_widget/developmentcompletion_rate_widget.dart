@@ -74,8 +74,8 @@ class _Developmentcompletion_Rate_Widget extends State<Developmentcompletion_Rat
               builder: (context) => development_completion_rate()));
         },
         child: Container(
-            width: ScreenUtil().setWidth(360),
-            height: ScreenUtil().setHeight(200),
+            width: 1080.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -110,8 +110,8 @@ class _Developmentcompletion_Rate_Widget extends State<Developmentcompletion_Rat
                     ),
                   ),
                   Container(
-                      width: ScreenUtil().setWidth(350),
-                      height: ScreenUtil().setHeight(140),
+                      width: 1000.w,
+                      height: 140,
                       child:chartSection
                   )
                 ]
