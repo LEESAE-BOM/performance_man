@@ -80,8 +80,8 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
               MaterialPageRoute(builder: (context) => hourly_figures()));
         },
         child: Container(
-            width: ScreenUtil().setWidth(180),
-            height: ScreenUtil().setHeight(200),
+            width: 500.w,
+            height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -98,7 +98,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
             child: Column(
                 children: <Widget>[
                   Container(
-                    height: ScreenUtil().setHeight(30),
+                    height: 50,
                     padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                     child: Row(
                       children: [
@@ -116,8 +116,8 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                     ),
                   ),
                   Container(
-                    width: ScreenUtil().setWidth(170),
-                    height: ScreenUtil().setHeight(160),
+                    width: 450.w,
+                    height: 140,
                     child: chartSection,
                   )
                 ])));
