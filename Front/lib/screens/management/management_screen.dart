@@ -7,6 +7,7 @@ import '.././components/management_widget/contracted_price_widget.dart';
 import '.././components/management_widget/expected_profit_widget.dart';
 import '.././components/management_widget/labor_ratio_widget.dart';
 import '.././components/management_widget/outsourcing_ratio_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Management_Screen extends StatelessWidget {
   @override
@@ -61,21 +62,21 @@ class Management_Screen extends StatelessWidget {
                 ),
               ]),
             )),
-        Sales_Widget(),
+                Padding ( padding: EdgeInsets.all(10.w),child :Sales_Widget(),),
         Row(
           children: [
-            Order_Amount_Widget(),
-            Cash_Reserve_Widget(),
+    Padding ( padding: EdgeInsets.all(10.w),child : Order_Amount_Widget(),),
+    Padding ( padding: EdgeInsets.all(10.w),child :Cash_Reserve_Widget(),),
           ],
         ),
-        Contracted_Price_Widget(),
+    Padding ( padding: EdgeInsets.all(10.w),child :Contracted_Price_Widget(),),
         Row(
           children: [
-            Labor_Ratio_Widget(),
-            Outsourcing_Ratio_Widget(),
+    Padding ( padding: EdgeInsets.all(10.w),child :Labor_Ratio_Widget(),),
+    Padding ( padding: EdgeInsets.all(10.w),child :Outsourcing_Ratio_Widget(),),
           ],
         ),
-        Expected_Profit_Widget(),
+        Padding ( padding: EdgeInsets.all(10.w),child :Expected_Profit_Widget(),),
       ],
     ));
   }
