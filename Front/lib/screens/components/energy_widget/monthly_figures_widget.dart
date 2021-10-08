@@ -13,8 +13,8 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: ScreenUtil().setWidth(360),
-        height: ScreenUtil().setHeight(200),
+        width: 1000.w,
+        height: 200,
         child:GestureDetector(
             onTap: () {
               Navigator.of(context).push(
@@ -37,7 +37,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                 child: Column(
                     children: <Widget>[
                       Container(
-                        height: ScreenUtil().setHeight(30),
+                        height: 50,
                         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
                         child: Row(
                           children: [
@@ -55,7 +55,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                         ),
                       ),
                       SizedBox(
-                        height: ScreenUtil().setHeight(20),
+                        height: 10,
                       ),
                       Container(
                         alignment: Alignment.center,
@@ -66,19 +66,19 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                               children: <TextSpan>[
                                 TextSpan(text:  '전월대비 ',
                                   style:TextStyle(
-                                    fontSize:  15.sp,
+                                    fontSize:  15,
                                     color: Colors.black87,
                                     fontFamily: 'applesdneob',
                                   ),),
                                 TextSpan(text:  '2000만큼',
                                   style:TextStyle(
-                                    fontSize:  50.sp,
+                                    fontSize:  50,
                                     color: Color.fromRGBO(43, 63, 107, 1),
                                     fontFamily: 'applesdneob',
                                   ),),
                                 TextSpan(text: ' 감소 ',
                                   style:TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 15,
                                     color:  Colors.black87,
                                     fontFamily: 'applesdneob',),
                                 ),
@@ -86,7 +86,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                             ),
                           ),
                             Icon(CupertinoIcons.arrowtriangle_down_square_fill,
-                            size:40.sp,
+                            size:40,
                               color:Colors.blue
                             )
                           ]
