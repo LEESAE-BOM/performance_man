@@ -252,7 +252,7 @@ class _labor_ratio extends State<labor_ratio> {
                             '최근 1개월',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 43.sp,
+                                fontSize: 41.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           )))
@@ -266,7 +266,7 @@ class _labor_ratio extends State<labor_ratio> {
                             '####.##.##',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 43.sp,
+                                fontSize: 41.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -278,7 +278,7 @@ class _labor_ratio extends State<labor_ratio> {
                               '???',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 43.sp,
+                                  fontSize: 41.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -289,7 +289,7 @@ class _labor_ratio extends State<labor_ratio> {
                               '#,##,###원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 43.sp,
+                                  fontSize: 41.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
