@@ -55,7 +55,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
         child: Container(
             //height: 300,
             //width: MediaQuery.of(context).size.width * 0.5,
-            width: 540.w,
+            width: 520.w,
             height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -91,7 +91,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 ),
               ),
               Container(
-                  width: 540.w,
+                  width: 520.w,
                   height: 152,
                 child: chartSection
               )

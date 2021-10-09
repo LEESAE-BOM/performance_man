@@ -21,7 +21,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
         child: Container(
             //width:MediaQuery.of(context).size.width*0.5,
             //height: 250.0,
-            width: 540.w,
+            width: 520.w,
             height: 152,
             child: SfCircularChart(series: <CircularSeries>[
               // Render pie chart
@@ -42,7 +42,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
         child: Container(
             //height: 300,
            // width: MediaQuery.of(context).size.width*0.5,
-            width: 540.w,
+            width: 520.w,
             height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -77,7 +77,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
                 ),
               ),
               Container(
-                width: 540.w,
+                width: 520.w,
                 height: 152,
                 child: chartSection,
               )

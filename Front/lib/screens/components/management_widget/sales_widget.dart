@@ -19,7 +19,7 @@ class _Sales_Widget extends State<Sales_Widget> {
         child: Container(
             //height: 160,
             //width: MediaQuery.of(context).size.width ,
-            width: 1080.w,
+            width: 1060.w,
             height: 200,
             decoration: BoxDecoration(
               color: Colors.white,

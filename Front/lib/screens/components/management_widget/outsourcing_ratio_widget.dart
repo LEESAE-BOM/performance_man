@@ -20,7 +20,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
         child: Container(
             //height: 250.0,
             //width:MediaQuery.of(context).size.width*0.5,
-            width: 540.w,
+            width: 520.w,
             height: 152,
             child: SfCircularChart(
                 series: <CircularSeries>[
@@ -42,7 +42,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
         child: Container(
             //height: 300,
             //width: MediaQuery.of(context).size.width*0.5,
-            width: 540.w,
+            width: 520.w,
             height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -77,7 +77,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                 ),
               ),
               Container(
-                width: 540.w,
+                width: 520.w,
                 height: 152,
                 child: chartSection,
               )

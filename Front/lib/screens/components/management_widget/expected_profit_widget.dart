@@ -26,7 +26,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
       child: Container(
         //width: MediaQuery.of(context).size.width,
         //height: 250,
-        width: 1080.w,
+        width: 1060.w,
         height: 152,
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(
@@ -58,7 +58,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
         child: Container(
             //height: 300,
             //width: MediaQuery.of(context).size.width * 0.5,
-            width: 1080.w,
+            width: 1060.w,
             height: 200,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -93,7 +93,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                 ),
               ),
               Container(
-                  width: 1080.w,
+                  width: 1060.w,
                   height: 152,
                   child: chartSection)
             ])));

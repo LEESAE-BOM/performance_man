@@ -18,7 +18,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
     child:Container(
         //height: 180,
         //width:MediaQuery.of(context).size.width,
-        width: 1080.w,
+        width: 1060.w,
         height: 200,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -54,7 +54,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                 ),
               ),
               Container(
-                  width: 1080.w,
+                  width: 1060.w,
                   height: 152,
                 child: Text(
                   '이번달 계약금액은\n321,654,987원입니다.',
