@@ -203,7 +203,7 @@ class _contracted_price extends State<contracted_price> {
                             '최근 1개월',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 43.sp,
+                                fontSize: 41.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           )))
@@ -217,7 +217,7 @@ class _contracted_price extends State<contracted_price> {
                             '기업',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 43.sp,
+                                fontSize: 41.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -229,7 +229,7 @@ class _contracted_price extends State<contracted_price> {
                               '계약 금액',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 43.sp,
+                                  fontSize: 41.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -240,7 +240,7 @@ class _contracted_price extends State<contracted_price> {
                               '수주 잔고 금액',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 43.sp,
+                                  fontSize: 41.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -257,7 +257,7 @@ class _contracted_price extends State<contracted_price> {
                             'A기업',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 43.sp,
+                                fontSize: 41.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -269,7 +269,7 @@ class _contracted_price extends State<contracted_price> {
                               '4,123,123원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 43.sp,
+                                  fontSize: 41.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -280,7 +280,7 @@ class _contracted_price extends State<contracted_price> {
                               '456,789원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 43.sp,
+                                  fontSize: 41.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
