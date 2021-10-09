@@ -51,15 +51,42 @@ class _energy_fee extends State<energy_fee> {
   @override
   Widget build(BuildContext context) {
 
-    Widget textSection = const Padding(
-      padding: EdgeInsets.all(32),
-      child: Text(
-        '이번 달 전기요금 현황은'
-            '2,289,982원 이에요',
-        softWrap: true,
-        style: TextStyle(fontSize: 25, fontFamily: 'applesdneoeb'),
-        textAlign: TextAlign.center,
-      ),
+    Widget textSection = Padding(
+        padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 0, 50.sp),
+        child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              TextSpan(// default text style
+                children: <TextSpan>[
+              TextSpan(text: '이번 달 전기요금 현황은\n',
+                style:TextStyle(
+                  fontSize: 65.sp,
+                  color: Colors.black,
+                  letterSpacing: 3,
+                  fontFamily: 'applesdneoeb',
+                ),),
+              TextSpan(text: '2,289,982원',
+                style:TextStyle(
+                    fontSize:110.sp,
+                    color: Colors.blue,
+                    letterSpacing: 5.0,
+                    // fontWeight: FontWeight.bold,
+                    fontFamily: 'applesdneoeb'),
+              ),
+              TextSpan(text: '이에요',
+                  style:TextStyle(
+                      fontSize: 65.sp,
+                      color: Colors.black,
+                      letterSpacing: 3.0,
+                      // fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneoeb'),
+              )
+                  ]
+              ),
+            )
+          ],
+        )
     );
 
     Widget chartSection= Container(
@@ -73,8 +100,8 @@ class _energy_fee extends State<energy_fee> {
                       tooltipBehavior: _toolTipBehavior,
                       annotations: <CircularChartAnnotation>[
                         CircularChartAnnotation(
-                            height: '100%', // Setting height and width for the circular chart annotation
-                            width: '100%',
+                            height: '110%', // Setting height and width for the circular chart annotation
+                            width: '110%',
                             widget: Container(
                                 child: PhysicalModel(
                                     child: Container(),
@@ -113,8 +140,8 @@ class _energy_fee extends State<energy_fee> {
                   child:SfCircularChart(
                       annotations: <CircularChartAnnotation>[
                         CircularChartAnnotation(
-                            height: '100%', // Setting height and width for the circular chart annotation
-                            width: '100%',
+                            height: '110%', // Setting height and width for the circular chart annotation
+                            width: '110%',
                             widget: Container(
                                 child: PhysicalModel(
                                     child: Container(),
@@ -129,7 +156,7 @@ class _energy_fee extends State<energy_fee> {
                                 child:Text('18250kwh\n/50000kwh',
                                     style: TextStyle(
                                         color: Color.fromRGBO(0, 0, 0, 0.5),
-                                        fontSize: 45.sp,
+                                        fontSize: 43.sp,
                                         fontFamily: 'applesdneoeb'
                                     )
                                 )
@@ -223,12 +250,6 @@ class _energy_fee extends State<energy_fee> {
                               ),
                             )
                         ),
-                        /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 45.sp, fontFamily: 'applesdneoeb'),)
-          ),
-        ),*/
                       ],
                       rows: [
                         DataRow(
@@ -339,7 +360,7 @@ class _energy_fee extends State<energy_fee> {
         home:Scaffold(
             appBar: AppBar(
               title: Text('요금 현황',
-                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+                style: TextStyle(fontSize: 67.sp, fontFamily: 'applesdneom'),),
               centerTitle: true,
               backgroundColor: Color.fromRGBO(43, 63, 107, 1),
               leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
