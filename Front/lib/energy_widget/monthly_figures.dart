@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import '.././screens/energy/energy_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class monthly_figures extends StatefulWidget {
   @override
@@ -77,47 +79,46 @@ class _monthly_figures extends State<monthly_figures> {
 
   @override
   Widget build(BuildContext context) {
-
     Widget textSection = Padding(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 0, 50.sp),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text.rich(
               TextSpan(// default text style
                   children: <TextSpan>[
-                    TextSpan(text: '9월의 전력 사용량은',
+                    TextSpan(text: '9월의 전력 사용량은\n',
                       style:TextStyle(
-                        fontSize:17.0,
+                        fontSize: 58.sp,
                         color: Colors.black,
-                        letterSpacing: 0.3,
-                        fontFamily: 'applesdneob',
+                        fontFamily: 'applesdneoeb',
                       ),),
                     TextSpan(text: '13,588 kWh\n',
                       style:TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 110.sp,
                           color: Colors.blue,
                           letterSpacing: 5.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneob'),),
+                          fontFamily: 'applesdneoeb'),),
                     TextSpan(text: '전월대비 ',
                       style:TextStyle(
-                          fontSize: 17.0,
+                          fontSize: 45.sp,
                           color: Colors.black,
-                          letterSpacing: 5.0,
-                          fontFamily: 'applesdneob'),),
+                          letterSpacing: 1.0,
+                          fontFamily: 'applesdneoeb'),),
                     TextSpan(text: ' 2000만큼 감소',
                       style:TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 100.sp,
                           color: Colors.blue,
                           letterSpacing: 3.0,
-                          fontFamily: 'applesdneob'),),
+                          fontFamily: 'applesdneoeb'),),
                     TextSpan(text: ' 했어요',
                       style:TextStyle(
-                          fontSize: 17.0,
+                          fontSize:45.sp,
                           color: Colors.black,
                           letterSpacing: 1.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneob'),
+                          fontFamily: 'applesdneoeb'),
                     ),
 
                   ]
@@ -129,6 +130,8 @@ class _monthly_figures extends State<monthly_figures> {
 
     Widget chartSection= Center(
         child: Container(
+          width: 1000.w,
+          height: 300,
           child: SfCartesianChart(
             zoomPanBehavior: _zoomPanBehavior,
             tooltipBehavior: _toolTipBehavior,
@@ -139,8 +142,7 @@ class _monthly_figures extends State<monthly_figures> {
               Colors.amberAccent
             ],
             legend: Legend(
-                isVisible: true,
-                // Legend will be placed at the left
+                isVisible: true, // Legend will be placed at the left
                 position: LegendPosition.top)
             ,
             primaryXAxis: CategoryAxis(),
@@ -177,7 +179,9 @@ class _monthly_figures extends State<monthly_figures> {
         )
     );
 
-    Widget datatableSection1=Center(
+    Widget datatableSection1= Padding(
+      padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+      child:Center(
         child: Container(
             width: double.infinity,
             child: Theme(
@@ -193,8 +197,9 @@ class _monthly_figures extends State<monthly_figures> {
                         child:
                         Text('구분',
                           style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'applesdneom'
+                              fontSize: 45.sp,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb'
                           ),
                         ),
                       ),
@@ -206,8 +211,9 @@ class _monthly_figures extends State<monthly_figures> {
                           alignment: Alignment.center,
                           child: Text('8월',
                             style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
+                                fontSize: 45.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'
                             ),
                           ),
                         )
@@ -218,8 +224,9 @@ class _monthly_figures extends State<monthly_figures> {
                           alignment: Alignment.center,
                           child: Text('9월',
                             style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
+                                fontSize: 45.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'
                             ),
                           ),
                         )
@@ -230,8 +237,9 @@ class _monthly_figures extends State<monthly_figures> {
                           alignment: Alignment.center,
                           child: Text('10월',
                             style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
+                                fontSize: 45.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'
                             ),
                           ),
                         )
@@ -239,7 +247,7 @@ class _monthly_figures extends State<monthly_figures> {
                     /*DataColumn(
           label: Center(
               widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
           ),
         ),*/
                   ],
@@ -249,11 +257,11 @@ class _monthly_figures extends State<monthly_figures> {
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
-                                  child:Text('2021년 전력사용량',
+                                  child:Text('2021년\n전력사용량',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),)
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),)
                               )
                           ),
                           DataCell(
@@ -261,9 +269,9 @@ class _monthly_figures extends State<monthly_figures> {
                                   alignment: Alignment.centerLeft,
                                   child:Text('14,000',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),
                                   )
                               )
                           ),
@@ -272,18 +280,18 @@ class _monthly_figures extends State<monthly_figures> {
                                   alignment: Alignment.centerLeft,
                                   child:Text('12,980',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child:Text('10,290',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                         ]
                     ),
@@ -292,11 +300,11 @@ class _monthly_figures extends State<monthly_figures> {
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('2020년 전력사용량',
+                                  child: Text('2020년\n전력사용량',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'
                                     ),
                                   )
                               )
@@ -306,27 +314,27 @@ class _monthly_figures extends State<monthly_figures> {
                                   alignment: Alignment.centerLeft,
                                   child:Text('120,84',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child:Text('11,980',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child:Text('11,980',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                         ]
                     ),
@@ -335,11 +343,11 @@ class _monthly_figures extends State<monthly_figures> {
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('2021년 최대전력',
+                                  child: Text('2021년\n최대전력',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'
                                     ),
                                   )
                               )
@@ -349,27 +357,27 @@ class _monthly_figures extends State<monthly_figures> {
                                   alignment: Alignment.centerLeft,
                                   child:Text('11,980',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child:Text('85,780',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child:Text('70,122',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                         ]
                     ),
@@ -378,11 +386,11 @@ class _monthly_figures extends State<monthly_figures> {
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
-                                  child:Text('2020년 최대전력',
+                                  child:Text('2020년\n최대전력',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),)
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),)
                               )
                           ),
                           DataCell(
@@ -390,9 +398,9 @@ class _monthly_figures extends State<monthly_figures> {
                                   alignment: Alignment.centerLeft,
                                   child:Text('14,000',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
+                                        fontSize: 3.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),
                                   )
                               )
                           ),
@@ -401,18 +409,18 @@ class _monthly_figures extends State<monthly_figures> {
                                   alignment: Alignment.centerLeft,
                                   child:Text('11,980',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
                           DataCell(
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child:Text('11,980',
                                     style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
+                                        fontSize: 35.sp,
+                                        color: Colors.black54,
+                                        fontFamily: 'applesdneoeb'),))
                           ),
 
                         ]
@@ -422,19 +430,16 @@ class _monthly_figures extends State<monthly_figures> {
                 )
             )
         )
+    )
     );
 
-
-
-    //Widget chartSection= const ();
-
-    //Widget dataSection=();
 
     return MaterialApp(
         home:Scaffold(
             appBar: AppBar(
               title: Text('월별 전력 사용량',
-                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+                style: TextStyle(fontSize: 67.sp,
+                    fontFamily: 'applesdneom'),),
               centerTitle: true,
               backgroundColor: Color.fromRGBO(43, 63, 107, 1),
               leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
@@ -442,21 +447,15 @@ class _monthly_figures extends State<monthly_figures> {
               }),
             ),
             body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
-                child:Center(
+              child: Center(
                   child: ListView(
                     children: [
-                      SizedBox(height:35),
                       textSection,
-                      SizedBox(height:35),
                       chartSection,
-                      SizedBox(height:35),
                       datatableSection1,
-                      SizedBox(height:15)
                     ],
                   ),
-                ),
+
               ),
             )
         )
