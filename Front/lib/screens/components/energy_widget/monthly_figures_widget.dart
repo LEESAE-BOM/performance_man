@@ -14,7 +14,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 1080.w,
+        width: 1060.w,
         height: 200,
         child:GestureDetector(
             onTap: () {
