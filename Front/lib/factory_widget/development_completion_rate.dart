@@ -79,8 +79,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                 ),
               ],
             )
-        )
-    ;
+        );
 
     Widget textSection2= Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -229,6 +228,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                             Text('월',
                               style: TextStyle(
                                   fontSize: 45.sp,
+                                  color: Colors.black54,
                                   fontFamily: 'applesdneoeb'
                               ),
                             ),
@@ -241,6 +241,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                               child: Text('개발 완료율',
                                 style: TextStyle(
                                     fontSize: 45.sp,
+                                    color: Colors.black54,
                                     fontFamily: 'applesdneoeb'
                                 ),
                               ),
@@ -265,7 +266,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
+                                            color: Colors.black54,
                                             fontFamily: 'applesdneoeb'),
                                       )
                                   )
@@ -280,7 +281,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                       child:Text('부품 개발',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
+                                            color: Colors.black54,
                                             fontFamily: 'applesdneoeb'),)
                                   )
                               ),
@@ -290,7 +291,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                       child:Text('14%',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
+                                            color: Colors.black54,
                                             fontFamily: 'applesdneoeb'),
                                       )
                                   )
@@ -305,7 +306,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                       child: Text('장치 개발',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
+                                            color: Colors.black54,
                                             fontFamily: 'applesdneoeb'
                                         ),
                                       )
@@ -317,7 +318,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                       child:Text('84%',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
+                                            color: Colors.black54,
                                             fontFamily: 'applesdneoeb'),))
                               ),
                             ]

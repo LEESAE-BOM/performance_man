@@ -412,9 +412,7 @@ class _capacity_ratio extends State<capacity_ratio> {
             )
         )
     );
-
   }
-
 }
 
 class Chart_Data {
