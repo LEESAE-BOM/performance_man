@@ -1,63 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/login.dart';
+import 'package:flutter/services.dart';
 import './theme.dart';
-import './screens/main_screens.dart';
-import 'package:intro_views_flutter/intro_views_flutter.dart';
-import 'package:flutter_app/screens/main_screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays(
+      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  final pages = [
-    PageViewModel(
-      pageColor: const Color.fromRGBO(43, 63, 107, 1),
-      // iconImageAssetPath: 'assets/air-hostess.png',
-      bubble: Icon(Icons.keyboard_arrow_right,color: Colors.white,),
-      mainImage: Image.asset(
-        'image/logo.png',
-        height: 285.0,
-        width: 285.0,
-        alignment: Alignment.center,
-      ),
-    ),
-    PageViewModel(
-      pageBackground: Container(
-        child: login_flow(),
-      )
-    )
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: Size(1080, 1920),//pixel 2 api
-      builder: () => MaterialApp(
-        title: 'default_main',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          backgroundColor: Color.fromRGBO(43, 63, 107, 1)
-        ),
-        home: Builder(
-          builder: (context) => IntroViewsFlutter(
-            pages,
-            showNextButton: true,
-            showBackButton: true,
-            onTapDoneButton: () {
-              // Use Navigator.pushReplacement if you want to dispose the latest route
-              // so the user will not be able to slide back to the Intro Views.
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => MainScreens()),
-              );
-            },
-            pageButtonTextStyles: const TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-            ),
-          ),
-        )
-    )
+    return FutureBuilder(
+        future: Init.instance.initialize(),
+        builder: (context, AsyncSnapshot snapshot) {
+          // Show splash screen while waiting for app resources to load:
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return MaterialApp(home: Splash());
+          } else {
+            // Loading is done, return the app:
+            return MaterialApp(
+                title: 'default_main',
+                debugShowCheckedModeBanner: false,
+                theme:
+                    ThemeData(backgroundColor: Color.fromRGBO(43, 63, 107, 1)),
+                home: login_flow());
+          }
+        });
+  }
+}
+
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    bool lightMode =
+        MediaQuery.of(context).platformBrightness == Brightness.light;
+    return Scaffold(
+      backgroundColor: Color(0x2b3f6b).withOpacity(1.0),
+      body: Center(
+          child: lightMode
+              ? Image.asset('image/logo.png')
+              : Image.asset('image/logo.png')),
     );
+  }
+}
+
+class Init {
+  Init._();
+
+  static final instance = Init._();
+
+  Future initialize() async {
+    await Future.delayed(const Duration(seconds: 5));
   }
 }
