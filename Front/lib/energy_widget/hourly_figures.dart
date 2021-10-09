@@ -3,8 +3,14 @@ import 'package:flutter/rendering.dart';
 import '.././screens/energy/energy_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:math' as math;
+
 
 class hourly_figures extends StatefulWidget {
+
+
+
   @override
   State<StatefulWidget> createState() => _hourly_figures();
 }
@@ -15,9 +21,11 @@ class _hourly_figures extends State<hourly_figures> {
   late List<Chart_Data> _chart_Data3;
   late List<Chart_Data2> _chart_Data4;
 
-  late List<Graph_Data> _graph_Data1;
-  late List<Graph_Data> _graph_Data2;
+  late List<_SplineAreaData> _graph_Data1;
+  late List<_SplineAreaData> _graph_Data2;
   late TooltipBehavior _toolTipBehavior;
+
+
 
   // index가 0인 페이지 먼저 보여줌
   final PageController pageController = PageController(
@@ -32,10 +40,10 @@ class _hourly_figures extends State<hourly_figures> {
     _graph_Data1 = getGraphData();
     _graph_Data2 = getGraphData2();
     _toolTipBehavior = TooltipBehavior(enable: true);
+
+
     super.initState();
   }
-
-
 
   List<Chart_Data>  getChartData(){
     final List<Chart_Data>  getChartData = [
@@ -76,6 +84,7 @@ class _hourly_figures extends State<hourly_figures> {
     ];
     return getChartData;
   }
+
   List<Chart_Data>  getChartData3(){
     final List<Chart_Data>  getChartData = [
       Chart_Data('1', 1, Color.fromRGBO(153,153,153,1)),
@@ -98,259 +107,305 @@ class _hourly_figures extends State<hourly_figures> {
     return getChartData;
   }
 
-  List<Graph_Data> getGraphData(){
-    final List<Graph_Data>  getGraphData = [
-      Graph_Data( DateTime(2015, 01, 01), 1),
-      Graph_Data( DateTime(2016, 01, 01), 12),
-      Graph_Data( DateTime(2017, 01, 01), 13),
-      Graph_Data( DateTime(2018, 01, 01), 10),
-      Graph_Data( DateTime(2019, 01, 01), 21),
-      Graph_Data( DateTime(2020, 01, 01), 15),
-      Graph_Data( DateTime(2021, 01, 01), 19),
+  List<_SplineAreaData> getGraphData(){
+    final List<_SplineAreaData>  getGraphData = [
+      _SplineAreaData(2010, 10.53 ),
+      _SplineAreaData(2011, 9.5),
+      _SplineAreaData(2012, 10),
+      _SplineAreaData(2013, 9.4),
+      _SplineAreaData(2014, 5.8),
+      _SplineAreaData(2015, 4.9),
+      _SplineAreaData(2016, 4.5),
+      _SplineAreaData(2017, 3.6 ),
+      _SplineAreaData(2018, 3.43),
     ];
     return getGraphData;
   }
 
-  List<Graph_Data>  getGraphData2(){
-    final List<Graph_Data>  getGraphData2 = [
-      Graph_Data( DateTime(2015, 01, 01), 1),
-      Graph_Data( DateTime(2016, 01, 01), 12),
-      Graph_Data( DateTime(2017, 01, 01), 13),
-      Graph_Data( DateTime(2018, 01, 01), 10),
-      Graph_Data( DateTime(2019, 01, 01), 21),
-      Graph_Data( DateTime(2020, 01, 01), 15),
-      Graph_Data( DateTime(2021, 01, 01), 19),
+  List<_SplineAreaData> getGraphData2(){
+    final List<_SplineAreaData>  getGraphData2 = [
+      _SplineAreaData(1, 7.53),
+      _SplineAreaData(3, 10),
+      _SplineAreaData(5, 5.8),
+      _SplineAreaData(7, 4.5),
+      _SplineAreaData(9, 3.43),
+      _SplineAreaData(11, 10),
+      _SplineAreaData(13, 9.4),
+      _SplineAreaData(15, 5.8),
+      _SplineAreaData(17, 15.5),
+      _SplineAreaData(19, 3.43),
+      _SplineAreaData(21, 10),
+      _SplineAreaData(23, 9.4),
     ];
     return getGraphData2;
   }
 
+
   @override
   Widget build(BuildContext context) {
-    Widget textSection1 = Column(
-      children: [
-        Text.rich(
-          TextSpan(// default text style
-              children: <TextSpan>[
-                TextSpan(text: '최대전력 발생 시간은',
-                  style:TextStyle(
-                    fontSize:17.0,
-                    color: Colors.black,
-                    letterSpacing: 0.3,
-                    fontFamily: 'applesdneob',
-                  ),),
-                TextSpan(text: '9시에서 10시',
-                  style:TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 5.0,
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'applesdneob'),),
-                TextSpan(text: ',\n최대전력은 ',
-                  style:TextStyle(
-                      fontSize: 17.0,
-                      color: Colors.black,
-                      letterSpacing: 5.0,
-                      fontFamily: 'applesdneob'),),
-                TextSpan(text: ' 71,700MW',
-                  style:TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 3.0,
-                      fontFamily: 'applesdneob'),),
-                TextSpan(text: '로 예상돼요',
-                  style:TextStyle(
-                      fontSize: 17.0,
-                      color: Colors.black,
-                      letterSpacing: 1.0,
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'applesdneob'),
-                ),
+    Widget textSection1 = Padding(
+        padding:  EdgeInsets.fromLTRB(100.sp, 100.sp,40.sp, 100.sp),
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '최대전력 발생 시간은 \n',
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 5,
+                        fontFamily: 'applesdneoeb',
+                      ),),
+                    TextSpan(text: '9시~10시',
+                      style:TextStyle(
+                        fontSize: 110.sp,
+                        color: Colors.blue,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneoeb',
+                      ),),
+                    TextSpan(text: ',\n최대전력은 \n',
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        fontFamily: 'applesdneoeb',),),
+                    TextSpan(text: ' 71,700MW',
+                      style:TextStyle(
+                        fontSize: 110.sp,
+                        color: Colors.blue,
+                        letterSpacing: 3.0,
+                        fontFamily: 'applesdneoeb',),),
+                    TextSpan(text: '로 예상돼요',
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',),
+                    ),
 
-              ]
+                  ]
+              ),
+            )
+          ],
+        )
+    );
+
+    Widget textSection2 =Padding(
+        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 100.sp),
+        child:Column(
+          children: [
+            Text.rich(
+              TextSpan(// default text style
+                  children: <TextSpan>[
+                    TextSpan(text: '최대전력 발생 시간은 \n',
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 5,
+                        fontFamily: 'applesdneoeb',
+                      ),),
+                    TextSpan(text: '9시~10시',
+                      style:TextStyle(
+                        fontSize: 110.sp,
+                        color: Colors.blue,
+                        letterSpacing: 5.0,
+                        // fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneoeb',
+                      ),),
+                    TextSpan(text: ',\n최대전력은 \n',
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        fontFamily: 'applesdneoeb',),),
+                    TextSpan(text: ' 71,700MW',
+                      style:TextStyle(
+                        fontSize: 110.sp,
+                        color: Colors.blue,
+                        letterSpacing: 3.0,
+                        fontFamily: 'applesdneoeb',),),
+                    TextSpan(text: '로 예상돼요',
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',),
+                    ),
+
+                  ]
+              ),
+            )
+          ],
+        )
+    );
+    Widget textSection3 =Padding(
+        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 40.sp),
+        child:Text('월별 전력 사용량',
+          style:TextStyle(
+            fontSize:55.sp,
+            color: Colors.black,
+            letterSpacing: 1,
+            fontFamily: 'applesdneoeb',
           ),
         )
-      ],
     );
 
-    Widget textSection2 = Column(
-      children: [
-        Text.rich(
-          TextSpan(// default text style
-              children: <TextSpan>[
-                TextSpan(text: '최대전력 발생 시간은',
-                  style:TextStyle(
-                    fontSize:17.0,
-                    color: Colors.black,
-                    letterSpacing: 0.3,
-                    fontFamily: 'applesdneob',
-                  ),),
-                TextSpan(text: '9시에서 10시',
-                  style:TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 5.0,
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'applesdneob'),),
-                TextSpan(text: ',\n최대전력은 ',
-                  style:TextStyle(
-                      fontSize: 17.0,
-                      color: Colors.black,
-                      letterSpacing: 5.0,
-                      fontFamily: 'applesdneob'),),
-                TextSpan(text: ' 71,700MW',
-                  style:TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 3.0,
-                      fontFamily: 'applesdneob'),),
-                TextSpan(text: '로 예상돼요',
-                  style:TextStyle(
-                      fontSize: 17.0,
-                      color: Colors.black,
-                      letterSpacing: 1.0,
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'applesdneob'),
-                ),
-              ]
+    Widget textSection4 = Padding(
+        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 40.sp),
+        child:Text('시간대별 전력 사용량',
+          style:TextStyle(
+            fontSize:55.sp,
+            color: Colors.black,
+            letterSpacing: 1,
+            fontFamily: 'applesdneoeb',
           ),
         )
-      ],
     );
-    Widget textSection3 =
-                Text('월별 전력 사용량',
-                  style:TextStyle(
-                    fontSize:17.0,
-                    color: Colors.black,
-                    letterSpacing: 0.3,
-                    fontFamily: 'applesdneob',
-                  ),
-                );
-
-    Widget textSection4 = Text('시간대별별 전력 사용량',
-     style:TextStyle(
-        fontSize:17.0,
-        color: Colors.black,
-        letterSpacing: 0.3,
-        fontFamily: 'applesdneob',
-      ),
-    );
-
 
     Widget chartSection1= Center(
-        child:SfCircularChart(
-            annotations: <CircularChartAnnotation>[
-              CircularChartAnnotation(
-                  widget: Container(
-                      child: const Text('9시~10시',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 25,
-                              fontFamily: 'applesdneom'
+        child: Container(
+            width: 1000.w,
+            height: 250,
+            child:SfCircularChart(
+                annotations: <CircularChartAnnotation>[
+                  CircularChartAnnotation(
+                      widget: Container(
+                          child: Text('9시~10시',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 60.sp,
+                                  fontFamily: 'applesdneom'
+                              )
                           )
                       )
                   )
-              )
-            ],
-            series: <CircularSeries>[
-              // Renders doughnut chart
-              DoughnutSeries<Chart_Data, String>(
-                dataSource: _chart_Data,
-                pointColorMapper:(Chart_Data data,  _) => data.color,
-                xValueMapper: (Chart_Data data, _) => data.x,
-                yValueMapper: (Chart_Data data, _) => data.y,
-                // explode: true
-              )
-            ]
+                ],
+                series: <CircularSeries>[
+                  // Renders doughnut chart
+                  DoughnutSeries<Chart_Data, String>(
+                      dataSource: _chart_Data,
+                      pointColorMapper:(Chart_Data data,  _) => data.color,
+                      xValueMapper: (Chart_Data data, _) => data.x,
+                      yValueMapper: (Chart_Data data, _) => data.y,
+                      radius:'100%'
+                    // explode: true
+                  )
+                ]
+            )
         )
     );
 
     Widget chartSection2 =Center(
+        child: Container(
+            width: 1000.w,
+            height: 300,
+            child:SfCartesianChart(
+              tooltipBehavior: _toolTipBehavior,
+              series: <ChartSeries>[
+                StackedBar100Series<Chart_Data2,double>(
+                    dataSource: _chart_Data2,
+                    pointColorMapper:(Chart_Data2 data,  _) => data.color,
+                    xValueMapper: (Chart_Data2 data, _) => data.x,
+                    yValueMapper: (Chart_Data2 data, _) => data.y1,
+                    dataLabelSettings: DataLabelSettings(isVisible: true),
+                    enableTooltip: true,
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(15)
+                ),
+              ],
+              primaryXAxis: NumericAxis(
+                  edgeLabelPlacement: EdgeLabelPlacement.shift,
+                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+                  labelFormat: '{value}월',
+                  isVisible: false
+              ),
+              primaryYAxis: NumericAxis(
+                  isVisible: false
+                // edgeLabelPlacement: EdgeLabelPlacement.shift
+              ),
+              plotAreaBorderWidth: 0,
+              borderWidth: 50,
+            )
+        )
+    );
+
+    Widget graphSection1 =Container(
+        width: 980.w,
+        height: 300,
         child:SfCartesianChart(
-          tooltipBehavior: _toolTipBehavior,
-          series: <ChartSeries>[
-            StackedBar100Series<Chart_Data2,double>(
-              dataSource: _chart_Data2,
-              pointColorMapper:(Chart_Data2 data,  _) => data.color,
-              xValueMapper: (Chart_Data2 data, _) => data.x,
-              yValueMapper: (Chart_Data2 data, _) => data.y1,
-              dataLabelSettings: DataLabelSettings(isVisible: true),
-              enableTooltip: true,
-              color: Colors.blueAccent,
-            ),
-          ],
-          primaryXAxis: NumericAxis(
+            palette: [Colors.amber],
+            series: <ChartSeries>[
+              SplineAreaSeries<_SplineAreaData, double>(
+                  dataSource: _graph_Data1, // Type of spline
+                  splineType: SplineType.cardinal,
+                  cardinalSplineTension: 0.9,
+                  xValueMapper: (_SplineAreaData sales, _) => sales.year,
+                  yValueMapper: (_SplineAreaData sales, _) => sales.y1
+              )
+            ],
+            primaryXAxis: NumericAxis(
               edgeLabelPlacement: EdgeLabelPlacement.shift,
-              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-              labelFormat: '{value}월',
-              isVisible: false
-          ),
-          primaryYAxis: NumericAxis(
-              isVisible: false
-            // edgeLabelPlacement: EdgeLabelPlacement.shift
-          ),
-          plotAreaBorderWidth: 0,
-          borderWidth: 50,
+            ),
+            primaryYAxis: NumericAxis(
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+            )
         )
     );
 
-    Widget graphSection1 =Center(
+    Widget graphSection2 =Container(
+        width: 980.w,
+        height: 300,
         child:SfCartesianChart(
-            primaryXAxis: DateTimeAxis(),
+            palette: [Colors.amber],
             series: <ChartSeries>[
-              SplineSeries<Graph_Data, DateTime>(
-                  dataSource: _graph_Data1,
-                  // Type of spline
+              SplineAreaSeries<_SplineAreaData, double>(
+                  dataSource: _graph_Data2, // Type of spline
                   splineType: SplineType.cardinal,
                   cardinalSplineTension: 0.9,
-                  xValueMapper: (Graph_Data sales, _) => sales.x,
-                  yValueMapper: (Graph_Data sales, _) => sales.y
+                  xValueMapper: (_SplineAreaData sales, _) => sales.year,
+                  yValueMapper: (_SplineAreaData sales, _) => sales.y1
               )
-            ]
-        )
-    );
-
-    Widget graphSection2 =Center(
-        child:SfCartesianChart(
-            primaryXAxis: DateTimeAxis(),
-            series: <ChartSeries>[
-              SplineSeries<Graph_Data, DateTime>(
-                  dataSource: _graph_Data1,
-                  // Type of spline
-                  splineType: SplineType.cardinal,
-                  cardinalSplineTension: 0.9,
-                  xValueMapper: (Graph_Data sales, _) => sales.x,
-                  yValueMapper: (Graph_Data sales, _) => sales.y
-              )
-            ]
+            ],
+            primaryXAxis: NumericAxis(
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+            ),
+            primaryYAxis: NumericAxis(
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+            )
         )
     );
 
     Widget chartSection3= Container(
-        height: 400,
-        width: 450,
+        width: 1000.w,
+        height: 250,
         child:SfCircularChart(
             annotations: <CircularChartAnnotation>[
               CircularChartAnnotation(
                   widget: Container(
-                    child:Text(String.fromCharCode(0xe190),
+                    child:Text(
+                      String.fromCharCode(0xe190),
                       style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.blue,
-                        letterSpacing: 5.0,
-                        // fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneob'),)
+                          fontSize: 30.0,
+                          color: Colors.blue,
+                          letterSpacing: 5.0,
+                          // fontWeight: FontWeight.bold,
+                          fontFamily: 'applesdneob'),)
                     ,)
               )
             ],
             series: <CircularSeries>[
               // Renders doughnut chart
               DoughnutSeries<Chart_Data, String>(
-                dataSource: _chart_Data3,
-                pointColorMapper:(Chart_Data data,  _) => data.color,
-                xValueMapper: (Chart_Data data, _) => data.x,
-                yValueMapper: (Chart_Data data, _) => data.y,
-                startAngle: 270, // Starting angle of doughnut
-                endAngle: 90, // Ending angle of doughnut
+                  dataSource: _chart_Data3,
+                  pointColorMapper:(Chart_Data data,  _) => data.color,
+                  xValueMapper: (Chart_Data data, _) => data.x,
+                  yValueMapper: (Chart_Data data, _) => data.y,
+                  startAngle: 270, // Starting angle of doughnut
+                  endAngle: 90,
+                  radius: '110%'// Ending angle of doughnut
                 //strokeWidth: 20,
                 // explode: true
               )
@@ -359,327 +414,43 @@ class _hourly_figures extends State<hourly_figures> {
         )
     );
 
-    Widget chartSection4 = SfCartesianChart(
-      tooltipBehavior: _toolTipBehavior,
-      series: <ChartSeries>[
-        StackedBar100Series<Chart_Data2,double>(
-          dataSource: _chart_Data4,
-          pointColorMapper:(Chart_Data2 data,  _) => data.color,
-          xValueMapper: (Chart_Data2 data, _) => data.x,
-          yValueMapper: (Chart_Data2 data, _) => data.y1,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
-          enableTooltip: true,
-          color: Colors.blueAccent,
-        ),
-      ],
-      primaryXAxis: NumericAxis(
-          edgeLabelPlacement: EdgeLabelPlacement.shift,
-          numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-          labelFormat: '{value}월',
-          isVisible: false
-      ),
-      primaryYAxis: NumericAxis(
-          isVisible: false
-        // edgeLabelPlacement: EdgeLabelPlacement.shift
-      ),
-      borderWidth: 50,
-      plotAreaBorderWidth: 0,
-    );
-
-    Widget datatableSection1= Center(
-        child: Container(
-            width: double.infinity,
-            child: Theme(
-                data: Theme.of(context).copyWith(
-                    dividerColor: Colors.black12
-                ),
-                child: DataTable(
-                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-                  columns: [
-                    DataColumn(
-                      label: Align(
-                        alignment: Alignment.center,
-                        child:
-                        Text('구분',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'applesdneom'
-                          ),
-                        ),
-                      ),
-                      // numeric: true,
-                    ),
-                    DataColumn(
-                        label:
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text('요금현황',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
-                            ),
-                          ),
-                        )
-                    ),
-                    /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+    Widget chartSection4 =
+    Container(
+        width: 1000.w,
+        height: 250,
+        child:    SfCartesianChart(
+          tooltipBehavior: _toolTipBehavior,
+          series: <ChartSeries>[
+            StackedBar100Series<Chart_Data2,double>(
+                dataSource: _chart_Data4,
+                pointColorMapper:(Chart_Data2 data,  _) => data.color,
+                xValueMapper: (Chart_Data2 data, _) => data.x,
+                yValueMapper: (Chart_Data2 data, _) => data.y1,
+                dataLabelSettings: DataLabelSettings(isVisible: true),
+                enableTooltip: true,
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(15)
+            ),
+          ],
+          primaryXAxis: NumericAxis(
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+              isVisible: false
           ),
-        ),*/
-                  ],
-                  rows: [
-                    DataRow(
-                        cells: [
-                          DataCell(Text('')),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child:Text(
-                                    '9월',
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        fontSize: 17.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
-                                  )
-                              )
-                          )
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('전월요금',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),)
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('54,000원',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
-                                  )
-                              )
-                          ),
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('당월누적요금',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
-                                    ),
-                                  )
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('165,000원',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
-                          ),
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('당일 누적요금',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
-                                    ),
-                                  )
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('125,000원',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
-                          ),
-                        ]
-                    )
-                  ],
-                )
-            )
+          primaryYAxis: NumericAxis(
+              isVisible: false
+            // edgeLabelPlacement: EdgeLabelPlacement.shift
+          ),
+          borderWidth: 50,
+          plotAreaBorderWidth: 0,
         )
     );
-    Widget datatableSection2= Center(
-        child: Container(
-            width: double.infinity,
-            child: Theme(
-                data: Theme.of(context).copyWith(
-                    dividerColor: Colors.black12
-                ),
-                child: DataTable(
-                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-                  columns: [
-                    DataColumn(
-                      label: Align(
-                        alignment: Alignment.center,
-                        child:
-                        Text('년도',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'applesdneom'
-                          ),
-                        ),
-                      ),
-                      // numeric: true,
-                    ),
-                    DataColumn(
-                        label:
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text('노동생산성',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
-                            ),
-                          ),
-                        )
-                    ),
-                    /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
-          ),
-        ),*/
-                  ],
-                  rows: [
-                    DataRow(
-                        cells: [
-                          DataCell(Text('')),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child:Text(
-                                    '최근 3개월',
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        fontSize: 17.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
-                                  )
-                              )
-                          )
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('2021',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),)
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('54',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
-                                  )
-                              )
-                          ),
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('2020',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
-                                    ),
-                                  )
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('75',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
-                          ),
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('2019',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
-                                    ),
-                                  )
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('12',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
-                          ),
-                        ]
-                    )
-                  ],
-                )
-            )
-        )
-    );
-
-
-
-    //Widget chartSection= const ();
-
-    //Widget dataSection=();
 
     return MaterialApp(
         home:Scaffold(
             appBar: AppBar(
               title: Text('시간별 전력 사용량',
-                style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),),
+                style: TextStyle(fontSize:67.sp, fontFamily: 'applesdneom'),),
               centerTitle: true,
               backgroundColor: Color.fromRGBO(43, 63, 107, 1),
               leading: IconButton(
@@ -692,34 +463,48 @@ class _hourly_figures extends State<hourly_figures> {
                   }),
             ),
             body: SafeArea(
-                child:Padding(
-                  padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
+                child:Center(
                   child: PageView(
                       controller: pageController,
                       children:<Widget>[
                         ListView(
                           children: <Widget>[
                             textSection1,
-                            SizedBox(
-                              height: 30.0,
-                            ),
                             chartSection1,
                             chartSection2,
-                            SizedBox(
-                              height: 40.0,
-                            ),
                             textSection3,
                             graphSection1,
                           ],
-
                         ),
                         ListView(
                           children: <Widget>[
                             textSection2,
-                            SizedBox(
-                              height: 30.0,
+                            Container(
+                                child:Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        'image/energy_chart.jpg',
+                                        width: 1080.w,
+                                        height: 200,
+                                      ),
+                                      Column(
+                                          children:[
+                                            SizedBox(height:60),
+                                            Transform.rotate(
+                                                angle: 360,
+                                                child:
+                                                Icon(
+                                                  Icons.west,
+                                                  color: Colors.black54,
+                                                  size: 35.0,
+                                                )
+                                            )
+                                          ]
+                                      )
+                                    ]
+                                )
                             ),
-                            chartSection3,
                             chartSection4,
                             textSection4,
                             graphSection2,
@@ -750,11 +535,10 @@ class Chart_Data2{
   final double y1;
   final double y2;
   final Color color;
-
 }
 
-class Graph_Data {
-  Graph_Data(this.x, this.y);
-  final DateTime x;
-  final double y;
+class _SplineAreaData {
+  _SplineAreaData(this.year, this.y1);
+  final double year;
+  final double y1;
 }
