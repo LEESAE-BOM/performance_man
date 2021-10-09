@@ -56,9 +56,11 @@ class _labor_production_rate extends State<labor_production_rate> {
   Widget build(BuildContext context) {
 
     Widget textSection1 =Padding(
-        padding: EdgeInsets.fromLTRB(20.sp, 100.sp, 20.sp, 50.sp),
+        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child:Column(
-            children: [Text.rich(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text.rich(
                 TextSpan(// default text style
                   children: <TextSpan>[
                     TextSpan(text: '2021년 9월의\n',
@@ -66,16 +68,16 @@ class _labor_production_rate extends State<labor_production_rate> {
                         fontSize: 60.sp,
                         color: Colors.black,
                         letterSpacing: 5.0,
-                        fontFamily: 'applesdneom',
+                        fontFamily: 'applesdneoeb',
                       ),
                     ),
-                    TextSpan(text: '노동생산율 ',
+                    TextSpan(text: '노동생산율',
                       style:TextStyle(
-                        fontSize: 120.sp,
+                        fontSize: 110.sp,
                         color: Colors.blue,
-                          fontWeight: FontWeight.bold,
                         letterSpacing: 3.0, //fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneom'),
+                        fontFamily: 'applesdneoeb',
+                      ),
                     ),
                     TextSpan(text: '은 ',
                       style:TextStyle(
@@ -83,16 +85,17 @@ class _labor_production_rate extends State<labor_production_rate> {
                           color: Colors.black,
                           letterSpacing: 5.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneom',),
+                        fontFamily: 'applesdneoeb',
+                      ),
                     ),
                     TextSpan(text: '74',
                       style:TextStyle(
                           fontSize: 120.sp,
                           color: Colors.blue,
-                        fontWeight: FontWeight.bold,
                           letterSpacing: 5.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneom',),
+                        fontFamily: 'applesdneoeb',
+                      ),
                     ),
                     TextSpan(text: '이에요\n',
                       style:TextStyle(
@@ -100,31 +103,30 @@ class _labor_production_rate extends State<labor_production_rate> {
                           color: Colors.black,
                           letterSpacing: 5.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                        fontFamily: 'applesdneoeb',
+                      ),
                     ),
                     TextSpan(text: '전월대비',
                       style:TextStyle(
                           fontSize: 60.sp,
                           color: Colors.black,
                           letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                        fontFamily: 'applesdneoeb',
+                      ),
                     ),
                     TextSpan(text: '13 증가',
                       style:TextStyle(
-                          fontSize: 120.sp,
+                          fontSize: 110.sp,
                           color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 5.0,
-                          fontFamily: 'applesneom'),
+                          letterSpacing: 4.0,
+                        fontFamily: 'applesdneoeb',),
                     ),
                     TextSpan(text: '했어요',
                       style:TextStyle(
                           fontSize: 60.sp,
                           color: Colors.black,
                           letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                        fontFamily: 'applesdneoeb',),
                     ),
                   ],
                 )
@@ -134,8 +136,9 @@ class _labor_production_rate extends State<labor_production_rate> {
         ));
 
     Widget textSection2 =Padding(
-        padding: EdgeInsets.fromLTRB(20.sp, 100.sp, 20.sp, 50.sp),
+        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child:Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [Text.rich(
                 TextSpan(// default text style
                   children: <TextSpan>[
@@ -144,31 +147,29 @@ class _labor_production_rate extends State<labor_production_rate> {
                         fontSize: 60.sp,
                         color: Colors.black,
                         letterSpacing: 5.0,
-                        fontFamily: 'applesneom',
+                        fontFamily: 'applesdneoeb',
                       ),
                     ),
-                    TextSpan(text: '노동생산율 ',
+                    TextSpan(text: '노동생산율',
                       style:TextStyle(
                         fontSize: 110.sp,
                         color: Colors.blue,
-                        letterSpacing: 5.0, //fontWeight: FontWeight.bold,
-                        fontFamily: 'applesneom',),
+                        letterSpacing: 3.0,
+                        fontFamily: 'applesdneoeb',),
                     ),
                     TextSpan(text: '은 ',
                       style:TextStyle(
                           fontSize:  60.sp,
                           color: Colors.black,
                           letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                          fontFamily: 'applesdneoeb'),
                     ),
                     TextSpan(text: '74',
                       style:TextStyle(
                           fontSize: 120.sp,
                           color: Colors.blue,
                           letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                          fontFamily: 'applesdneoeb'),
                     ),
                     TextSpan(text: '이에요\n',
                       style:TextStyle(
@@ -176,7 +177,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                           color: Colors.black,
                           letterSpacing: 5.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                          fontFamily: 'applesdneoeb'),
                     ),
                     TextSpan(text: '전년대비 ',
                       style:TextStyle(
@@ -184,23 +185,21 @@ class _labor_production_rate extends State<labor_production_rate> {
                           color: Colors.black,
                           letterSpacing: 5.0,
                           // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                          fontFamily: 'applesdneoeb'),
                     ),
                     TextSpan(text: '13 증가',
                       style:TextStyle(
-                          fontSize: 120.sp,
+                          fontSize: 110.sp,
                           color: Colors.blue,
-                          letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                          letterSpacing: 4.0,
+                          fontFamily: 'applesdneoeb'),
                     ),
                     TextSpan(text: '했어요',
                       style:TextStyle(
                           fontSize:60.sp,
                           color: Colors.black,
                           letterSpacing: 5.0,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: 'applesneom'),
+                          fontFamily: 'applesdneoeb'),
                     ),
                   ],
                 )
@@ -286,7 +285,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                             Text('월',
                               style: TextStyle(
                                   fontSize: 45.sp,
-                                  fontFamily: 'applesdneom'
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'
                               ),
                             ),
                           ),
@@ -299,7 +299,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                               child: Text('노동생산성',
                                 style: TextStyle(
                                     fontSize: 45.sp,
-                                    fontFamily: 'applesdneom'
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'
                                 ),
                               ),
                             )
@@ -307,7 +308,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                         /*DataColumn(
           label: Center(
               widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
           ),
         ),*/
                       ],
@@ -323,8 +324,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
                                             fontSize: 48.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),
                                       )
                                   )
                               )
@@ -338,8 +339,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('2021.09',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),)
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),)
                                   )
                               ),
                               DataCell(
@@ -348,8 +349,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('14',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),
                                       )
                                   )
                               ),
@@ -363,8 +364,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child: Text('2021.09',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'
                                         ),
                                       )
                                   )
@@ -375,8 +376,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('84',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),))
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),))
                               ),
                             ]
                         ),
@@ -388,8 +389,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child: Text('2021.10',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'
                                         ),
                                       )
                                   )
@@ -400,8 +401,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('72',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),))
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),))
                               ),
                             ]
                         )
@@ -431,7 +432,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                             Text('년도',
                               style: TextStyle(
                                   fontSize: 45.sp,
-                                  fontFamily: 'applesdneom'
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'
                               ),
                             ),
                           ),
@@ -444,7 +446,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                               child: Text('노동생산성',
                                 style: TextStyle(
                                     fontSize: 45.sp,
-                                    fontFamily: 'applesdneom'
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'
                                 ),
                               ),
                             )
@@ -452,7 +455,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                         /*DataColumn(
           label: Center(
               widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
           ),
         ),*/
                       ],
@@ -468,8 +471,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
                                             fontSize: 48.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),
                                       )
                                   )
                               )
@@ -483,8 +486,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('2021',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),)
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),)
                                   )
                               ),
                               DataCell(
@@ -493,8 +496,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('54',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),
                                       )
                                   )
                               ),
@@ -508,8 +511,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child: Text('2020',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'
                                         ),
                                       )
                                   )
@@ -520,8 +523,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('75',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),))
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),))
                               ),
                             ]
                         ),
@@ -533,8 +536,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child: Text('2019',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'
                                         ),
                                       )
                                   )
@@ -545,8 +548,8 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       child:Text('12',
                                         style: TextStyle(
                                             fontSize: 45.sp,
-                                            color: Colors.black,
-                                            fontFamily: 'applesdneom'),))
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),))
                               ),
                             ]
                         )
@@ -564,7 +567,7 @@ class _labor_production_rate extends State<labor_production_rate> {
               style: TextStyle(fontSize: 67.sp,
                   color: Colors.white,
                   letterSpacing: 1.0,
-                  fontFamily: 'applesdneom'),),
+                  fontFamily: 'applesdneoeb'),),
             centerTitle: true,
             backgroundColor: Color.fromRGBO(43, 63, 107, 1),
             leading: IconButton(

@@ -45,21 +45,19 @@ class _development_completion_rate extends State<development_completion_rate>{
 
   Widget build(BuildContext context) {
 
-    Widget textSection = Container(
-        width: 1000.w,
-        child:Padding(
-            padding: EdgeInsets.fromLTRB(20.sp, 100.sp, 20.sp, 50.sp),
-            child: Column(
+    Widget textSection = Padding(
+            padding: EdgeInsets.fromLTRB(100.sp, 100.sp, 0, 50.sp),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text.rich(
                   TextSpan(// default text style
                     children: <TextSpan>[
                       TextSpan(text: '현재(2021.09.23) 개발 완료율은\n',
                         style:TextStyle(
-                          fontSize: 60.sp,
-                          color: Colors.black,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneom'
+                            fontSize: 60.sp,
+                            color: Colors.black,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb'
                         ),
                       ),
                       TextSpan(text: '37% ',
@@ -67,15 +65,14 @@ class _development_completion_rate extends State<development_completion_rate>{
                           fontSize:150.sp,
                           color: Colors.blue,
                           letterSpacing: 5.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneom',),
+                          fontFamily: 'applesdneoeb',),
                       ),
                       TextSpan(text: '이에요',
                         style:TextStyle(
                             fontSize: 60.sp,
                             color: Colors.black,
                             letterSpacing: 5.0,
-                            fontFamily:'applesdneom'),
+                            fontFamily:'applesdneoeb'),
                       ),
                     ],
                   ),
@@ -83,32 +80,34 @@ class _development_completion_rate extends State<development_completion_rate>{
               ],
             )
         )
-    );
+    ;
 
     Widget textSection2= Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
               width: 540.w,
-              height: 50,child:Center(
-              child: Text('1) 부품개발',
-                  textScaleFactor: 1.0,
-                  style:TextStyle(
+              height: 50,
+              child:Center(
+                  child: Text('1) 부품개발',
+                      textScaleFactor: 1.0,
+                      style:TextStyle(
+                        fontSize: 50.sp,
+                        color: Colors.black,
+                        letterSpacing: 3.0,
+                        fontFamily: 'applesdneol',
+                      )))),
+          Container(
+              width: 540.w,
+              height: 50,
+              child: Center(
+                  child: Text('2) 장치개발',style:TextStyle(
                     fontSize: 50.sp,
                     color: Colors.black,
                     letterSpacing: 3.0,
                     fontFamily: 'applesdneol',
-                  )))),
-          Container(
-              width: 540.w,
-              height: 50,child:Center(child:
-          Text('2) 장치개발',style:TextStyle(
-            fontSize: 50.sp,
-            color: Colors.black,
-            letterSpacing: 3.0,
-            fontFamily: 'applesdneol',
-          )
-          ))
+                  )
+                  ))
           ),
         ]
     );
@@ -230,7 +229,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                             Text('월',
                               style: TextStyle(
                                   fontSize: 45.sp,
-                                  fontFamily: 'applesdneom'
+                                  fontFamily: 'applesdneoeb'
                               ),
                             ),
                           ), // numeric: true,
@@ -242,7 +241,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                               child: Text('개발 완료율',
                                 style: TextStyle(
                                     fontSize: 45.sp,
-                                    fontFamily: 'applesdneom'
+                                    fontFamily: 'applesdneoeb'
                                 ),
                               ),
                             )
@@ -250,7 +249,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                         /*DataColumn(
           label: Center(
               widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
           ),
         ),*/
                       ],
@@ -267,7 +266,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                         style: TextStyle(
                                             fontSize: 45.sp,
                                             color: Colors.black,
-                                            fontFamily: 'applesdneom'),
+                                            fontFamily: 'applesdneoeb'),
                                       )
                                   )
                               )
@@ -282,7 +281,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                         style: TextStyle(
                                             fontSize: 45.sp,
                                             color: Colors.black,
-                                            fontFamily: 'applesdneom'),)
+                                            fontFamily: 'applesdneoeb'),)
                                   )
                               ),
                               DataCell(
@@ -292,7 +291,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                         style: TextStyle(
                                             fontSize: 45.sp,
                                             color: Colors.black,
-                                            fontFamily: 'applesdneom'),
+                                            fontFamily: 'applesdneoeb'),
                                       )
                                   )
                               ),
@@ -307,7 +306,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                         style: TextStyle(
                                             fontSize: 45.sp,
                                             color: Colors.black,
-                                            fontFamily: 'applesdneom'
+                                            fontFamily: 'applesdneoeb'
                                         ),
                                       )
                                   )
@@ -319,7 +318,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                         style: TextStyle(
                                             fontSize: 45.sp,
                                             color: Colors.black,
-                                            fontFamily: 'applesdneom'),))
+                                            fontFamily: 'applesdneoeb'),))
                               ),
                             ]
                         ),
@@ -342,7 +341,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                 style: TextStyle(fontSize: 67.sp,
                     color: Colors.white,
                     letterSpacing: 1.0,
-                    fontFamily: 'applesdneom'),),
+                    fontFamily: 'applesdneoeb'),),
               centerTitle: true,
               backgroundColor: Color.fromRGBO(43, 63, 107, 1),
               leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
@@ -357,7 +356,6 @@ class _development_completion_rate extends State<development_completion_rate>{
                     textSection,
                     textSection2,
                     chartSection,
-                    // SizedBox(height: 100,),
                     datatableSection1,
                   ],
                 ),

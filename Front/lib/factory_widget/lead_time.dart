@@ -31,9 +31,7 @@ class _lead_time extends State<lead_time> {
   Widget build(BuildContext context) {
     //TextStyle ts = TextStyle(color:Colors.red);
 
-    Widget textSection = Container(
-        width: 1000.w,
-        child:Padding(
+    Widget textSection = Padding(
             padding: EdgeInsets.fromLTRB(20.sp, 100.sp, 20.sp, 150.sp),
             child: Column(
               children: [
@@ -45,8 +43,7 @@ class _lead_time extends State<lead_time> {
                           fontSize:120.sp,
                           color: Colors.blue,
                           letterSpacing: 5.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'applesdneom',
+                            fontFamily: 'applesdneoeb'
                         ),),
                       TextSpan(text: ' 은\n',
                         style:TextStyle(
@@ -54,42 +51,41 @@ class _lead_time extends State<lead_time> {
                             color: Colors.black,
                             letterSpacing: 5.0,
                             // fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneom'),),
+                            fontFamily: 'applesdneoeb'
+                        ),
+                      ),
                       TextSpan(text: '총 ',
                         style:TextStyle(
                             fontSize: 60.sp,
                             color: Colors.black,
                             letterSpacing: 5.0,
                             //  fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneom'),),
+                            fontFamily: 'applesdneoeb'),),
                       TextSpan(text: ' 9일 ',
                         style:TextStyle(
                             fontSize:120.sp,
                             color: Colors.blue,
                             letterSpacing: 5.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneom'),),
+                            fontFamily: 'applesdneoeb'),),
                       TextSpan(text: ' 소요되었어요\n',
                         style:TextStyle(
                             fontSize: 60.sp,
                             color: Colors.black,
                             letterSpacing: 5.0,
-                            // fontWeight: FontWeight.bold,
-                            fontFamily:'applesdneom'),),
+                            fontFamily: 'applesdneoeb'),),
                       TextSpan(text: '예정일까지 3일 남았어요.',
                         style:TextStyle(
                             fontSize: 60.sp,
                             color: Colors.black,
                             letterSpacing: 5.0,
                             // fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneom'),),
+                            fontFamily: 'applesdneoeb'),),
                     ],
                   ),
                 ),
               ],
             )
-        )
-    );
+        );
 
     Widget daySection =Padding(
         padding: EdgeInsets.all(50.sp),
