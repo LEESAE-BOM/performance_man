@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class sales extends StatefulWidget {
   @override
@@ -15,9 +16,9 @@ class _sales extends State<sales> {
   void initState() {
     _zoomPanBehavior = ZoomPanBehavior(
       // Enables pinch zooming
-      enablePinching: true,
-      zoomMode: ZoomMode.x,
-      enablePanning: true,
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
         enableMouseWheelZooming : true
     );
     super.initState();
@@ -38,98 +39,83 @@ class _sales extends State<sales> {
     ChartData('12월', 44636000, 67512000, 62932000),
   ];
 
-  Widget textSection1 = Padding(
-      padding: EdgeInsets.all(5),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(
-              TextSpan(
-                  text: '이번 달 ',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      letterSpacing: 2.0,
-                      fontFamily: 'applesdneoeb',
-                      color: Colors.black),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: '매출 금액',
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            color: Colors.blue,
-                            fontFamily: 'applesdneoeb',
-                            letterSpacing: 2.0)),
-                    TextSpan(
-                      text: '은',
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black),
-                    ),
-                  ]),
-            )
-          ]));
-
-  Widget textSection2 = Padding(
-      padding: EdgeInsets.all(5),
-      child: Column(
-        children: <Widget>[
-          Text.rich(TextSpan(text: '', children: <TextSpan>[
-            TextSpan(
-              text: '123,456,789원 ',
-              style: TextStyle(
-                  fontSize: 30.0,
-                  color: Colors.blue,
-                  fontFamily: 'applesdneoeb',
-                  letterSpacing: 2.0),
-            ),
-            TextSpan(
-              text: '이에요.',
-              style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: 2.0,
-                  fontFamily: 'applesdneoeb',
-                  color: Colors.black),
-            ),
-          ]))
-        ],
-      ));
-
-  Widget textSection3 = Padding(
-      padding: EdgeInsets.all(5),
-      child: Column(
-        children: <Widget>[
-          Text.rich(TextSpan(
-              text: '전월 대비 ',
-              style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: 2.0,
-                  fontFamily: 'applesdneoeb',
-                  color: Colors.black),
-              children: <TextSpan>[
-                TextSpan(
-                    text: '1,000원 증가 ',
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.blue,
-                        fontFamily: 'applesdneoeb',
-                        letterSpacing: 2.0)),
-                TextSpan(
-                  text: '했어요.',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      letterSpacing: 2.0,
-                      fontFamily: 'applesdneoeb',
-                      color: Colors.black),
-                ),
-              ]))
-        ],
-      ));
-
   @override
   Widget build(BuildContext context) {
+
+    Widget textSection1 = Padding(
+        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text.rich(
+                TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(text: '이번 달 ',
+                          style: TextStyle(
+                              fontSize: 65.sp,
+                              letterSpacing: 2.0,
+                              fontFamily: 'applesdneoeb',
+                              color: Colors.black)),
+                      TextSpan(
+                          text: '매출 금액',
+                          style: TextStyle(
+                              fontSize:90.sp,
+                              color: Colors.blue,
+                              fontFamily: 'applesdneoeb',
+                              letterSpacing: 2.0)),
+                      TextSpan(
+                        text: '은\n',
+                        style: TextStyle(
+                            fontSize: 65.sp,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb',
+                            color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: '123,456,789원 ',
+                        style: TextStyle(
+                            fontSize:90.sp,
+                            color: Colors.blue,
+                            fontFamily: 'applesdneoeb',
+                            letterSpacing: 2.0),
+                      ),
+                      TextSpan(
+                        text: '이에요\n',
+                        style: TextStyle(
+                            fontSize: 65.sp,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb',
+                            color: Colors.black),
+                      ),
+                      TextSpan(
+                          text: '전월 대비 ',
+                          style: TextStyle(
+                              fontSize: 65.sp,
+                              letterSpacing: 2.0,
+                              fontFamily: 'applesdneoeb',
+                              color: Colors.black)),
+
+                      TextSpan(
+                          text: '1,000원 증가 ',
+                          style: TextStyle(
+                              fontSize:90.sp,
+                              color: Colors.blue,
+                              fontFamily: 'applesdneoeb',
+                              letterSpacing: 2.0)),
+                      TextSpan(
+                        text: '했어요',
+                        style: TextStyle(
+                            fontSize: 65.sp,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb',
+                            color: Colors.black),)
+                    ]),
+              )
+            ]));
+
     Widget chartSection = Container(
+      width: 1000.w,
+      height: 300,
       child: Center(
         child: SfCartesianChart(
           zoomPanBehavior: _zoomPanBehavior,
@@ -140,7 +126,7 @@ class _sales extends State<sales> {
           ],
           primaryXAxis: CategoryAxis(),
           primaryYAxis: NumericAxis(
-              // Y axis labels will be rendered with currency format
+            // Y axis labels will be rendered with currency format
               numberFormat: NumberFormat.compact()),
           legend: Legend(
               isVisible: true,
@@ -172,7 +158,7 @@ class _sales extends State<sales> {
                 xValueMapper: (ChartData sales, _) => sales.x,
                 yValueMapper: (ChartData sales, _) => sales.y2,
                 dataLabelSettings: DataLabelSettings(
-                    // Renders the data label
+                  // Renders the data label
                     isVisible: true),
                 markerSettings: MarkerSettings(isVisible: true))
           ],
@@ -180,165 +166,155 @@ class _sales extends State<sales> {
       ),
     );
 
-    Widget datatableSection = Center(
-      child: Container(
-        width: double.infinity,
-        child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.grey),
-          child: DataTable(
-            showBottomBorder: true,
-            headingRowColor:
+    Widget datatableSection = Padding(
+        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        child:Center(
+          child: Container(
+            width: double.infinity,
+            child: Theme(
+              data: Theme.of(context).copyWith(dividerColor: Colors.grey),
+              child: DataTable(
+                showBottomBorder: true,
+                headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
-            columns: <DataColumn>[
-              DataColumn(
-                label: Container(
-                  child: Text(
-                    '',
-                  ),
-                ),
-              ),
-              DataColumn(
-                label: Container(
-                  alignment: Alignment.center,
-                  child: Text('매출 금액 내역',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb')),
-                ),
-              ),
-              DataColumn(
-                label: Container(
-                  child: Text(
-                    '',
-                  ),
-                ),
-              ),
-            ],
-            rows: <DataRow>[
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('')),
-                  DataCell(Text('')),
-                  DataCell(Container(
+                columns: <DataColumn>[
+                  DataColumn(
+                    label: Container(
                       child: Text(
-                    '최근 1개월',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.black54,
-                        fontFamily: 'applesdneoeb'),
-                  )))
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(
-                    Container(
-                      child: Text(
-                        '월',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black54,
-                            fontFamily: 'applesdneoeb'),
+                        '',
                       ),
                     ),
                   ),
-                  DataCell(Container(
-                    child: Text(''),
-                  )),
-                  DataCell(
-                    Container(
-                        child: Text(
-                      '45,600원',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb'),
-                    )),
+                  DataColumn(
+                    label: Container(
+                      alignment: Alignment.center,
+                      child: Text('매출 금액 내역',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 48.sp,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb')),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Container(
+                      child: Text(
+                        '',
+                      ),
+                    ),
                   ),
                 ],
-              ),
-              DataRow(
-                color:
+                rows: <DataRow>[
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text('')),
+                      DataCell(Text('')),
+                      DataCell(Container(
+                          child: Text(
+                            '최근 1개월',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 48.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'),
+                          )))
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Container(
+                          child: Text(
+                            '월',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 43.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'),
+                          ),
+                        ),
+                      ),
+                      DataCell(Container(
+                        child: Text(''),
+                      )),
+                      DataCell(
+                        Container(
+                            child: Text(
+                              '45,600원',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            )),
+                      ),
+                    ],
+                  ),
+                  DataRow(
+                    color:
                     MaterialStateColor.resolveWith((states) => Colors.black12),
-                cells: <DataCell>[
-                  DataCell(
-                    Container(
-                      child: Text(
-                        '10월',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black54,
-                            fontFamily: 'applesdneoeb'),
+                    cells: <DataCell>[
+                      DataCell(
+                        Container(
+                          child: Text(
+                            '10월',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 43.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  DataCell(Container(
-                    child: Text(''),
-                  )),
-                  DataCell(
-                    Container(
-                        child: Text(
-                      '123,123,568원',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb'),
-                    )),
+                      DataCell(Container(
+                        child: Text(''),
+                      )),
+                      DataCell(
+                        Container(
+                            child: Text(
+                              '123,123,568원',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            )),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        )
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('매출 금액',
-            style: TextStyle(fontSize: 25.0, color: Colors.white)),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
-      ),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
-        child: SafeArea(
-            child: ListView(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                textSection1,
-                textSection2,
-                textSection3,
-                SizedBox(
-                  height: 30.0,
-                ),
-                chartSection,
-                SizedBox(
-                  height: 30.0,
-                ),
-                datatableSection
-              ],
-            ),
-          ],
-        )),
-      ),
+        appBar: AppBar(
+          title: Text('매출 금액',
+              style: TextStyle(fontSize: 67.sp, color: Colors.white)),
+          centerTitle: true,
+          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+        ),
+        body: SafeArea(
+          child:Center(
+              child: ListView(
+                children: <Widget>[
+                  textSection1,
+                  chartSection,
+                  datatableSection
+                ],
+              )
+          ),
+        )
     );
   }
 }
