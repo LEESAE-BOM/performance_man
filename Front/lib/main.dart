@@ -22,14 +22,19 @@ class MyApp extends StatelessWidget {
           // Show splash screen while waiting for app resources to load:
           if (snapshot.connectionState == ConnectionState.waiting) {
             return MaterialApp(home: Splash());
-          } else {
+          }
+          else {
             // Loading is done, return the app:
-            return MaterialApp(
+            return ScreenUtilInit(
+                designSize: Size(1080, 1920),
+                builder: () =>MaterialApp(
                 title: 'default_main',
                 debugShowCheckedModeBanner: false,
                 theme:
                     ThemeData(backgroundColor: Color.fromRGBO(43, 63, 107, 1)),
-                home: login_flow());
+                home: login_flow()
+            )
+            );
           }
         });
   }
