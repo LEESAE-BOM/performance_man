@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '.././screens/management/management_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class labor_ratio extends StatefulWidget {
   @override
@@ -32,119 +33,102 @@ class _labor_ratio extends State<labor_ratio> {
 
   @override
   Widget build(BuildContext context) {
+
     Widget textSection = Padding(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text.rich(TextSpan(text: '', children: <TextSpan>[
-                TextSpan(
-                  text: '2021년 10월은 ',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    letterSpacing: 2.0,
-                    fontFamily: 'applesdneoeb',
-                    color: Colors.black,
-                  ),
-                ),
-              ]))
+              Text.rich(TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: '2021년 10월은\n',
+                        style: TextStyle(
+                          fontSize: 70.sp,
+                          letterSpacing: 2.0,
+                          fontFamily: 'applesdneoeb',
+                          color: Colors.black,
+                        )
+                    ),
+                    TextSpan(
+                        text: '간접인건비가 ',
+                        style: TextStyle(
+                          fontSize: 70.sp,
+                          letterSpacing: 2.0,
+                          fontFamily: 'applesdneoeb',
+                          color: Colors.black,
+                        )),
+                    TextSpan(
+                      text: '12% ',
+                      style: TextStyle(
+                        fontSize: 100.sp,
+                        color: Colors.blue,
+                        letterSpacing: 3.0,
+                        fontFamily: 'applesdneoeb',
+                      ),
+                    ),
+                    TextSpan(
+                        text: '높아요. ',
+                        style: TextStyle(
+                          fontSize: 70.sp,
+                          letterSpacing: 2.0,
+                          fontFamily: 'applesdneoeb',
+                          color: Colors.black,
+                        )
+                    ),
+                  ]))
             ]));
 
-    Widget textSection1 = Padding(
-        padding: EdgeInsets.all(5),
+    Widget textSection2 = Padding(
+        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text.rich(TextSpan(
-                text: '간접인건비가 ',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: 2.0,
-                  fontFamily: 'applesdneoeb',
-                  color: Colors.black,
-                ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '12% ',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                      text: '간접인건비율은\n',
+                      style: TextStyle(
+                        fontSize: 70.sp,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black,
+                      )
                   ),
                   TextSpan(
-                      text: '높아요. ',
+                      text: '점차 ',
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 70.sp,
                         letterSpacing: 2.0,
                         fontFamily: 'applesdneoeb',
                         color: Colors.black,
                       )),
-                ]))
-          ],
-        ));
-
-    Widget textSection2 = Padding(
-        padding: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(TextSpan(text: '', children: <TextSpan>[
-              TextSpan(
-                  text: '간접인건비율은',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    letterSpacing: 2.0,
-                    fontFamily: 'applesdneoeb',
-                    color: Colors.black,
-                  )),
-              TextSpan(
-                text: '',
-              ),
-            ]))
-          ],
-        ));
-
-    Widget textSection3 = Padding(
-        padding: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(TextSpan(
-                text: '점차 ',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: 2.0,
-                  fontFamily: 'applesdneoeb',
-                  color: Colors.black,
-                ),
-                children: <TextSpan>[
                   TextSpan(
                     text: '상승 ',
                     style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 90.sp,
                       color: Colors.blue,
                       letterSpacing: 2.0,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: 'applesdneoeb',
                     ),
                   ),
                   TextSpan(
                       text: '하고 있어요. ',
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 70.sp,
                         letterSpacing: 2.0,
                         fontFamily: 'applesdneoeb',
                         color: Colors.black,
                       )),
+
                 ]))
           ],
         ));
 
     Widget chartSection = Center(
         child: Container(
-            width: 500.0,
-            height: 500.0,
+            width: 1000.w,
+            height: 300,
             child: SfCircularChart(
                 palette: <Color>[
                   Colors.indigo,
@@ -153,7 +137,7 @@ class _labor_ratio extends State<labor_ratio> {
                 title: ChartTitle(
                     text: '2021',
                     textStyle:
-                        TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold)),
+                    TextStyle(fontSize: 100.sp, fontWeight: FontWeight.bold)),
                 legend: Legend(
                     isVisible: true,
                     // Legend will be placed at the left
@@ -167,11 +151,16 @@ class _labor_ratio extends State<labor_ratio> {
                       dataLabelSettings: DataLabelSettings(
                           isVisible: true,
                           // Positioning the data label
-                          labelPosition: ChartDataLabelPosition.outside)),
+                          labelPosition: ChartDataLabelPosition.outside),
+                      radius: '100%'
+
+                  ),
                 ])));
 
     Widget chartSection1 = Center(
       child: Container(
+        width: 1000.w,
+        height: 300,
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
             tooltipBehavior: _tooltipBehavior,
@@ -192,7 +181,7 @@ class _labor_ratio extends State<labor_ratio> {
                   xValueMapper: (laborData sales, _) => sales.month,
                   yValueMapper: (laborData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
+                    // Renders the data label
                       isVisible: true),
                   markerSettings: MarkerSettings(isVisible: true)),
               LineSeries<laborData, String>(
@@ -207,114 +196,117 @@ class _labor_ratio extends State<labor_ratio> {
                   xValueMapper: (laborData sales, _) => sales.month,
                   yValueMapper: (laborData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
+                    // Renders the data label
                       isVisible: true),
                   markerSettings: MarkerSettings(isVisible: true))
             ]),
       ),
     );
 
-    Widget datatableSection = Center(
-      child: Container(
-        width: double.infinity,
-        child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.grey),
-          child: DataTable(
-            showBottomBorder: true,
-            headingRowColor:
+    Widget datatableSection =Padding(
+        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        child: Center(
+          child: Container(
+            width: double.infinity,
+            child: Theme(
+              data: Theme.of(context).copyWith(dividerColor: Colors.grey),
+              child: DataTable(
+                showBottomBorder: true,
+                headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
-            columns: <DataColumn>[
-              DataColumn(
-                label: Container(
-                  child: Text(
-                    '',
-                  ),
-                ),
-              ),
-              DataColumn(
-                label: Container(
-                  alignment: Alignment.center,
-                  child: Text('인건비 내역',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb')),
-                ),
-              ),
-              DataColumn(
-                label: Container(
-                  child: Text(
-                    '',
-                  ),
-                ),
-              ),
-            ],
-            rows: <DataRow>[
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('')),
-                  DataCell(Text('')),
-                  DataCell(Container(
+                columns: <DataColumn>[
+                  DataColumn(
+                    label: Container(
                       child: Text(
-                    '최근 1개월',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.black54,
-                        fontFamily: 'applesdneoeb'),
-                  )))
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(
-                    Container(
-                      child: Text(
-                        '####.##.##',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black54,
-                            fontFamily: 'applesdneoeb'),
+                        '',
                       ),
                     ),
                   ),
-                  DataCell(
-                    Container(
-                        child: Text(
-                      '???',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb'),
-                    )),
+                  DataColumn(
+                    label: Container(
+                      alignment: Alignment.center,
+                      child: Text('인건비 내역',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 43.sp,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb')),
+                    ),
                   ),
-                  DataCell(
-                    Container(
-                        child: Text(
-                      '#,##,###원',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb'),
-                    )),
+                  DataColumn(
+                    label: Container(
+                      child: Text(
+                        '',
+                      ),
+                    ),
+                  ),
+                ],
+                rows: <DataRow>[
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text('')),
+                      DataCell(Text('')),
+                      DataCell(Container(
+                          child: Text(
+                            '최근 1개월',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 43.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'),
+                          )))
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Container(
+                          child: Text(
+                            '####.##.##',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 43.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'),
+                          ),
+                        ),
+                      ),
+                      DataCell(
+                        Container(
+                            child: Text(
+                              '???',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            )),
+                      ),
+                      DataCell(
+                        Container(
+                            child: Text(
+                              '#,##,###원',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            )),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        )
     );
 
     return Scaffold(
       appBar: AppBar(
         title: Text('인건 비율',
-            style: TextStyle(fontSize: 25.0, color: Colors.white)),
+            style: TextStyle(fontSize:67.sp, color: Colors.white)),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
         leading: IconButton(
@@ -327,8 +319,7 @@ class _labor_ratio extends State<labor_ratio> {
             }),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
+        child:Center(
           child: PageView(
             controller: pageController,
             children: <Widget>[
@@ -339,14 +330,7 @@ class _labor_ratio extends State<labor_ratio> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         textSection,
-                        textSection1,
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         chartSection,
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         datatableSection,
                       ],
                     ),
@@ -360,14 +344,7 @@ class _labor_ratio extends State<labor_ratio> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         textSection2,
-                        textSection3,
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         chartSection1,
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         datatableSection,
                       ],
                     ),
