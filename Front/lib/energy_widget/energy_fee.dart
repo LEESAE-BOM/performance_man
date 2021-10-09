@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import '.././screens/energy/energy_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class energy_fee extends StatefulWidget {
   @override
@@ -55,95 +57,103 @@ class _energy_fee extends State<energy_fee> {
         '이번 달 전기요금 현황은'
             '2,289,982원 이에요',
         softWrap: true,
-        style: TextStyle(fontSize: 25, fontFamily: 'applesdneom'),
+        style: TextStyle(fontSize: 25, fontFamily: 'applesdneoeb'),
         textAlign: TextAlign.center,
       ),
     );
 
-    Widget chartSection=SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+    Widget chartSection= Container(
         child:Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              SfCircularChart(
-                  tooltipBehavior: _toolTipBehavior,
-                  annotations: <CircularChartAnnotation>[
-                    CircularChartAnnotation(
-                        height: '80%', // Setting height and width for the circular chart annotation
-                        width: '80%',
-                        widget: Container(
-                            child: PhysicalModel(
-                                child: Container(),
-                                shape: BoxShape.circle,
-                                elevation: 10,
-                                color: Colors.white))),
+              Container(
+                  width: 540.w,
+                  height: 200,
+                  child: SfCircularChart(
+                      tooltipBehavior: _toolTipBehavior,
+                      annotations: <CircularChartAnnotation>[
+                        CircularChartAnnotation(
+                            height: '100%', // Setting height and width for the circular chart annotation
+                            width: '100%',
+                            widget: Container(
+                                child: PhysicalModel(
+                                    child: Container(),
+                                    shape: BoxShape.circle,
+                                    elevation: 10,
+                                    color: Colors.white))),
 
-                    CircularChartAnnotation(
-                        widget: Container(
-                            child: const Text('43000\n /63000',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 0.5),
-                                    fontSize: 15,
-                                    fontFamily: 'applesdneom'
+                        CircularChartAnnotation(
+                            widget: Container(
+                                child:
+                                Text('43000\n /63000',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                                        fontSize: 45.sp,
+                                        fontFamily: 'applesdneoeb'
+                                    )
+                                )
+                            )
+                        ),
+                      ],
+
+                      series: <CircularSeries>[
+                        DoughnutSeries<Chart_Data, String>(
+                            dataSource: _chart_Data,
+                            xValueMapper: (Chart_Data data, _) => data.x,
+                            yValueMapper: (Chart_Data data, _) => data.y,
+                            pointColorMapper:(Chart_Data data,  _) => data.color,
+                            // Radius of doughnut
+                            radius: '80%'
+                        )
+                      ]
+                  )),
+              Container(
+                  width: 540.w,
+                  height: 200,
+                  child:SfCircularChart(
+                      annotations: <CircularChartAnnotation>[
+                        CircularChartAnnotation(
+                            height: '100%', // Setting height and width for the circular chart annotation
+                            width: '100%',
+                            widget: Container(
+                                child: PhysicalModel(
+                                    child: Container(),
+                                    shape: BoxShape.circle,
+                                    elevation: 10,
+                                    // shadowColor: Colors.black,
+                                    color: Colors.white
+                                ))),
+
+                        CircularChartAnnotation(
+                            widget: Container(
+                                child:Text('18250kwh\n/50000kwh',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                                        fontSize: 45.sp,
+                                        fontFamily: 'applesdneoeb'
+                                    )
                                 )
                             )
                         )
-                    ),
-                  ],
-
-                  series: <CircularSeries>[
-                    DoughnutSeries<Chart_Data, String>(
-                        dataSource: _chart_Data,
-                        xValueMapper: (Chart_Data data, _) => data.x,
-                        yValueMapper: (Chart_Data data, _) => data.y,
-                        pointColorMapper:(Chart_Data data,  _) => data.color,
-                        // Radius of doughnut
-                        radius: '60%'
-                    )
-                  ]
-              ),
-              SfCircularChart(
-                  annotations: <CircularChartAnnotation>[
-                    CircularChartAnnotation(
-                        height: '80%', // Setting height and width for the circular chart annotation
-                        width: '80%',
-                        widget: Container(
-                            child: PhysicalModel(
-                                child: Container(),
-                                shape: BoxShape.circle,
-                                elevation: 10,
-                                // shadowColor: Colors.black,
-                                color: Colors.white
-                            ))),
-
-                    CircularChartAnnotation(
-                        widget: Container(
-                            child: const Text('18250kwh\n/50000kwh',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 0.5),
-                                    fontSize: 15,
-                                    fontFamily: 'applesdneom'
-                                )
-                            )
+                      ],
+                      series: <CircularSeries>[
+                        DoughnutSeries<Chart_Data, String>(
+                            dataSource: _chart_Data2,
+                            xValueMapper: (Chart_Data data, _) => data.x,
+                            yValueMapper: (Chart_Data data, _) => data.y,
+                            pointColorMapper:(Chart_Data data,  _) => data.color,
+                            // Radius of doughnut
+                            radius: '80%'
                         )
-                    )
-                  ],
-                  series: <CircularSeries>[
-                    DoughnutSeries<Chart_Data, String>(
-                        dataSource: _chart_Data2,
-                        xValueMapper: (Chart_Data data, _) => data.x,
-                        yValueMapper: (Chart_Data data, _) => data.y,
-                        pointColorMapper:(Chart_Data data,  _) => data.color,
-                        // Radius of doughnut
-                        radius: '60%'
-                    )
-                  ]
-              )
+                      ]
+                  ))
             ]
         )
     );
 
     Widget chartSection2=Container(
+      width: 800.w,
+      height: 200,
       child:Center(
           child: SfCartesianChart(
             tooltipBehavior: _toolTipBehavior,
@@ -168,151 +178,157 @@ class _energy_fee extends State<energy_fee> {
                 isVisible: false
               // edgeLabelPlacement: EdgeLabelPlacement.shift
             ),
+            plotAreaBorderWidth: 0,
           )
       ),
     );
 
-    Widget datatableSection1= Center(
-        child: Container(
-            width: double.infinity,
-            child: Theme(
-                data: Theme.of(context).copyWith(
-                    dividerColor: Colors.black12
-                ),
-                child: DataTable(
-                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-                  columns: [
-                    DataColumn(
-                      label: Align(
-                        alignment: Alignment.center,
-                        child:
-                        Text('구분',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'applesdneom'
-                          ),
-                        ),
-                      ),
-                      // numeric: true,
+    Widget datatableSection1=
+    Padding(
+        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        child:Center(
+            child: Container(
+                width: double.infinity,
+                child: Theme(
+                    data: Theme.of(context).copyWith(
+                        dividerColor: Colors.black12
                     ),
-                    DataColumn(
-                        label:
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text('요금현황',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'applesdneom'
+                    child: DataTable(
+                      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
+                      columns: [
+                        DataColumn(
+                          label: Align(
+                            alignment: Alignment.center,
+                            child:
+                            Text('구분',
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'
+                              ),
                             ),
                           ),
-                        )
-                    ),
-                    /*DataColumn(
+                          // numeric: true,
+                        ),
+                        DataColumn(
+                            label:
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text('요금현황',
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'
+                                ),
+                              ),
+                            )
+                        ),
+                        /*DataColumn(
           label: Center(
               widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneom'),)
+              child: Text('지수', style: TextStyle(fontSize: 45.sp, fontFamily: 'applesdneoeb'),)
           ),
         ),*/
-                  ],
-                  rows: [
-                    DataRow(
-                        cells: [
-                          DataCell(Text('')),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child:Text(
-                                    '9월',
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        fontSize: 17.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
+                      ],
+                      rows: [
+                        DataRow(
+                            cells: [
+                              DataCell(Text('')),
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child:Text(
+                                        '9월',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            fontSize: 45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),
+                                      )
                                   )
                               )
-                          )
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('전월요금',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),)
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('54,000원',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),
+                            ]
+                        ),
+                        DataRow(
+                            cells: [
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child:Text('전월요금',
+                                        style: TextStyle(
+                                            fontSize: 45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),)
                                   )
-                              )
-                          ),
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('당월누적요금',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
-                                    ),
+                              ),
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child:Text('54,000원',
+                                        style: TextStyle(
+                                            fontSize:45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),
+                                      )
                                   )
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('165,000원',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
-                          ),
-                        ]
-                    ),
-                    DataRow(
-                        cells: [
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('당일 누적요금',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'
-                                    ),
+                              ),
+                            ]
+                        ),
+                        DataRow(
+                            cells: [
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('당월누적요금',
+                                        style: TextStyle(
+                                            fontSize:45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'
+                                        ),
+                                      )
                                   )
-                              )
-                          ),
-                          DataCell(
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child:Text('125,000원',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontFamily: 'applesdneom'),))
-                          ),
-                        ]
+                              ),
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child:Text('165,000원',
+                                        style: TextStyle(
+                                            fontSize: 45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),))
+                              ),
+                            ]
+                        ),
+                        DataRow(
+                            cells: [
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('당일 누적요금',
+                                        style: TextStyle(
+                                            fontSize:45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'
+                                        ),
+                                      )
+                                  )
+                              ),
+                              DataCell(
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child:Text('125,000원',
+                                        style: TextStyle(
+                                            fontSize:45.sp,
+                                            color: Colors.black54,
+                                            fontFamily: 'applesdneoeb'),))
+                              ),
+                            ]
+                        )
+                      ],
                     )
-                  ],
                 )
             )
-        )
-    );
+        ));
 
 
     //Widget chartSection= const ();
@@ -331,17 +347,14 @@ class _energy_fee extends State<energy_fee> {
               }),
             ),
             body: SafeArea(
-              child:Padding(
-                padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
-                child:Center(
-                  child: ListView(
-                    children: [
-                      textSection,
-                      chartSection,
-                      chartSection2,
-                      datatableSection1,
-                    ],
-                  ),
+              child:Center(
+                child: ListView(
+                  children: [
+                    textSection,
+                    chartSection,
+                    chartSection2,
+                    datatableSection1,
+                  ],
                 ),
               ),
             )
