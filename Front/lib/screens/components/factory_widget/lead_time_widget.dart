@@ -17,7 +17,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
   Widget build(BuildContext context) {
 
     return Container(
-        width: 540.w,
+        width: 520.w,
         height: 200,
         child:GestureDetector(
             onTap: () {
