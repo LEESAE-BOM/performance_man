@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class expected_profit extends StatefulWidget {
   @override
@@ -33,104 +34,91 @@ class _expected_profit extends State<expected_profit> {
   @override
   Widget build(BuildContext context) {
     Widget textSection = Padding(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text.rich(TextSpan(
-                  text: '2021년 ',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    letterSpacing: 2.0,
-                    fontFamily: 'applesdneoeb',
-                    color: Colors.black,
-                  ),
+              Text.rich(
+                  TextSpan(
                   children: <TextSpan>[
+                    TextSpan(
+                      text: '2021년 ',
+                      style: TextStyle(
+                        fontSize: 65.sp,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black,
+                      )),
                     TextSpan(
                       text: '예상 수익',
                       style: TextStyle(
-                        fontSize: 30.0,
+                        fontSize: 90.sp,
                         color: Colors.blue,
                         letterSpacing: 2.0,
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'applesdneoeb',
                       ),
                     ),
                     TextSpan(
-                      text: '은',
+                      text: '은\n',
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 65.sp,
                         letterSpacing: 2.0,
                         fontFamily: 'applesdneoeb',
                         color: Colors.black,
                       ),
                     ),
+                    TextSpan(
+                      text: '303,650,990원 ',
+                      style: TextStyle(
+                        fontSize: 90.sp,
+                        color: Colors.blue,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                      ),
+                    ),
+                    TextSpan(
+                      text: '이에요.\n',
+                      style: TextStyle(
+                        fontSize: 65.sp,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black,
+                      ),
+                    ),
+                  TextSpan(
+                      text: '전월 대비 ',
+                      style: TextStyle(
+                        fontSize: 65.sp,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                        color: Colors.black,
+                      )
+                  ),
+                    TextSpan(
+                      text: '14% 하락',
+                      style: TextStyle(
+                        fontSize: 90.sp,
+                        color: Colors.blue,
+                        letterSpacing: 2.0,
+                        fontFamily: 'applesdneoeb',
+                      ),
+                    ),
+                    TextSpan(
+                        text: '했어요.',
+                        style: TextStyle(
+                          fontSize: 65.sp,
+                          letterSpacing: 2.0,
+                          color: Colors.black,
+                          fontFamily: 'applesdneoeb',
+                        )),
                   ]))
             ]));
 
-    Widget textSection1 = Padding(
-        padding: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(TextSpan(text: '', children: <TextSpan>[
-              TextSpan(
-                text: '303,650,990원 ',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  color: Colors.blue,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: '이에요.',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: 2.0,
-                  fontFamily: 'applesdneoeb',
-                  color: Colors.black,
-                ),
-              ),
-            ]))
-          ],
-        ));
-
-    Widget textSection2 = Padding(
-        padding: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(TextSpan(
-                text: '전월 대비 ',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: 2.0,
-                  fontFamily: 'applesdneoeb',
-                  color: Colors.black,
-                ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: '14% 하락',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                      text: '했어요.',
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        letterSpacing: 2.0,
-                        color: Colors.black,
-                      )),
-                ]))
-          ],
-        ));
 
     Widget chartSection = Center(
       child: Container(
+        width: 1000.w,
+        height: 300,
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
             tooltipBehavior: _tooltipBehavior,
@@ -156,7 +144,7 @@ class _expected_profit extends State<expected_profit> {
                   xValueMapper: (SalesData sales, _) => sales.month,
                   yValueMapper: (SalesData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
+                    // Renders the data label
                       isVisible: true),
                   markerSettings: MarkerSettings(isVisible: true)),
               FastLineSeries<SalesData, String>(
@@ -176,7 +164,7 @@ class _expected_profit extends State<expected_profit> {
                   xValueMapper: (SalesData sales, _) => sales.month,
                   yValueMapper: (SalesData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
+                    // Renders the data label
                       isVisible: true),
                   markerSettings: MarkerSettings(isVisible: true)),
               FastLineSeries<SalesData, String>(
@@ -196,14 +184,16 @@ class _expected_profit extends State<expected_profit> {
                   xValueMapper: (SalesData sales, _) => sales.month,
                   yValueMapper: (SalesData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
+                    // Renders the data label
                       isVisible: true),
                   markerSettings: MarkerSettings(isVisible: true)),
             ]),
       ),
     );
 
-    Widget datatableSection = Center(
+    Widget datatableSection = Padding(
+      padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+      child:Center(
       child: Container(
         width: double.infinity,
         child: Theme(
@@ -211,7 +201,7 @@ class _expected_profit extends State<expected_profit> {
           child: DataTable(
             showBottomBorder: true,
             headingRowColor:
-                MaterialStateColor.resolveWith((states) => Colors.black12),
+            MaterialStateColor.resolveWith((states) => Colors.black12),
             columns: <DataColumn>[
               DataColumn(
                 label: Container(
@@ -219,7 +209,7 @@ class _expected_profit extends State<expected_profit> {
                     '종류',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 45.sp,
                         color: Colors.black54,
                         fontFamily: 'applesdneoeb'),
                   ),
@@ -230,7 +220,7 @@ class _expected_profit extends State<expected_profit> {
                   child: Text('금액',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 45.sp,
                           color: Colors.black54,
                           fontFamily: 'applesdneoeb')),
                 ),
@@ -242,14 +232,14 @@ class _expected_profit extends State<expected_profit> {
                   DataCell(Text('')),
                   DataCell(Container(
                       child: Text(
-                    '최근 1개월',
-                    textAlign: TextAlign.right,
-                    style:
-                    TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.black54,
-                        fontFamily: 'applesdneoeb'),
-                  )))
+                        '최근 1개월',
+                        textAlign: TextAlign.right,
+                        style:
+                        TextStyle(
+                            fontSize: 45.sp,
+                            color: Colors.black54,
+                            fontFamily: 'applesdneoeb'),
+                      )))
                 ],
               ),
               DataRow(
@@ -260,7 +250,7 @@ class _expected_profit extends State<expected_profit> {
                         '현금',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 45.sp,
                             color: Colors.black54,
                             fontFamily: 'applesdneoeb'),
                       ),
@@ -269,13 +259,13 @@ class _expected_profit extends State<expected_profit> {
                   DataCell(
                     Container(
                         child: Text(
-                      '',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb'),
-                    )),
+                          '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 45.sp,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb'),
+                        )),
                   ),
                 ],
               ),
@@ -287,7 +277,7 @@ class _expected_profit extends State<expected_profit> {
                         '현금성 자산',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 45.sp,
                             color: Colors.black54,
                             fontFamily: 'applesdneoeb'),
                       ),
@@ -296,10 +286,10 @@ class _expected_profit extends State<expected_profit> {
                   DataCell(
                     Container(
                         child: Text(
-                      '',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15.0),
-                    )),
+                          '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 45.sp),
+                        )),
                   ),
                 ],
               ),
@@ -311,7 +301,7 @@ class _expected_profit extends State<expected_profit> {
                         '단기 금융 상품',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 45.sp,
                             color: Colors.black54,
                             fontFamily: 'applesdneoeb'),
                       ),
@@ -320,13 +310,13 @@ class _expected_profit extends State<expected_profit> {
                   DataCell(
                     Container(
                         child: Text(
-                      '',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black54,
-                          fontFamily: 'applesdneoeb'),
-                    )),
+                          '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 45.sp,
+                              color: Colors.black54,
+                              fontFamily: 'applesdneoeb'),
+                        )),
                   ),
                 ],
               ),
@@ -334,12 +324,14 @@ class _expected_profit extends State<expected_profit> {
           ),
         ),
       ),
+    )
     );
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
             '추정수익률',
-            style: TextStyle(color: Colors.white,fontSize: 25.0),
+            style: TextStyle(color: Colors.white,fontSize: 67.sp,),
           ),
           centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),
@@ -353,24 +345,15 @@ class _expected_profit extends State<expected_profit> {
               }),
         ),
         body: SafeArea(
-            child: Padding(
-          padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
-          child: ListView(
-            children: <Widget>[
-              textSection,
-              textSection1,
-              textSection2,
-              SizedBox(
-                height: 30.0,
+            child:Center(
+              child: ListView(
+                children: <Widget>[
+                  textSection,
+                  chartSection,
+                  datatableSection
+                ],
               ),
-              chartSection,
-              SizedBox(
-                height: 30.0,
-              ),
-              datatableSection
-            ],
-          ),
-        )));
+            )));
   }
 }
 
