@@ -191,7 +191,7 @@ class _sales extends State<sales> {
                       child: Text('매출 금액 내역',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 48.sp,
+                              fontSize: 43.sp,
                               color: Colors.black54,
                               fontFamily: 'applesdneoeb')),
                     ),
@@ -214,7 +214,7 @@ class _sales extends State<sales> {
                             '최근 1개월',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 48.sp,
+                                fontSize: 43.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           )))
