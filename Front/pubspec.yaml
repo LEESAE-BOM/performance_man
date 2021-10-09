@@ -15,6 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   cupertino_icons: ^1.0.2
   google_fonts: ^2.0.0
   font_awesome_flutter: ^9.0.0
@@ -22,10 +23,12 @@ dependencies:
   syncfusion_flutter_charts: ^19.3.43
   intro_views_flutter: ^3.2.0
   flutter_screenutil: ^5.0.0+2
+  flutter_native_splash: ^1.1.7+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   flutter_lints: ^1.0.0
 
@@ -62,3 +65,7 @@ flutter:
     - image/energy_chart.jpg
 
 
+flutter_native_splash:
+  color: "#2b3f6b"
+  image: image/logo.png
+  fullscreen: true
