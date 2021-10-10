@@ -180,19 +180,22 @@ class _monthly_figures extends State<monthly_figures> {
     );
 
     Widget datatableSection1= Padding(
-      padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
       child:Center(
         child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
                 data: Theme.of(context).copyWith(
                     dividerColor: Colors.black12
                 ),
                 child: DataTable(
+                  columnSpacing:  0,
+                  horizontalMargin: 0,
                   headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
                   columns: [
                     DataColumn(
-                      label: Align(
+                      label: Container(
+                        width: 1020.w * .2,
                         alignment: Alignment.center,
                         child:
                         Text('구분',
@@ -207,7 +210,8 @@ class _monthly_figures extends State<monthly_figures> {
                     ),
                     DataColumn(
                         label:
-                        Align(
+                        Container(
+                          width: 1020.w * .2666,
                           alignment: Alignment.center,
                           child: Text('8월',
                             style: TextStyle(
@@ -220,7 +224,8 @@ class _monthly_figures extends State<monthly_figures> {
                     ),
                     DataColumn(
                         label:
-                        Align(
+                        Container(
+                          width: 1020.w * .2666,
                           alignment: Alignment.center,
                           child: Text('9월',
                             style: TextStyle(
@@ -233,7 +238,8 @@ class _monthly_figures extends State<monthly_figures> {
                     ),
                     DataColumn(
                         label:
-                        Align(
+                        Container(
+                          width: 1020.w * .2666,
                           alignment: Alignment.center,
                           child: Text('10월',
                             style: TextStyle(
@@ -244,19 +250,13 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                         )
                     )
-                    /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
-          ),
-        ),*/
                   ],
                   rows: [
                     DataRow(
                         cells: [
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('2021년\n전력사용량',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -266,7 +266,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('14,000',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -277,7 +277,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('12,980',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -286,7 +286,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('10,290',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -299,7 +299,7 @@ class _monthly_figures extends State<monthly_figures> {
                         cells: [
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child: Text('2020년\n전력사용량',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -311,7 +311,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('120,84',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -320,7 +320,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('11,980',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -329,7 +329,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('11,980',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -342,7 +342,7 @@ class _monthly_figures extends State<monthly_figures> {
                         cells: [
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child: Text('2021년\n최대전력',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -354,7 +354,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('11,980',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -363,7 +363,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('85,780',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -372,7 +372,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('70,122',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -385,7 +385,7 @@ class _monthly_figures extends State<monthly_figures> {
                         cells: [
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('2020년\n최대전력',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -395,7 +395,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('14,000',
                                     style: TextStyle(
                                         fontSize: 3.sp,
@@ -406,7 +406,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('11,980',
                                     style: TextStyle(
                                         fontSize: 35.sp,
@@ -415,7 +415,7 @@ class _monthly_figures extends State<monthly_figures> {
                           ),
                           DataCell(
                               Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child:Text('11,980',
                                     style: TextStyle(
                                         fontSize: 35.sp,
