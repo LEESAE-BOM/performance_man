@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/sales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 //큰 위젯
 class Sales_Widget extends StatefulWidget {
   @override
@@ -11,20 +12,17 @@ class _Sales_Widget extends State<Sales_Widget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-
         onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => sales()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => sales()));
         },
         child: Container(
-            //height: 160,
-            //width: MediaQuery.of(context).size.width ,
             width: 1060.w,
-            height: 200,
+            height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12, width: 3),
+              border: Border.all(color: Colors.black12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
@@ -33,35 +31,76 @@ class _Sales_Widget extends State<Sales_Widget> {
                 ),
               ],
             ),
-            //margin: EdgeInsets.all(30),
-            child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                    child: Row(
-                      children: [
-                        Text(
-                          '매출금액',
-                          style: TextStyle(color: Colors.black54, fontSize: 15),
-                        ),
-                        SizedBox(width:5),
-                        Image.asset(
-                          'image/safe.png',
-                          width: 10,
-                          height: 10,
-                        ),
-                      ],
+            child: Column(children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
+                child: Row(
+                  children: [
+                    Text(
+                      '매출금액',
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 35.w,
+                          fontFamily: 'applesdneom'),
                     ),
-                  ),
-                  Center(
-
-                      child: Text(
-                        '이번달 매출금액은\n123,456,789원입니다.',
-                        style: TextStyle(color: Colors.black54,
+                    SizedBox(width: 10.w),
+                    Image.asset(
+                      'image/safe.png',
+                      width: 20.w,
+                      height: 20.w,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  width: 1060.w,
+                  height: 320.w,
+                  child: Center(
+                      child: RichText(
+                    text: TextSpan(children: <TextSpan>[
+                      TextSpan(
+                        text: '이번달 ',
+                        style: TextStyle(
+                          fontSize: 50.w,
+                          color: Colors.black,
+                          letterSpacing: 1.w,
+                          fontFamily: 'applesdneob',
                         ),
-                      )
-                  )
-                ]))
-    );
+                      ),
+                      TextSpan(
+                        text: '매출금액',
+                        style: TextStyle(
+                            fontSize: 60.w,
+                            color: Colors.blueGrey,
+                            letterSpacing: 5.w,
+                            fontFamily: 'applesdneob'),
+                      ),
+                      TextSpan(
+                        text: '은',
+                        style: TextStyle(
+                            fontSize: 50.w,
+                            color: Colors.black,
+                            letterSpacing: 1.w,
+                            fontFamily: 'applesdneob'),
+                      ),
+                      TextSpan(
+                        text: '\n123,456,789원',
+                        style: TextStyle(
+                            fontSize: 60.w,
+                            color: Colors.blueGrey,
+                            letterSpacing: 5.w,
+                            fontFamily: 'applesdneob'),
+                      ),
+                      TextSpan(
+                        text: ' 입니다.',
+                        style: TextStyle(
+                            fontSize: 50.w,
+                            color: Colors.black,
+                            letterSpacing: 1.w,
+                            fontFamily: 'applesdneob'),
+                      ),
+                    ]),
+                  ))),
+            ])));
   }
 }

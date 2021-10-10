@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/order_amount.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 //작은 위젯
 class Order_Amount_Widget extends StatefulWidget {
   @override
@@ -19,35 +20,29 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
 
     Widget chartSection = Center(
         child: Container(
-            //width:MediaQuery.of(context).size.width*0.5,
-            //height: 250.0,
-            width: 520.w,
-            height: 152,
             child: SfCircularChart(series: <CircularSeries>[
-              // Render pie chart
-              PieSeries<ChartData, String>(
-                  dataSource: chartData,
-                  xValueMapper: (ChartData data, _) => data.x,
-                  yValueMapper: (ChartData data, _) => data.y,
-                  dataLabelMapper: (ChartData data, _) => data.text,
-                  dataLabelSettings: DataLabelSettings(
-                    isVisible: true,
-                  )),
-            ])));
+      // Render pie chart
+      PieSeries<ChartData, String>(radius: '100%',
+          dataSource: chartData,
+          xValueMapper: (ChartData data, _) => data.x,
+          yValueMapper: (ChartData data, _) => data.y,
+          dataLabelMapper: (ChartData data, _) => data.text,
+          dataLabelSettings: DataLabelSettings(
+              isVisible: true,
+              textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob'))),
+    ])));
     return GestureDetector(
         onTap: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => order_amount()));
         },
         child: Container(
-            //height: 300,
-           // width: MediaQuery.of(context).size.width*0.5,
             width: 520.w,
-            height: 200,
+            height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12, width: 3),
+              border: Border.all(color: Colors.black12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
@@ -56,29 +51,30 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
                 ),
               ],
             ),
-            //margin: EdgeInsets.all(30),
             child: Column(children: <Widget>[
               Container(
-               // height: 40,
-                padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
                 child: Row(
                   children: [
                     Text(
                       '수주금액',
-                      style: TextStyle(color: Colors.black54, fontSize: 15),
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 35.w,
+                          fontFamily: 'applesdneom'),
                     ),
-                    SizedBox(width:5),
+                    SizedBox(width: 10.w),
                     Image.asset(
                       'image/safe.png',
-                      width: 10,
-                      height: 10,
+                      width: 20.w,
+                      height: 20.w,
                     ),
                   ],
                 ),
               ),
               Container(
                 width: 520.w,
-                height: 152,
+                height: 320.w,
                 child: chartSection,
               )
             ])));

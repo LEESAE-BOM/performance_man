@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/expected_profit.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 //큰 위젯
 class Expected_Profit_Widget extends StatefulWidget {
   @override
@@ -24,10 +25,6 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
     ];
     Widget chartSection = Center(
       child: Container(
-        //width: MediaQuery.of(context).size.width,
-        //height: 250,
-        width: 1060.w,
-        height: 152,
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(
               majorGridLines: MajorGridLines(width: 0),
@@ -35,7 +32,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
             primaryYAxis: NumericAxis(
               majorGridLines: MajorGridLines(width: 0),
             ),
-            plotAreaBorderWidth:0,
+            plotAreaBorderWidth: 0,
             series: <CartesianSeries>[
               FastLineSeries<SalesData, String>(
                   name: '2021',
@@ -56,14 +53,12 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
               .push(MaterialPageRoute(builder: (context) => expected_profit()));
         },
         child: Container(
-            //height: 300,
-            //width: MediaQuery.of(context).size.width * 0.5,
             width: 1060.w,
-            height: 200,
+            height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12, width: 3),
+              border: Border.all(color: Colors.black12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
@@ -72,30 +67,28 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                 ),
               ],
             ),
-            //margin: EdgeInsets.all(30),
             child: Column(children: <Widget>[
               Container(
-               // height: 40,
-                padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
                 child: Row(
                   children: [
                     Text(
                       '추정수익률',
-                      style: TextStyle(color: Colors.black54, fontSize: 15),
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 35.w,
+                          fontFamily: 'applesdneom'),
                     ),
-                    SizedBox(width:5),
+                    SizedBox(width: 10.w),
                     Image.asset(
                       'image/danger.png',
-                      width: 10,
-                      height: 10,
+                      width: 20.w,
+                      height: 20.w,
                     ),
                   ],
                 ),
               ),
-              Container(
-                  width: 1060.w,
-                  height: 152,
-                  child: chartSection)
+              Container(width: 1060.w, height: 320.w, child: chartSection)
             ])));
   }
 }

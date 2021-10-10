@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/outsourcing_ratio.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 //작은 위젯
 class Outsourcing_Ratio_Widget extends StatefulWidget {
   @override
@@ -9,45 +10,39 @@ class Outsourcing_Ratio_Widget extends StatefulWidget {
 }
 
 class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
-
   final List<ChartData> chartData = [
     ChartData('A사', 45),
     ChartData('B사', 55),
   ];
+
   @override
   Widget build(BuildContext context) {
     Widget chartSection = Center(
         child: Container(
-            //height: 250.0,
-            //width:MediaQuery.of(context).size.width*0.5,
-            width: 520.w,
-            height: 152,
-            child: SfCircularChart(
-                series: <CircularSeries>[
-                  // Render pie chart
-                  PieSeries<ChartData, String>(
-                      dataSource: chartData,
-                      xValueMapper: (ChartData data, _) => data.x,
-                      yValueMapper: (ChartData data, _) => data.y,
-                      dataLabelSettings: DataLabelSettings(
-                          isVisible: true,
-                          // Positioning the data label
-                          labelPosition: ChartDataLabelPosition.inside)),
-                ])));
+            child: SfCircularChart(series: <CircularSeries>[
+      // Render pie chart
+      PieSeries<ChartData, String>(radius: '100%',
+          dataSource: chartData,
+          xValueMapper: (ChartData data, _) => data.x,
+          yValueMapper: (ChartData data, _) => data.y,
+          dataLabelSettings: DataLabelSettings(
+              isVisible: true,
+              textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob'),
+              // Positioning the data label
+              labelPosition: ChartDataLabelPosition.inside)),
+    ])));
     return GestureDetector(
         onTap: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => outsourcing_ratio()));
         },
         child: Container(
-            //height: 300,
-            //width: MediaQuery.of(context).size.width*0.5,
             width: 520.w,
-            height: 200,
+            height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12, width: 3),
+              border: Border.all(color: Colors.black12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
@@ -56,29 +51,30 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                 ),
               ],
             ),
-            //margin: EdgeInsets.all(30),
             child: Column(children: <Widget>[
               Container(
-               // height: 40,
-                padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
                 child: Row(
                   children: [
                     Text(
                       '외주비율',
-                      style: TextStyle(color: Colors.black54, fontSize: 15),
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 35.w,
+                          fontFamily: 'applesdneom'),
                     ),
-                    SizedBox(width:5),
+                    SizedBox(width: 10.w),
                     Image.asset(
                       'image/danger.png',
-                      width: 10,
-                      height: 10,
+                      width: 20.w,
+                      height: 20.w,
                     ),
                   ],
                 ),
               ),
               Container(
                 width: 520.w,
-                height: 152,
+                height: 320.w,
                 child: chartSection,
               )
             ])));
