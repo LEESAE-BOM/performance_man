@@ -285,6 +285,7 @@ class _hourly_figures extends State<hourly_figures> {
                   edgeLabelPlacement: EdgeLabelPlacement.shift,
                   majorGridLines: MajorGridLines(width: 0),
                   axisLine: AxisLine(width: 0),
+                  majorTickLines: MajorTickLines(width:0),
                   isVisible: true
               ),
               primaryYAxis: NumericAxis(
@@ -319,7 +320,7 @@ class _hourly_figures extends State<hourly_figures> {
         width: 980.w,
         height: 300,
         child:SfCartesianChart(
-            palette: [Colors.amber],
+            palette: [Colors.indigo],
             series: <ChartSeries>[
               SplineAreaSeries<_SplineAreaData, double>(
                   dataSource: _graph_Data1, // Type of spline
@@ -342,7 +343,7 @@ class _hourly_figures extends State<hourly_figures> {
         width: 980.w,
         height: 300,
         child:SfCartesianChart(
-            palette: [Colors.amber],
+            palette: [Colors.indigo],
             series: <ChartSeries>[
               SplineAreaSeries<_SplineAreaData, double>(
                   dataSource: _graph_Data2, // Type of spline
@@ -396,7 +397,6 @@ class _hourly_figures extends State<hourly_figures> {
             ,borderWidth:1
         )
     );
-
 
     Widget legendSection=Padding(
         padding:  EdgeInsets.fromLTRB(30.sp, 0,100.sp, 0),
