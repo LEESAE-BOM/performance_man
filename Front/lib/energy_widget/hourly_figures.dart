@@ -17,9 +17,8 @@ class hourly_figures extends StatefulWidget {
 
 class _hourly_figures extends State<hourly_figures> {
   late List<Chart_Data> _chart_Data;
-  late List<Chart_Data2> _chart_Data2;
+  late List<Chart_Data3> _chart_Data2;
   late List<Chart_Data> _chart_Data3;
-  late List<Chart_Data2> _chart_Data4;
 
   late List<_SplineAreaData> _graph_Data1;
   late List<_SplineAreaData> _graph_Data2;
@@ -35,8 +34,9 @@ class _hourly_figures extends State<hourly_figures> {
   void initState() {
     _chart_Data = getChartData();
     _chart_Data2 = getChartData2();
+
     _chart_Data3 = getChartData3();
-    _chart_Data4 = getChartData4();
+
     _graph_Data1 = getGraphData();
     _graph_Data2 = getGraphData2();
     _toolTipBehavior = TooltipBehavior(enable: true);
@@ -47,14 +47,14 @@ class _hourly_figures extends State<hourly_figures> {
 
   List<Chart_Data>  getChartData(){
     final List<Chart_Data>  getChartData = [
-      Chart_Data('24~01', 1, Color.fromRGBO(225,198,198,1)),
-      Chart_Data('01~02', 1, Color.fromRGBO(225,198,198,1)),
-      Chart_Data('02~03', 1, Color.fromRGBO(225,180,180,1)),
-      Chart_Data('03~04', 1, Color.fromRGBO(225,180,180,1)),
-      Chart_Data('04~05', 1, Color.fromRGBO(225,162,162,1)),
-      Chart_Data('05~06', 1, Color.fromRGBO(225,162,162,1)),
-      Chart_Data('06~07', 1, Color.fromRGBO(225,144,144,1)),
-      Chart_Data('07~08', 1, Color.fromRGBO(225,144,144,1)),
+      Chart_Data('24~01', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('01~02', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('02~03', 1,Color.fromRGBO(226,226,226,1)),
+      Chart_Data('03~04', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('04~05', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('05~06', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('06~07', 1,Color.fromRGBO(226,226,226,1)),
+      Chart_Data('07~08', 1, Color.fromRGBO(226,226,226,1)),
       Chart_Data('08~09', 1, Color.fromRGBO(225,72,72,1)),
       Chart_Data('09~10', 1, Color.fromRGBO(226,226,226,1)),
       Chart_Data('11~12', 1, Color.fromRGBO(226,226,226,1)),
@@ -76,11 +76,11 @@ class _hourly_figures extends State<hourly_figures> {
     return getChartData;
   }
 
-  List<Chart_Data2>  getChartData2(){
-    final List<Chart_Data2>  getChartData = [
-      Chart_Data2(1, 1,1, Color.fromRGBO(225,198,198,1)),
-      Chart_Data2(2, 2,1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data2(3, 3,1, Color.fromRGBO(226,226,226,1)),
+  List<Chart_Data3>  getChartData2(){
+    final List<Chart_Data3>  getChartData = [
+      Chart_Data3('운영예비(율)',18113,Colors.teal),
+      Chart_Data3('공급예비(율)',17216,Colors.amberAccent),
+      Chart_Data3('최대부하',21700,Colors.red),
     ];
     return getChartData;
   }
@@ -98,14 +98,6 @@ class _hourly_figures extends State<hourly_figures> {
     return getChartData;
   }
 
-  List<Chart_Data2>  getChartData4(){
-    final List<Chart_Data2>  getChartData = [
-      Chart_Data2(1, 1,1, Color.fromRGBO(225,198,198,1)),
-      Chart_Data2(2, 2,1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data2(3, 3,1, Color.fromRGBO(226,226,226,1)),
-    ];
-    return getChartData;
-  }
 
   List<_SplineAreaData> getGraphData(){
     final List<_SplineAreaData>  getGraphData = [
@@ -192,7 +184,6 @@ class _hourly_figures extends State<hourly_figures> {
           ],
         )
     );
-
     Widget textSection2 =Padding(
         padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 100.sp),
         child:Column(
@@ -301,33 +292,37 @@ class _hourly_figures extends State<hourly_figures> {
     Widget chartSection2 =Center(
         child: Container(
             width: 1000.w,
-            height: 300,
+            height: 120,
             child:SfCartesianChart(
-              tooltipBehavior: _toolTipBehavior,
-              series: <ChartSeries>[
-                StackedBar100Series<Chart_Data2,double>(
-                    dataSource: _chart_Data2,
-                    pointColorMapper:(Chart_Data2 data,  _) => data.color,
-                    xValueMapper: (Chart_Data2 data, _) => data.x,
-                    yValueMapper: (Chart_Data2 data, _) => data.y1,
-                    dataLabelSettings: DataLabelSettings(isVisible: true),
-                    enableTooltip: true,
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.circular(15)
-                ),
-              ],
-              primaryXAxis: NumericAxis(
+              primaryXAxis: CategoryAxis(
                   edgeLabelPlacement: EdgeLabelPlacement.shift,
-                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-                  labelFormat: '{value}월',
-                  isVisible: false
+                  majorGridLines: MajorGridLines(width: 0),
+                  axisLine: AxisLine(width: 0),
+                  isVisible: true
               ),
               primaryYAxis: NumericAxis(
-                  isVisible: false
-                // edgeLabelPlacement: EdgeLabelPlacement.shift
+                isVisible: false,
+                majorGridLines: MajorGridLines(width: 0),
+                axisLine: AxisLine(width: 0),
               ),
+              tooltipBehavior: _toolTipBehavior,
+              series: <ChartSeries>[
+                BarSeries<Chart_Data3,String>(
+                    dataSource: _chart_Data2,
+                    isTrackVisible: true,
+                    pointColorMapper:(Chart_Data3 data,  _) => data.color,
+                    xValueMapper: (Chart_Data3 data, _) => data.x,
+                    yValueMapper: (Chart_Data3 data, _) => data.y1,
+                    dataLabelSettings: DataLabelSettings(isVisible: true,
+                      textStyle: TextStyle(color: Colors.white,fontSize: 35.sp),
+                      labelAlignment: ChartDataLabelAlignment.top,
+                    ),
+                    enableTooltip: true,
+                    borderRadius: BorderRadius.circular(5)
+                ),
+
+              ],
               plotAreaBorderWidth: 0,
-              borderWidth: 50,
             )
         )
     );
@@ -414,35 +409,87 @@ class _hourly_figures extends State<hourly_figures> {
         )
     );
 
-    Widget chartSection4 =
-    Container(
-        width: 1000.w,
-        height: 250,
-        child:    SfCartesianChart(
-          tooltipBehavior: _toolTipBehavior,
-          series: <ChartSeries>[
-            StackedBar100Series<Chart_Data2,double>(
-                dataSource: _chart_Data4,
-                pointColorMapper:(Chart_Data2 data,  _) => data.color,
-                xValueMapper: (Chart_Data2 data, _) => data.x,
-                yValueMapper: (Chart_Data2 data, _) => data.y1,
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-                enableTooltip: true,
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(15)
-            ),
-          ],
-          primaryXAxis: NumericAxis(
-              edgeLabelPlacement: EdgeLabelPlacement.shift,
-              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-              isVisible: false
-          ),
-          primaryYAxis: NumericAxis(
-              isVisible: false
-            // edgeLabelPlacement: EdgeLabelPlacement.shift
-          ),
-          borderWidth: 50,
-          plotAreaBorderWidth: 0,
+
+    Widget legendSection=Padding(
+        padding:  EdgeInsets.fromLTRB(30.sp, 0,100.sp, 0),
+        child:Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                  children: <Widget>[
+                    Container(
+                      width: 17,
+                      height: 17,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3), //모서리를 둥글게
+                          color: Colors.black12
+                      ), //테두리
+                    ),
+                    Text(' 정상')
+                  ]
+              ),
+              Row(
+                  children: <Widget>[
+                    Container(
+                      width: 17,
+                      height: 17,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3), //모서리를 둥글게
+                          color: Colors.green
+                      ), //테두리
+                    ),
+                    Text(' 준비 (4,500이상 ~ 5,500미만)')
+                  ]
+              ),
+              Row(
+                  children: <Widget>[
+                    Container(
+                      width: 17,
+                      height: 17,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3), //모서리를 둥글게
+                          color: Colors.lightGreen
+                      ), //테두리
+                    ),
+                    Text(' 관심 (3,500이상 ~ 4,500미만)')
+                  ]
+              ),
+              Row(
+                  children: <Widget>[
+                    Container(
+                      width: 17,
+                      height: 17,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3), //모서리를 둥글게
+                          color: Colors.amberAccent
+                      ), //테두리
+                    ),
+                    Text(' 주의 (2,500이상 ~ 3,500미만)')
+                  ]
+              ),
+              Row( children: <Widget>[
+                Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3), //모서리를 둥글게
+                      color: Colors.orange
+                  ), //테두리
+                ),
+                Text(' 경계 (1,500이상 ~ 2,500미만)')
+              ]),
+              Row( children: <Widget>[
+                Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3), //모서리를 둥글게
+                      color: Colors.red
+                  ), //테두리
+                ),
+                Text(' 심각 (1,500미만)')
+              ]),
+            ]
         )
     );
 
@@ -505,7 +552,7 @@ class _hourly_figures extends State<hourly_figures> {
                                     ]
                                 )
                             ),
-                            chartSection4,
+                            legendSection,
                             textSection4,
                             graphSection2,
                           ],
@@ -541,4 +588,11 @@ class _SplineAreaData {
   _SplineAreaData(this.year, this.y1);
   final double year;
   final double y1;
+}
+
+class Chart_Data3{
+  Chart_Data3(this.x,this.y1, this.color);
+  final String? x;
+  final double y1;
+  final Color color;
 }
