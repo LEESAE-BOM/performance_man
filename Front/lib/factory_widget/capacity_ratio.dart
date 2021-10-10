@@ -239,19 +239,22 @@ class _capacity_ratio extends State<capacity_ratio> {
     );
 
     Widget datatableSection1= Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child: Center(
             child: Container(
-                width: double.infinity,
+                width: 1020.w,
                 child: Theme(
                     data: Theme.of(context).copyWith(
                         dividerColor: Colors.black12
                     ),
                     child: DataTable(
+                      columnSpacing: 0,
+                      horizontalMargin: 0,
                       headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
                       columns: [
                         DataColumn(
-                          label: Align(
+                          label: Container(
+                            width: 1020.w * .3,
                             alignment: Alignment.center,
                             child:
                             Text('월',
@@ -266,7 +269,8 @@ class _capacity_ratio extends State<capacity_ratio> {
                         ),
                         DataColumn(
                             label:
-                            Align(
+                            Container(
+                              width: 1020.w * .7,
                               alignment: Alignment.center,
                               child: Text('설비 완료율',
                                 style: TextStyle(
@@ -277,19 +281,14 @@ class _capacity_ratio extends State<capacity_ratio> {
                               ),
                             )
                         ),
-                        /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
-          ),
-        ),*/
                       ],
                       rows: [
                         DataRow(
                             cells: [
                               DataCell(Text('')),
                               DataCell(
-                                  Align(
+                                  Container(
+                                      width: 1020.w * .6,
                                       alignment: Alignment.centerRight,
                                       child:Text(
                                         '최근 3개월',
@@ -307,7 +306,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('2021.08',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -317,7 +316,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('14',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -332,7 +331,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: Text('2021.09',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -344,7 +343,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('84',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -357,7 +356,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: Text('2021.10',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -369,7 +368,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('72',
                                         style: TextStyle(
                                             fontSize: 45.sp,

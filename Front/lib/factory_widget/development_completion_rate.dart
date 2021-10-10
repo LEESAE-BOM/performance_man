@@ -113,6 +113,7 @@ class _development_completion_rate extends State<development_completion_rate>{
 
     Widget chartSection=
     Container(
+
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -210,22 +211,24 @@ class _development_completion_rate extends State<development_completion_rate>{
 
     Widget datatableSection1=
     Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child:Center(
             child: Container(
-                width: double.infinity,
+                width: 1020.w,
                 child: Theme(
                     data: Theme.of(context).copyWith(
                         dividerColor: Colors.black12
                     ),
                     child: DataTable(
+                      columnSpacing: 0,
+                      horizontalMargin: 0,
                       headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
                       columns: [
                         DataColumn(
-                          label: Align(
-                            alignment: Alignment.center,
-                            child:
-                            Text('월',
+                          label: Container(
+                              alignment: Alignment.center,
+                              width: 1020.w * .3,
+                              child:Text('월',
                               style: TextStyle(
                                   fontSize: 45.sp,
                                   color: Colors.black54,
@@ -236,9 +239,10 @@ class _development_completion_rate extends State<development_completion_rate>{
                         ),
                         DataColumn(
                             label:
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text('개발 완료율',
+                            Container(
+                              width: 1020.w * .7,
+                                  alignment: Alignment.center,
+                                  child: Text('개발 완료율',
                                 style: TextStyle(
                                     fontSize: 45.sp,
                                     color: Colors.black54,
@@ -247,19 +251,14 @@ class _development_completion_rate extends State<development_completion_rate>{
                               ),
                             )
                         ),
-                        /*DataColumn(
-          label: Center(
-              widthFactor: 4.0,
-              child: Text('지수', style: TextStyle(fontSize: 15, fontFamily: 'applesdneoeb'),)
-          ),
-        ),*/
                       ],
                       rows: [
                         DataRow(
                             cells: [
                               DataCell(Text('')),
                               DataCell(
-                                  Align(
+                                  Container(
+                                      width: 1020.w * .6,
                                       alignment: Alignment.centerRight,
                                       child:Text(
                                         '최근 3개월',
@@ -277,7 +276,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('부품 개발',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -287,7 +286,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('14%',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -302,7 +301,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: Text('장치 개발',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -314,7 +313,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('84%',
                                         style: TextStyle(
                                             fontSize: 45.sp,
