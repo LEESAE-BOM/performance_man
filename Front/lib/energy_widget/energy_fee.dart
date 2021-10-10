@@ -41,8 +41,8 @@ class _energy_fee extends State<energy_fee> {
   }
   List<Chart_Data3>  getChartData3(){
     final List<Chart_Data3>  getChartData = [
-      Chart_Data3('당일누적요금',780,Colors.black45),
-      Chart_Data3('당월누적요금',560,Colors.black45),
+      Chart_Data3('당일누적요금',780,Color.fromRGBO(43, 63, 107, 1)),
+      Chart_Data3('당월누적요금',560,Color.fromRGBO(43, 63, 107, 1)),
       Chart_Data3('전월요금',300,Color.fromRGBO(43, 63, 107, 1)),
     ];
     return getChartData;
@@ -57,30 +57,30 @@ class _energy_fee extends State<energy_fee> {
           children: [
             Text.rich(
               TextSpan(// default text style
-                children: <TextSpan>[
-              TextSpan(text: '이번 달 전기요금 현황은\n',
-                style:TextStyle(
-                  fontSize: 65.sp,
-                  color: Colors.black,
-                  letterSpacing: 3,
-                  fontFamily: 'applesdneoeb',
-                ),),
-              TextSpan(text: '2,289,982원',
-                style:TextStyle(
-                    fontSize:110.sp,
-                    color: Colors.blue,
-                    letterSpacing: 5.0,
-                    // fontWeight: FontWeight.bold,
-                    fontFamily: 'applesdneoeb'),
-              ),
-              TextSpan(text: '이에요',
-                  style:TextStyle(
-                      fontSize: 65.sp,
-                      color: Colors.black,
-                      letterSpacing: 3.0,
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'applesdneoeb'),
-              )
+                  children: <TextSpan>[
+                    TextSpan(text: '이번 달 전기요금 현황은\n',
+                      style:TextStyle(
+                        fontSize: 65.sp,
+                        color: Colors.black,
+                        letterSpacing: 3,
+                        fontFamily: 'applesdneoeb',
+                      ),),
+                    TextSpan(text: '2,289,982원',
+                      style:TextStyle(
+                          fontSize:110.sp,
+                          color: Colors.blue,
+                          letterSpacing: 5.0,
+                          // fontWeight: FontWeight.bold,
+                          fontFamily: 'applesdneoeb'),
+                    ),
+                    TextSpan(text: '이에요',
+                      style:TextStyle(
+                          fontSize: 65.sp,
+                          color: Colors.black,
+                          letterSpacing: 3.0,
+                          // fontWeight: FontWeight.bold,
+                          fontFamily: 'applesdneoeb'),
+                    )
                   ]
               ),
             )
@@ -179,18 +179,19 @@ class _energy_fee extends State<energy_fee> {
 
     Widget chartSection2=Container(
       width: 800.w,
-      height: 200,
+      height: 150,
       child:Center(
           child: SfCartesianChart(
             primaryXAxis: CategoryAxis(
                 edgeLabelPlacement: EdgeLabelPlacement.shift,
                 majorGridLines: MajorGridLines(width: 0),
                 axisLine: AxisLine(width: 0),
+                majorTickLines: MajorTickLines(width:0),
                 isVisible: true
             ),
             primaryYAxis: NumericAxis(
-                isVisible: false,
-                labelFormat: '{value}kWh',
+              isVisible: false,
+              labelFormat: '{value}kWh',
               majorGridLines: MajorGridLines(width: 0),
               axisLine: AxisLine(width: 0),
               // edgeLabelPlacement: EdgeLabelPlacement.shift
@@ -205,8 +206,8 @@ class _energy_fee extends State<energy_fee> {
                 xValueMapper: (Chart_Data3 data, _) => data.x,
                 yValueMapper: (Chart_Data3 data, _) => data.y1,
                 dataLabelSettings: DataLabelSettings(isVisible: true,
-                textStyle: TextStyle(color: Colors.white,fontSize: 35.sp),
-                  labelAlignment: ChartDataLabelAlignment.top
+                    textStyle: TextStyle(color: Colors.white,fontSize: 35.sp),
+                    labelAlignment: ChartDataLabelAlignment.top
                 ),
                 enableTooltip: true,
               ),
@@ -218,7 +219,7 @@ class _energy_fee extends State<energy_fee> {
 
     Widget datatableSection1=
     Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child:Center(
             child: Container(
                 width: double.infinity,
@@ -227,11 +228,14 @@ class _energy_fee extends State<energy_fee> {
                         dividerColor: Colors.black12
                     ),
                     child: DataTable(
+                      columnSpacing: 0,
+                      horizontalMargin: 0,
                       headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
                       columns: [
                         DataColumn(
-                          label: Align(
+                          label: Container(
                             alignment: Alignment.center,
+                            width: 1020.w * .3,
                             child:
                             Text('구분',
                               style: TextStyle(
@@ -245,8 +249,9 @@ class _energy_fee extends State<energy_fee> {
                         ),
                         DataColumn(
                             label:
-                            Align(
+                            Container(
                               alignment: Alignment.center,
+                              width: 1020.w * .7,
                               child: Text('요금현황',
                                 style: TextStyle(
                                     fontSize: 45.sp,
@@ -262,7 +267,8 @@ class _energy_fee extends State<energy_fee> {
                             cells: [
                               DataCell(Text('')),
                               DataCell(
-                                  Align(
+                                  Container(
+                                      width: 1020.w * .6,
                                       alignment: Alignment.centerRight,
                                       child:Text(
                                         '9월',
@@ -280,7 +286,7 @@ class _energy_fee extends State<energy_fee> {
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('전월요금',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -290,7 +296,7 @@ class _energy_fee extends State<energy_fee> {
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('54,000원',
                                         style: TextStyle(
                                             fontSize:45.sp,
@@ -305,7 +311,7 @@ class _energy_fee extends State<energy_fee> {
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: Text('당월누적요금',
                                         style: TextStyle(
                                             fontSize:45.sp,
@@ -317,7 +323,7 @@ class _energy_fee extends State<energy_fee> {
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('165,000원',
                                         style: TextStyle(
                                             fontSize: 45.sp,
@@ -330,7 +336,7 @@ class _energy_fee extends State<energy_fee> {
                             cells: [
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: Text('당일 누적요금',
                                         style: TextStyle(
                                             fontSize:45.sp,
@@ -342,7 +348,7 @@ class _energy_fee extends State<energy_fee> {
                               ),
                               DataCell(
                                   Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child:Text('125,000원',
                                         style: TextStyle(
                                             fontSize:45.sp,
