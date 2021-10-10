@@ -114,7 +114,6 @@ class _expected_profit extends State<expected_profit> {
                   ]))
             ]));
 
-
     Widget chartSection = Center(
       child: Container(
         width: 1000.w,
@@ -192,19 +191,23 @@ class _expected_profit extends State<expected_profit> {
     );
 
     Widget datatableSection = Padding(
-      padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
       child:Center(
       child: Container(
-        width: double.infinity,
+        width: 1020.w,
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.grey),
           child: DataTable(
+            columnSpacing:  0,
+            horizontalMargin: 0,
             showBottomBorder: true,
             headingRowColor:
             MaterialStateColor.resolveWith((states) => Colors.black12),
             columns: <DataColumn>[
               DataColumn(
                 label: Container(
+                  width: 1020.w * .3,
+                  alignment: Alignment.center,
                   child: Text(
                     '종류',
                     textAlign: TextAlign.center,
@@ -217,6 +220,8 @@ class _expected_profit extends State<expected_profit> {
               ),
               DataColumn(
                 label: Container(
+                  width: 1020.w * .7,
+                  alignment: Alignment.center,
                   child: Text('금액',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -231,6 +236,8 @@ class _expected_profit extends State<expected_profit> {
                 cells: <DataCell>[
                   DataCell(Text('')),
                   DataCell(Container(
+                      width: 1020.w * 0.6,
+                      alignment: Alignment.centerRight,
                       child: Text(
                         '최근 1개월',
                         textAlign: TextAlign.right,
@@ -239,13 +246,16 @@ class _expected_profit extends State<expected_profit> {
                             fontSize: 45.sp,
                             color: Colors.black54,
                             fontFamily: 'applesdneoeb'),
-                      )))
+                      )
+                  )
+                  )
                 ],
               ),
               DataRow(
                 cells: <DataCell>[
                   DataCell(
                     Container(
+                      alignment: Alignment.center,
                       child: Text(
                         '현금',
                         textAlign: TextAlign.center,
@@ -258,6 +268,7 @@ class _expected_profit extends State<expected_profit> {
                   ),
                   DataCell(
                     Container(
+                        alignment: Alignment.center,
                         child: Text(
                           '',
                           textAlign: TextAlign.center,
@@ -273,6 +284,7 @@ class _expected_profit extends State<expected_profit> {
                 cells: <DataCell>[
                   DataCell(
                     Container(
+                      alignment: Alignment.center,
                       child: Text(
                         '현금성 자산',
                         textAlign: TextAlign.center,
@@ -297,6 +309,7 @@ class _expected_profit extends State<expected_profit> {
                 cells: <DataCell>[
                   DataCell(
                     Container(
+                      alignment: Alignment.center,
                       child: Text(
                         '단기 금융 상품',
                         textAlign: TextAlign.center,

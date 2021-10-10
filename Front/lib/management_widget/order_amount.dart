@@ -135,24 +135,28 @@ class _order_amount extends State<order_amount> {
                 ])));
 
     Widget datatableSection = Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child:Center(
           child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
               data: Theme.of(context).copyWith(dividerColor: Colors.grey),
               child: DataTable(
+                columnSpacing:  0,
+                horizontalMargin: 0,
                 showBottomBorder: true,
                 headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
                 columns: <DataColumn>[
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
+                      alignment: Alignment.center,
                       child: Text(
                         '종류',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 45.sp,
+                            fontSize: 43.sp,
                             color: Colors.black54,
                             fontFamily: 'applesdneoeb'),
                       ),
@@ -160,10 +164,12 @@ class _order_amount extends State<order_amount> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .7,
+                      alignment: Alignment.center,
                       child: Text('금액',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 45.sp,
+                              fontSize: 43.sp,
                               color: Colors.black54,
                               fontFamily: 'applesdneoeb')),
                     ),
@@ -174,11 +180,13 @@ class _order_amount extends State<order_amount> {
                     cells: <DataCell>[
                       DataCell(Text('')),
                       DataCell(Container(
+                          alignment: Alignment.center,
+                          width: 1020.w * 1.0,
                           child: Text(
                             '최근 1개월',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                fontSize: 48.sp,
+                                fontSize: 43.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           )))
@@ -188,11 +196,12 @@ class _order_amount extends State<order_amount> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '수금 금액',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 45.sp,
+                                fontSize: 43.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -200,11 +209,13 @@ class _order_amount extends State<order_amount> {
                       ),
                       DataCell(
                         Container(
+                            width: 1020.w * 0.7,
+                            alignment: Alignment.center,
                             child: Text(
                               '40,000원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 45.sp,
+                                  fontSize: 43.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -215,11 +226,12 @@ class _order_amount extends State<order_amount> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '미수금 금액',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 45.sp,
+                                fontSize: 43.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -227,11 +239,13 @@ class _order_amount extends State<order_amount> {
                       ),
                       DataCell(
                         Container(
+                            width: 1020.w * .7,
+                            alignment: Alignment.center,
                             child: Text(
                               '50,000원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 45.sp,
+                                  fontSize: 43.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -242,11 +256,12 @@ class _order_amount extends State<order_amount> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '채권 금액',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 45.sp,
+                                fontSize: 43.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -254,11 +269,13 @@ class _order_amount extends State<order_amount> {
                       ),
                       DataCell(
                         Container(
+                            width: 1020.w * .7,
+                            alignment: Alignment.center,
                             child: Text(
                               '10,000원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 45.sp,
+                                  fontSize: 43.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),

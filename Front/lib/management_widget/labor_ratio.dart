@@ -204,19 +204,22 @@ class _labor_ratio extends State<labor_ratio> {
     );
 
     Widget datatableSection =Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child: Center(
           child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
               data: Theme.of(context).copyWith(dividerColor: Colors.grey),
               child: DataTable(
+                columnSpacing:  0,
+                horizontalMargin: 0,
                 showBottomBorder: true,
                 headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
                 columns: <DataColumn>[
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
                       child: Text(
                         '',
                       ),
@@ -224,18 +227,19 @@ class _labor_ratio extends State<labor_ratio> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
                       alignment: Alignment.center,
                       child: Text('인건비 내역',
-                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 43.sp,
+                              fontSize: 35.sp,
                               color: Colors.black54,
                               fontFamily: 'applesdneoeb')),
                     ),
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .4,
                       child: Text(
                         '',
                       ),
@@ -248,9 +252,10 @@ class _labor_ratio extends State<labor_ratio> {
                       DataCell(Text('')),
                       DataCell(Text('')),
                       DataCell(Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '최근 1개월',
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 41.sp,
                                 color: Colors.black54,
@@ -262,9 +267,10 @@ class _labor_ratio extends State<labor_ratio> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '####.##.##',
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 41.sp,
                                 color: Colors.black54,
@@ -274,9 +280,10 @@ class _labor_ratio extends State<labor_ratio> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '???',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontSize: 41.sp,
                                   color: Colors.black54,
@@ -285,9 +292,10 @@ class _labor_ratio extends State<labor_ratio> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '#,##,###원',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontSize: 41.sp,
                                   color: Colors.black54,

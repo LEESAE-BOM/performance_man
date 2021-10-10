@@ -114,19 +114,22 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                 ])));
 
     Widget datatableSection = Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child:Center(
           child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
               data: Theme.of(context).copyWith(dividerColor: Colors.grey),
               child: DataTable(
+                columnSpacing:  0,
+                horizontalMargin: 0,
                 showBottomBorder: true,
                 headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
                 columns: <DataColumn>[
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
                       child: Text(
                         '',
                       ),
@@ -134,6 +137,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
                       alignment: Alignment.center,
                       child: Text('외주 내역',
                           textAlign: TextAlign.center,
@@ -145,6 +149,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .4,
                       child: Text(
                         '',
                       ),
@@ -157,6 +162,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                       DataCell(Text('')),
                       DataCell(Text('')),
                       DataCell(Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '최근 3개월',
                             textAlign: TextAlign.right,
@@ -172,6 +178,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '#,###,###',
                             textAlign: TextAlign.right,
@@ -184,6 +191,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '##사',
                               textAlign: TextAlign.center,

@@ -156,19 +156,22 @@ class _contracted_price extends State<contracted_price> {
     );
 
     Widget datatableSection = Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child:Center(
           child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
               data: Theme.of(context).copyWith(dividerColor: Colors.grey),
               child: DataTable(
+                columnSpacing:  0,
+                horizontalMargin: 0,
                 showBottomBorder: true,
                 headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
                 columns: <DataColumn>[
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .2,
                       child: Text(
                         '',
                       ),
@@ -176,17 +179,19 @@ class _contracted_price extends State<contracted_price> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .4,
                       alignment: Alignment.center,
                       child: Text('매출 금액 내역',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 43.sp,
+                              fontSize: 41.sp,
                               color: Colors.black54,
                               fontFamily: 'applesdneoeb')),
                     ),
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .4,
                       child: Text(
                         '',
                       ),
@@ -199,11 +204,12 @@ class _contracted_price extends State<contracted_price> {
                       DataCell(Text('')),
                       DataCell(Text('')),
                       DataCell(Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '최근 1개월',
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontSize: 41.sp,
+                                fontSize: 40.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           )))
@@ -213,11 +219,12 @@ class _contracted_price extends State<contracted_price> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '기업',
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontSize: 41.sp,
+                                fontSize: 39.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -225,22 +232,24 @@ class _contracted_price extends State<contracted_price> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '계약 금액',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontSize: 41.sp,
+                                  fontSize: 39.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
-                              '수주 잔고 금액',
-                              textAlign: TextAlign.center,
+                              '수주 잔고금액',
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontSize: 41.sp,
+                                  fontSize: 39.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
@@ -253,11 +262,12 @@ class _contracted_price extends State<contracted_price> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             'A기업',
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontSize: 41.sp,
+                                fontSize: 39.sp,
                                 color: Colors.black54,
                                 fontFamily: 'applesdneoeb'),
                           ),
@@ -265,22 +275,24 @@ class _contracted_price extends State<contracted_price> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '4,123,123원',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontSize: 41.sp,
+                                  fontSize: 39.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '456,789원',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontSize: 41.sp,
+                                  fontSize: 39.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
                             )),

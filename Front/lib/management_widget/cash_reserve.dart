@@ -213,19 +213,23 @@ class _cash_reserve extends State<cash_reserve> {
                 ])));
 
     Widget datatableSection =Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child: Center(
           child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
               data: Theme.of(context).copyWith(dividerColor: Colors.grey),
               child: DataTable(
+                columnSpacing:  0,
+                horizontalMargin: 0,
                 showBottomBorder: true,
                 headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
                 columns: <DataColumn>[
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
+                      alignment: Alignment.center,
                       child: Text('연도',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -237,6 +241,8 @@ class _cash_reserve extends State<cash_reserve> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .7,
+                      alignment: Alignment.center,
                       child: Text('금액',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -252,8 +258,10 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(Text('')),
                       DataCell(Container(
+                          width: 1020.w ,
+                          alignment: Alignment.center,
                           child: Text(
-                            '최근 1개월',
+                            '최근 3 년',
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontSize: 45.sp,
@@ -267,6 +275,8 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          width: 1020.w * .3,
+                          alignment: Alignment.center,
                           child: Text(
                             '2019',
                             textAlign: TextAlign.center,
@@ -279,6 +289,8 @@ class _cash_reserve extends State<cash_reserve> {
                       ),
                       DataCell(
                         Container(
+                            width: 1020.w * .7,
+                            alignment: Alignment.center,
                             child: Text(
                               '253,654,978원',
                               textAlign: TextAlign.center,
@@ -294,6 +306,8 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          width: 1020.w * .3,
+                          alignment: Alignment.center,
                           child: Text(
                             '2020',
                             textAlign: TextAlign.center,
@@ -306,6 +320,8 @@ class _cash_reserve extends State<cash_reserve> {
                       ),
                       DataCell(
                         Container(
+                            width: 1020.w * .7,
+                            alignment: Alignment.center,
                             child: Text(
                               '323,456,789원',
                               textAlign: TextAlign.center,
@@ -321,6 +337,8 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          width: 1020.w * .3,
+                          alignment: Alignment.center,
                           child: Text(
                             '2021',
                             textAlign: TextAlign.center,
@@ -333,6 +351,8 @@ class _cash_reserve extends State<cash_reserve> {
                       ),
                       DataCell(
                         Container(
+                            width: 1020.w * .7,
+                            alignment: Alignment.center,
                             child: Text(
                               '450,340,890원',
                               textAlign: TextAlign.center,
@@ -351,19 +371,23 @@ class _cash_reserve extends State<cash_reserve> {
         ));
 
     Widget datatableSection1 = Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
         child:Center(
           child: Container(
-            width: double.infinity,
+            width: 1020.w,
             child: Theme(
               data: Theme.of(context).copyWith(dividerColor: Colors.grey),
               child: DataTable(
+                columnSpacing:  0,
+                horizontalMargin: 0,
                 showBottomBorder: true,
                 headingRowColor:
                 MaterialStateColor.resolveWith((states) => Colors.black12),
                 columns: <DataColumn>[
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .3,
+                      alignment: Alignment.center,
                       child: Text(
                         '종류',
                         textAlign: TextAlign.center,
@@ -377,6 +401,8 @@ class _cash_reserve extends State<cash_reserve> {
                   ),
                   DataColumn(
                     label: Container(
+                      width: 1020.w * .7,
+                      alignment: Alignment.center,
                       child: Text('금액',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -392,6 +418,8 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(Text('')),
                       DataCell(Container(
+                        width: 1020.w *.6,
+                          alignment: Alignment.centerRight,
                           child: Text(
                             '최근 1개월',
                             textAlign: TextAlign.right,
@@ -407,6 +435,7 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '현금',
                             textAlign: TextAlign.center,
@@ -419,6 +448,7 @@ class _cash_reserve extends State<cash_reserve> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '253,654,978원',
                               textAlign: TextAlign.center,
@@ -434,6 +464,7 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '현금성 자산',
                             textAlign: TextAlign.center,
@@ -446,6 +477,7 @@ class _cash_reserve extends State<cash_reserve> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '323,456,789원',
                               textAlign: TextAlign.center,
@@ -461,6 +493,7 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(
                         Container(
+                          alignment: Alignment.center,
                           child: Text(
                             '단기 금융 상품',
                             textAlign: TextAlign.center,
@@ -473,6 +506,7 @@ class _cash_reserve extends State<cash_reserve> {
                       ),
                       DataCell(
                         Container(
+                            alignment: Alignment.center,
                             child: Text(
                               '450,340,890원',
                               textAlign: TextAlign.center,
