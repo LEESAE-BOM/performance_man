@@ -297,11 +297,12 @@ class _hourly_figures extends State<hourly_figures> {
                 BarSeries<Chart_Data3,String>(
                     dataSource: _chart_Data2,
                     isTrackVisible: true,
+                    trackColor: Colors.black12,
                     pointColorMapper:(Chart_Data3 data,  _) => data.color,
                     xValueMapper: (Chart_Data3 data, _) => data.x,
                     yValueMapper: (Chart_Data3 data, _) => data.y1,
                     dataLabelSettings: DataLabelSettings(isVisible: true,
-                      textStyle: TextStyle(color: Colors.white,fontSize: 35.sp),
+                      textStyle: TextStyle(color: Colors.black,fontSize: 35.sp),
                       labelAlignment: ChartDataLabelAlignment.top,
                     ),
                     enableTooltip: true,
