@@ -13,17 +13,17 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
   Widget build(BuildContext context) {
     return Container(
         width: 520.w,
-        height: 200,
-        child:GestureDetector(
+        height: 400.w,
+        child: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => energy_fee()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => energy_fee()));
             },
             child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.black12, width: 3),
+                  border: Border.all(color: Colors.black12),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey,
@@ -32,54 +32,58 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                     ),
                   ],
                 ),
-                //margin: EdgeInsets.all(30),
-                child: Column(
-                    children: <Widget>[
-                      Container(
-                        //height: 50,
-                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                        child: Row(
-                          children: [
-                            Text(
-                              '요금현황',
-                              style: TextStyle(color: Colors.black54, fontSize: 15),
-                            ),
-                            SizedBox(width:5),
-                            Image.asset(
-                              'image/safe.png',
-                              width: 10,
-                              height: 10,
-                            ),
-                          ],
+                child: Column(children: <Widget>[
+                  Container(
+                    padding:
+                        EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
+                    child: Row(
+                      children: [
+                        Text(
+                          '요금현황',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 35.w,
+                              fontFamily: 'applesdneom'),
                         ),
-                      ),
-                      SizedBox(
-                        height: ScreenUtil().setHeight(15),
-                      ),
-                      Text.rich(
-                        TextSpan(// default text style
+                        SizedBox(width: 10.w),
+                        Image.asset(
+                          'image/safe.png',
+                          width: 20.w,
+                          height: 20.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 520.w,
+                    height: 320.w,
+                    child: Center(
+                      child: Text.rich(
+                        TextSpan(
+                          // default text style
                           children: <TextSpan>[
-                            TextSpan(text:  '300',
-                              style:TextStyle(
-                                fontSize:  80.sp,
-                                color: Color.fromRGBO(43, 63, 107, 1),
+                            TextSpan(
+                              text: '300',
+                              style: TextStyle(
+                                fontSize: 120.w,
+                                color: Colors.blueGrey,
+                                letterSpacing: 5.w,
                                 fontFamily: 'applesdneob',
-                              ),),
-                            TextSpan(text: 'kWh',
-                              style:TextStyle(
-                                fontSize: 15.sp,
-                                color:  Colors.black87,
-                                fontFamily: 'applesdneob',),
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' kWh',
+                              style: TextStyle(
+                                  fontSize: 70.w,
+                                  color: Colors.black,
+                                  letterSpacing: 1.w,
+                                  fontFamily: 'applesdneob'),
                             ),
                           ],
                         ),
                       ),
-                    ]
-
-
-                )
-            )
-        )
-    );
+                    ),
+                  )
+                ]))));
   }
 }

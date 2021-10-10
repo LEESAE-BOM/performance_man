@@ -10,13 +10,12 @@ class Monthly_Figures_Widget extends StatefulWidget {
 }
 
 class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
         width: 1060.w,
-        height: 200,
-        child:GestureDetector(
+        height: 400.w,
+        child: GestureDetector(
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => monthly_figures()));
@@ -25,7 +24,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.black12, width: 3),
+                  border: Border.all(color: Colors.black12),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey,
@@ -34,69 +33,76 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                     ),
                   ],
                 ),
-                //margin: EdgeInsets.all(30),
-                child: Column(
-                    children: <Widget>[
-                      Container(
-                        //height: 50,
-                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                        child: Row(
-                          children: [
-                            Text(
-                              '월별 에너지',
-                              style: TextStyle(color: Colors.black54, fontSize: 15),
-                            ),
-                            SizedBox(width:5),
-                            Image.asset(
-                              'image/safe.png',
-                              width: 10,
-                              height: 10,
-                            ),
-                          ],
+                child: Column(children: <Widget>[
+                  Container(
+                    padding:
+                        EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
+                    child: Row(
+                      children: [
+                        Text(
+                          '월별 에너지',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 35.w,
+                              fontFamily: 'applesdneom'),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                      child:Row(
-                          children:<Widget>[
+                        SizedBox(width: 10.w),
+                        Image.asset(
+                          'image/safe.png',
+                          width: 20.w,
+                          height: 20.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*SizedBox(
+                    height: 10,
+                  ),*/
+                  Container(
+                    width: 1060.w,
+                    height: 320.w,
+                    alignment: Alignment.center,
+                    child: Center(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
                             Text.rich(
-                            TextSpan(// default text style
-                              children: <TextSpan>[
-                                TextSpan(text:  '전월대비 ',
-                                  style:TextStyle(
-                                    fontSize:  15,
-                                    color: Colors.black87,
-                                    fontFamily: 'applesdneob',
-                                  ),),
-                                TextSpan(text:  '2000만큼',
-                                  style:TextStyle(
-                                    fontSize:  50,
-                                    color: Color.fromRGBO(43, 63, 107, 1),
-                                    fontFamily: 'applesdneob',
-                                  ),),
-                                TextSpan(text: ' 감소 ',
-                                  style:TextStyle(
-                                    fontSize: 15,
-                                    color:  Colors.black87,
-                                    fontFamily: 'applesdneob',),
-                                ),
-                              ],
+                              TextSpan(
+                                // default text style
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '전월대비',
+                                    style: TextStyle(
+                                      fontSize: 60.w,
+                                      color: Colors.black,
+                                      letterSpacing: 1.w,
+                                      fontFamily: 'applesdneob',
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '\n2000만큼',
+                                    style: TextStyle(
+                                        fontSize: 70.w,
+                                        color: Colors.blueGrey,
+                                        letterSpacing: 5.w,
+                                        fontFamily: 'applesdneob'),
+                                  ),
+                                  TextSpan(
+                                    text: ' 감소',
+                                    style: TextStyle(
+                                        fontSize: 60.w,
+                                        color: Colors.black,
+                                        letterSpacing: 1.w,
+                                        fontFamily: 'applesdneob'),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
                             Icon(CupertinoIcons.arrowtriangle_down_square_fill,
-                            size:40,
-                              color:Colors.blue
-                            )
-                          ]
-                      )
-                      )
-                    ]
-                )
-            )
-        )
-    );
+                                size: 150.w, color: Colors.blue)
+                          ]),
+                    ),
+                  )
+                ]))));
   }
 }
