@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '.././screens/energy/energy_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,9 +41,9 @@ class _energy_fee extends State<energy_fee> {
   }
   List<Chart_Data3>  getChartData3(){
     final List<Chart_Data3>  getChartData = [
-      Chart_Data3(1, 1,1, Color.fromRGBO(225,198,198,1)),
-      Chart_Data3(2, 2,1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data3(3, 3,1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data3('당일누적요금',780,Colors.black45),
+      Chart_Data3('당월누적요금',560,Colors.black45),
+      Chart_Data3('전월요금',300,Color.fromRGBO(43, 63, 107, 1)),
     ];
     return getChartData;
   }
@@ -183,28 +182,35 @@ class _energy_fee extends State<energy_fee> {
       height: 200,
       child:Center(
           child: SfCartesianChart(
+            primaryXAxis: CategoryAxis(
+                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                majorGridLines: MajorGridLines(width: 0),
+                axisLine: AxisLine(width: 0),
+                isVisible: true
+            ),
+            primaryYAxis: NumericAxis(
+                isVisible: false,
+                labelFormat: '{value}kWh',
+              majorGridLines: MajorGridLines(width: 0),
+              axisLine: AxisLine(width: 0),
+              // edgeLabelPlacement: EdgeLabelPlacement.shift
+            ),
             tooltipBehavior: _toolTipBehavior,
             series: <ChartSeries>[
-              StackedBar100Series<Chart_Data3,double>(
+              BarSeries<Chart_Data3,String>(
                 dataSource: _chart_Data3,
+                isTrackVisible: true,
+                trackColor: Colors.black12,
                 pointColorMapper:(Chart_Data3 data,  _) => data.color,
                 xValueMapper: (Chart_Data3 data, _) => data.x,
                 yValueMapper: (Chart_Data3 data, _) => data.y1,
-                dataLabelSettings: DataLabelSettings(isVisible: true),
+                dataLabelSettings: DataLabelSettings(isVisible: true,
+                textStyle: TextStyle(color: Colors.white,fontSize: 35.sp),
+                  labelAlignment: ChartDataLabelAlignment.top
+                ),
                 enableTooltip: true,
-                color: Colors.blueAccent,
               ),
             ],
-            primaryXAxis: NumericAxis(
-                edgeLabelPlacement: EdgeLabelPlacement.shift,
-                numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
-                labelFormat: '{value}월',
-                isVisible: false
-            ),
-            primaryYAxis: NumericAxis(
-                isVisible: false
-              // edgeLabelPlacement: EdgeLabelPlacement.shift
-            ),
             plotAreaBorderWidth: 0,
           )
       ),
@@ -393,10 +399,8 @@ class Chart_Data {
   final Color color;
 }
 class Chart_Data3{
-  Chart_Data3(this.x,this.y1,this.y2,this.color);
-  final double x;
+  Chart_Data3(this.x,this.y1, this.color);
+  final String? x;
   final double y1;
-  final double y2;
   final Color color;
-
 }
