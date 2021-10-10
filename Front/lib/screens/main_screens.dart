@@ -4,6 +4,7 @@ import './factory/factory_screen.dart'; //경로 수정
 import './components/menu_drawer.dart'; //경로 수정
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainScreens extends StatefulWidget{
   @override
@@ -22,7 +23,7 @@ class _MainScreensState extends State<MainScreens>{
       endDrawer: MenuDrawer(),
 
       appBar: AppBar(
-        title: Text('FLOW',style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'applesdneob'),),
+        title: Text('FLOW',style: TextStyle(color: Colors.white,fontSize: 40.w,fontFamily: 'applesdneob'),),
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
@@ -49,11 +50,11 @@ class _MainScreensState extends State<MainScreens>{
 
         items:[
           const BottomNavigationBarItem(
-            label: '경영', icon:Icon(CupertinoIcons.home)),
+            label: '경영', icon:Icon(CupertinoIcons.chart_bar_square)),
           const BottomNavigationBarItem(
-              label: '공장', icon:Icon(CupertinoIcons.home)),
+              label: '공장', icon:Icon(CupertinoIcons.building_2_fill)),
           const BottomNavigationBarItem(
-              label: '에너지', icon:Icon(CupertinoIcons.home)),
+              label: '에너지', icon:Icon(CupertinoIcons.bolt_fill)),
         ],
       ),
     );
