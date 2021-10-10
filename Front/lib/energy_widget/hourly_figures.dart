@@ -47,7 +47,7 @@ class _hourly_figures extends State<hourly_figures> {
 
   List<Chart_Data>  getChartData(){
     final List<Chart_Data>  getChartData = [
-      Chart_Data('24~01', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('12~01', 1, Color.fromRGBO(226,226,226,1)),
       Chart_Data('01~02', 1, Color.fromRGBO(226,226,226,1)),
       Chart_Data('02~03', 1,Color.fromRGBO(226,226,226,1)),
       Chart_Data('03~04', 1, Color.fromRGBO(226,226,226,1)),
@@ -55,23 +55,10 @@ class _hourly_figures extends State<hourly_figures> {
       Chart_Data('05~06', 1, Color.fromRGBO(226,226,226,1)),
       Chart_Data('06~07', 1,Color.fromRGBO(226,226,226,1)),
       Chart_Data('07~08', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('08~09', 1, Color.fromRGBO(225,72,72,1)),
-      Chart_Data('09~10', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('08~09', 1, Color.fromRGBO(226,226,226,1)),
+      Chart_Data('09~10', 1, Color.fromRGBO(225,72,72,1)),
+      Chart_Data('10~11', 1, Color.fromRGBO(226,226,226,1)),
       Chart_Data('11~12', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('12~13', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('13~14', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('14~15', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('15~16', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('17~18', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('18~19', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('19~20', 1,Color.fromRGBO(226,226,226,1)),
-      Chart_Data('15~16', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('17~18', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('18~19', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('20~21', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('21~22', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('22~23', 1, Color.fromRGBO(226,226,226,1)),
-      Chart_Data('23~24', 1, Color.fromRGBO(226,226,226,1))
     ];
     return getChartData;
   }
