@@ -19,42 +19,50 @@ class Energy_Screen extends StatelessWidget {
               color: Color.fromRGBO(43, 63, 107, 1),
             ),
             alignment: Alignment.center,
-            height: 180,
-            child: //Text('목표대비 총 105% 달성', style: TextStyle(color: Colors.black54, fontSize: 20),)
-                RichText(
+            height: 350.w,
+            child: RichText(
               text: TextSpan(children: <TextSpan>[
                 TextSpan(
                   text: '이번 달 전력 사용량\n',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 65.w,
                     color: Colors.white,
-                    letterSpacing: 1,
-                    fontFamily: 'applesdnoeb',
+                    letterSpacing: 1.w,
+                    fontFamily: 'applesdneob',
                   ),
                 ),
                 TextSpan(
                   text: '13,588',
                   style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 130.w,
                       color: Colors.white,
-                      letterSpacing: 5,
+                      letterSpacing: 5.w,
                       fontFamily: 'applesdneob'),
                 ),
                 TextSpan(
                   text: ' kWh',
                   style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 65.w,
                       color: Colors.white,
-                      letterSpacing: 1.0,
+                      letterSpacing: 1.w,
                       fontFamily: 'applesdneob'),
                 ),
               ]),
             )),
-        Padding ( padding: EdgeInsets.all(10.w),child : Monthly_Figures_Widget(),),
+        Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Monthly_Figures_Widget(),
+        ),
         Row(
           children: [
-    Padding ( padding: EdgeInsets.all(10.w),child :Energy_Fee_Widget(),),
-    Padding ( padding: EdgeInsets.all(10.w),child :Hourly_Figures_Widget(),),
+            Padding(
+              padding: EdgeInsets.all(10.w),
+              child: Energy_Fee_Widget(),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.w),
+              child: Hourly_Figures_Widget(),
+            ),
           ],
         ),
       ],
