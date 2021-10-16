@@ -66,7 +66,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                             TextSpan(
                               text: '9',
                               style: TextStyle(
-                                fontSize: 140.w,
+                                fontSize: 170.w,
                                 color: Color.fromRGBO(43, 63, 107, 1),
                                 letterSpacing: 5.0.w,
                                 fontFamily: 'applesdneob',
@@ -75,7 +75,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                             TextSpan(
                               text: 'days ',
                               style: TextStyle(
-                                fontSize: 90.w,
+                                fontSize: 80.w,
                                 color: Colors.black87,
                                 letterSpacing: 5.0.w,
                                 fontFamily: 'applesdneob',

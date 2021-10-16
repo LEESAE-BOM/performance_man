@@ -35,7 +35,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
             ),
             child: Column(children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
+                padding: EdgeInsets.only(top: 20.w, left: 35.w),
                 child: Row(
                   children: [
                     Text(
@@ -68,13 +68,14 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                           color: Colors.black,
                           letterSpacing: 1.w,
                           fontFamily: 'applesdneob',
+                          //height: 1.0
                         ),
                       ),
                       TextSpan(
                         text: '계약금액',
                         style: TextStyle(
-                            fontSize: 60.w,
-                            color: Colors.blueGrey,
+                            fontSize: 70.sp,
+                            color: Colors.blueAccent,
                             letterSpacing: 5.w,
                             fontFamily: 'applesdneob'),
                       ),
@@ -89,10 +90,12 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                       TextSpan(
                         text: '\n321,654,987원',
                         style: TextStyle(
-                            fontSize: 60.w,
-                            color: Colors.blueGrey,
+                            fontSize: 75.sp,
+                            color: Colors.blueAccent,
                             letterSpacing: 5.w,
-                            fontFamily: 'applesdneob'),
+                            fontFamily: 'applesdneob',
+                            height:1.5
+                        ),
                       ),
                       TextSpan(
                         text: ' 입니다.',

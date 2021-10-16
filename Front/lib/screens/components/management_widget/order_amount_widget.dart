@@ -20,7 +20,16 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
 
     Widget chartSection = Center(
         child: Container(
-            child: SfCircularChart(series: <CircularSeries>[
+            child: SfCircularChart(
+                onChartTouchInteractionDown: (_Order_Amount_Widget) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => order_amount()));
+                },
+                palette: <Color>[
+              Colors.indigoAccent,
+              Colors.blueGrey,
+              Colors.indigo,
+            ], series: <CircularSeries>[
       // Render pie chart
       PieSeries<ChartData, String>(radius: '100%',
           dataSource: chartData,
@@ -29,7 +38,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
           dataLabelMapper: (ChartData data, _) => data.text,
           dataLabelSettings: DataLabelSettings(
               isVisible: true,
-              textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob'))),
+              textStyle: TextStyle(fontSize: 40.w, fontFamily: 'applesdneob'))),
     ])));
     return GestureDetector(
         onTap: () {

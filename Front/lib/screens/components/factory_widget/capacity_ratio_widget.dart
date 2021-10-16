@@ -30,15 +30,22 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    Widget chartSection = SfCircularChart(series: <CircularSeries>[
+    Widget chartSection = SfCircularChart(
+        onChartTouchInteractionDown: (_Capacity_Ratio_Widget) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => capacity_ratio()));
+        },
+        series: <CircularSeries>[
       DoughnutSeries<Chart_Data, String>(radius: '100%',
           dataSource: _chart_Data,
           xValueMapper: (Chart_Data data, _) => data.x,
           yValueMapper: (Chart_Data data, _) => data.y,
           pointColorMapper: (Chart_Data data, _) => data.color,
           dataLabelSettings: DataLabelSettings(
+             showCumulativeValues: false,
+              showZeroValue: false,
               isVisible: true,
-              textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob')))
+              textStyle: TextStyle(fontSize: 30.w, fontFamily: 'applesdneob')))
     ]);
 
     return GestureDetector(

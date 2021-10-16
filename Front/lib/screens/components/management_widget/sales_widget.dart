@@ -33,7 +33,7 @@ class _Sales_Widget extends State<Sales_Widget> {
             ),
             child: Column(children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
+                padding: EdgeInsets.only(top: 20.w, left: 35.w),
                 child: Row(
                   children: [
                     Text(
@@ -70,8 +70,8 @@ class _Sales_Widget extends State<Sales_Widget> {
                       TextSpan(
                         text: '매출금액',
                         style: TextStyle(
-                            fontSize: 60.w,
-                            color: Colors.blueGrey,
+                            fontSize: 70.w,
+                            color: Colors.blueAccent,
                             letterSpacing: 5.w,
                             fontFamily: 'applesdneob'),
                       ),
@@ -86,10 +86,12 @@ class _Sales_Widget extends State<Sales_Widget> {
                       TextSpan(
                         text: '\n123,456,789원',
                         style: TextStyle(
-                            fontSize: 60.w,
-                            color: Colors.blueGrey,
+                            fontSize: 75.w,
+                            color: Colors.blueAccent,
                             letterSpacing: 5.w,
-                            fontFamily: 'applesdneob'),
+                            fontFamily: 'applesdneob',
+                            height:1.5
+                        ),
                       ),
                       TextSpan(
                         text: ' 입니다.',

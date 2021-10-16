@@ -21,6 +21,10 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
     Widget chartSection = Center(
       child: Container(
           child: SfCartesianChart(
+              onChartTouchInteractionDown: (_Cash_Reserve_Widget) {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => cash_reserve()));
+              },
               primaryXAxis: CategoryAxis(
                 majorGridLines: MajorGridLines(width: 0),
               ),
@@ -30,6 +34,9 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 numberFormat: NumberFormat.compact(),
               ),
               plotAreaBorderWidth:0,
+              palette: <Color>[
+                Colors.teal,
+              ],
               series: <ChartSeries>[
                 BarSeries<ChartData, double>(
                     dataSource: chartdata,

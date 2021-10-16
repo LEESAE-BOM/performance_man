@@ -19,7 +19,16 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
   Widget build(BuildContext context) {
     Widget chartSection = Center(
         child: Container(
-            child: SfCircularChart(series: <CircularSeries>[
+            child: SfCircularChart(
+                onChartTouchInteractionDown: (_Outsourcing_Ratio_Widget) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => outsourcing_ratio()));
+                },
+                palette: <Color>[
+                  Colors.blue,
+                  Colors.grey,
+                ],
+                series: <CircularSeries>[
       // Render pie chart
       PieSeries<ChartData, String>(radius: '100%',
           dataSource: chartData,

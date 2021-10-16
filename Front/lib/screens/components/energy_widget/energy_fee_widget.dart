@@ -35,7 +35,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                 child: Column(children: <Widget>[
                   Container(
                     padding:
-                        EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
+                        EdgeInsets.only(top: 20.w, left: 35.w),
                     child: Row(
                       children: [
                         Text(
@@ -66,7 +66,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                               text: '300',
                               style: TextStyle(
                                 fontSize: 120.w,
-                                color: Colors.blueGrey,
+                                color: Colors.blue,
                                 letterSpacing: 5.w,
                                 fontFamily: 'applesdneob',
                               ),

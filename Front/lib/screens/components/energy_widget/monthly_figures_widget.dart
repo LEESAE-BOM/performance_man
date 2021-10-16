@@ -82,8 +82,8 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                                   TextSpan(
                                     text: '\n2000만큼',
                                     style: TextStyle(
-                                        fontSize: 70.w,
-                                        color: Colors.blueGrey,
+                                        fontSize: 85.w,
+                                        color: Colors.blue,
                                         letterSpacing: 5.w,
                                         fontFamily: 'applesdneob'),
                                   ),
@@ -98,8 +98,8 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                                 ],
                               ),
                             ),
-                            Icon(CupertinoIcons.arrowtriangle_down_square_fill,
-                                size: 150.w, color: Colors.blue)
+                            Icon(CupertinoIcons.hand_thumbsdown_fill,
+                                size: 160.w, color: Colors.blue)
                           ]),
                     ),
                   )

@@ -13,6 +13,8 @@ import 'package:flutter_app/factory_widget/lead_time.dart';
 import 'package:flutter_app/energy_widget/monthly_figures.dart';
 import 'package:flutter_app/energy_widget/hourly_figures.dart';
 import 'package:flutter_app/energy_widget/energy_fee.dart';
+import 'package:flutter_app/login.dart';
+import 'package:flutter/cupertino.dart';
 
 
 class MenuDrawer extends StatelessWidget{
@@ -47,7 +49,7 @@ class _Menu_Drawer extends State<Menu_Drawer> {
           Column(
             children: <Widget>[
               ExpansionTile(
-                leading: Icon(Icons.home),
+                leading: Icon(CupertinoIcons.chart_bar_square),
                 title: Text('경영'),
                 children: <Widget>[
                   ListTile(
@@ -102,14 +104,15 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                 ],
               ),
               ExpansionTile(
-                leading: Icon(Icons.home),
+                leading: Icon(CupertinoIcons.building_2_fill),
                 title: Text('공장'),
                 children: <Widget>[
                   ListTile(
                     title: Text('개발완료율'),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => development_completion_rate()));
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => login_flow())
+                      );
                     },
                   ),
                   ListTile(
@@ -136,7 +139,7 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                 ],
               ),
               ExpansionTile(
-                leading: Icon(Icons.home),
+                leading: Icon(CupertinoIcons.bolt_fill),
                 title: Text('에너지'),
                 children: <Widget>[
                   ListTile(
@@ -164,20 +167,6 @@ class _Menu_Drawer extends State<Menu_Drawer> {
               )
             ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-                onPressed: (){},
-                child: Text('로그아웃'),
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(43, 63, 107, 1),
-                onPrimary: Colors.white,
-                shape: RoundedRectangleBorder( //to set border radius to button
-                    borderRadius: BorderRadius.circular(15)
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

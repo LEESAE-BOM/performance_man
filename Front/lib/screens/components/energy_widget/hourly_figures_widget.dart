@@ -20,47 +20,39 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
 
   List<Sales_Data> getChartData() {
     final List<Sales_Data> getChartData = [
-      Sales_Data('24~01', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('01~02', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('02~03', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('03~04', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('04~05', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('05~06', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('06~07', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('07~08', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('08~09', 1, Color.fromRGBO(225, 72, 72, 1)),
-      Sales_Data('09~10', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('11~12', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('12~13', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('13~14', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('14~15', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('15~16', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('17~18', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('18~19', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('19~20', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('15~16', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('17~18', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('18~19', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('20~21', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('21~22', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('22~23', 1, Color.fromRGBO(226, 226, 226, 1)),
-      Sales_Data('23~24', 1, Color.fromRGBO(226, 226, 226, 1))
+      Sales_Data('12~01', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('01~02', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('02~03', 1,Color.fromRGBO(226,226,226,1)),
+      Sales_Data('03~04', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('04~05', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('05~06', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('06~07', 1,Color.fromRGBO(226,226,226,1)),
+      Sales_Data('07~08', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('08~09', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('09~10', 1, Color.fromRGBO(225,72,72,1)),
+      Sales_Data('10~11', 1, Color.fromRGBO(226,226,226,1)),
+      Sales_Data('11~12', 1, Color.fromRGBO(226,226,226,1)),
     ];
     return getChartData;
   }
 
   Widget build(BuildContext context) {
     Widget chartSection = Center(
-        child: SfCircularChart(annotations: <CircularChartAnnotation>[
+        child: SfCircularChart(
+            onChartTouchInteractionDown: (_Hourly_Figures_Widget) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => hourly_figures()));
+            },
+            annotations: <CircularChartAnnotation>[
       CircularChartAnnotation(
-          radius: '110%',
           widget: Container(
-              child: const Text('9시~10시',
+              child: Text('9시~10시',
                   style: TextStyle(
                       color: Colors.red,
-                      fontSize: 25,
-                      fontFamily: 'applesdneom'))))
-    ], series: <CircularSeries>[
+                      fontSize: 32.sp,
+                      fontFamily: 'applesdneoeb'))))
+    ],
+            series: <CircularSeries>[
       // Renders doughnut chart
       DoughnutSeries<Sales_Data, String>(
           radius: '100%',
@@ -68,8 +60,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
           pointColorMapper: (Sales_Data data, _) => data.color,
           xValueMapper: (Sales_Data data, _) => data.x,
           yValueMapper: (Sales_Data data, _) => data.y,
-          dataLabelSettings: DataLabelSettings(
-              textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob'))),
+      ),
       // explode: true
     ]));
     return GestureDetector(

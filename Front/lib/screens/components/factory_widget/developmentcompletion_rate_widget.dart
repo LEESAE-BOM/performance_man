@@ -39,6 +39,10 @@ class _Developmentcompletion_Rate_Widget
   @override
   Widget build(BuildContext context) {
     Widget chartSection = SfCartesianChart(
+      onChartTouchInteractionDown: (_Developmentcompletion_Rate_Widget) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => development_completion_rate()));
+      },
       palette: <Color>[
         Colors.teal,
       ],

@@ -36,6 +36,10 @@ class _Labor_Production_Rate_Widget
   Widget build(BuildContext context) {
     Widget chartSection1 = Center(
         child: SfCartesianChart(
+          onChartTouchInteractionDown: (_Labor_Production_Rate_Widget) {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => labor_production_rate()));
+          },
       series: <ChartSeries>[
         AreaSeries<Chart_Data, double>(
           dataSource: _chartData,

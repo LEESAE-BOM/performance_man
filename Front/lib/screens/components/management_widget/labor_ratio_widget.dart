@@ -14,12 +14,17 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
       ChartData('간접인건비', 202031684, '44%'),
-      ChartData('직접인건비', 275146845, '56'),
+      ChartData('직접인건비', 275146845, ''),
     ];
 
     Widget chartSection = Center(
         child: Container(
-            child: SfCircularChart(palette: <Color>[
+            child: SfCircularChart(
+                onChartTouchInteractionDown: (_Labor_Ratio_Widget) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => labor_ratio()));
+                },
+                palette: <Color>[
       Colors.indigo,
       Colors.lightBlueAccent,
     ], series: <CircularSeries>[
