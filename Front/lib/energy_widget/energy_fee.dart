@@ -11,6 +11,8 @@ class energy_fee extends StatefulWidget {
 }
 
 class _energy_fee extends State<energy_fee> {
+  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue='10월';
   late List<Chart_Data>? _chart_Data;
   late List<Chart_Data>? _chart_Data2;
   late List<Chart_Data3> _chart_Data3;
@@ -270,13 +272,21 @@ class _energy_fee extends State<energy_fee> {
                                   Container(
                                       width: 1020.w * .6,
                                       alignment: Alignment.centerRight,
-                                      child:Text(
-                                        '9월',
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'),
+                                      child:DropdownButton(
+                                        value:_selectedValue,
+                                        items: _valueList.map(
+                                            (String value){
+                                              return DropdownMenuItem(
+                                                  value:value,
+                                                  child: Text(value)
+                                              );
+                                            },
+                                        ).toList(),
+                                        onChanged: (String? value){
+                                          setState((){
+                                            _selectedValue=value;
+                                          });
+                                        },
                                       )
                                   )
                               )
