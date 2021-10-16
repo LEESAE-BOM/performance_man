@@ -96,7 +96,6 @@ class _login_flow extends State<login_flow> {
                 ),
                 SizedBox(height: 8.0),
                 loginButon,
-
                 SizedBox(height: 15.0,),
               ],
             ),
