@@ -10,6 +10,9 @@ class outsourcing_ratio extends StatefulWidget {
 }
 
 class _outsourcing_ratio extends State<outsourcing_ratio> {
+  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월','최근 12개월'];
+  String? _selectedValue='최근 3개월';
+
   final List<ChartData> chartData = [
     ChartData('A사', 45),
     ChartData('B사', 55),
@@ -163,14 +166,21 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                       DataCell(Text('')),
                       DataCell(Container(
                           alignment: Alignment.center,
-                          child: Text(
-                            '최근 3개월',
-                            textAlign: TextAlign.right,
-                            style:
-                            TextStyle(
-                                fontSize: 43.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                          child:DropdownButton(
+                            value:_selectedValue,
+                            items: _valueList.map(
+                                  (String value){
+                                return DropdownMenuItem(
+                                    value:value,
+                                    child: Text(value)
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (String? value){
+                              setState((){
+                                _selectedValue=value;
+                              });
+                            },
                           )))
                     ],
                   ),

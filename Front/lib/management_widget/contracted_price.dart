@@ -11,6 +11,8 @@ class contracted_price extends StatefulWidget {
 }
 
 class _contracted_price extends State<contracted_price> {
+  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue='10월';
   late ZoomPanBehavior _zoomPanBehavior;
 
   @override
@@ -205,14 +207,22 @@ class _contracted_price extends State<contracted_price> {
                       DataCell(Text('')),
                       DataCell(Container(
                           alignment: Alignment.center,
-                          child: Text(
-                            '최근 1개월',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 40.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          )))
+                          child: DropdownButton(
+                        value:_selectedValue,
+                        items: _valueList.map(
+                              (String value){
+                            return DropdownMenuItem(
+                                value:value,
+                                child: Text(value)
+                            );
+                          },
+                        ).toList(),
+                        onChanged: (String? value){
+                          setState((){
+                            _selectedValue=value;
+                          });
+                        },
+                      )))
                     ],
                   ),
                   DataRow(

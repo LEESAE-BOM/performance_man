@@ -10,6 +10,9 @@ class cash_reserve extends StatefulWidget {
 }
 
 class _cash_reserve extends State<cash_reserve> {
+  final List<String> _valueList =['최근 1년','최근 3년','최근 5년'];
+  String? _selectedValue='최근 3년';
+
   late List<ChartData> chartdata;
 
   PageController pageController = PageController(
@@ -260,110 +263,312 @@ class _cash_reserve extends State<cash_reserve> {
                       DataCell(Container(
                           width: 1020.w ,
                           alignment: Alignment.center,
-                          child: Text(
-                            '최근 3 년',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                          child:DropdownButton(
+                            value:_selectedValue,
+                            items: _valueList.map(
+                                  (String value){
+                                return DropdownMenuItem(
+                                    value:value,
+                                    child: Text(value)
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (String? value){
+                              setState((){
+                                _selectedValue=value;
+                              });
+                            },
                           )))
                     ],
                   ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                        Container(
-                          width: 1020.w * .3,
-                          alignment: Alignment.center,
-                          child: Text(
-                            '2019',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Container(
-                            width: 1020.w * .7,
+                  if(_selectedValue=='최근 1년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '253,654,978원',
+                              '2019',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                        Container(
-                          width: 1020.w * .3,
-                          alignment: Alignment.center,
-                          child: Text(
-                            '2020',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                            ),
                           ),
                         ),
-                      ),
-                      DataCell(
-                        Container(
-                            width: 1020.w * .7,
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,977원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 3년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '323,456,789원',
+                              '2019',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                        Container(
-                          width: 1020.w * .3,
-                          alignment: Alignment.center,
-                          child: Text(
-                            '2021',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                            ),
                           ),
                         ),
-                      ),
-                      DataCell(
-                        Container(
-                            width: 1020.w * .7,
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,978원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 3년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '450,340,890원',
+                              '2019',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
                                   color: Colors.black54,
                                   fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                    ],
-                  ),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,978원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ) ,
+                  if(_selectedValue=='최근 3년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2019',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,978원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ) ,
+                  if(_selectedValue=='최근 5년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2019',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,979원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 5년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2019',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,979원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 5년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2019',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,979원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 5년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2019',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,979원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 5년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2019',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,979원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),
@@ -418,16 +623,23 @@ class _cash_reserve extends State<cash_reserve> {
                     cells: <DataCell>[
                       DataCell(Text('')),
                       DataCell(Container(
-                        width: 1020.w *.6,
+                          width: 1020.w *.6,
                           alignment: Alignment.centerRight,
-                          child: Text(
-                            '최근 1개월',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                          child:DropdownButton(
+                            value:_selectedValue,
+                            items: _valueList.map(
+                                  (String value){
+                                return DropdownMenuItem(
+                                    value:value,
+                                    child: Text(value)
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (String? value){
+                              setState((){
+                                _selectedValue=value;
+                              });
+                            },
                           )))
                     ],
                   ),

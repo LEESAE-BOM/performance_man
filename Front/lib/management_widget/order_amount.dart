@@ -9,6 +9,9 @@ class order_amount extends StatefulWidget {
 }
 
 class _order_amount extends State<order_amount> {
+  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue='10월';
+
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
@@ -182,13 +185,21 @@ class _order_amount extends State<order_amount> {
                       DataCell(Container(
                           alignment: Alignment.center,
                           width: 1020.w * 1.0,
-                          child: Text(
-                            '최근 1개월',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 43.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                          child:DropdownButton(
+                            value:_selectedValue,
+                            items: _valueList.map(
+                                  (String value){
+                                return DropdownMenuItem(
+                                    value:value,
+                                    child: Text(value)
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (String? value){
+                              setState((){
+                                _selectedValue=value;
+                              });
+                            },
                           )))
                     ],
                   ),

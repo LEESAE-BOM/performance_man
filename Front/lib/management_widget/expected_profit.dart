@@ -10,6 +10,8 @@ class expected_profit extends StatefulWidget {
 }
 
 class _expected_profit extends State<expected_profit> {
+  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue='10월';
   late List<SalesData> chartdata;
   late TooltipBehavior _tooltipBehavior;
   late ZoomPanBehavior _zoomPanBehavior;
@@ -238,14 +240,21 @@ class _expected_profit extends State<expected_profit> {
                   DataCell(Container(
                       width: 1020.w * 0.6,
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        '최근 1개월',
-                        textAlign: TextAlign.right,
-                        style:
-                        TextStyle(
-                            fontSize: 45.sp,
-                            color: Colors.black54,
-                            fontFamily: 'applesdneoeb'),
+                      child:DropdownButton(
+                        value:_selectedValue,
+                        items: _valueList.map(
+                              (String value){
+                            return DropdownMenuItem(
+                                value:value,
+                                child: Text(value)
+                            );
+                          },
+                        ).toList(),
+                        onChanged: (String? value){
+                          setState((){
+                            _selectedValue=value;
+                          });
+                        },
                       )
                   )
                   )
