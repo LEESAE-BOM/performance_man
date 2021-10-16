@@ -11,10 +11,13 @@ class labor_production_rate extends StatefulWidget {
 }
 
 class _labor_production_rate extends State<labor_production_rate> {
+  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월','최근 12개월'];
+  String? _selectedValue='최근 3개월';
 
   late List<Chart_Data> _chartData;
   late List<Chart_Data2> _chartData2;
   late TooltipBehavior _toolTipBehavior;
+
   // index가 0인 페이지 먼저 보여줌
   final PageController pageController = PageController(
     initialPage: 0,
@@ -284,14 +287,22 @@ class _labor_production_rate extends State<labor_production_rate> {
                           label:Container(
                             alignment: Alignment.center,
                             width: 1020.w * .3,
-                            child:
-                            Text('월',
-                              style: TextStyle(
-                                  fontSize: 45.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'
-                              ),
-                            ),
+                              child:DropdownButton(
+                                value:_selectedValue,
+                                items: _valueList.map(
+                                      (String value){
+                                    return DropdownMenuItem(
+                                        value:value,
+                                        child: Text(value)
+                                    );
+                                  },
+                                ).toList(),
+                                onChanged: (String? value){
+                                  setState((){
+                                    _selectedValue=value;
+                                  });
+                                },
+                              )
                           ),
                           // numeric: true,
                         ),

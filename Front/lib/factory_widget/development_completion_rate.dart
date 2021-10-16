@@ -12,7 +12,8 @@ class development_completion_rate extends StatefulWidget {
 }
 
 class _development_completion_rate extends State<development_completion_rate>{
-
+  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue='10월';
   late List<Chart_Data> _chart_Data;
   late List<Chart_Data> _chart_Data2;
   late TooltipBehavior _toolTipBehavior;
@@ -113,7 +114,6 @@ class _development_completion_rate extends State<development_completion_rate>{
 
     Widget chartSection=
     Container(
-
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -260,13 +260,21 @@ class _development_completion_rate extends State<development_completion_rate>{
                                   Container(
                                       width: 1020.w * .6,
                                       alignment: Alignment.centerRight,
-                                      child:Text(
-                                        '최근 3개월',
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'),
+                                      child:DropdownButton(
+                                        value:_selectedValue,
+                                        items: _valueList.map(
+                                              (String value){
+                                            return DropdownMenuItem(
+                                                value:value,
+                                                child: Text(value)
+                                            );
+                                          },
+                                        ).toList(),
+                                        onChanged: (String? value){
+                                          setState((){
+                                            _selectedValue=value;
+                                          });
+                                        },
                                       )
                                   )
                               )
