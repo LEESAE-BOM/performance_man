@@ -15,16 +15,21 @@ class Factory_Screen extends StatelessWidget {
         Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
               color: Color.fromRGBO(43, 63, 107, 1),
             ),
             alignment: Alignment.center,
-            height: 350.w,
+            height: 550.w,
+            child:Column(
+        children:[
+        Container(
+        alignment: Alignment.center,
+            height:450.w,
             child: RichText(
               text: TextSpan(children: <TextSpan>[
                 TextSpan(
-                  text: '개발완료\n',
+                  text: '개발완료율\n',
                   style: TextStyle(
                     fontSize: 65.w,
                     color: Colors.white,
@@ -49,7 +54,23 @@ class Factory_Screen extends StatelessWidget {
                       fontFamily: 'applesdneob'),
                 ),
               ]),
-            )),
+            )
+        ),
+        Container(
+            alignment: Alignment.topCenter,
+            height:100.w,
+            child:Text('안전: 3 경고: 0 위험: 1'
+              ,style: TextStyle(
+                fontSize: 52.w,
+                color: Colors.white,
+                letterSpacing: 3.w,
+                fontFamily: 'applesdneol',
+              ),
+            )
+        )
+      ]
+        )
+        ),
         Padding(
           padding: EdgeInsets.all(10.w),
           child: Developmentcompletion_Rate_Widget(),

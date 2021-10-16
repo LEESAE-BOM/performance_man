@@ -18,14 +18,19 @@ class Management_Screen extends StatelessWidget {
         Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
               color: Color.fromRGBO(43, 63, 107, 1),
             ),
             alignment: Alignment.center,
-            height: 350.w,
-            child: RichText(
-              text: TextSpan(children: <TextSpan>[
+            height: 550.w,
+            child:Column(
+                children:[
+                  Container(
+                      alignment: Alignment.center,
+                    height:450.w,
+                      child:RichText(
+                    text: TextSpan(children: <TextSpan>[
                 TextSpan(
                   text: '목표대비',
                   style: TextStyle(
@@ -60,7 +65,22 @@ class Management_Screen extends StatelessWidget {
                       fontFamily: 'applesdneob'),
                 ),
               ]),
-            )),
+                  )),
+                Container(
+                    alignment: Alignment.topCenter,
+                  height:100.w,
+                      child:Text('안전: 3 경고: 2 위험: 2'
+                      ,style: TextStyle(
+                          fontSize: 52.w,
+                          color: Colors.white,
+                          letterSpacing: 3.w,
+                          fontFamily: 'applesdneol',
+                        ),
+                      )
+                )
+                ]
+    )
+        ),
         Padding(
           padding: EdgeInsets.all(10.w),
           child: Sales_Widget(),
