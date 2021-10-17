@@ -10,7 +10,7 @@ class outsourcing_ratio extends StatefulWidget {
 }
 
 class _outsourcing_ratio extends State<outsourcing_ratio> {
-  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월','최근 12개월'];
+  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월'];
   String? _selectedValue='최근 3개월';
 
   final List<ChartData> chartData = [
@@ -184,7 +184,8 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                           )))
                     ],
                   ),
-                  DataRow(
+                  if(_selectedValue=='최근 1개월')
+                    DataRow(
                     cells: <DataCell>[
                       DataCell(
                         Container(
@@ -214,6 +215,285 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                       DataCell(Text('')),
                     ],
                   ),
+                  if(_selectedValue=='최근 3개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 3개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 3개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '#,###,###',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 43.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '##사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 43.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(Text('')),
+                      ],
+                    ),
                 ],
               ),
             ),

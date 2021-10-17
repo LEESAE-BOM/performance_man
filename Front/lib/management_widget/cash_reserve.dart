@@ -12,6 +12,8 @@ class cash_reserve extends StatefulWidget {
 class _cash_reserve extends State<cash_reserve> {
   final List<String> _valueList =['최근 1년','최근 3년','최근 5년'];
   String? _selectedValue='최근 3년';
+  final List<String> _valueList2 =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue2='10월';
 
   late List<ChartData> chartdata;
 
@@ -289,7 +291,7 @@ class _cash_reserve extends State<cash_reserve> {
                             width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '2019',
+                              '2021',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -353,7 +355,7 @@ class _cash_reserve extends State<cash_reserve> {
                             width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '2019',
+                              '2020',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -385,7 +387,7 @@ class _cash_reserve extends State<cash_reserve> {
                             width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '2019',
+                              '2021',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -417,7 +419,39 @@ class _cash_reserve extends State<cash_reserve> {
                             width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '2019',
+                              '2017',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              width: 1020.w * .7,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '253,654,979원',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 5년')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            width: 1020.w * .3,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2018',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -481,7 +515,7 @@ class _cash_reserve extends State<cash_reserve> {
                             width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '2019',
+                              '2020',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -513,39 +547,7 @@ class _cash_reserve extends State<cash_reserve> {
                             width: 1020.w * .3,
                             alignment: Alignment.center,
                             child: Text(
-                              '2019',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 45.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              width: 1020.w * .7,
-                              alignment: Alignment.center,
-                              child: Text(
-                                '253,654,979원',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 5년')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            width: 1020.w * .3,
-                            alignment: Alignment.center,
-                            child: Text(
-                              '2019',
+                              '2021',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -626,8 +628,8 @@ class _cash_reserve extends State<cash_reserve> {
                           width: 1020.w *.6,
                           alignment: Alignment.centerRight,
                           child:DropdownButton(
-                            value:_selectedValue,
-                            items: _valueList.map(
+                            value:_selectedValue2,
+                            items: _valueList2.map(
                                   (String value){
                                 return DropdownMenuItem(
                                     value:value,
@@ -637,7 +639,7 @@ class _cash_reserve extends State<cash_reserve> {
                             ).toList(),
                             onChanged: (String? value){
                               setState((){
-                                _selectedValue=value;
+                                _selectedValue2=value;
                               });
                             },
                           )))

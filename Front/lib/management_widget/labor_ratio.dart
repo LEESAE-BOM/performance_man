@@ -11,7 +11,7 @@ class labor_ratio extends StatefulWidget {
 }
 
 class _labor_ratio extends State<labor_ratio> {
-  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월','최근 12개월'];
+  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월'];
   String? _selectedValue='최근 3개월';
   late TooltipBehavior _tooltipBehavior;
 
@@ -273,6 +273,7 @@ class _labor_ratio extends State<labor_ratio> {
                           )))
                     ],
                   ),
+                  if(_selectedValue=='최근 1개월')
                   DataRow(
                     cells: <DataCell>[
                       DataCell(
@@ -314,6 +315,385 @@ class _labor_ratio extends State<labor_ratio> {
                       ),
                     ],
                   ),
+                  if(_selectedValue=='최근 3개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 3개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 3개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+                  if(_selectedValue=='최근 6개월')
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '####.##.##',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 41.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '???',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                        DataCell(
+                          Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '#,##,###원',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 41.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              )),
+                        ),
+                      ],
+                    ),
+
                 ],
               ),
             ),
