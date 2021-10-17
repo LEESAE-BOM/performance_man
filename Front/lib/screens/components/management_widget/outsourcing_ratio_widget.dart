@@ -83,7 +83,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
               ),
               Container(
                 width: 520.w,
-                height: 320.w,
+                height: 310.w,
                 child: chartSection,
               )
             ])));

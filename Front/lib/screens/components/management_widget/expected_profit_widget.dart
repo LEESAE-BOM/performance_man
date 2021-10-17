@@ -88,7 +88,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                   ],
                 ),
               ),
-              Container(width: 1060.w, height: 320.w, child: chartSection)
+              Container(width: 1060.w, height: 310.w, child: chartSection)
             ])));
   }
 }

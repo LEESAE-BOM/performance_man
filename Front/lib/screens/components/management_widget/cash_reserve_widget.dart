@@ -27,11 +27,14 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               },
               primaryXAxis: CategoryAxis(
                 majorGridLines: MajorGridLines(width: 0),
+                labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
+
               ),
               primaryYAxis: NumericAxis(
                 majorGridLines: MajorGridLines(width: 0),
                 edgeLabelPlacement: EdgeLabelPlacement.shift,
                 numberFormat: NumberFormat.compact(),
+                labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
               ),
               plotAreaBorderWidth:0,
               palette: <Color>[
@@ -58,6 +61,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
         child: Container(
             width: 520.w,
             height: 400.w,
+
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -94,7 +98,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               ),
               Container(
                   width: 520.w,
-                  height: 320.w,
+                  height: 310.w,
                 child: chartSection
               )
             ])));

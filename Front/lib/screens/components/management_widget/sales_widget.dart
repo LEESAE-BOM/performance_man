@@ -54,7 +54,7 @@ class _Sales_Widget extends State<Sales_Widget> {
               ),
               Container(
                   width: 1060.w,
-                  height: 320.w,
+                  height: 310.w,
                   child: Center(
                       child: RichText(
                     text: TextSpan(children: <TextSpan>[

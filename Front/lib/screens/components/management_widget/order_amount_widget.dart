@@ -83,7 +83,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
               ),
               Container(
                 width: 520.w,
-                height: 320.w,
+                height: 310.w,
                 child: chartSection,
               )
             ])));

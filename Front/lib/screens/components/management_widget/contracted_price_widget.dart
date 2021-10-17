@@ -56,7 +56,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
               ),
               Container(
                   width: 1060.w,
-                  height: 320.w,
+                  height: 310.w,
                   child: Center(
                       child: //Text('목표대비 총 105% 달성', style: TextStyle(color: Colors.black54, fontSize: 20),)
                           RichText(
@@ -74,7 +74,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                       TextSpan(
                         text: '계약금액',
                         style: TextStyle(
-                            fontSize: 70.sp,
+                            fontSize: 70.w,
                             color: Colors.blueAccent,
                             letterSpacing: 5.w,
                             fontFamily: 'applesdneob'),
@@ -90,7 +90,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                       TextSpan(
                         text: '\n321,654,987원',
                         style: TextStyle(
-                            fontSize: 75.sp,
+                            fontSize: 75.w,
                             color: Colors.blueAccent,
                             letterSpacing: 5.w,
                             fontFamily: 'applesdneob',
