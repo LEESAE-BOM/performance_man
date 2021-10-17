@@ -108,7 +108,7 @@ class _Developmentcompletion_Rate_Widget
                   ],
                 ),
               ),
-              Container(width: 1060.w, height: 320.w, child: chartSection)
+              Container(width: 1060.w, height: 310.w, child: chartSection)
             ])));
   }
 }

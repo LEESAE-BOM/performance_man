@@ -57,7 +57,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                   ),
                   Container(
                     width: 520.w,
-                    height: 320.w,
+                    height: 310.w,
                     child: Center(
                       child: Text.rich(
                         TextSpan(

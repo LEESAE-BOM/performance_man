@@ -89,7 +89,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                   ],
                 ),
               ),
-              Container(width: 520.w, height: 320.w, child: chartSection)
+              Container(width: 520.w, height: 310.w, child: chartSection)
             ])));
   }
 }
