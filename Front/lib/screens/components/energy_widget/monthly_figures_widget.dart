@@ -60,7 +60,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                   ),*/
                   Container(
                     width: 1060.w,
-                    height: 320.w,
+                    height: 310.w,
                     alignment: Alignment.center,
                     child: Center(
                       child: Row(

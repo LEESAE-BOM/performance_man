@@ -107,7 +107,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
               ),
               Container(
                 width: 520.w,
-                height: 320.w,
+                height: 310.w,
                 child: chartSection,
               )
             ])));

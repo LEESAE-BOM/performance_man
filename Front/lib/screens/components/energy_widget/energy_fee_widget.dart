@@ -56,7 +56,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                   ),
                   Container(
                     width: 520.w,
-                    height: 320.w,
+                    height: 310.w,
                     child: Center(
                       child: Text.rich(
                         TextSpan(
