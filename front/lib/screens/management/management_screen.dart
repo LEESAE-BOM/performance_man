@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '.././components/management_widget/sales_widget.dart';
-import '.././components/management_widget/order_amount_widget.dart.';
+import '.././components/management_widget/order_amount_widget.dart';
 import '.././components/management_widget/cash_reserve_widget.dart';
 import '.././components/management_widget/contracted_price_widget.dart';
 import '.././components/management_widget/expected_profit_widget.dart';

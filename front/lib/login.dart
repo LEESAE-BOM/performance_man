@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/main_screens.dart';
+import 'package:dio/dio.dart';
 
 class login_flow extends StatefulWidget {
   // This widget is the root of your application.
@@ -8,16 +9,33 @@ class login_flow extends StatefulWidget {
 }
 
 class _login_flow extends State<login_flow> {
-
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
   var _isChecked =false;
   //TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
+  Future<bool> _vaildCheck(String userId, String userPassword) async {
+    var query = FormData.fromMap({
+      "qry": "SELECT * FROM USERS WHERE ID=\'$userId\' AND PASSWORD=\'$userPassword\';"
+    });
+    var result = await Dio().post('http://teamflow.dothome.co.kr/doQuery.php', data: query);
+    if(result.data.length == 2) return true;
+    return false;
+  }
+
+  @override
+  void dispose(){
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final emailField = TextField(
       obscureText: false,
       style:  TextStyle(fontSize: 17, fontFamily: 'applesdneol',color: Colors.black38),
+      controller: _emailTextController,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           hintText: "아이디",
@@ -29,6 +47,7 @@ class _login_flow extends State<login_flow> {
     final passwordField = TextField(
       obscureText: true,
       style:  TextStyle(fontSize: 17, fontFamily: 'applesdneol',color: Colors.black38),
+      controller: _passwordTextController,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           hintText: "비밀번호",
@@ -43,8 +62,10 @@ class _login_flow extends State<login_flow> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+        onPressed: () async {
+          if(await _vaildCheck(_emailTextController.text, _passwordTextController.text)){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+          }
         },
         child: Text("LOGIN",
             textAlign: TextAlign.center,
