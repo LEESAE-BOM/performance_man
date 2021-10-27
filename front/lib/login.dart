@@ -18,7 +18,9 @@ class _login_flow extends State<login_flow> {
     var query = FormData.fromMap({
       "qry": "SELECT * FROM USERS WHERE ID=\'$userId\' AND PASSWORD=\'$userPassword\';"
     });
+    print("SELECT * FROM USERS WHERE ID=\'$userId\' AND PASSWORD=\'$userPassword\';");
     var result = await Dio().post('http://teamflow.dothome.co.kr/doQuery.php', data: query);
+    print(result.data.runtimeType);
     if(result.data.length == 2) return true;
     return false;
   }

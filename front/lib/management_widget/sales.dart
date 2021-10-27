@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dio/dio.dart';
 
 class sales extends StatefulWidget {
   @override
@@ -11,38 +12,24 @@ class sales extends StatefulWidget {
 
 class _sales extends State<sales> {
   late ZoomPanBehavior _zoomPanBehavior;
+  String price = '...';
 
-  @override
-  void initState() {
-    _zoomPanBehavior = ZoomPanBehavior(
-      // Enables pinch zooming
-        enablePinching: true,
-        zoomMode: ZoomMode.x,
-        enablePanning: true,
-        enableMouseWheelZooming : true
-    );
-    super.initState();
+  Future<String> _get_sales_data() async {
+    var _today = DateTime.now();
+    String YearAndMonthForm = DateFormat('yyyy-MM').format(_today).toString() + '-01';
+
+    var query = FormData.fromMap({
+      "qry": "SELECT * FROM MONEYFLOW WHERE DATE(RecordedDate) = \'$YearAndMonthForm\'"
+    });
+    print('aa');
+    var result = await Dio().post('http://teamflow.dothome.co.kr/doQuery.php', data:query);
+    if(result.data[0] == 'F') return "ConnectError";
+    print(result.data[1]);
+    return result.data[1]['Price'].toString();
   }
 
-  List<ChartData> chartData = <ChartData>[
-    ChartData('1월', 2456000, 59765000, 78645000),
-    ChartData('2월', 2789000, 74185000, 74545000),
-    ChartData('3월', 3456000, 53695000, 47845000),
-    ChartData('4월', 24753000, 74685000, 43685000),
-    ChartData('5월', 2093000, 74185000, 78645000),
-    ChartData('6월', 34436000, 12349000, 48612000),
-    ChartData('7월', 4356000, 74501000, 45671000),
-    ChartData('8월', 24636000, 14714000, 58258000),
-    ChartData('9월', 54636000, 69312000, 65432000),
-    ChartData('10월', 46536000, 57612000, 56432000),
-    ChartData('11월', 34636000, 60512000, 67532000),
-    ChartData('12월', 44636000, 67512000, 62932000),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-
-    Widget textSection1 = Padding(
+  Widget _make_textSection(String text){
+    return Padding(
         padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +59,7 @@ class _sales extends State<sales> {
                             color: Colors.black),
                       ),
                       TextSpan(
-                        text: '123,456,789원 ',
+                        text: '$text 원 ',
                         style: TextStyle(
                             fontSize:90.sp,
                             color: Colors.blue,
@@ -112,7 +99,37 @@ class _sales extends State<sales> {
                     ]),
               )
             ]));
+  }
 
+  @override
+  void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(
+      // Enables pinch zooming
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
+        enableMouseWheelZooming : true
+    );
+    super.initState();
+  }
+
+  List<ChartData> chartData = <ChartData>[
+    ChartData('1월', 2456000, 59765000, 78645000),
+    ChartData('2월', 2789000, 74185000, 74545000),
+    ChartData('3월', 3456000, 53695000, 47845000),
+    ChartData('4월', 24753000, 74685000, 43685000),
+    ChartData('5월', 2093000, 74185000, 78645000),
+    ChartData('6월', 34436000, 12349000, 48612000),
+    ChartData('7월', 4356000, 74501000, 45671000),
+    ChartData('8월', 24636000, 14714000, 58258000),
+    ChartData('9월', 54636000, 69312000, 65432000),
+    ChartData('10월', 46536000, 57612000, 56432000),
+    ChartData('11월', 34636000, 60512000, 67532000),
+    ChartData('12월', 44636000, 67512000, 62932000),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
     Widget chartSection = Container(
       width: 1000.w,
       height: 300,
@@ -321,7 +338,13 @@ class _sales extends State<sales> {
           child:Center(
               child: ListView(
                 children: <Widget>[
-                  textSection1,
+                  FutureBuilder(
+                      future: _get_sales_data(),
+                      builder: (context, snapshot){
+                        if(snapshot.hasData) return _make_textSection(snapshot.data.toString());
+                        else return _make_textSection('...');
+                      }
+                  ),
                   chartSection,
                   datatableSection
                 ],
