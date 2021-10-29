@@ -165,13 +165,22 @@ class _monthly_figures extends State<monthly_figures> {
                   name:'전 년도 최대전력',
                   dataSource: _monthly_data3,
                   xValueMapper: (monthly_data data, _) => data.x,
-                  yValueMapper: (monthly_data data, _) => data.y1
+                  yValueMapper: (monthly_data data, _) => data.y1,
+                  dataLabelSettings: DataLabelSettings(
+                    // Renders the data label
+                      isVisible: true),
+                  markerSettings: MarkerSettings(isVisible: true)
               ),
               LineSeries<monthly_data, String>(
                   name:'현 년도 최대전력',
                   dataSource: _monthly_data4,
                   xValueMapper: (monthly_data data, _) => data.x,
-                  yValueMapper: (monthly_data data, _) => data.y1
+                  yValueMapper: (monthly_data data, _) => data.y1,
+                  dataLabelSettings: DataLabelSettings(
+                    // Renders the data label
+                      isVisible: true),
+                  markerSettings: MarkerSettings(isVisible: true),
+
               )
             ]
             ,
