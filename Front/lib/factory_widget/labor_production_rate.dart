@@ -17,6 +17,8 @@ class _labor_production_rate extends State<labor_production_rate> {
   late List<Chart_Data> _chartData;
   late List<Chart_Data2> _chartData2;
   late TooltipBehavior _toolTipBehavior;
+  var today=DateTime.now();
+  DateFormat formatter=DateFormat('yyyy년 MM월');
 
   // index가 0인 페이지 먼저 보여줌
   final PageController pageController = PageController(
@@ -66,7 +68,15 @@ class _labor_production_rate extends State<labor_production_rate> {
               Text.rich(
                 TextSpan(// default text style
                   children: <TextSpan>[
-                    TextSpan(text: '2021년 9월의\n',
+                    TextSpan(text: formatter.format(today),
+                      style:TextStyle(
+                        fontSize: 60.sp,
+                        color: Colors.black,
+                        letterSpacing: 5.0,
+                        fontFamily: 'applesdneoeb',
+                      ),
+                    ),
+                    TextSpan(text: '의\n',
                       style:TextStyle(
                         fontSize: 60.sp,
                         color: Colors.black,
