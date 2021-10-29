@@ -13,10 +13,12 @@ class development_completion_rate extends StatefulWidget {
 
 class _development_completion_rate extends State<development_completion_rate>{
   final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-  String? _selectedValue='10월';
+  String? _selectedValue='11월';
   late List<Chart_Data> _chart_Data;
   late List<Chart_Data> _chart_Data2;
   late TooltipBehavior _toolTipBehavior;
+  var today=DateTime.now();
+  DateFormat formatter=DateFormat('yyyy.MM.dd');
 
   void initState() {
     _chart_Data = getChartData();
@@ -53,7 +55,23 @@ class _development_completion_rate extends State<development_completion_rate>{
                 Text.rich(
                   TextSpan(// default text style
                     children: <TextSpan>[
-                      TextSpan(text: '현재(2021.09.23) 개발 완료율은\n',
+                      TextSpan(text: '현재(',
+                        style:TextStyle(
+                            fontSize: 60.sp,
+                            color: Colors.black,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb'
+                        ),
+                      ),
+                      TextSpan(text:formatter.format(today),
+                        style:TextStyle(
+                            fontSize: 60.sp,
+                            color: Colors.black,
+                            letterSpacing: 2.0,
+                            fontFamily: 'applesdneoeb'
+                        ),
+                      ),
+                      TextSpan(text: ') 개발 완료율은\n',
                         style:TextStyle(
                             fontSize: 60.sp,
                             color: Colors.black,
@@ -238,8 +256,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                           ), // numeric: true,
                         ),
                         DataColumn(
-                            label:
-                            Container(
+                            label: Container(
                               width: 1020.w * .7,
                                   alignment: Alignment.center,
                                   child: Text('개발 완료율',
