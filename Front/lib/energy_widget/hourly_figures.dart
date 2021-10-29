@@ -294,7 +294,6 @@ class _hourly_figures extends State<hourly_figures> {
                 majorGridLines: MajorGridLines(width: 0),
                 axisLine: AxisLine(width: 0),
               ),
-              tooltipBehavior: _toolTipBehavior,
               series: <ChartSeries>[
                 BarSeries<Chart_Data3,String>(
                     dataSource: _chart_Data2,
@@ -307,7 +306,6 @@ class _hourly_figures extends State<hourly_figures> {
                       textStyle: TextStyle(color: Colors.black,fontSize: 35.sp),
                       labelAlignment: ChartDataLabelAlignment.top,
                     ),
-                    enableTooltip: true,
                     borderRadius: BorderRadius.circular(5)
                 ),
 
