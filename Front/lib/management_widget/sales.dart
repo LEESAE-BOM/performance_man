@@ -11,6 +11,11 @@ class sales extends StatefulWidget {
 
 class _sales extends State<sales> {
   late ZoomPanBehavior _zoomPanBehavior;
+  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  String? _selectedValue='11월';
+  final List<String> _valueList1 =['2019년','2020년','2021년'];
+  String? _selectedValue1='2021년';
+
 
   @override
   void initState() {
@@ -211,18 +216,44 @@ class _sales extends State<sales> {
                 rows: <DataRow>[
                   DataRow(
                     cells: <DataCell>[
-                      DataCell(
-                          Text('')),
                       DataCell(Text('')),
                       DataCell(Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            '최근 1개월',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 555.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
+                        alignment: Alignment.centerRight,
+                          width: 250.w * 1.0,
+                          child:DropdownButton(
+                            value:_selectedValue1,
+                            items: _valueList1.map(
+                                  (String value){
+                                return DropdownMenuItem(
+                                    value:value,
+                                    child: Text(value)
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (String? value){
+                              setState((){
+                                _selectedValue1=value;
+                              });
+                            },
+                          ))),
+                      DataCell(Container(
+                          width: 150.w * 1.0,
+                          alignment: Alignment.centerRight,
+                          child:DropdownButton(
+                            value:_selectedValue,
+                            items: _valueList.map(
+                                  (String value){
+                                return DropdownMenuItem(
+                                    value:value,
+                                    child: Text(value)
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (String? value){
+                              setState((){
+                                _selectedValue=value;
+                              });
+                            },
                           )))
                     ],
                   ),
@@ -268,7 +299,7 @@ class _sales extends State<sales> {
                           width: 1020.w * .333,
                           alignment: Alignment.center,
                           child: Text(
-                            '10월',
+                            '$_selectedValue',
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontSize: 40.sp,
