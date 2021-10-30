@@ -62,7 +62,6 @@ class HeaderTheme{
         parsed.add({tmp: 'small'});
       }
     }
-    print(parsed);
 
     return TextSpan(
         children: <InlineSpan>[
