@@ -14,6 +14,8 @@ class _labor_ratio extends State<labor_ratio> {
   final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월'];
   String? _selectedValue='최근 3개월';
   late TooltipBehavior _tooltipBehavior;
+  var today=DateTime.now();
+  DateFormat formatter=DateFormat('yyyy년 MM월');
 
   PageController pageController = PageController(
     initialPage: 0,
@@ -44,7 +46,16 @@ class _labor_ratio extends State<labor_ratio> {
               Text.rich(TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                        text: '2021년 10월은\n',
+                        text: formatter.format(today),
+                        style: TextStyle(
+                          fontSize: 70.sp,
+                          letterSpacing: 2.0,
+                          fontFamily: 'applesdneoeb',
+                          color: Colors.black,
+                        )
+                    ),
+                    TextSpan(
+                        text: '은\n',
                         style: TextStyle(
                           fontSize: 70.sp,
                           letterSpacing: 2.0,
