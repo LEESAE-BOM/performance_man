@@ -85,17 +85,9 @@ class Management_Screen extends StatelessWidget {
           padding: EdgeInsets.all(10.w),
           child: Sales_Widget(),
         ),
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.w),
-              child: Order_Amount_Widget(),
-            ),
-            Padding(
+        Padding(
               padding: EdgeInsets.all(10.w),
               child: Cash_Reserve_Widget(),
-            ),
-          ],
         ),
         Padding(
           padding: EdgeInsets.all(10.w),

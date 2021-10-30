@@ -70,3 +70,5 @@ class MySQLTable{
     ];
   }
 }
+
+MySQLConnector conn = MySQLConnector();

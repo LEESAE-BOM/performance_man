@@ -38,7 +38,7 @@ class _lead_time extends State<lead_time> {
                 Text.rich(
                   TextSpan(// default text style
                     children: <TextSpan>[
-                      TextSpan(text: 'Lead-time',
+                      TextSpan(text: '개발 Lead-time',
                         style:TextStyle(
                           fontSize:120.sp,
                           color: Colors.blue,
@@ -287,7 +287,7 @@ class _lead_time extends State<lead_time> {
     return MaterialApp(
         home:Scaffold(
           appBar: AppBar(
-            title: Text('Lead-time',
+            title: Text('개발 Lead-time',
               style: TextStyle(fontSize: 67.sp,
                   color: Colors.white,
                   letterSpacing: 1.0,

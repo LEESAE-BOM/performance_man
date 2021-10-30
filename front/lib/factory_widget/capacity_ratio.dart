@@ -19,6 +19,10 @@ class _capacity_ratio extends State<capacity_ratio> {
   late List<Chart_Data>? _chart_Data3;
   late TooltipBehavior _toolTipBehavior;
 
+  var today=DateTime.now();
+  DateFormat formatter=DateFormat('yyyy년 MM월 dd일');
+
+
   void initState() {
     _chart_Data = getChartData();
     _chart_Data2 = getChartData2();
@@ -62,7 +66,14 @@ class _capacity_ratio extends State<capacity_ratio> {
                 Text.rich(
                   TextSpan(// default text style
                     children: <TextSpan>[
-                      TextSpan(text: '2021년 9월 27일의\n',
+                      TextSpan(text: formatter.format(today),
+                        style:TextStyle(
+                            fontSize: 60.sp,
+                            color: Colors.black,
+                            letterSpacing: 4.0,
+                            fontFamily: 'applesdneoeb'
+                        ),),
+                      TextSpan(text: '의\n',
                         style:TextStyle(
                             fontSize: 60.sp,
                             color: Colors.black,

@@ -172,8 +172,9 @@ class _hourly_figures extends State<hourly_figures> {
         )
     );
     Widget textSection2 =Padding(
-        padding:  EdgeInsets.fromLTRB(40.sp, 100.sp,40.sp, 100.sp),
+        padding:  EdgeInsets.fromLTRB(100.sp, 100.sp,40.sp, 100.sp),
         child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text.rich(
               TextSpan(// default text style
@@ -293,7 +294,6 @@ class _hourly_figures extends State<hourly_figures> {
                 majorGridLines: MajorGridLines(width: 0),
                 axisLine: AxisLine(width: 0),
               ),
-              tooltipBehavior: _toolTipBehavior,
               series: <ChartSeries>[
                 BarSeries<Chart_Data3,String>(
                     dataSource: _chart_Data2,
@@ -306,7 +306,6 @@ class _hourly_figures extends State<hourly_figures> {
                       textStyle: TextStyle(color: Colors.black,fontSize: 35.sp),
                       labelAlignment: ChartDataLabelAlignment.top,
                     ),
-                    enableTooltip: true,
                     borderRadius: BorderRadius.circular(5)
                 ),
 
@@ -399,9 +398,8 @@ class _hourly_figures extends State<hourly_figures> {
     );
 
     Widget legendSection=Padding(
-        padding:  EdgeInsets.fromLTRB(30.sp, 0,100.sp, 0),
+        padding:  EdgeInsets.fromLTRB(100.sp, 0,100.sp, 0),
         child:Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Row(
                   children: <Widget>[
@@ -416,6 +414,9 @@ class _hourly_figures extends State<hourly_figures> {
                     Text(' 정상')
                   ]
               ),
+              SizedBox(
+                height: 5.0,
+              ),
               Row(
                   children: <Widget>[
                     Container(
@@ -428,6 +429,9 @@ class _hourly_figures extends State<hourly_figures> {
                     ),
                     Text(' 준비 (4,500이상 ~ 5,500미만)')
                   ]
+              ),
+              SizedBox(
+                height: 5.0,
               ),
               Row(
                   children: <Widget>[
@@ -442,6 +446,9 @@ class _hourly_figures extends State<hourly_figures> {
                     Text(' 관심 (3,500이상 ~ 4,500미만)')
                   ]
               ),
+              SizedBox(
+                height: 5.0,
+              ),
               Row(
                   children: <Widget>[
                     Container(
@@ -455,6 +462,9 @@ class _hourly_figures extends State<hourly_figures> {
                     Text(' 주의 (2,500이상 ~ 3,500미만)')
                   ]
               ),
+              SizedBox(
+                height: 5.0,
+              ),
               Row( children: <Widget>[
                 Container(
                   width: 17,
@@ -466,6 +476,9 @@ class _hourly_figures extends State<hourly_figures> {
                 ),
                 Text(' 경계 (1,500이상 ~ 2,500미만)')
               ]),
+              SizedBox(
+                height: 5.0,
+              ),
               Row( children: <Widget>[
                 Container(
                   width: 17,
@@ -477,6 +490,9 @@ class _hourly_figures extends State<hourly_figures> {
                 ),
                 Text(' 심각 (1,500미만)')
               ]),
+              SizedBox(
+                height: 5.0,
+              ),
             ]
         )
     );

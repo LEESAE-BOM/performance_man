@@ -111,7 +111,7 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                     title: Text('개발완료율'),
                     onTap: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => login_flow())
+                          MaterialPageRoute(builder: (context) => development_completion_rate())
                       );
                     },
                   ),
