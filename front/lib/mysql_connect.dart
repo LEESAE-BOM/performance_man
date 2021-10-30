@@ -10,7 +10,7 @@ class MySQLConnector{
   Future<List<Map<String, dynamic>>> sendQuery(String? query) async {
     var formedQuery = FormData.fromMap({'qry': query});
     var jsonData = await Dio().post(webServerURL, data: formedQuery);
-
+    print(jsonData.data);
     return [for(var row in jsonData.data.sublist(1)) Map<String, dynamic>.from(row)];
   }
 }

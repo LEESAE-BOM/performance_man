@@ -1,8 +1,13 @@
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/theme.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
 
 class cash_reserve extends StatefulWidget {
   @override
@@ -15,6 +20,13 @@ class _cash_reserve extends State<cash_reserve> {
   final List<String> _valueList2 =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
   String? _selectedValue2='10월';
 
+  Map<String, int> selectOptions = {
+    '최근 3개년': 3,
+    '최근 6개년': 6,
+    '전체보기': -1,
+  };
+  var dropDownValue = '최근 3개년';
+  List<ChartData> cashData = [];
   late List<ChartData> chartdata;
 
   PageController pageController = PageController(
@@ -761,19 +773,121 @@ class _cash_reserve extends State<cash_reserve> {
           child: PageView(
             controller: pageController,
             children: <Widget>[
-              ListView(
-                children: <Widget>[
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        textSection,
-                        chartSection,
-                        datatableSection,
-                      ],
-                    ),
-                  ),
-                ],
+              FutureBuilder(
+                  future: conn.sendQuery('SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year DESC;'),
+                  builder: (context, snapshot){
+                    if(snapshot.hasData) {
+                      var result = snapshot.data as List<Map<String, dynamic>>;
+                      var year = '';
+                      var thisYearPrice = '0.00';
+                      var previousYearPrice = '0.00';
+                      var table = MySQLTable(snapshot.data, ['연도', '금액']);
+
+                      if(result.length > 0){
+                        year = result[0]['Year'];
+                        thisYearPrice = result[0]['Money'];
+                      }
+                      if(result.length > 1) previousYearPrice = result[1]['Money'];
+
+                      int diff = int.parse(thisYearPrice.substring(0, thisYearPrice.length - 3)) - int.parse(previousYearPrice.substring(0, previousYearPrice.length - 3));
+                      double incrementRate = 0;
+                      if(previousYearPrice != '0.00')
+                        incrementRate = ( diff / int.parse(previousYearPrice.substring(0, previousYearPrice.length - 3))) * 100;
+                      if(incrementRate < 0) incrementRate *= -1;
+
+                      for(int i=0; i<min(result.length, 3); i++)
+                        cashData.insert(0, ChartData(double.parse(result[i]['Year']), double.parse(result[i]['Money'])));
+
+                      TableRow header = table.getTableHeader(TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40.sp,
+                          color: Colors.black87));
+                      List<TableRow> rows = table.getTableRows(TextStyle(fontSize: 40.sp, color: Colors.black38));
+                      selectOptions['전체보기'] = table.rows.length;
+
+                      return ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 20.sp, 100.sp),
+                            child: Text.rich(
+                                TextSpan(
+                                    children: [
+                                      HeaderTheme().makeHeaderText('$year년 [현금 보유액]은\n[${thisYearPrice.substring(0, thisYearPrice.length - 3)}]원 입니다.'),
+                                      if(previousYearPrice != '0.00')
+                                        HeaderTheme().makeHeaderText('\n전년대비 [${incrementRate.round()}%]'),
+                                      if(diff < 0)
+                                        HeaderTheme().makeHeaderText('[감소]했어요.'),
+                                      if(diff >= 0)
+                                        HeaderTheme().makeHeaderText('[상승]했어요.'),
+                                    ]
+                                )
+                            ),
+                          ),
+                          Center(
+                            child: Container(
+                                width: 1000.w,
+                                height: 300,
+                                child: SfCartesianChart(
+                                    primaryXAxis: CategoryAxis(),
+                                    primaryYAxis: NumericAxis(
+                                        edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                        numberFormat: NumberFormat.compact()
+                                    ),
+                                    series: <ChartSeries>[
+                                      BarSeries<ChartData, double>(
+                                        dataSource: cashData,
+                                        xValueMapper: (ChartData sales, _) => sales.x,
+                                        yValueMapper: (ChartData sales, _) => sales.y,
+                                        dataLabelSettings: DataLabelSettings(
+                                          // Renders the data label
+                                            isVisible: true),
+                                        width: 0.6,
+                                        spacing: 0.2,
+                                      ),
+                                    ])),
+                          ),
+                          Table(
+                            border: TableBorder(
+                                horizontalInside: BorderSide(width: 1,
+                                    color: Colors.black38,
+                                    style: BorderStyle.solid)),
+                            children: [
+                              header,
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Text(''),
+                                    ),
+                                    TableCell(
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 50.sp),
+                                          child: DropdownButton(
+                                            value: dropDownValue,
+                                            items: <DropdownMenuItem<String>>[
+                                              for(var val in selectOptions.keys)
+                                                DropdownMenuItem(value: val,
+                                                    child: Text(val))
+                                            ],
+                                            onChanged: (String? val) {
+                                              setState(() {
+                                                dropDownValue = val!;
+                                              });
+                                            },
+                                            isExpanded: true,
+                                          ),
+                                        )
+                                    )
+                                  ]
+                              )
+                            ] + rows.sublist(0, min(selectOptions[dropDownValue] as int, table.rows.length)),
+                          )
+                        ],
+                      );
+                    }else{
+                      return Text('...');
+                    }
+                  }
               ),
               ListView(
                 children: <Widget>[
@@ -781,7 +895,6 @@ class _cash_reserve extends State<cash_reserve> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        textSection3,
                         chartSection1,
                         datatableSection1,
                       ],

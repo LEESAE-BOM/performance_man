@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
 
 class contracted_price extends StatefulWidget {
   @override
@@ -15,6 +19,14 @@ class _contracted_price extends State<contracted_price> {
   String? _selectedValue='10월';
   late ZoomPanBehavior _zoomPanBehavior;
 
+  Map<String, int> selectOptions = {
+    '최근 6개월': 6,
+    '최근 12개월': 12,
+    '전체보기': -1,
+  };
+  var dropDownValue = '최근 6개월';
+
+  List<ChartData> contractData = [];
   @override
   void initState() {
     _zoomPanBehavior = ZoomPanBehavior(
@@ -24,6 +36,8 @@ class _contracted_price extends State<contracted_price> {
         enablePanning: true,
         enableMouseWheelZooming : true
     );
+    for(int i=1; i<=12; i++)
+      contractData.add(ChartData('$i월', 0, 0, 0));
     super.initState();
   }
 
@@ -37,284 +51,6 @@ class _contracted_price extends State<contracted_price> {
 
   @override
   Widget build(BuildContext context) {
-
-    Widget textSection = Padding(
-        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text.rich(
-                  TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: '이번 달 ',
-                        style: TextStyle(
-                            fontSize: 67.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black)),
-                    TextSpan(
-                      text: '계약 금액',
-                      style: TextStyle(
-                        fontSize: 85.sp,
-                        color: Colors.blue,
-                        letterSpacing: 2.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                        text: '은\n',
-                        style: TextStyle(
-                            fontSize: 67.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black)),
-                    TextSpan(
-                        text: '321,654,987원',
-                        style: TextStyle(
-                          fontSize: 85.sp,
-                          color: Colors.blue,
-                          letterSpacing: 2.0,
-                          fontWeight: FontWeight.bold,
-                        )
-                    ),
-                    TextSpan(
-                        text: ' 이에요.\n',
-                        style: TextStyle(
-                            fontSize: 67.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black)),
-                    TextSpan(
-                        text: '전월 대비 ',
-                        style: TextStyle(
-                            fontSize: 67.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black)
-                    ),
-                    TextSpan(
-                      text: '1,000원 증가',
-                      style: TextStyle(
-                        fontSize: 85.sp,
-                        color: Colors.blue,
-                        letterSpacing: 2.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                        text: ' 했어요.',
-                        style: TextStyle(
-                            fontSize: 67.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black)),
-                  ])
-              ),
-            ]));
-
-
-    Widget chartSection = Center(
-      child: Container(
-        width: 1000.w,
-        height: 300,
-        child: SfCartesianChart(
-          palette: <Color>[
-            Colors.blueAccent,
-            Colors.lightBlueAccent,
-            Colors.teal,
-          ],
-          zoomPanBehavior: _zoomPanBehavior,
-          primaryXAxis: CategoryAxis(),
-          primaryYAxis: NumericAxis(
-              edgeLabelPlacement: EdgeLabelPlacement.shift,
-              numberFormat: NumberFormat.compact()
-          ),
-          legend: Legend(
-              isVisible: true,
-              // Legend will be placed at the left
-              position: LegendPosition.bottom),
-          series: <ColumnSeries<ChartData, String>>[
-            ColumnSeries<ChartData, String>(
-              name: '2019년',
-              dataSource: chartData,
-              xValueMapper: (ChartData sales, _) => sales.x,
-              yValueMapper: (ChartData sales, _) => sales.y,
-            ),
-            ColumnSeries<ChartData, String>(
-              name: '2020년',
-              dataSource: chartData,
-              xValueMapper: (ChartData sales, _) => sales.x,
-              yValueMapper: (ChartData sales, _) => sales.y1,
-            ),
-            ColumnSeries<ChartData, String>(
-              name: '2021년',
-              dataSource: chartData,
-              xValueMapper: (ChartData sales, _) => sales.x,
-              yValueMapper: (ChartData sales, _) => sales.y2,
-            ),
-          ],
-        ),
-      ),
-    );
-
-    Widget datatableSection = Padding(
-        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
-        child:Center(
-          child: Container(
-            width: 1020.w,
-            child: Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.grey),
-              child: DataTable(
-                columnSpacing:  0,
-                horizontalMargin: 0,
-                showBottomBorder: true,
-                headingRowColor:
-                MaterialStateColor.resolveWith((states) => Colors.black12),
-                columns: <DataColumn>[
-                  DataColumn(
-                    label: Container(
-                      width: 1020.w * .2,
-                      child: Text(
-                        '',
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Container(
-                      width: 1020.w * .4,
-                      alignment: Alignment.center,
-                      child: Text('매출 금액 내역',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 41.sp,
-                              color: Colors.black54,
-                              fontFamily: 'applesdneoeb')),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Container(
-                      width: 1020.w * .4,
-                      child: Text(
-                        '',
-                      ),
-                    ),
-                  ),
-                ],
-                rows: <DataRow>[
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('')),
-                      DataCell(Text('')),
-                      DataCell(Container(
-                          alignment: Alignment.center,
-                          child: DropdownButton(
-                        value:_selectedValue,
-                        items: _valueList.map(
-                              (String value){
-                            return DropdownMenuItem(
-                                value:value,
-                                child: Text(value)
-                            );
-                          },
-                        ).toList(),
-                        onChanged: (String? value){
-                          setState((){
-                            _selectedValue=value;
-                          });
-                        },
-                      )))
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            '기업',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 39.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '계약 금액',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 39.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                      DataCell(
-                        Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '수주 잔고금액',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 39.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                    ],
-                  ),
-                  DataRow(
-                    color:
-                    MaterialStateColor.resolveWith((states) => Colors.black12),
-                    cells: <DataCell>[
-                      DataCell(
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'A기업',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 39.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '4,123,123원',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 39.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                      DataCell(
-                        Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '456,789원',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 39.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ));
-
     return Scaffold(
       appBar: AppBar(
         title: Text('계약 금액',
@@ -331,24 +67,167 @@ class _contracted_price extends State<contracted_price> {
             }),
       ),
       body: SafeArea(
-          child:Center(
-            child: ListView(
-              children: <Widget>[
-                textSection,
-                chartSection,
-                datatableSection
-              ],
-            ),
-          )),
+          child: Center(
+              child: FutureBuilder(
+                  future: conn.sendQuery('SELECT ContractDate, Company, Price * 1000 as Money, Backlog FROM Contract ORDER BY ContractDate DESC;'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var result = snapshot.data as List<Map<String, dynamic>>;
+                      var thisMonthPrice = result[0]['Money'];
+                      var previousMonthPrice = result[1]['Money'];
+                      var table = MySQLTable(snapshot.data, ['날짜', '기업', '금액', '수주 잔고 금액']);
+
+                      thisMonthPrice = thisMonthPrice.substring(0, thisMonthPrice.length - 3);
+                      previousMonthPrice = previousMonthPrice.substring(0, previousMonthPrice.length - 3);
+                      int diff = int.parse(thisMonthPrice) - int.parse(previousMonthPrice);
+
+                      int thisYear = DateTime.parse(result[0]['ContractDate']).year;
+
+                      for (var row in result) {
+                        DateTime toDate = DateTime.parse(row['ContractDate']);
+                        int term = thisYear - toDate.year;
+                        String moneyStr = row['Money'];
+                        moneyStr = moneyStr.substring(0, moneyStr.length - 3);
+                        if (term == 0) {
+                          contractData[toDate.month - 1].y = int.parse(moneyStr);
+                        } else if (term == 1) {
+                          contractData[toDate.month - 1].y2 = int.parse(moneyStr);
+                        } else if (term == 2) {
+                          contractData[toDate.month - 1].y3 = int.parse(moneyStr);
+                        } else if (term <= 3) break;
+                      }
+
+                      selectOptions['전체보기'] = table.rows.length;
+                      TableRow header = table.getTableHeader(TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40.sp,
+                          color: Colors.black87));
+                      List<TableRow> rows = table.getTableRows(
+                          TextStyle(fontSize: 40.sp, color: Colors.black38));
+
+                      return ListView(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(
+                                    TextSpan(
+                                        children: [
+                                          HeaderTheme().makeHeaderText('이번 달 [계약금액]은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
+                                          if(diff < 0)
+                                            HeaderTheme().makeHeaderText('[${diff * -1}]원 감소했어요.'),
+                                          if(diff >= 0)
+                                            HeaderTheme().makeHeaderText('[$diff]원 증가했어요.')
+                                        ]
+                                    )
+                                )
+                            ),
+                            SfCartesianChart(
+                                zoomPanBehavior: _zoomPanBehavior,
+                                palette: <Color>[
+                                  Colors.blueAccent,
+                                  Colors.lightBlueAccent,
+                                  Colors.teal,
+                                ],
+                                primaryXAxis: CategoryAxis(),
+                                primaryYAxis: NumericAxis(
+                                  // Y axis labels will be rendered with currency format
+                                    numberFormat: NumberFormat.compact()),
+                                legend: Legend(
+                                    isVisible: true,
+                                    // Legend will be placed at the left
+                                    position: LegendPosition.bottom),
+                                series: <CartesianSeries>[
+                                  ColumnSeries<ChartData, String>(
+                                    name: '$thisYear',
+                                    dataSource: contractData,
+                                    xValueMapper: (ChartData sales, _) => sales.x,
+                                    yValueMapper: (ChartData sales, _) => sales.y,
+                                  ),
+                                  ColumnSeries<ChartData, String>(
+                                    name: '${thisYear-1}',
+                                    dataSource: contractData,
+                                    xValueMapper: (ChartData sales, _) => sales.x,
+                                    yValueMapper: (ChartData sales, _) => sales.y2,
+                                  ),
+                                  ColumnSeries<ChartData, String>(
+                                    name: '${thisYear-2}',
+                                    dataSource: contractData,
+                                    xValueMapper: (ChartData sales, _) => sales.x,
+                                    yValueMapper: (ChartData sales, _) => sales.y3,
+                                  ),
+                                  LineSeries<ChartData, String>(
+                                      name: '$thisYear',
+                                      color: Colors.teal,
+                                      dataSource: contractData,
+                                      xValueMapper: (ChartData sales, _) => sales.x,
+                                      yValueMapper: (ChartData sales, _) => sales.y,
+                                      dataLabelSettings: DataLabelSettings(
+                                        // Renders the data label
+                                          isVisible: true),
+                                      markerSettings: MarkerSettings(isVisible: true))
+                                ]
+                            ),
+                            Table(
+                                border: TableBorder(
+                                    horizontalInside: BorderSide(width: 1,
+                                        color: Colors.black38,
+                                        style: BorderStyle.solid)),
+                                children: <TableRow>[
+                                  header,
+                                  TableRow(
+                                      children: [
+                                        TableCell(
+                                          child: Text(''),
+                                        ),
+                                        TableCell(
+                                          child: Text(''),
+                                        ),
+                                        TableCell(
+                                          child: Text(''),
+                                        ),
+                                        TableCell(
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 50.sp),
+                                              child: DropdownButton(
+                                                value: dropDownValue,
+                                                items: <
+                                                    DropdownMenuItem<String>>[
+                                                  for(var val in selectOptions
+                                                      .keys)
+                                                    DropdownMenuItem(value: val,
+                                                        child: Text(val))
+                                                ],
+                                                onChanged: (String? val) {
+                                                  setState(() {
+                                                    dropDownValue = val!;
+                                                  });
+                                                },
+                                                isExpanded: true,
+                                              ),
+                                            )
+                                        )
+                                      ]
+                                  )
+                                ] + rows.sublist(0, min(selectOptions[dropDownValue] as int, rows.length))
+                            )
+                          ]
+                      );
+                    } else
+                      return Text('...');
+                  }
+              )
+          )
+      ),
     );
   }
 }
 
 class ChartData {
-  ChartData(this.x, this.y, this.y1, this.y2);
+  ChartData(this.x, this.y, this.y2, this.y3);
 
-  final String? x;
-  final int y;
-  final int y1;
-  final int y2;
+  String? x;
+  int y;
+  int y2;
+  int y3;
 }

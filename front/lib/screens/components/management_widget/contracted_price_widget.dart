@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/contracted_price.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
 
 //큰 위젯
 class Contracted_Price_Widget extends StatefulWidget {
@@ -33,80 +35,49 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                 ),
               ],
             ),
-            child: Column(children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(top: 20.w, left: 35.w),
-                child: Row(
-                  children: [
-                    Text(
-                      '계약금액',
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 35.w,
-                          fontFamily: 'applesdneom'),
-                    ),
-                    SizedBox(width: 10.w),
-                    Image.asset(
-                      'image/warning.png',
-                      width: 20.w,
-                      height: 20.w,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                  width: 1060.w,
-                  height: 310.w,
-                  child: Center(
-                      child: //Text('목표대비 총 105% 달성', style: TextStyle(color: Colors.black54, fontSize: 20),)
-                          RichText(
-                    text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                        text: '이번달 ',
-                        style: TextStyle(
-                          fontSize: 50.w,
-                          color: Colors.black,
-                          letterSpacing: 1.w,
-                          fontFamily: 'applesdneob',
-                          //height: 1.0
+            child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(top: 20.w, left: 35.w),
+                    child: Row(
+                      children: [
+                        Text(
+                          '계약금액',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 35.w,
+                              fontFamily: 'applesdneom'),
                         ),
-                      ),
-                      TextSpan(
-                        text: '계약금액',
-                        style: TextStyle(
-                            fontSize: 70.w,
-                            color: Colors.blueAccent,
-                            letterSpacing: 5.w,
-                            fontFamily: 'applesdneob'),
-                      ),
-                      TextSpan(
-                        text: '은',
-                        style: TextStyle(
-                            fontSize: 50.w,
-                            color: Colors.black,
-                            letterSpacing: 1.w,
-                            fontFamily: 'applesdneob'),
-                      ),
-                      TextSpan(
-                        text: '\n321,654,987원',
-                        style: TextStyle(
-                            fontSize: 75.w,
-                            color: Colors.blueAccent,
-                            letterSpacing: 5.w,
-                            fontFamily: 'applesdneob',
-                            height:1.5
+                        SizedBox(width: 10.w),
+                        Image.asset(
+                          'image/warning.png',
+                          width: 20.w,
+                          height: 20.w,
                         ),
-                      ),
-                      TextSpan(
-                        text: ' 입니다.',
-                        style: TextStyle(
-                            fontSize: 50.w,
-                            color: Colors.black,
-                            letterSpacing: 1.w,
-                            fontFamily: 'applesdneob'),
-                      ),
-                    ]),
-                  ))),
-            ])));
+                      ],
+                    ),
+                  ),
+                  Container(
+                      width: 1060.w,
+                      height: 310.w,
+                      child: Center(
+                          child: FutureBuilder(
+                              future: conn.sendQuery('SELECT Price * 1000 as Money FROM Contract ORDER BY ContractDate DESC;'),
+                              builder: (context, snapshot){
+                                if(snapshot.hasData){
+                                  var result = snapshot.data as List<Map<String, dynamic>>;
+                                  String money = result[0]['Money'];
+                                  return Text.rich(HeaderTheme().makeHeaderText('이번달 [계약금액]은\n[${money.substring(0, money.length - 3)}]원입니다.'));
+                                }else{
+                                  return Text.rich(TextSpan(text: '불러오는 중...'));
+                                }
+                              }
+                          )
+                      )
+                  ),
+                ]
+            )
+        )
+    );
   }
 }
