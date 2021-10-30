@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/mysql_connect.dart';
 import './screens/main_screens.dart';
 import 'package:dio/dio.dart';
 
@@ -13,17 +14,6 @@ class _login_flow extends State<login_flow> {
   TextEditingController _passwordTextController = TextEditingController();
   var _isChecked =false;
   //TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
-
-  Future<bool> _vaildCheck(String userId, String userPassword) async {
-    var query = FormData.fromMap({
-      "qry": "SELECT * FROM USERS WHERE ID=\'$userId\' AND PASSWORD=\'$userPassword\';"
-    });
-    print("SELECT * FROM USERS WHERE ID=\'$userId\' AND PASSWORD=\'$userPassword\';");
-    var result = await Dio().post('http://teamflow.dothome.co.kr/doQuery.php', data: query);
-    print(result.data.runtimeType);
-    if(result.data.length == 2) return true;
-    return false;
-  }
 
   @override
   void dispose(){
@@ -65,7 +55,8 @@ class _login_flow extends State<login_flow> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         onPressed: () async {
-          if(await _vaildCheck(_emailTextController.text, _passwordTextController.text)){
+          List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'${_emailTextController.text}\' AND PASSWORD = \'${_passwordTextController.text}\';');
+          if(result.length == 1){
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
           }
         },
