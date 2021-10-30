@@ -30,9 +30,6 @@ class MySQLTable{
     if(headerTextStyle == null)
       headerTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white);
 
-    if(headerBGColor == null)
-      headerBGColor = Colors.blueGrey;
-
     return TableRow(
       children: <Widget>[
         for(String column in userDefinedColumnNames)
@@ -49,10 +46,7 @@ class MySQLTable{
 
   List<TableRow> getTableRows([contentTextStyle, contentBGColor]){
     if(contentTextStyle == null)
-      contentTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black);;
-
-    if(contentBGColor == null)
-      contentBGColor = Colors.white;
+      contentTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black);
 
     return [
       for(Map<String, dynamic> row in rows)
