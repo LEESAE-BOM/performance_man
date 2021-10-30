@@ -48,7 +48,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
 
                     dataLabelSettings: DataLabelSettings(
                         // Renders the data label
-                        isVisible: false),
+                        isVisible: true),
                     width: 0.6,
                     spacing: 0.2),
               ])),
@@ -97,7 +97,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 ),
               ),
               Container(
-                  width: 520.w,
+                  width: 1000.w,
                   height: 310.w,
                 child: chartSection
               )
