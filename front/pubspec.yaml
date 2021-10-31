@@ -15,7 +15,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  ml_dataframe: ^0.5.1
+  ml_preprocessing: ^6.0.0
+  ml_algo: ^16.2.3
   cupertino_icons: ^1.0.2
   google_fonts: ^2.0.0
   font_awesome_flutter: ^9.0.0
@@ -60,6 +62,11 @@ flutter:
 
 
   assets:
+    - dataset/machine_sample_2016.csv
+    - dataset/machine_sample_2017.csv
+    - dataset/machine_sample_2018.csv
+    - dataset/machine_sample_2019.csv
+    - dataset/machine_sample_2020.csv
     - image/safe.png
     - image/warning.png
     - image/danger.png
