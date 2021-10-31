@@ -67,6 +67,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                         int thisYear = DateTime.now().year;
                         double contractPrice = 0;
                         double outsourcePrice = 0;
+                        double rate = 0;
 
                         for(var row in result) {
                           int year = DateTime.parse(row['ContractDate']).year;
@@ -75,8 +76,10 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                           outsourcePrice += double.parse(row['OS']);
                         }
 
-                        outsourcingData.add(ChartData('외주비용', outsourcePrice));
-                        outsourcingData.add(ChartData(' ', contractPrice - outsourcePrice));
+                        rate = (outsourcePrice / contractPrice) * 100;
+
+                        outsourcingData.add(ChartData('외주비용', rate.round()));
+                        outsourcingData.add(ChartData(' ', 100 - rate.round()));
 
                         return SfCircularChart(
                             onChartTouchInteractionDown: (_Outsourcing_Ratio_Widget) {
@@ -93,6 +96,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                                   dataSource: outsourcingData,
                                   xValueMapper: (ChartData data, _) => data.x,
                                   yValueMapper: (ChartData data, _) => data.y,
+                                  dataLabelMapper: (ChartData data, _) => '${data.y}%',
                                   dataLabelSettings: DataLabelSettings(
                                       isVisible: true,
                                       textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob')
@@ -117,5 +121,5 @@ class ChartData {
   ChartData(this.x, this.y);
 
   String x;
-  double y;
+  int y;
 }

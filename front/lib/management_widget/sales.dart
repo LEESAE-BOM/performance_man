@@ -1,11 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_app/mysql_connect.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 
 class sales extends StatefulWidget {
@@ -168,15 +168,12 @@ class _sales extends State<sales> {
                                                   value: dropDownValue,
                                                   items: <
                                                       DropdownMenuItem<String>>[
-                                                    for(var val in selectOptions
-                                                        .keys)
+                                                    for(var val in selectOptions.keys)
                                                       DropdownMenuItem(value: val,
                                                           child: Text(val))
                                                   ],
                                                   onChanged: (String? val) {
-                                                    setState(() {
-                                                      dropDownValue = val!;
-                                                    });
+                                                    setState(() { dropDownValue = val!; });
                                                   },
                                                   isExpanded: true,
                                                 ),
@@ -184,7 +181,7 @@ class _sales extends State<sales> {
                                           )
                                         ]
                                     )
-                                  ] + table.getTableRows().sublist(min(0, selectOptions[dropDownValue] as int))
+                                  ] + table.getTableRows().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
                               )
                             ]
                         );

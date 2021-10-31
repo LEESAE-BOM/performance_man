@@ -77,7 +77,9 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                                     TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold)),
                                 legend: Legend(
                                     isVisible: true,
-                                    position: LegendPosition.bottom),
+                                    position: LegendPosition.bottom,
+                                    isResponsive: false
+                                ),
                                 series: <CircularSeries>[
                                   PieSeries<ChartData, String>(
                                       dataSource: outsourcingData,

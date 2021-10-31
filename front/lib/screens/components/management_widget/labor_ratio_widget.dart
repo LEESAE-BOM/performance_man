@@ -66,7 +66,6 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                     builder: (context, snapshot){
                       if(snapshot.hasData){
                         var result = snapshot.data as List<Map<String, dynamic>>;
-                        print(result.length);
                         double totalDCLBR = 0;
                         double totalIDLBR = 0;
                         double IDLBRRate = 0;

@@ -695,7 +695,6 @@ class _labor_ratio extends State<labor_ratio> {
                       if(snapshot.hasData){
                         var result = snapshot.data as List<Map<String, dynamic>>;
                         var table = MySQLTable(result, ['날짜', '분류', '금액']);
-                        print(result.length);
                         double totalDCLBR = 0;
                         double totalIDLBR = 0;
                         double IDLBRRate = 0;
@@ -753,8 +752,9 @@ class _labor_ratio extends State<labor_ratio> {
                                         TextStyle(fontSize: 100.sp, fontWeight: FontWeight.bold)),
                                     legend: Legend(
                                         isVisible: true,
-                                        // Legend will be placed at the left
-                                        position: LegendPosition.bottom),
+                                        position: LegendPosition.bottom,
+                                        isResponsive: false
+                                    ),
                                     series: <CircularSeries>[
                                       // Render pie chart
                                       PieSeries<ChartData, String>(
