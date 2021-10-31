@@ -24,7 +24,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               .push(MaterialPageRoute(builder: (context) => cash_reserve()));
         },
         child: Container(
-            width: 520.w,
+            width: 1040.w,
             height: 400.w,
 
             decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 ),
               ),
               Container(
-                width: 1000.w,
+                width: 1040.w,
                 height: 310.w,
                 child: FutureBuilder(
                   future: conn.sendQuery('SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year;'),

@@ -23,7 +23,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
               .push(MaterialPageRoute(builder: (context) => labor_ratio()));
         },
         child: Container(
-            width: 520.w,
+            width: 510.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -59,7 +59,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                 ),
               ),
               Container(
-                width: 520.w,
+                width: 510.w,
                 height: 310.w,
                 child: FutureBuilder(
                     future: conn.sendQuery('SELECT MoneyDate, MoneyCategory, Money * 1000 as Money FROM Money WHERE MoneyCategory like \'%LBR\' ORDER BY MoneyDate DESC;'),
@@ -108,7 +108,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                                   dataLabelMapper: (ChartData data, _) => data.text,
                                   dataLabelSettings: DataLabelSettings(
                                       isVisible: true,
-                                      textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob'))),
+                                      textStyle: TextStyle(fontSize: 40.w, fontFamily: 'applesdneob'))),
                             ]
                         );
                       }else{

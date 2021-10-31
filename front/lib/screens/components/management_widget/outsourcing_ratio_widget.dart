@@ -21,7 +21,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
               MaterialPageRoute(builder: (context) => outsourcing_ratio()));
         },
         child: Container(
-            width: 520.w,
+            width: 510.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -57,7 +57,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                 ),
               ),
               Container(
-                width: 520.w,
+                width: 510.w,
                 height: 310.w,
                 child: FutureBuilder(
                     future: conn.sendQuery('SELECT ContractDate, Company, Price * 1000 as Money, Outsourcing * 1000 as OS FROM Contract ORDER BY ContractDate DESC;'),
@@ -99,7 +99,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                                   dataLabelMapper: (ChartData data, _) => '${data.y}%',
                                   dataLabelSettings: DataLabelSettings(
                                       isVisible: true,
-                                      textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob')
+                                      textStyle: TextStyle(fontSize: 40.w, fontFamily: 'applesdneob')
                                   )
                               ),
                             ]

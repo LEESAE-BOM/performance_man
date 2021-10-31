@@ -46,7 +46,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
               .push(MaterialPageRoute(builder: (context) => order_amount()));
         },
         child: Container(
-            width: 520.w,
+            width: 510.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -82,7 +82,7 @@ class _Order_Amount_Widget extends State<Order_Amount_Widget> {
                 ),
               ),
               Container(
-                width: 520.w,
+                width: 510.w,
                 height: 310.w,
                 child: chartSection,
               )

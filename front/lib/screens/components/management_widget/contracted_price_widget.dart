@@ -19,7 +19,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
               MaterialPageRoute(builder: (context) => contracted_price()));
         },
         child: Container(
-            width: 1060.w,
+            width: 1040.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -58,7 +58,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                     ),
                   ),
                   Container(
-                      width: 1060.w,
+                      width: 1040.w,
                       height: 310.w,
                       child: Center(
                           child: FutureBuilder(

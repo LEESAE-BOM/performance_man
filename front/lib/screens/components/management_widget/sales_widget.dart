@@ -19,7 +19,7 @@ class _Sales_Widget extends State<Sales_Widget> {
               .push(MaterialPageRoute(builder: (context) => sales()));
         },
         child: Container(
-            width: 1060.w,
+            width: 1040.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -56,7 +56,7 @@ class _Sales_Widget extends State<Sales_Widget> {
                     ),
                   ),
                   Container(
-                      width: 1060.w,
+                      width: 1040.w,
                       height: 310.w,
                       child: Center(
                           child: FutureBuilder(
