@@ -1,8 +1,13 @@
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ml_algo/ml_algo.dart';
+import 'package:ml_dataframe/ml_dataframe.dart';
+import 'package:ml_preprocessing/ml_preprocessing.dart';
+
 
 class expected_profit extends StatefulWidget {
   @override
@@ -15,6 +20,7 @@ class _expected_profit extends State<expected_profit> {
   late List<SalesData> chartdata;
   late TooltipBehavior _tooltipBehavior;
   late ZoomPanBehavior _zoomPanBehavior;
+  late Future machine_List;
 
 
   @override
@@ -30,11 +36,15 @@ class _expected_profit extends State<expected_profit> {
         enablePanning: true,
         enableMouseWheelZooming : true
     );
+    machine_List = machine();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    //double num1= machine_List.rows.elementAt(0).toDouble();
+    //print(machine_List.rows);
     Widget textSection = Padding(
         padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child: Column(
@@ -172,7 +182,7 @@ class _expected_profit extends State<expected_profit> {
                   name: '2021',
                   dataSource: [
                     // Bind data source
-                    SalesData('1월', 2.0),
+                    SalesData('1월', 1),
                     SalesData('2월', 2.8),
                     SalesData('3월', 3.6),
                     SalesData('4월', 3.0),
@@ -384,4 +394,51 @@ class SalesData {
 
   final String? month;
   final double sales;
+}
+
+Future machine() async{
+
+  final unlabel = DataFrame(<Iterable>[
+    ['month',  'profit'], [1,  ], [2, ], [3, ],[4,  ], [5, ], [6, ],[7,  ], [8, ], [9, ],[10,  ], [11, ], [12, ],
+  ], headerExists: true);
+
+  //final samples = DataFrame(data, headerExists: true);
+  final rawCsvContent = await rootBundle.loadString('dataset/machine_sample_2016.csv');
+  final samples_2016 = DataFrame.fromRawCsv(rawCsvContent,headerExists: true);
+
+  final rawCsvContent2 = await rootBundle.loadString('dataset/machine_sample_2017.csv');
+  final samples_2017 = DataFrame.fromRawCsv(rawCsvContent2,headerExists: true);
+
+  final rawCsvContent3 = await rootBundle.loadString('dataset/machine_sample_2018.csv');
+  final samples_2018 = DataFrame.fromRawCsv(rawCsvContent3,headerExists: true);
+
+  final rawCsvContent4 = await rootBundle.loadString('dataset/machine_sample_2019.csv');
+  final samples_2019 = DataFrame.fromRawCsv(rawCsvContent4,headerExists: true);
+
+  final rawCsvContent5 = await rootBundle.loadString('dataset/machine_sample_2020.csv');
+  final samples_2020 = DataFrame.fromRawCsv(rawCsvContent5,headerExists: true);
+
+  final targetName = 'profit';
+  final regressor = LinearRegressor(samples_2016, targetName,iterationsLimit: 1000, initialLearningRate: 0.0005, batchSize: 5,
+      fitIntercept: true, interceptScale: 3.0, learningRateType: LearningRateType.constant);
+
+  print('Regression coefficients: ${regressor.coefficients}');
+
+  final regressor_2 = regressor.retrain(samples_2017);
+  print('Regression coefficients: ${regressor_2.coefficients}');
+
+  final regressor_3 = regressor.retrain(samples_2018);
+  print('Regression coefficients: ${regressor_3.coefficients}');
+
+  final regressor_4 = regressor.retrain(samples_2019);
+  print('Regression coefficients: ${regressor_4.coefficients}');
+
+  final regressor_5 = regressor.retrain(samples_2020);
+  print('Regression coefficients: ${regressor_5.coefficients}');
+
+  final prediction = regressor.predict(unlabel);
+  print(prediction.header);
+  print(prediction.rows);
+
+  return samples_2016;
 }
