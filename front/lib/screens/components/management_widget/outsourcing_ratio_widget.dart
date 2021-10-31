@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/management_widget/outsourcing_ratio.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
 
 //작은 위젯
 class Outsourcing_Ratio_Widget extends StatefulWidget {
@@ -10,36 +11,10 @@ class Outsourcing_Ratio_Widget extends StatefulWidget {
 }
 
 class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
-  final List<ChartData> chartData = [
-    ChartData('A사', 45),
-    ChartData('B사', 55),
-  ];
+  List<ChartData> outsourcingData = [];
 
   @override
   Widget build(BuildContext context) {
-    Widget chartSection = Center(
-        child: Container(
-            child: SfCircularChart(
-                onChartTouchInteractionDown: (_Outsourcing_Ratio_Widget) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => outsourcing_ratio()));
-                },
-                palette: <Color>[
-                  Colors.blue,
-                  Colors.grey,
-                ],
-                series: <CircularSeries>[
-      // Render pie chart
-      PieSeries<ChartData, String>(radius: '100%',
-          dataSource: chartData,
-          xValueMapper: (ChartData data, _) => data.x,
-          yValueMapper: (ChartData data, _) => data.y,
-          dataLabelSettings: DataLabelSettings(
-              isVisible: true,
-              textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob'),
-              // Positioning the data label
-              labelPosition: ChartDataLabelPosition.inside)),
-    ])));
     return GestureDetector(
         onTap: () {
           Navigator.of(context).push(
@@ -84,15 +59,63 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
               Container(
                 width: 520.w,
                 height: 310.w,
-                child: chartSection,
+                child: FutureBuilder(
+                    future: conn.sendQuery('SELECT ContractDate, Company, Price * 1000 as Money, Outsourcing * 1000 as OS FROM Contract ORDER BY ContractDate DESC;'),
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        var result = snapshot.data as List<Map<String, dynamic>>;
+                        int thisYear = DateTime.now().year;
+                        double contractPrice = 0;
+                        double outsourcePrice = 0;
+
+                        for(var row in result) {
+                          int year = DateTime.parse(row['ContractDate']).year;
+                          if(thisYear > year) break;
+                          contractPrice += double.parse(row['Money']);
+                          outsourcePrice += double.parse(row['OS']);
+                        }
+
+                        outsourcingData.add(ChartData('외주비용', outsourcePrice));
+                        outsourcingData.add(ChartData(' ', contractPrice - outsourcePrice));
+
+                        return SfCircularChart(
+                            onChartTouchInteractionDown: (_Outsourcing_Ratio_Widget) {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) => outsourcing_ratio()));
+                            },
+                            palette: <Color>[
+                              Colors.blue,
+                              Colors.grey,
+                            ],
+                            series: <CircularSeries>[
+                              PieSeries<ChartData, String>(
+                                  radius: '100%',
+                                  dataSource: outsourcingData,
+                                  xValueMapper: (ChartData data, _) => data.x,
+                                  yValueMapper: (ChartData data, _) => data.y,
+                                  dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob')
+                                  )
+                              ),
+                            ]
+                        );
+                      }else{
+                        return Text.rich(TextSpan(text: '불러오는 중...'));
+                      }
+                    }
+                ),
               )
-            ])));
+            ]
+            )
+        )
+    );
   }
 }
 
 class ChartData {
   ChartData(this.x, this.y);
 
-  final String x;
-  final double y;
+  String x;
+  double y;
 }

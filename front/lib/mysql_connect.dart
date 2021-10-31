@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/theme.dart';
 
 class MySQLConnector{
   String webServerURL = 'http://teamflow.dothome.co.kr/doQuery.php';
@@ -10,7 +11,6 @@ class MySQLConnector{
   Future<List<Map<String, dynamic>>> sendQuery(String? query) async {
     var formedQuery = FormData.fromMap({'qry': query});
     var jsonData = await Dio().post(webServerURL, data: formedQuery);
-    print(jsonData.data);
     return [for(var row in jsonData.data.sublist(1)) Map<String, dynamic>.from(row)];
   }
 }
@@ -26,28 +26,22 @@ class MySQLTable{
       this.userDefinedColumnNames = userDefinedColumnNames;
   }
 
-  TableRow getTableHeader([headerTextStyle, headerBGColor]){
-    if(headerTextStyle == null)
-      headerTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white);
-
+  TableRow getTableHeader(){
     return TableRow(
       children: <Widget>[
         for(String column in userDefinedColumnNames)
           TableCell(
               child: Container(
                   padding: EdgeInsets.only(top: 10, bottom: 10),
-                  color: headerBGColor,
-                  child: Center(child: Text(column, style: headerTextStyle))
+                  color: detailPageTheme.tableHeaderBGColor,
+                  child: Center(child: Text(column, style: detailPageTheme.tableHeaderStyle))
               )
           )
       ]
     );
   }
 
-  List<TableRow> getTableRows([contentTextStyle, contentBGColor]){
-    if(contentTextStyle == null)
-      contentTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black);
-
+  List<TableRow> getTableRows(){
     return [
       for(Map<String, dynamic> row in rows)
         TableRow(
@@ -56,7 +50,8 @@ class MySQLTable{
                 TableCell(
                     child: Container(
                         padding: EdgeInsets.only(top: 10, bottom: 10),
-                        child: Center(child: Text(data, style: contentTextStyle))
+                        color: detailPageTheme.tableRowBGColor,
+                        child: Center(child: Text(data, style: detailPageTheme.tableRowStyle))
                     )
                 )
           ]

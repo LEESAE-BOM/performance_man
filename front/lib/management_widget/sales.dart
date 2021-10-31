@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/mysql_connect.dart';
@@ -84,14 +86,6 @@ class _sales extends State<sales> {
                           } else if (term <= 3) break;
                         }
 
-                        selectOptions['전체보기'] = table.rows.length;
-                        TableRow header = table.getTableHeader(TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40.sp,
-                            color: Colors.black87));
-                        List<TableRow> rows = table.getTableRows(
-                            TextStyle(fontSize: 40.sp, color: Colors.black38));
-
                         return ListView(
                             children: [
                               Padding(
@@ -99,11 +93,11 @@ class _sales extends State<sales> {
                                   child: Text.rich(
                                       TextSpan(
                                           children: [
-                                            HeaderTheme().makeHeaderText('이번 달 매출금액은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
+                                            detailPageTheme.makeHeaderText('이번 달 매출금액은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
                                             if(diff < 0)
-                                              HeaderTheme().makeHeaderText('[${diff * -1}]원 감소했어요.'),
+                                              detailPageTheme.makeHeaderText('[${diff * -1}]원 감소했어요.'),
                                             if(diff >= 0)
-                                              HeaderTheme().makeHeaderText('[$diff]원 증가했어요.')
+                                              detailPageTheme.makeHeaderText('[$diff]원 증가했어요.')
                                           ]
                                       )
                                   )
@@ -160,7 +154,7 @@ class _sales extends State<sales> {
                                           color: Colors.black38,
                                           style: BorderStyle.solid)),
                                   children: <TableRow>[
-                                    header,
+                                    table.getTableHeader(),
                                     TableRow(
                                         children: [
                                           TableCell(
@@ -190,8 +184,7 @@ class _sales extends State<sales> {
                                           )
                                         ]
                                     )
-                                  ] + rows.sublist(
-                                      0, selectOptions[dropDownValue])
+                                  ] + table.getTableRows().sublist(min(0, selectOptions[dropDownValue] as int))
                               )
                             ]
                         );

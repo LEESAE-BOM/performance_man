@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -19,10 +18,6 @@ class _labor_ratio extends State<labor_ratio> {
   late TooltipBehavior _tooltipBehavior;
   var today=DateTime.now();
   DateFormat formatter=DateFormat('yyyy년 MM월');
-  List<ChartData> laborRate = [
-    ChartData('간접인건비', 0),
-    ChartData('직접인건비', 0)
-  ];
 
   PageController pageController = PageController(
     initialPage: 0,
@@ -41,63 +36,13 @@ class _labor_ratio extends State<labor_ratio> {
     ChartData('간접인건비', 202031684),
     ChartData('직접인건비', 275146845),
   ];
+  List<ChartData> laborRate = [
+    ChartData('간접인건비', 0),
+    ChartData('직접인건비', 0)
+  ];
 
   @override
   Widget build(BuildContext context) {
-
-    Widget textSection = Padding(
-        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text.rich(TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: formatter.format(today),
-                        style: TextStyle(
-                          fontSize: 70.sp,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black,
-                        )
-                    ),
-                    TextSpan(
-                        text: '은\n',
-                        style: TextStyle(
-                          fontSize: 70.sp,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black,
-                        )
-                    ),
-                    TextSpan(
-                        text: '간접인건비가 ',
-                        style: TextStyle(
-                          fontSize: 70.sp,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black,
-                        )),
-                    TextSpan(
-                      text: '12% ',
-                      style: TextStyle(
-                        fontSize: 100.sp,
-                        color: Colors.blue,
-                        letterSpacing: 3.0,
-                        fontFamily: 'applesdneoeb',
-                      ),
-                    ),
-                    TextSpan(
-                        text: '높아요. ',
-                        style: TextStyle(
-                          fontSize: 70.sp,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black,
-                        )
-                    ),
-                  ]))
-            ]));
 
     Widget textSection2 = Padding(
         padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
@@ -724,7 +669,8 @@ class _labor_ratio extends State<labor_ratio> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('인건비율',
+        title: Text(
+            '인건비율',
             style: TextStyle(fontSize:67.sp, color: Colors.white)),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
@@ -742,110 +688,106 @@ class _labor_ratio extends State<labor_ratio> {
           child: PageView(
             controller: pageController,
             children: <Widget>[
-              FutureBuilder(
-                future: conn.sendQuery('SELECT MoneyDate, MoneyCategory, Money * 1000 as Money FROM Money WHERE MoneyCategory=\'DCLBR\' OR MoneyCategory=\'IDLBR\' ORDER BY MoneyDate DESC;'),
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    var result = snapshot.data as List<Map<String, dynamic>>;
-                    print(result.length);
-                    double totalDCLBR = 0;
-                    double totalIDLBR = 0;
-                    double IDLBRRate = 0;
-                    double DCLBRRate = 0;
-                    int diff = 0;
-                    
-                    int thisYear = DateTime.parse(result[0]['MoneyDate']).year;
-                    int thisMonth = DateTime.parse(result[0]['MoneyDate']).month;
+              Center(
+                child: FutureBuilder(
+                    future: conn.sendQuery('SELECT MoneyDate, MoneyCategory, Money * 1000 as Money FROM Money WHERE MoneyCategory like \'%LBR\' ORDER BY MoneyDate DESC;'),
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        var result = snapshot.data as List<Map<String, dynamic>>;
+                        var table = MySQLTable(result, ['날짜', '분류', '금액']);
+                        print(result.length);
+                        double totalDCLBR = 0;
+                        double totalIDLBR = 0;
+                        double IDLBRRate = 0;
+                        double DCLBRRate = 0;
+                        int diff = 0;
 
-                    for(int i=0; i<result.length; i++) {
-                      if (result[i]['MoneyCategory'] == 'DCLBR') {
-                        result[i]['MoneyCategory'] = '직접인건비';
-                        if(result[0]['MoneyDate'].substring(0, result[0]['MoneyDate'].length) == result[i]['MoneyDate'].substring(0, result[i]['MoneyDate'].length))
-                          totalDCLBR += double.parse(result[i]['Money']);
-                      }
-                      else {
-                        result[i]['MoneyCategory'] = '간접인건비';
-                        if(result[0]['MoneyDate'].substring(0, result[0]['MoneyDate'].length) == result[i]['MoneyDate'].substring(0, result[i]['MoneyDate'].length))
-                          totalIDLBR += double.parse(result[i]['Money']);
+                        int thisYear = DateTime.parse(result[0]['MoneyDate']).year;
+                        int thisMonth = DateTime.parse(result[0]['MoneyDate']).month;
+
+                        for(int i=0; i<result.length; i++) {
+                          int year = DateTime.parse(result[i]['MoneyDate']).year;
+                          int month = DateTime.parse(result[i]['MoneyDate']).month;
+                          if(thisYear == year && thisMonth == month)
+                            if (result[i]['MoneyCategory'] == 'DCLBR')
+                              totalDCLBR += double.parse(result[i]['Money']);
+                            else if (result[i]['MoneyCategory'] == 'IDLBR')
+                              totalIDLBR += double.parse(result[i]['Money']);
+                        }
+
+                        IDLBRRate = (totalIDLBR / (totalIDLBR + totalDCLBR)) * 100;
+                        DCLBRRate = (totalDCLBR / (totalIDLBR + totalDCLBR)) * 100;
+                        diff = max(IDLBRRate.round(), DCLBRRate.round()) - min(IDLBRRate.round(), DCLBRRate.round());
+
+                        laborRate[0].y = IDLBRRate;
+                        laborRate[1].y = DCLBRRate;
+
+                        return ListView(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(
+                                    TextSpan(
+                                        children: [
+                                          detailPageTheme.makeHeaderText('$thisYear년 $thisMonth월은\n'),
+                                          if(IDLBRRate > DCLBRRate)
+                                            detailPageTheme.makeHeaderText('[간접인건비]가 '),
+                                          if(IDLBRRate <= DCLBRRate)
+                                            detailPageTheme.makeHeaderText('[직접인건비]가 '),
+                                          detailPageTheme.makeHeaderText('[$diff%p] 높아요.'),
+                                        ]
+                                    )
+                                )
+                            ),
+                            Container(
+                                width: 1000.w,
+                                height: 300,
+                                child: SfCircularChart(
+                                    palette: <Color>[
+                                      Colors.indigo,
+                                      Colors.lightBlueAccent,
+                                    ],
+                                    title: ChartTitle(
+                                        text: '$thisYear',
+                                        textStyle:
+                                        TextStyle(fontSize: 100.sp, fontWeight: FontWeight.bold)),
+                                    legend: Legend(
+                                        isVisible: true,
+                                        // Legend will be placed at the left
+                                        position: LegendPosition.bottom),
+                                    series: <CircularSeries>[
+                                      // Render pie chart
+                                      PieSeries<ChartData, String>(
+                                          dataSource: laborRate,
+                                          xValueMapper: (ChartData data, _) => data.x,
+                                          yValueMapper: (ChartData data, _) => data.y,
+                                          dataLabelSettings: DataLabelSettings(
+                                              isVisible: true,
+                                              // Positioning the data label
+                                              labelPosition: ChartDataLabelPosition.outside),
+                                          radius: '100%'
+                                      ),
+                                    ]
+                                )
+                            ),
+                            Table(
+                              border: TableBorder(
+                                  horizontalInside: BorderSide(width: 1,
+                                      color: Colors.black38,
+                                      style: BorderStyle.solid)),
+                              children: <TableRow>[
+                                table.getTableHeader()
+                              ] + table.getTableRows(),
+                            )
+                          ],
+                        );
+                      } else if(snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      } else {
+                        return Text('불러오는 중');
                       }
                     }
-
-                    var table = MySQLTable(result, ['날짜', '분류', '금액']);
-                    IDLBRRate = (totalIDLBR / (totalIDLBR + totalDCLBR)) * 100;
-                    DCLBRRate = (totalDCLBR / (totalIDLBR + totalDCLBR)) * 100;
-                    diff = max(IDLBRRate.round(), DCLBRRate.round()) - min(IDLBRRate.round(), DCLBRRate.round());
-
-                    laborRate[0].y = IDLBRRate;
-                    laborRate[1].y = DCLBRRate;
-
-                    TableRow header = table.getTableHeader(TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40.sp,
-                        color: Colors.black87));
-                    List<TableRow> rows = table.getTableRows(
-                        TextStyle(fontSize: 40.sp, color: Colors.black38));
-
-                    return ListView(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 20.sp, 100.sp),
-                              child: Text.rich(
-                                  TextSpan(
-                                      children: [
-                                        HeaderTheme().makeHeaderText('$thisYear년 $thisMonth월은\n'),
-                                        if(IDLBRRate > DCLBRRate)
-                                          HeaderTheme().makeHeaderText('[간접인건비]가 '),
-                                        if(IDLBRRate <= DCLBRRate)
-                                          HeaderTheme().makeHeaderText('[직접인건비]가 '),
-                                        HeaderTheme().makeHeaderText('[$diff%p] 높아요.'),
-                                      ]
-                                  )
-                              )
-                          ),
-                          Center(
-                              child: Container(
-                                  width: 1000.w,
-                                  height: 300,
-                                  child: SfCircularChart(
-                                      palette: <Color>[
-                                        Colors.indigo,
-                                        Colors.lightBlueAccent,
-                                      ],
-                                      title: ChartTitle(
-                                          text: '$thisYear',
-                                          textStyle:
-                                          TextStyle(fontSize: 100.sp, fontWeight: FontWeight.bold)),
-                                      legend: Legend(
-                                          isVisible: true,
-                                          // Legend will be placed at the left
-                                          position: LegendPosition.bottom),
-                                      series: <CircularSeries>[
-                                        // Render pie chart
-                                        PieSeries<ChartData, String>(
-                                            dataSource: laborRate,
-                                            xValueMapper: (ChartData data, _) => data.x,
-                                            yValueMapper: (ChartData data, _) => data.y,
-                                            dataLabelSettings: DataLabelSettings(
-                                                isVisible: true,
-                                                // Positioning the data label
-                                                labelPosition: ChartDataLabelPosition.outside),
-                                            radius: '100%'
-                                        ),
-                                      ]
-                                  )
-                              )
-                          ),
-                          Table(
-                            children: [
-                              header
-                            ] + rows,
-                          )
-                        ],
-                    );
-                  }else{
-                    return Text('외않되');
-                  }
-                }
+                ),
               ),
               ListView(
                 children: <Widget>[
@@ -867,7 +809,6 @@ class _labor_ratio extends State<labor_ratio> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        textSection,
                         chartSection,
                         datatableSection,
                       ],

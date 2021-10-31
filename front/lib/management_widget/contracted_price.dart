@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 
@@ -15,14 +16,12 @@ class contracted_price extends StatefulWidget {
 }
 
 class _contracted_price extends State<contracted_price> {
-  final List<String> _valueList =['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-  String? _selectedValue='10월';
   late ZoomPanBehavior _zoomPanBehavior;
 
   Map<String, int> selectOptions = {
     '최근 6개월': 6,
     '최근 12개월': 12,
-    '전체보기': -1,
+    '전체보기': detailPageTheme.maxTableRow,
   };
   var dropDownValue = '최근 6개월';
 
@@ -40,14 +39,6 @@ class _contracted_price extends State<contracted_price> {
       contractData.add(ChartData('$i월', 0, 0, 0));
     super.initState();
   }
-
-  List<ChartData> chartData = <ChartData>[
-    ChartData('5월', 2093000, 74185000, 78645000),
-    ChartData('6월', 34436000, 12349000, 48612000),
-    ChartData('7월', 4356000, 74501000, 45671000),
-    ChartData('8월', 24636000, 14714000, 58258000),
-    ChartData('9월', 54636000, 69312000, 65432000),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -97,14 +88,6 @@ class _contracted_price extends State<contracted_price> {
                         } else if (term <= 3) break;
                       }
 
-                      selectOptions['전체보기'] = table.rows.length;
-                      TableRow header = table.getTableHeader(TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40.sp,
-                          color: Colors.black87));
-                      List<TableRow> rows = table.getTableRows(
-                          TextStyle(fontSize: 40.sp, color: Colors.black38));
-
                       return ListView(
                           children: [
                             Padding(
@@ -112,11 +95,11 @@ class _contracted_price extends State<contracted_price> {
                                 child: Text.rich(
                                     TextSpan(
                                         children: [
-                                          HeaderTheme().makeHeaderText('이번 달 [계약금액]은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
+                                          detailPageTheme.makeHeaderText('이번 달 [계약금액]은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
                                           if(diff < 0)
-                                            HeaderTheme().makeHeaderText('[${diff * -1}]원 감소했어요.'),
+                                            detailPageTheme.makeHeaderText('[${diff * -1}]원 감소했어요.'),
                                           if(diff >= 0)
-                                            HeaderTheme().makeHeaderText('[$diff]원 증가했어요.')
+                                            detailPageTheme.makeHeaderText('[$diff]원 증가했어요.')
                                         ]
                                     )
                                 )
@@ -168,12 +151,9 @@ class _contracted_price extends State<contracted_price> {
                                 ]
                             ),
                             Table(
-                                border: TableBorder(
-                                    horizontalInside: BorderSide(width: 1,
-                                        color: Colors.black38,
-                                        style: BorderStyle.solid)),
+                                border: detailPageTheme.tableBorderStyle,
                                 children: <TableRow>[
-                                  header,
+                                  table.getTableHeader(),
                                   TableRow(
                                       children: [
                                         TableCell(
@@ -191,17 +171,15 @@ class _contracted_price extends State<contracted_price> {
                                                   horizontal: 50.sp),
                                               child: DropdownButton(
                                                 value: dropDownValue,
-                                                items: <
-                                                    DropdownMenuItem<String>>[
-                                                  for(var val in selectOptions
-                                                      .keys)
-                                                    DropdownMenuItem(value: val,
-                                                        child: Text(val))
+                                                items: <DropdownMenuItem<String>>[
+                                                  for(var val in selectOptions.keys)
+                                                    DropdownMenuItem(
+                                                        value: val,
+                                                        child: Text(val)
+                                                    )
                                                 ],
                                                 onChanged: (String? val) {
-                                                  setState(() {
-                                                    dropDownValue = val!;
-                                                  });
+                                                  setState(() {dropDownValue = val!;});
                                                 },
                                                 isExpanded: true,
                                               ),
@@ -209,7 +187,7 @@ class _contracted_price extends State<contracted_price> {
                                         )
                                       ]
                                   )
-                                ] + rows.sublist(0, min(selectOptions[dropDownValue] as int, rows.length))
+                                ] + table.getTableRows().sublist(0, min(selectOptions[dropDownValue] as int, result.length))
                             )
                           ]
                       );

@@ -37,8 +37,8 @@ ThemeData theme(){
   );
 }
 
-class HeaderTheme{
-  TextStyle bigText = TextStyle(
+class DetailPageTheme{
+  TextStyle weightText = TextStyle(
       fontSize: 90.sp,
       color: Colors.blue,
       fontFamily: 'applesdneoeb',
@@ -49,6 +49,28 @@ class HeaderTheme{
       color: Colors.black38,
       fontFamily: 'applesdneoeb',
       letterSpacing: 2.0);
+
+  TableBorder tableBorderStyle = TableBorder(
+      horizontalInside: BorderSide(width: 1,
+      color: Colors.black38,
+      style: BorderStyle.solid)
+  );
+
+  TextStyle tableHeaderStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 40.sp,
+      color: Colors.black87
+  );
+
+  TextStyle tableRowStyle = TextStyle(
+      fontSize: 40.sp,
+      color: Colors.black87,
+  );
+
+  Color tableHeaderBGColor = Colors.black12;
+  Color tableRowBGColor = Colors.transparent;
+
+  int maxTableRow = 300;
 
   TextSpan makeHeaderText(String txt){
     List<Map<String, String>> parsed = [];
@@ -67,10 +89,12 @@ class HeaderTheme{
         children: <InlineSpan>[
           for(var textWithSize in parsed)
             if(textWithSize.containsValue('big'))
-              TextSpan(text: textWithSize.keys.toList()[0], style: bigText)
+              TextSpan(text: textWithSize.keys.toList()[0], style: weightText)
             else
               TextSpan(text: textWithSize.keys.toList()[0], style: normalText)
         ]
     );
   }
 }
+
+DetailPageTheme detailPageTheme = DetailPageTheme();

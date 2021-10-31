@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
 
 class outsourcing_ratio extends StatefulWidget {
   @override
@@ -10,496 +11,10 @@ class outsourcing_ratio extends StatefulWidget {
 }
 
 class _outsourcing_ratio extends State<outsourcing_ratio> {
-  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월'];
-  String? _selectedValue='최근 3개월';
-
-  final List<ChartData> chartData = [
-    ChartData('A사', 45),
-    ChartData('B사', 55),
-  ];
+  List<ChartData> outsourcingData = [];
 
   @override
   Widget build(BuildContext context) {
-    Widget textSection = Padding(
-        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text.rich(TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: '전체 ',
-                        style: TextStyle(
-                          fontSize: 65.sp,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black,
-                        )),
-                    TextSpan(
-                      text: '수주 비용 ',
-                      style: TextStyle(
-                          fontSize: 90.sp,
-                          color: Colors.blue,
-                          fontFamily: 'applesdneoeb',
-                          letterSpacing: 2.0),
-                    ),
-                    TextSpan(
-                      text: '중\n',
-                      style: TextStyle(
-                        fontSize: 65.sp,
-                        letterSpacing: 2.0,
-                        fontFamily: 'applesdneoeb',
-                        color: Colors.black,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '외주 비율',
-                      style: TextStyle(
-                          fontSize: 90.sp,
-                          color: Colors.blue,
-                          fontFamily: 'applesdneoeb',
-                          letterSpacing: 2.0),
-                    ),
-                    TextSpan(
-                      text: '이 차지하는 비율은\n',
-                      style: TextStyle(
-                        fontSize: 65.sp,
-                        letterSpacing: 2.0,
-                        fontFamily: 'applesdneoeb',
-                        color: Colors.black,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '약 45% ',
-                      style: TextStyle(
-                          fontSize: 90.sp,
-                          color: Colors.blue,
-                          fontFamily: 'applesdneoeb',
-                          letterSpacing: 2.0),
-                    ),
-                    TextSpan(
-                        text: '이에요.',
-                        style: TextStyle(
-                          fontSize: 65.sp,
-                          letterSpacing: 2.0,
-                          fontFamily: 'applesdneoeb',
-                          color: Colors.black,
-                        )),
-
-                  ]))
-            ]));
-
-    Widget chartSection = Center(
-        child: Container(
-            width: 1000.w,
-            height: 300,
-            child: SfCircularChart(
-                title: ChartTitle(
-                    text: '2021',
-                    textStyle:
-                    TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold)),
-                legend: Legend(
-                    isVisible: true,
-                    // Legend will be placed at the left
-                    position: LegendPosition.bottom),
-                series: <CircularSeries>[
-                  // Render pie chart
-                  PieSeries<ChartData, String>(
-                      dataSource: chartData,
-                      xValueMapper: (ChartData data, _) => data.x,
-                      yValueMapper: (ChartData data, _) => data.y,
-                      dataLabelSettings: DataLabelSettings(
-                          isVisible: true,
-                          // Positioning the data label
-                          labelPosition: ChartDataLabelPosition.outside)
-                      ,radius: '90%'
-                  )
-                ])));
-
-    Widget datatableSection = Padding(
-        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
-        child:Center(
-          child: Container(
-            width: 1020.w,
-            child: Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.grey),
-              child: DataTable(
-                columnSpacing:  0,
-                horizontalMargin: 0,
-                showBottomBorder: true,
-                headingRowColor:
-                MaterialStateColor.resolveWith((states) => Colors.black12),
-                columns: <DataColumn>[
-                  DataColumn(
-                    label: Container(
-                      width: 1020.w * .3,
-                      child: Text(
-                        '',
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Container(
-                      width: 1020.w * .3,
-                      alignment: Alignment.center,
-                      child: Text('외주 내역',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 43.sp,
-                              color: Colors.black54,
-                              fontFamily: 'applesdneoeb')),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Container(
-                      width: 1020.w * .4,
-                      child: Text(
-                        '',
-                      ),
-                    ),
-                  ),
-                ],
-                rows: <DataRow>[
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('')),
-                      DataCell(Text('')),
-                      DataCell(Container(
-                          alignment: Alignment.center,
-                          child:DropdownButton(
-                            value:_selectedValue,
-                            items: _valueList.map(
-                                  (String value){
-                                return DropdownMenuItem(
-                                    value:value,
-                                    child: Text(value)
-                                );
-                              },
-                            ).toList(),
-                            onChanged: (String? value){
-                              setState((){
-                                _selectedValue=value;
-                              });
-                            },
-                          )))
-                    ],
-                  ),
-                  if(_selectedValue=='최근 1개월')
-                    DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            '#,###,###',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 43.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '##사',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            )),
-                      ),
-                      DataCell(Text('')),
-                    ],
-                  ),
-                  if(_selectedValue=='최근 3개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 3개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 3개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 6개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 6개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 6개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 6개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 6개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                  if(_selectedValue=='최근 6개월')
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '#,###,###',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 43.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '##사',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 43.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                        DataCell(Text('')),
-                      ],
-                    ),
-                ],
-              ),
-            ),
-          ),)
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -519,14 +34,81 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
       ),
       body: SafeArea(
           child:Center(
-            child: ListView(
-              children: <Widget>[
-                textSection,
-                chartSection,
-                datatableSection
-              ],
+            child: FutureBuilder(
+                future: conn.sendQuery('SELECT ContractDate, Company, Price * 1000 as Money, Outsourcing * 1000 as OS FROM Contract ORDER BY ContractDate DESC;'),
+                builder: (context, snapshot){
+                  if(snapshot.hasData) {
+                    var result = snapshot.data as List<Map<String, dynamic>>;
+                    var table = MySQLTable(result, ['날짜', '기업', '계약금액', '외주금액']);
+                    double contractPrice = 0;
+                    double outsourcePrice = 0;
+                    double rate = 0;
+                    int thisYear = DateTime.now().year;
+
+                    for (var row in result) {
+                      contractPrice += double.parse(row['Money']);
+                      outsourcePrice += double.parse(row['OS']);
+                    }
+
+                    rate = (outsourcePrice / contractPrice) * 100;
+
+                    outsourcingData.add(ChartData('외주비용', outsourcePrice));
+                    outsourcingData.add(ChartData(' ', contractPrice - outsourcePrice));
+
+                    return ListView(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 20.sp, 100.sp),
+                            child: Text.rich(
+                                TextSpan(
+                                    children: [
+                                      detailPageTheme.makeHeaderText('전체 수주 비용 중\n[외주 비용]이 차지하는 비율은\n[약 ${rate.round()}%]예요.'),
+                                    ]
+                                )
+                            )
+                        ),
+                        Container(
+                            width: 1000.w,
+                            height: 300,
+                            child: SfCircularChart(
+                                title: ChartTitle(
+                                    text: '$thisYear',
+                                    textStyle:
+                                    TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold)),
+                                legend: Legend(
+                                    isVisible: true,
+                                    position: LegendPosition.bottom),
+                                series: <CircularSeries>[
+                                  PieSeries<ChartData, String>(
+                                      dataSource: outsourcingData,
+                                      xValueMapper: (ChartData data, _) => data.x,
+                                      yValueMapper: (ChartData data, _) => data.y,
+                                      dataLabelSettings: DataLabelSettings(
+                                          isVisible: true,
+                                          // Positioning the data label
+                                          labelPosition: ChartDataLabelPosition.outside),
+                                      radius: '90%'
+                                  )
+                                ]
+                            )
+                        ),
+                        Table(
+                          border: detailPageTheme.tableBorderStyle,
+                          children: <TableRow>[
+                            table.getTableHeader()
+                          ] + table.getTableRows(),
+                        )
+                      ],
+                    );
+                  } else if(snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return Text('불러오는 중');
+                  }
+                }
             ),
-          )),
+          )
+      ),
     );
   }
 }
@@ -534,6 +116,6 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
 class ChartData {
   ChartData(this.x, this.y);
 
-  final String x;
-  final double y;
+  String x;
+  double y;
 }
