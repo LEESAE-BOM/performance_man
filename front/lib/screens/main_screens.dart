@@ -21,7 +21,7 @@ class _MainScreensState extends State<MainScreens>{
     return Scaffold(
       endDrawer: MenuDrawer(),
       appBar: AppBar(
-        title: Text('FLOW',style: TextStyle(color: Colors.white,fontSize: 40.w,fontFamily: 'applesdneob'),),
+        title: Text('FLOW',style: TextStyle(color: Colors.white,fontFamily: 'applesdneob'),),
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
@@ -29,7 +29,6 @@ class _MainScreensState extends State<MainScreens>{
             icon: Icon(
               Icons.exit_to_app,
               color: Colors.white,
-
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -48,6 +47,7 @@ class _MainScreensState extends State<MainScreens>{
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:Colors.white,
         type: BottomNavigationBarType.fixed,
+        //fixedColor: Color.fromRGBO(149, 186, 234, 1),
         currentIndex: _selectedIndex,
         onTap:(index){
           setState((){
