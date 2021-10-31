@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import './screens/main_screens.dart';
-import 'package:dio/dio.dart';
 
 class login_flow extends StatefulWidget {
   // This widget is the root of your application.
@@ -57,6 +56,11 @@ class _login_flow extends State<login_flow> {
         onPressed: () async {
           List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'${_emailTextController.text}\' AND PASSWORD = \'${_passwordTextController.text}\';');
           if(result.length == 1){
+            /*
+              account info
+              ID: flow
+              password: 1234
+             */
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
           }
         },

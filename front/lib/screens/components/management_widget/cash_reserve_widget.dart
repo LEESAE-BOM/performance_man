@@ -80,7 +80,6 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                           primaryXAxis: CategoryAxis(
                             majorGridLines: MajorGridLines(width: 0),
                             labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
-
                           ),
                           primaryYAxis: NumericAxis(
                             majorGridLines: MajorGridLines(width: 0),
@@ -111,7 +110,10 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                   },
                 ),
               )
-            ])));
+            ]
+            )
+        )
+    );
   }
 }
 
