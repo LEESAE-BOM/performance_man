@@ -16,10 +16,9 @@ import 'package:flutter_app/energy_widget/energy_fee.dart';
 import 'package:flutter_app/login.dart';
 import 'package:flutter/cupertino.dart';
 
-
-class MenuDrawer extends StatelessWidget{
+class MenuDrawer extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       width: 200,
       height: double.infinity,
@@ -57,13 +56,6 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                     onTap: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => sales()));
-                    },
-                  ),
-                  ListTile(
-                    title: Text('수주금액'),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => order_amount()));
                     },
                   ),
                   ListTile(
@@ -110,9 +102,8 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                   ListTile(
                     title: Text('개발완료율'),
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => development_completion_rate())
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => development_completion_rate()));
                     },
                   ),
                   ListTile(
@@ -122,18 +113,19 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                           builder: (context) => capacity_ratio()));
                     },
                   ),
+
                   ListTile(
-                    title: Text('노동생산율'),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => labor_production_rate()));
-                    },
-                  ),
-                  ListTile(
-                    title: Text('리드 타임'),
+                    title: Text('제조 Lead-time'),
                     onTap: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => lead_time()));
+                    },
+                  ),
+                  ListTile(
+                    title: Text('노동생산성'),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => labor_production_rate()));
                     },
                   ),
                 ],
@@ -143,26 +135,27 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                 title: Text('에너지'),
                 children: <Widget>[
                   ListTile(
-                    title: Text('월별 수치'),
+                    title: Text('월별 에너지'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => monthly_figures()));
                     },
                   ),
-                  ListTile(
-                    title: Text('시간별 수치'),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => hourly_figures()));
-                    },
-                  ),
+
                   ListTile(
                     title: Text('요금현황'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => energy_fee()));
                     },
-                  )
+                  ),
+                  ListTile(
+                    title: Text('시간별 에너지'),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => hourly_figures()));
+                    },
+                  ),
                 ],
               )
             ],
