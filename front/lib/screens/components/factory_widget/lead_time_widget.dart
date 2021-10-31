@@ -13,7 +13,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 520.w,
+        width: 510.w,
         height: 400.w,
         child: GestureDetector(
             onTap: () {
@@ -40,7 +40,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                     child: Row(
                       children: [
                         Text(
-                          'lead-time',
+                          '제조 Lead-time',
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 35.w,
@@ -56,7 +56,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                     ),
                   ),
                   Container(
-                    width: 520.w,
+                    width: 510.w,
                     height: 310.w,
                     child: Center(
                       child: Text.rich(
