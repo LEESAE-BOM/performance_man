@@ -13,7 +13,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 1060.w,
+        width: 1040.w,
         height: 400.w,
         child: GestureDetector(
             onTap: () {
@@ -59,7 +59,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                     height: 10,
                   ),*/
                   Container(
-                    width: 1060.w,
+                    width: 1040.w,
                     height: 310.w,
                     alignment: Alignment.center,
                     child: Center(
