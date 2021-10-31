@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import './screens/main_screens.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class login_flow extends StatefulWidget {
   // This widget is the root of your application.
@@ -19,6 +20,17 @@ class _login_flow extends State<login_flow> {
     _emailTextController.dispose();
     _passwordTextController.dispose();
     super.dispose();
+  }
+
+  void showToast() {
+    Fluttertoast.showToast(
+        msg: '아이디와 비밀번호를 확인해주세요.',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Color.fromRGBO(149, 186, 234, 1),
+        textColor: Colors.white
+    );
   }
 
   @override
@@ -62,6 +74,9 @@ class _login_flow extends State<login_flow> {
               password: 1234
              */
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+          }
+          else{
+            showToast();
           }
         },
         child: Text("LOGIN",
