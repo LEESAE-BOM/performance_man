@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '.././components/energy_widget/Hourly_Figures_Widget.dart';
+import '.././components/energy_widget/hourly_figures_widget.dart';
 import '.././components/energy_widget/energy_fee_widget.dart';
 import '.././components/energy_widget/monthly_figures_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
