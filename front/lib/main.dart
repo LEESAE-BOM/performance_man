@@ -13,7 +13,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -21,20 +20,18 @@ class MyApp extends StatelessWidget {
         builder: (context, AsyncSnapshot snapshot) {
           // Show splash screen while waiting for app resources to load:
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return MaterialApp(home: Splash());
-          }
-          else {
+            return MaterialApp(
+                debugShowCheckedModeBanner: false, home: Splash());
+          } else {
             // Loading is done, return the app:
             return ScreenUtilInit(
                 designSize: Size(1080, 1920),
-                builder: () =>MaterialApp(
-                title: 'default_main',
-                debugShowCheckedModeBanner: false,
-                theme:
-                    ThemeData(backgroundColor: Color.fromRGBO(43, 63, 107, 1)),
-                home: login_flow()
-            )
-            );
+                builder: () => MaterialApp(
+                    title: 'default_main',
+                    debugShowCheckedModeBanner: false,
+                    theme: ThemeData(
+                        backgroundColor: Color.fromRGBO(43, 63, 107, 1)),
+                    home: login_flow()));
           }
         });
   }
