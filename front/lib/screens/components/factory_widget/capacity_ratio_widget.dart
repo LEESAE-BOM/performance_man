@@ -54,7 +54,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
               .push(MaterialPageRoute(builder: (context) => capacity_ratio()));
         },
         child: Container(
-            width: 520.w,
+            width: 510.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -89,7 +89,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                   ],
                 ),
               ),
-              Container(width: 520.w, height: 310.w, child: chartSection)
+              Container(width: 510.w, height: 310.w, child: chartSection)
             ])));
   }
 }

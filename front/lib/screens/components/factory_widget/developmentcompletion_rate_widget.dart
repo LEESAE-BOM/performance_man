@@ -73,7 +73,7 @@ class _Developmentcompletion_Rate_Widget
               builder: (context) => development_completion_rate()));
         },
         child: Container(
-            width: 1060.w,
+            width: 1040.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -108,7 +108,7 @@ class _Developmentcompletion_Rate_Widget
                   ],
                 ),
               ),
-              Container(width: 1060.w, height: 310.w, child: chartSection)
+              Container(width: 1040.w, height: 310.w, child: chartSection)
             ])));
   }
 }

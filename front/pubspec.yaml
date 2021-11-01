@@ -15,7 +15,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  ml_dataframe: ^0.5.1
+  ml_preprocessing: ^6.0.0
+  ml_algo: ^16.2.3
   cupertino_icons: ^1.0.2
   google_fonts: ^2.0.0
   font_awesome_flutter: ^9.0.0
@@ -25,6 +27,8 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   flutter_native_splash: ^1.1.7+1
   dio: ^4.0.0
+
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +59,14 @@ flutter:
       fonts:
         - asset: fonts/AppleSDGothicNeoM.ttf
 
+
+
   assets:
+    - dataset/machine_sample_2016.csv
+    - dataset/machine_sample_2017.csv
+    - dataset/machine_sample_2018.csv
+    - dataset/machine_sample_2019.csv
+    - dataset/machine_sample_2020.csv
     - image/safe.png
     - image/warning.png
     - image/danger.png

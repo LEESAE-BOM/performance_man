@@ -53,7 +53,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
               .push(MaterialPageRoute(builder: (context) => expected_profit()));
         },
         child: Container(
-            width: 1060.w,
+            width: 1040.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,

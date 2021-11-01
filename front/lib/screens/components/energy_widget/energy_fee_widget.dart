@@ -12,7 +12,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 520.w,
+        width: 510.w,
         height: 400.w,
         child: GestureDetector(
             onTap: () {
@@ -55,7 +55,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                     ),
                   ),
                   Container(
-                    width: 520.w,
+                    width: 510.w,
                     height: 310.w,
                     child: Center(
                       child: Text.rich(

@@ -72,17 +72,17 @@ class Energy_Screen extends StatelessWidget {
         )
         ,
         Padding(
-          padding: EdgeInsets.all(10.w),
+          padding: EdgeInsets.fromLTRB(20.w, 20.w, 20.w, 20.w),
           child: Monthly_Figures_Widget(),
         ),
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.all(10.w),
+              padding: EdgeInsets.fromLTRB(20.w, 0, 10.w, 20.w),
               child: Energy_Fee_Widget(),
             ),
             Padding(
-              padding: EdgeInsets.all(10.w),
+              padding: EdgeInsets.fromLTRB(10.w, 0, 20.w, 20.w),
               child: Hourly_Figures_Widget(),
             ),
           ],

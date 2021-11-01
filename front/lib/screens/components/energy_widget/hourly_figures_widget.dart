@@ -69,7 +69,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
               .push(MaterialPageRoute(builder: (context) => hourly_figures()));
         },
         child: Container(
-            width: 520.w,
+            width: 510.w,
             height: 400.w,
             decoration: BoxDecoration(
               //color: Colors.white,
@@ -106,7 +106,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                 ),
               ),
               Container(
-                width: 520.w,
+                width: 510.w,
                 height: 310.w,
                 child: chartSection,
               )

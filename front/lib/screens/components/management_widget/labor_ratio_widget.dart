@@ -21,7 +21,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
               .push(MaterialPageRoute(builder: (context) => labor_ratio()));
         },
         child: Container(
-            width: 520.w,
+            width: 510.w,
             height: 400.w,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -35,7 +35,8 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                 ),
               ],
             ),
-            child: Column(children: <Widget>[
+            child: Column(
+              children: <Widget>[
               Container(
                 padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
                 child: Row(
@@ -57,7 +58,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                 ),
               ),
               Container(
-                width: 520.w,
+                width: 510.w,
                 height: 310.w,
                 child: Center(
                   child: FutureBuilder(
@@ -88,7 +89,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
 
                           laborData.add(ChartData('직접인건비', DCLBRRate, '${DCLBRRate.round()}%'));
                           laborData.add(ChartData('간접인건비', IDLBRRate, '${IDLBRRate.round()}%'));
-
+                          
                           return SfCircularChart(
                               onChartTouchInteractionDown: (_Labor_Ratio_Widget) {
                                 Navigator.of(context)
@@ -117,8 +118,10 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                   ),
                 )
               )
-            ])));
-  }
+            ]
+          )
+        )
+    );
 }
 
 class ChartData {
