@@ -67,7 +67,7 @@ class _Sales_Widget extends State<Sales_Widget> {
                                   String money = result[0]['Money'];
                                   return Text.rich(detailPageTheme.makeHeaderText('이번달 매출금액은\n[${money.substring(0, money.length - 3)}]원입니다.'));
                                 }else{
-                                  return Text.rich(TextSpan(text: '불러오는 중...'));
+                                  return Text.rich(TextSpan(text: '불러오는 중'));
                                 }
                               }
                           )

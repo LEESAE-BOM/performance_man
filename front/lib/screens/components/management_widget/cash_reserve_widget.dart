@@ -64,50 +64,52 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               Container(
                 width: 1000.w,
                 height: 310.w,
-                child: FutureBuilder(
-                  future: conn.sendQuery('SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year;'),
-                  builder: (context, snapshot){
-                    if(snapshot.hasData){
-                      var result = snapshot.data as List<Map<String, dynamic>>;
-                      for(int i=0; i<min(result.length, 3); i++)
-                        cashData.add(ChartData(double.parse(result[i]['Year']), double.parse(result[i]['Money'])));
+                child: Center(
+                  child: FutureBuilder(
+                    future: conn.sendQuery('SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year;'),
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        var result = snapshot.data as List<Map<String, dynamic>>;
+                        for(int i=0; i<min(result.length, 3); i++)
+                          cashData.add(ChartData(double.parse(result[i]['Year']), double.parse(result[i]['Money'])));
 
-                      return SfCartesianChart(
-                          onChartTouchInteractionDown: (_Cash_Reserve_Widget) {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) => cash_reserve()));
-                          },
-                          primaryXAxis: CategoryAxis(
-                            majorGridLines: MajorGridLines(width: 0),
-                            labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
-                          ),
-                          primaryYAxis: NumericAxis(
-                            majorGridLines: MajorGridLines(width: 0),
-                            edgeLabelPlacement: EdgeLabelPlacement.shift,
-                            numberFormat: NumberFormat.compact(),
-                            labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
-                          ),
-                          plotAreaBorderWidth:0,
-                          palette: <Color>[
-                            Colors.teal,
-                          ],
-                          series: <ChartSeries>[
-                            BarSeries<ChartData, double>(
-                                dataSource: cashData,
-                                xValueMapper: (ChartData cash, _) => cash.x,
-                                yValueMapper: (ChartData cash, _) => cash.y,
+                        return SfCartesianChart(
+                            onChartTouchInteractionDown: (_Cash_Reserve_Widget) {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) => cash_reserve()));
+                            },
+                            primaryXAxis: CategoryAxis(
+                              majorGridLines: MajorGridLines(width: 0),
+                              labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
+                            ),
+                            primaryYAxis: NumericAxis(
+                              majorGridLines: MajorGridLines(width: 0),
+                              edgeLabelPlacement: EdgeLabelPlacement.shift,
+                              numberFormat: NumberFormat.compact(),
+                              labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
+                            ),
+                            plotAreaBorderWidth:0,
+                            palette: <Color>[
+                              Colors.teal,
+                            ],
+                            series: <ChartSeries>[
+                              BarSeries<ChartData, double>(
+                                  dataSource: cashData,
+                                  xValueMapper: (ChartData cash, _) => cash.x,
+                                  yValueMapper: (ChartData cash, _) => cash.y,
 
-                                dataLabelSettings: DataLabelSettings(
-                                  // Renders the data label
-                                    isVisible: true),
-                                width: 0.6,
-                                spacing: 0.2),
-                          ]
-                      );
-                    }else{
-                      return Text('불러오는 중');
-                    }
-                  },
+                                  dataLabelSettings: DataLabelSettings(
+                                    // Renders the data label
+                                      isVisible: true),
+                                  width: 0.6,
+                                  spacing: 0.2),
+                            ]
+                        );
+                      }else{
+                        return Text('불러오는 중');
+                      }
+                    },
+                  ),
                 ),
               )
             ]

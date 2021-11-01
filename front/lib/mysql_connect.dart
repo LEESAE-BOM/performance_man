@@ -7,7 +7,6 @@ class MySQLConnector{
   String webServerURL = 'http://teamflow.dothome.co.kr/doQuery.php';
 
   MySQLConnector([webServerURL]);
-
   Future<List<Map<String, dynamic>>> sendQuery(String? query) async {
     var formedQuery = FormData.fromMap({'qry': query});
     var jsonData = await Dio().post(webServerURL, data: formedQuery);
@@ -21,7 +20,8 @@ class MySQLTable{
   List<String> userDefinedColumnNames = [];
 
   MySQLTable(data, [userDefinedColumnNames]){
-    this.rows = data;
+    for(var row in data)
+      this.rows.add(Map.of(row));
     if(userDefinedColumnNames != null)
       this.userDefinedColumnNames = userDefinedColumnNames;
   }
@@ -41,12 +41,15 @@ class MySQLTable{
     );
   }
 
-  List<TableRow> getTableRows(){
-    return [
+  List<TableRow> getTableRows({convertor}){
+    if(convertor == null)
+      convertor = (row){ return row; };
+
+    return <TableRow>[
       for(Map<String, dynamic> row in rows)
         TableRow(
           children: <Widget>[
-              for(var data in row.values.toList())
+              for(var data in convertor(row).values.toList())
                 TableCell(
                     child: Container(
                         padding: EdgeInsets.only(top: 10, bottom: 10),
