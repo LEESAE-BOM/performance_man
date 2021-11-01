@@ -58,7 +58,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                     ),
                   ),
                   Container(
-                      width: 520.w,
+                      width: 510.w,
                       height: 310.w,
                       child: Center(
                         child: FutureBuilder(
@@ -80,6 +80,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
 
                                 rate = (outsourcePrice / contractPrice) * 100;
 
+                                outsourcingData.clear();
                                 outsourcingData.add(ChartData('외주비용', rate.round()));
                                 outsourcingData.add(ChartData(' ', 100 - rate.round()));
 

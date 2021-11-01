@@ -777,7 +777,13 @@ class _labor_ratio extends State<labor_ratio> {
                                       style: BorderStyle.solid)),
                               children: <TableRow>[
                                 table.getTableHeader()
-                              ] + table.getTableRows(),
+                              ] + table.getTableRows(
+                                  convertor: (row){
+                                    if(row['MoneyCategory'] == 'IDLBR') row['MoneyCategory'] = '간접';
+                                    else if(row['MoneyCategory'] == 'DCLBR') row['MoneyCategory'] = '직접';
+                                    return row;
+                                  }
+                              ),
                             )
                           ],
                         );
