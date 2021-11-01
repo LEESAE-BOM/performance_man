@@ -18,7 +18,7 @@ class _sales extends State<sales> {
   Map<String, int> selectOptions = {
     '최근 6개월': 6,
     '최근 12개월': 12,
-    '전체보기': -1,
+    '전체보기': detailPageTheme.maxTableRow,
   };
   var dropDownValue = '최근 6개월';
   List<ChartData> salesData = [];
@@ -61,13 +61,11 @@ class _sales extends State<sales> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result = snapshot.data as List<Map<String, dynamic>>;
-                        var thisMonthPrice = result[0]['Money'];
-                        var previousMonthPrice = result[1]['Money'];
+                        var thisMonthPrice = double.parse(result[0]['Money']);
+                        var previousMonthPrice = double.parse(result[1]['Money']);
                         var table = MySQLTable(snapshot.data, ['날짜', '금액']);
 
-                        thisMonthPrice = thisMonthPrice.substring(0, thisMonthPrice.length - 3);
-                        previousMonthPrice = previousMonthPrice.substring(0, previousMonthPrice.length - 3);
-                        int diff = int.parse(thisMonthPrice) - int.parse(previousMonthPrice);
+                        int diff = thisMonthPrice.round() - previousMonthPrice.round();
 
                         int thisYear = DateTime.parse(result[0]['MoneyDate']).year;
 
@@ -93,7 +91,7 @@ class _sales extends State<sales> {
                                   child: Text.rich(
                                       TextSpan(
                                           children: [
-                                            detailPageTheme.makeHeaderText('이번 달 매출금액은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
+                                            detailPageTheme.makeHeaderText('이번 달 매출금액은\n[${detailPageTheme.money.format(thisMonthPrice)}원] 입니다.\n전월 대비\n'),
                                             if(diff < 0)
                                               detailPageTheme.makeHeaderText('[${diff * -1}]원 감소했어요.'),
                                             if(diff >= 0)
@@ -166,11 +164,12 @@ class _sales extends State<sales> {
                                                     horizontal: 50.sp),
                                                 child: DropdownButton(
                                                   value: dropDownValue,
-                                                  items: <
-                                                      DropdownMenuItem<String>>[
+                                                  items: <DropdownMenuItem<String>>[
                                                     for(var val in selectOptions.keys)
-                                                      DropdownMenuItem(value: val,
-                                                          child: Text(val))
+                                                      DropdownMenuItem(
+                                                          value: val,
+                                                          child: Text(val)
+                                                      )
                                                   ],
                                                   onChanged: (String? val) {
                                                     setState(() { dropDownValue = val!; });
@@ -181,12 +180,17 @@ class _sales extends State<sales> {
                                           )
                                         ]
                                     )
-                                  ] + table.getTableRows().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
+                                  ] + table.getTableRows(
+                                    convertor: (row) {
+                                      row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                      return row;
+                                    }
+                                  ).sublist(0, min(result.length, selectOptions[dropDownValue] as int))
                               )
                             ]
                         );
                       } else
-                        return Text('...');
+                        return Text('불러오는 중');
                     }
                 )
             )

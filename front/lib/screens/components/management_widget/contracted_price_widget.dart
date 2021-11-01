@@ -69,7 +69,7 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                                   String money = result[0]['Money'];
                                   return Text.rich(detailPageTheme.makeHeaderText('이번달 [계약금액]은\n[${money.substring(0, money.length - 3)}]원입니다.'));
                                 }else{
-                                  return Text.rich(TextSpan(text: '불러오는 중...'));
+                                  return Text.rich(TextSpan(text: '불러오는 중'));
                                 }
                               }
                           )

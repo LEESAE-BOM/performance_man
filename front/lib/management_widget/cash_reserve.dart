@@ -331,7 +331,7 @@ class _cash_reserve extends State<cash_reserve> {
                           ],
                         );
                       }else{
-                        return Text('...');
+                        return Text('불러오는 중');
                       }
                     }
                 ),

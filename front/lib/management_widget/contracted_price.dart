@@ -192,7 +192,7 @@ class _contracted_price extends State<contracted_price> {
                           ]
                       );
                     } else
-                      return Text('...');
+                      return Text('불러오는 중');
                   }
               )
           )
