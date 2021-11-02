@@ -66,8 +66,8 @@ class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
                               builder: (context, snapshot){
                                 if(snapshot.hasData){
                                   var result = snapshot.data as List<Map<String, dynamic>>;
-                                  String money = result[0]['Money'];
-                                  return Text.rich(detailPageTheme.makeHeaderText('이번달 [계약금액]은\n[${money.substring(0, money.length - 3)}]원입니다.'));
+                                  int money = double.parse(result[0]['Money']).round();
+                                  return Text.rich(detailPageTheme.makeHeaderText('이번달 [계약금액]은\n[${detailPageTheme.money.format(money)}]원입니다.'));
                                 }else{
                                   return Text.rich(TextSpan(text: '불러오는 중'));
                                 }
