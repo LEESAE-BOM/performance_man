@@ -98,7 +98,12 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                           border: detailPageTheme.tableBorderStyle,
                           children: <TableRow>[
                             table.getTableHeader()
-                          ] + table.getTableRows(),
+                          ] + table.getTableRows(
+                              convertor: (row){
+                            row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                            row['OS'] = '${detailPageTheme.money.format(double.parse(row['OS']))} 원';
+                            return row;
+                          }),
                         )
                       ],
                     );
