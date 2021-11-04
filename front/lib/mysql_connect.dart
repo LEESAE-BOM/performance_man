@@ -12,6 +12,26 @@ class MySQLConnector{
     var jsonData = await Dio().post(webServerURL, data: formedQuery);
     return [for(var row in jsonData.data.sublist(1)) Map<String, dynamic>.from(row)];
   }
+
+  void insertSalesData({date, amount}){
+    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'SALES\');');
+  }
+
+  void insertCashData({date, amount}){
+    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'MONEY\');');
+  }
+
+  void insertDirectLaborCost({date, amount}){
+    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'DCLBR\');');
+  }
+
+  void insertIndirectLaborCost({date, amount}){
+    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'IDLBR\');');
+  }
+
+  void insertEnergyFee({date, amount}){
+    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'EGFEE\');');
+  }
 }
 
 class MySQLTable{

@@ -3,6 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+/* 2021-11-01, written by Team Flow
+*
+*
+*
+*
+*
+* */
+
 TextTheme textTheme(){
   return TextTheme(
     headline1: GoogleFonts.openSans(fontSize: 18.0, color: Colors.black),
@@ -39,22 +47,31 @@ ThemeData theme(){
 }
 
 class DetailPageTheme{
+  TextStyle titleText = TextStyle(
+      fontSize: 67.sp,
+      color: Colors.white
+  );
+
   TextStyle weightText = TextStyle(
       fontSize: 90.sp,
       color: Colors.blue,
       fontFamily: 'applesdneoeb',
-      letterSpacing: 2.0);
+      letterSpacing: 2.0
+  );
 
   TextStyle normalText = TextStyle(
       fontSize: 65.sp,
       color: Colors.black38,
       fontFamily: 'applesdneoeb',
-      letterSpacing: 2.0);
+      letterSpacing: 2.0
+  );
 
   TableBorder tableBorderStyle = TableBorder(
-      horizontalInside: BorderSide(width: 1,
-      color: Colors.black38,
-      style: BorderStyle.solid)
+      horizontalInside: BorderSide(
+          width: 1,
+          color: Colors.black38,
+          style: BorderStyle.solid
+      )
   );
 
   TextStyle tableHeaderStyle = TextStyle(
@@ -100,4 +117,65 @@ class DetailPageTheme{
   }
 }
 
+class WidgetBoxTheme{
+  double wideBoxWidth = 1040.w;
+  double wideBoxHeight = 400.w;
+  double narrowBoxWidth = 510.w;
+  double narrowBoxHeight = 400.w;
+  double wideBoxInsideWidth = 1040.w;
+  double wideBoxInsideHeight = 310.w;
+  double narrowBoxInsideWidth = 510.w;
+  double narrowBoxInsideHeight = 310.w;
+
+  BoxDecoration widgetBoxDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(20),
+    border: Border.all(color: Colors.black12),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.grey,
+        offset: Offset(0.0, 1.0), //(x,y)
+        blurRadius: 6.0,
+      ),
+    ],
+  );
+
+  TextStyle titleTextStyle = TextStyle(
+      color: Colors.black54,
+      fontSize: 35.w,
+      fontFamily: 'applesdneom'
+  );
+
+  EdgeInsets widgetBoxPadding = EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w);
+
+  Image safeIcon = Image.asset(
+    'image/safe.png',
+    width: 20.w,
+    height: 20.w,
+  );
+
+  Image warningIcon = Image.asset(
+    'image/warning.png',
+    width: 20.w,
+    height: 20.w,
+  );
+
+  Image dangerIcon = Image.asset(
+    'image/danger.png',
+    width: 20.w,
+    height: 20.w,
+  );
+
+  Container titleText(title){
+    return Container(
+      padding: EdgeInsets.only(left: 15.w),
+      child: Text(
+        title,
+        style: titleTextStyle,
+      ),
+    );
+  }
+}
+
 DetailPageTheme detailPageTheme = DetailPageTheme();
+WidgetBoxTheme widgetBoxTheme = WidgetBoxTheme();
