@@ -45,7 +45,8 @@ class _contracted_price extends State<contracted_price> {
     return Scaffold(
       appBar: AppBar(
         title: Text('계약 금액',
-            style: TextStyle(fontSize: 67.sp, color: Colors.white)),
+            style: TextStyle(fontSize: 67.sp, color: Colors.white)
+        ),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(43, 63, 107, 1),
         leading: IconButton(
