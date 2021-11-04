@@ -781,6 +781,7 @@ class _labor_ratio extends State<labor_ratio> {
                                   convertor: (row){
                                     if(row['MoneyCategory'] == 'IDLBR') row['MoneyCategory'] = '간접';
                                     else if(row['MoneyCategory'] == 'DCLBR') row['MoneyCategory'] = '직접';
+                                    row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                                     return row;
                                   }
                               ),
