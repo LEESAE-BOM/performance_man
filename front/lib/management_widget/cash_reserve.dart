@@ -242,6 +242,8 @@ class _cash_reserve extends State<cash_reserve> {
                           year = result[0]['Year'];
                           thisYearPrice = result[0]['Money'];
                         }
+
+                        int result_thisYearPrice=double.parse(thisYearPrice).round();
                         if(result.length > 1) previousYearPrice = result[1]['Money'];
 
                         int diff = int.parse(thisYearPrice.substring(0, thisYearPrice.length - 3)) - int.parse(previousYearPrice.substring(0, previousYearPrice.length - 3));
@@ -260,13 +262,13 @@ class _cash_reserve extends State<cash_reserve> {
                               child: Text.rich(
                                   TextSpan(
                                       children: [
-                                        detailPageTheme.makeHeaderText('$year년 [현금 보유액]은\n[${thisYearPrice.substring(0, thisYearPrice.length - 3)}]원 입니다.'),
+                                        detailPageTheme.makeHeaderText('$year년 [현금 보유액]은\n[${detailPageTheme.money.format(result_thisYearPrice)}]원 입니다.'),
                                         if(previousYearPrice != '0.00')
                                           detailPageTheme.makeHeaderText('\n전년대비 [${incrementRate.round()}%]'),
                                         if(diff < 0)
-                                          detailPageTheme.makeHeaderText('[감소]했어요.'),
+                                          detailPageTheme.makeHeaderText(' [감소]했어요.'),
                                         if(diff >= 0)
-                                          detailPageTheme.makeHeaderText('[상승]했어요.'),
+                                          detailPageTheme.makeHeaderText(' [상승]했어요.'),
                                       ]
                                   )
                               ),
@@ -325,7 +327,12 @@ class _cash_reserve extends State<cash_reserve> {
                                       )
                                     ]
                                 )
-                              ] + table.getTableRows().sublist(0, min(selectOptions[dropDownValue] as int, table.rows.length)),
+                              ] + table.getTableRows(
+                                  convertor: (row) {
+                                    row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                    return row;
+                                  }
+                              ).sublist(0, min(selectOptions[dropDownValue] as int, table.rows.length)),
                             )
                           ],
                         );

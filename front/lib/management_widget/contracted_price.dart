@@ -69,9 +69,10 @@ class _contracted_price extends State<contracted_price> {
                       var previousMonthPrice = result[1]['Money'];
                       var table = MySQLTable(snapshot.data, ['날짜', '기업', '금액', '수주 잔고 금액']);
 
-                      thisMonthPrice = thisMonthPrice.substring(0, thisMonthPrice.length - 3);
+                      int result_thisMonthPrice = double.parse(thisMonthPrice).round();
+
                       previousMonthPrice = previousMonthPrice.substring(0, previousMonthPrice.length - 3);
-                      int diff = int.parse(thisMonthPrice) - int.parse(previousMonthPrice);
+                      int diff = result_thisMonthPrice - int.parse(previousMonthPrice);
 
                       int thisYear = DateTime.parse(result[0]['ContractDate']).year;
 
@@ -96,11 +97,11 @@ class _contracted_price extends State<contracted_price> {
                                 child: Text.rich(
                                     TextSpan(
                                         children: [
-                                          detailPageTheme.makeHeaderText('이번 달 [계약금액]은\n[$thisMonthPrice원] 입니다.\n전월 대비\n'),
+                                          detailPageTheme.makeHeaderText('이번 달 [계약금액]은\n[${detailPageTheme.money.format(result_thisMonthPrice)}원] 입니다.\n전월 대비\n'),
                                           if(diff < 0)
-                                            detailPageTheme.makeHeaderText('[${diff * -1}]원 감소했어요.'),
+                                            detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff * -1)}]원 감소했어요.'),
                                           if(diff >= 0)
-                                            detailPageTheme.makeHeaderText('[$diff]원 증가했어요.')
+                                            detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff)}]원 증가했어요.')
                                         ]
                                     )
                                 )
@@ -188,7 +189,12 @@ class _contracted_price extends State<contracted_price> {
                                         )
                                       ]
                                   )
-                                ] + table.getTableRows().sublist(0, min(selectOptions[dropDownValue] as int, result.length))
+                                ] + table.getTableRows(
+                                    convertor: (row) {
+                                      row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                      return row;
+                                    }
+                                ).sublist(0, min(selectOptions[dropDownValue] as int, result.length))
                             )
                           ]
                       );
