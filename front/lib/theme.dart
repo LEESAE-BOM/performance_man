@@ -48,19 +48,19 @@ ThemeData theme(){
 
 class DetailPageTheme{
   TextStyle titleText = TextStyle(
-      fontSize: 67.sp,
+      fontSize: 67.w,
       color: Colors.white
   );
 
   TextStyle weightText = TextStyle(
-      fontSize: 90.sp,
+      fontSize: 90.w,
       color: Colors.blue,
       fontFamily: 'applesdneoeb',
       letterSpacing: 2.0
   );
 
   TextStyle normalText = TextStyle(
-      fontSize: 65.sp,
+      fontSize: 65.w,
       color: Colors.black38,
       fontFamily: 'applesdneoeb',
       letterSpacing: 2.0
@@ -76,12 +76,12 @@ class DetailPageTheme{
 
   TextStyle tableHeaderStyle = TextStyle(
       fontWeight: FontWeight.bold,
-      fontSize: 40.sp,
+      fontSize: 40.w,
       color: Colors.black87
   );
 
   TextStyle tableRowStyle = TextStyle(
-      fontSize: 40.sp,
+      fontSize: 40.w,
       color: Colors.black87,
   );
 

@@ -10,6 +10,7 @@ class Sales_Widget extends StatefulWidget {
 }
 
 class _Sales_Widget extends State<Sales_Widget> {
+
   @override
   Widget build(BuildContext context) {
     return BoxWidget('매출금액', 'safe', 'wide').make(

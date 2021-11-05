@@ -38,6 +38,7 @@ class MySQLTable{
   String tableName = '';
   List<Map<String, dynamic>> rows = [];
   List<String> userDefinedColumnNames = [];
+  DetailPageTheme detailPageTheme = DetailPageTheme();
 
   MySQLTable(data, [userDefinedColumnNames]){
     for(var row in data)

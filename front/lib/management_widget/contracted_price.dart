@@ -21,7 +21,7 @@ class _contracted_price extends State<contracted_price> {
   Map<String, int> selectOptions = {
     '최근 6개월': 6,
     '최근 12개월': 12,
-    '전체보기': detailPageTheme.maxTableRow,
+    '전체보기': 300,
   };
   var dropDownValue = '최근 6개월';
 
