@@ -7,7 +7,7 @@ class DetailPage{
         appBar: AppBar(
           title: Text(
               title,
-              style: detailPageTheme.titleText
+              style: DetailPageTheme().titleText
           ),
           centerTitle: true,
           backgroundColor: Color.fromRGBO(43, 63, 107, 1),

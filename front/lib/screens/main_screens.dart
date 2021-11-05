@@ -4,7 +4,7 @@ import './factory/factory_screen.dart'; //경로 수정
 import './components/menu_drawer.dart'; //경로 수정
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/theme.dart';
 
 class MainScreens extends StatefulWidget{
   @override
@@ -14,10 +14,13 @@ class MainScreens extends StatefulWidget{
 class _MainScreensState extends State<MainScreens>{
 
   int _selectedIndex=0;
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    detailPageTheme = DetailPageTheme();
+  }
 
   @override
   Widget build(BuildContext context){
-
     return Scaffold(
       endDrawer: MenuDrawer(),
       appBar: AppBar(

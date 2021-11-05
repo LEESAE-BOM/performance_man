@@ -10,6 +10,7 @@ class BoxWidget {
   double insideWidth = 0.0;
   double insideHeight = 0.0;
   Image? stateIcon;
+  WidgetBoxTheme widgetBoxTheme = WidgetBoxTheme();
 
   BoxWidget(this.title, this.state, this.type){
     if(type == 'wide'){

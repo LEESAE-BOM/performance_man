@@ -14,11 +14,12 @@ class sales extends StatefulWidget {
 }
 
 class _sales extends State<sales> {
+
   late ZoomPanBehavior _zoomPanBehavior;
   Map<String, int> selectOptions = {
     '최근 6개월': 6,
     '최근 12개월': 12,
-    '전체보기': detailPageTheme.maxTableRow,
+    '전체보기': 300,
   };
   var dropDownValue = '최근 6개월';
   List<ChartData> salesData = [];

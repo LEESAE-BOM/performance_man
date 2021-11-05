@@ -43,7 +43,6 @@ class _labor_ratio extends State<labor_ratio> {
 
   @override
   Widget build(BuildContext context) {
-
     Widget textSection2 = Padding(
         padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
         child: Column(

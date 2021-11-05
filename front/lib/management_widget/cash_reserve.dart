@@ -1,6 +1,4 @@
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/theme.dart';
@@ -15,10 +13,11 @@ class cash_reserve extends StatefulWidget {
 }
 
 class _cash_reserve extends State<cash_reserve> {
+
   Map<String, int> selectOptions = {
     '최근 3개년': 3,
     '최근 6개년': 6,
-    '전체보기': detailPageTheme.maxTableRow,
+    '전체보기': 300,
   };
   var dropDownValue = '최근 3개년';
   List<ChartData> cashData = [];
