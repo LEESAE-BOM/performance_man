@@ -37,10 +37,10 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                     detailPageTheme.makeHeaderText('전월 대비\n'),
                     if (diff < 0)
                       detailPageTheme.makeHeaderText(
-                          '[${detailPageTheme.money.format(diff * -1)}]kWh 감소'),
+                          '[${detailPageTheme.money.format(diff * -1)}] 감소'),
                     if (diff >= 0)
                       detailPageTheme.makeHeaderText(
-                          '[${detailPageTheme.money.format(diff)}]kWh 증가')
+                          '[${detailPageTheme.money.format(diff)}] 증가')
                   ]));
                 } else {
                   return Text.rich(TextSpan(text: '불러오는 중'));
