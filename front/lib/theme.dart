@@ -53,17 +53,17 @@ class DetailPageTheme{
   );
 
   TextStyle weightText = TextStyle(
-      fontSize: 90.w,
+      fontSize: 65.w,
       color: Colors.blue,
       fontFamily: 'applesdneoeb',
-      letterSpacing: 2.0
+      //letterSpacing: 1.5
   );
 
   TextStyle normalText = TextStyle(
       fontSize: 65.w,
       color: Colors.black38,
-      fontFamily: 'applesdneoeb',
-      letterSpacing: 2.0
+      fontFamily: 'applesdneom',
+      //letterSpacing: 2.0
   );
 
   TableBorder tableBorderStyle = TableBorder(
