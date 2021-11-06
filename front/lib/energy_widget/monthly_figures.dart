@@ -21,7 +21,7 @@ class _monthly_figures extends State<monthly_figures> {
 
   void initState() {
     _zoomPanBehavior = ZoomPanBehavior(
-        // Enables pinch zooming
+      // Enables pinch zooming
         enablePinching: true,
         zoomMode: ZoomMode.x,
         enablePanning: true,
@@ -47,7 +47,7 @@ class _monthly_figures extends State<monthly_figures> {
                       columnSpacing: 0,
                       horizontalMargin: 0,
                       headingRowColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.black12),
+                              (states) => Colors.black12),
                       columns: [
                         DataColumn(
                           label: Container(
@@ -65,40 +65,40 @@ class _monthly_figures extends State<monthly_figures> {
                         ),
                         DataColumn(
                             label: Container(
-                          width: 1020.w * .2666,
-                          alignment: Alignment.center,
-                          child: Text(
-                            '8월',
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        )),
+                              width: 1020.w * .2666,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '8월',
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              ),
+                            )),
                         DataColumn(
                             label: Container(
-                          width: 1020.w * .2666,
-                          alignment: Alignment.center,
-                          child: Text(
-                            '9월',
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        )),
+                              width: 1020.w * .2666,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '9월',
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              ),
+                            )),
                         DataColumn(
                             label: Container(
-                          width: 1020.w * .2666,
-                          alignment: Alignment.center,
-                          child: Text(
-                            '10월',
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        ))
+                              width: 1020.w * .2666,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '10월',
+                                style: TextStyle(
+                                    fontSize: 45.sp,
+                                    color: Colors.black54,
+                                    fontFamily: 'applesdneoeb'),
+                              ),
+                            ))
                       ],
                       rows: [
                         DataRow(cells: [
@@ -278,24 +278,24 @@ class _monthly_figures extends State<monthly_figures> {
                 child: Center(
                     child: FutureBuilder(
                         future: conn.sendQuery(
-                            'SELECT MoneyDate, Money * 1000 as Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate ASC;'),
+                            'SELECT UseDate, Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var result =
-                                snapshot.data as List<Map<String, dynamic>>;
-                            var thisMonthPrice = double.parse(result[0]['Money']);
-                            var previousMonthPrice = double.parse(result[1]['Money']);
+                            snapshot.data as List<Map<String, dynamic>>;
+                            var thisMonthUse = double.parse(result[0]['Amount']);
+                            var previousMonthUse = double.parse(result[1]['Amount']);
                             var table = MySQLTable(snapshot.data, ['구분', '월']);
 
-                            int diff = thisMonthPrice.round() - previousMonthPrice.round();
+                            int diff = thisMonthUse.round() - previousMonthUse.round();
                             int thisYear =
-                                DateTime.parse(result[0]['MoneyDate']).year;
+                                DateTime.parse(result[0]['UseDate']).year;
 
                             for (var row in result) {
                               DateTime toDate =
-                                  DateTime.parse(row['MoneyDate']);
-                              int term = toDate.year-thisYear;
-                              String moneyStr = row['Money'];
+                              DateTime.parse(row['UseDate']);
+                              int term = thisYear-toDate.year;
+                              String moneyStr = row['Amount'];
                               if (term == 0) {
                                 monthlyusage[toDate.month - 1].y1 =
                                     double.parse(moneyStr.substring(0, moneyStr.length - 3));
@@ -314,11 +314,11 @@ class _monthly_figures extends State<monthly_figures> {
                                     child: Text.rich(
                                         TextSpan(
                                             children: [
-                                              detailPageTheme.makeHeaderText('이번 달의 전력사용량은\n[${detailPageTheme.money.format(thisMonthPrice)}kWh] 입니다.\n전년 대비\n'),
+                                              detailPageTheme.makeHeaderText('이번 달의 전력사용량은\n[${detailPageTheme.money.format(thisMonthUse)}kWh] 입니다.\n전월 대비\n'),
                                               if(diff < 0)
-                                                detailPageTheme.makeHeaderText('[${diff * -1}]kWh 감소했어요.'),
+                                                detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff * -1)}]kWh 감소했어요.'),
                                               if(diff >= 0)
-                                                detailPageTheme.makeHeaderText('[$diff]kWh 증가했어요.')
+                                                detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff)}]kWh 증가했어요.')
                                             ]
                                         )
                                     )
@@ -343,44 +343,44 @@ class _monthly_figures extends State<monthly_figures> {
                                   series: <CartesianSeries>[
                                     // Render column series
                                     ColumnSeries<ChartData, String>(
-                                        name: '${thisYear+1}',
+                                        name: '${thisYear-1}',
                                         dataSource: monthlyusage,
                                         xValueMapper: (ChartData data, _) =>
-                                            data.x,
+                                        data.x,
                                         yValueMapper: (ChartData data, _) =>
-                                            data.y2),
+                                        data.y2),
                                     ColumnSeries<ChartData, String>(
-                                        name: '${thisYear+2}',
+                                        name: '${thisYear}',
                                         dataSource: monthlyusage,
                                         xValueMapper: (ChartData data, _) =>
-                                            data.x,
+                                        data.x,
                                         yValueMapper: (ChartData data, _) =>
-                                            data.y3),
+                                        data.y1),
                                     // Render line series
                                     LineSeries<ChartData, String>(
                                         name: '전 년도 최대전력',
                                         dataSource: monthlyusage,
                                         xValueMapper: (ChartData data, _) =>
-                                            data.x,
+                                        data.x,
                                         yValueMapper: (ChartData data, _) =>
-                                            data.y1,
+                                        data.y2,
                                         dataLabelSettings: DataLabelSettings(
-                                            // Renders the data label
-                                            isVisible: true),
+                                          // Renders the data label
+                                            isVisible: false),
                                         markerSettings:
-                                            MarkerSettings(isVisible: true)),
+                                        MarkerSettings(isVisible: true)),
                                     LineSeries<ChartData, String>(
                                       name: '현 년도 최대전력',
                                       dataSource: monthlyusage,
                                       xValueMapper: (ChartData data, _) =>
-                                          data.x,
+                                      data.x,
                                       yValueMapper: (ChartData data, _) =>
-                                          data.y2,
+                                      data.y1,
                                       dataLabelSettings: DataLabelSettings(
-                                          // Renders the data label
-                                          isVisible: true),
+                                        // Renders the data label
+                                          isVisible: false),
                                       markerSettings:
-                                          MarkerSettings(isVisible: true),
+                                      MarkerSettings(isVisible: true),
                                     )
                                   ],
                                 ),
