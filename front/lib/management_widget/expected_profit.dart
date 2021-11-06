@@ -299,59 +299,6 @@ class _expected_profit extends State<expected_profit> {
                   ),
                 ],
               ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '현금성 자산',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 45.sp,
-                            color: Colors.black54,
-                            fontFamily: 'applesdneoeb'),
-                      ),
-                    ),
-                  ),
-                  DataCell(
-                    Container(
-                        child: Text(
-                          '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 45.sp),
-                        )),
-                  ),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '단기 금융 상품',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 45.sp,
-                            color: Colors.black54,
-                            fontFamily: 'applesdneoeb'),
-                      ),
-                    ),
-                  ),
-                  DataCell(
-                    Container(
-                        child: Text(
-                          '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 45.sp,
-                              color: Colors.black54,
-                              fontFamily: 'applesdneoeb'),
-                        )),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
@@ -396,6 +343,7 @@ class SalesData {
   final double sales;
 }
 
+
 Future machine() async{
 
   final unlabel = DataFrame(<Iterable>[
@@ -439,6 +387,15 @@ Future machine() async{
   final prediction = regressor.predict(unlabel);
   print(prediction.header);
   print(prediction.rows);
+
+  List<int> prediction_list = [];
+  for (var month_num = 0; month_num < 12; month_num++)
+  {
+    String temp_paren = prediction.rows.elementAt(month_num).toString();
+    String temp = temp_paren.substring(1, temp_paren.length - 1);
+    prediction_list.add(int.parse(temp));
+  }
+  print(prediction_list);
 
   return samples_2016;
 }
