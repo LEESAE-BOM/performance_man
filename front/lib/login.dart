@@ -66,7 +66,9 @@ class _login_flow extends State<login_flow> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         onPressed: () async {
-          List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'${_emailTextController.text}\' AND PASSWORD = \'${_passwordTextController.text}\';');
+          // for Debug
+          List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'flow\' AND PASSWORD = \'1234\';');
+          //List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'${_emailTextController.text}\' AND PASSWORD = \'${_passwordTextController.text}\';');
           if(result.length == 1){
             /*
               account info
@@ -82,7 +84,7 @@ class _login_flow extends State<login_flow> {
         child: Text("LOGIN",
             textAlign: TextAlign.center,
             style:  TextStyle(fontSize: 25, fontFamily: 'applesdneom',
-                color: Colors.white, fontWeight: FontWeight.bold)
+                color: Colors.white)
         ),
       ),
     );
@@ -100,11 +102,11 @@ class _login_flow extends State<login_flow> {
               children: <Widget>[
 
                 SizedBox(
-                  height: 85.0,
-                  child:Text('로그인',style: TextStyle(fontSize: 35, fontFamily: 'applesdneom',color: Colors.black),
-                  )
+                  width: 250.0,
+                  height: 200.0,
+                  child: Image.asset('image/logo_color.png'),
                 ),
-                SizedBox(height: 45.0),
+                SizedBox(height: 20.0),
                 emailField,
                 SizedBox(height: 8.0),
                 passwordField,
@@ -127,7 +129,7 @@ class _login_flow extends State<login_flow> {
                     Text('로그인 상태 유지',style: TextStyle(fontSize: 12, fontFamily: 'applesdneob',color: Colors.black54)),
                   ],
                 ),
-                SizedBox(height: 8.0),
+                SizedBox(height: 50.0),
                 loginButon,
                 SizedBox(height: 15.0,),
               ],

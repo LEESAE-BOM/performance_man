@@ -23,8 +23,8 @@ class _start_flowState extends State<start_flow> {
       backgroundColor: Color.fromRGBO(43, 63, 107,1),
         body: Container(
             child: Center(
-                child: Image.asset('image/logo.png',
-                width: 250.0,height: 200.0,
+                child: Image.asset('image/logo_white.png',
+                width: 100,height: 50,
                 ),
             )
         )

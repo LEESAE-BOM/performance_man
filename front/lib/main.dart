@@ -46,8 +46,8 @@ class Splash extends StatelessWidget {
       backgroundColor: Color(0x2b3f6b).withOpacity(1.0),
       body: Center(
           child: lightMode
-              ? Image.asset('image/logo.png')
-              : Image.asset('image/logo.png')),
+              ? Image.asset('image/logo_white.png')
+              : Image.asset('image/logo_white.png')),
     );
   }
 }
