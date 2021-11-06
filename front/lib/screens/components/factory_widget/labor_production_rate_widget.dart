@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/factory_widget/labor_production_rate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/box_widget.dart';
+import 'package:intl/intl.dart';
+import 'dart:math';
 
 //큰 위젯
 class Labor_Production_Rate_Widget extends StatefulWidget {
@@ -12,7 +16,66 @@ class Labor_Production_Rate_Widget extends StatefulWidget {
 
 class _Labor_Production_Rate_Widget
     extends State<Labor_Production_Rate_Widget> {
-  late List<Chart_Data> _chartData;
+  List<ChartData> laborData = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return BoxWidget('노동생산성', 'safe', 'wide').make(
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => labor_production_rate()));
+        },
+        dbRelatedContentBuilder: FutureBuilder(
+          future: conn.sendQuery(
+              'SELECT MONTH(RecordedDate) as Month, Productivity FROM Productivity ORDER BY RecordedDate;'),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var result = snapshot.data as List<Map<String, dynamic>>;
+
+              print('결과 : ${result.length}');
+
+              for (int i = 0; i < min(result.length, 12); i++)
+                laborData.add(ChartData(double.parse(result[i]['Month']),
+                    double.parse(result[i]['Productivity'])));
+
+              return SfCartesianChart(
+                onChartTouchInteractionDown: (_Labor_Production_Rate_Widget) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => labor_production_rate()));
+                },
+
+
+                primaryXAxis: NumericAxis(
+                    edgeLabelPlacement: EdgeLabelPlacement.shift,
+                    isVisible: true),
+
+                primaryYAxis: NumericAxis(
+                    isVisible: true,
+                    edgeLabelPlacement: EdgeLabelPlacement.shift),
+
+                series: <ChartSeries>[
+                  AreaSeries<ChartData, double>(
+                    dataSource: laborData,
+                    xValueMapper: (ChartData labors, _) => labors.x,
+                    yValueMapper: (ChartData labors, _) => labors.y,
+                    dataLabelSettings: DataLabelSettings(isVisible: true),
+                    enableTooltip: true,
+                    color: Colors.indigo,
+                  ),
+                ],
+
+                plotAreaBorderWidth: 0,
+
+              );
+
+            } else {
+              return Text('불러오는 중');
+            }
+          },
+        ));
+  }
+
+  /*late List<Chart_Data> _chartData;
 
   void initState() {
     _chartData = getChartData();
@@ -30,81 +93,12 @@ class _Labor_Production_Rate_Widget
       Chart_Data(9, 500)
     ];
     return chartData;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget chartSection1 = Center(
-        child: SfCartesianChart(
-          onChartTouchInteractionDown: (_Labor_Production_Rate_Widget) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => labor_production_rate()));
-          },
-      series: <ChartSeries>[
-        AreaSeries<Chart_Data, double>(
-          dataSource: _chartData,
-          xValueMapper: (Chart_Data labors, _) => labors.year,
-          yValueMapper: (Chart_Data labors, _) => labors.labor,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
-          enableTooltip: true,
-          color: Colors.indigo,
-        ),
-      ],
-      primaryXAxis: NumericAxis(
-          edgeLabelPlacement: EdgeLabelPlacement.shift, isVisible: false),
-      primaryYAxis: NumericAxis(
-          isVisible: false, edgeLabelPlacement: EdgeLabelPlacement.shift),
-      plotAreaBorderWidth: 0,
-    ));
-    return GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => labor_production_rate()));
-        },
-        child: Container(
-            width: 1040.w,
-            height: 400.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            child: Column(children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
-                child: Row(
-                  children: [
-                    Text(
-                      '노동생산성',
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 35.w,
-                          fontFamily: 'applesdneom'),
-                    ),
-                    SizedBox(width: 10.w),
-                    Image.asset(
-                      'image/safe.png',
-                      width: 20.w,
-                      height: 20.w,
-                    ),
-                  ],
-                ),
-              ),
-              Container(width: 1040.w, height: 310.w, child: chartSection1)
-            ])));
-  }
+  }*/
 }
 
-class Chart_Data {
-  Chart_Data(this.year, this.labor);
+class ChartData {
+  ChartData(this.x, this.y);
 
-  final double year;
-  final double labor;
+  double x;
+  double y;
 }
