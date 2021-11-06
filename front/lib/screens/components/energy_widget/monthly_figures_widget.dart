@@ -19,12 +19,12 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => monthly_figures()));
         },
         dbRelatedContentBuilder: FutureBuilder(
-            future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE MoneyCategory = \'EGFEE\' ORDER BY MoneyDate ASC;'),
+            future: conn.sendQuery('SELECT UseDate, Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
             builder: (context, snapshot){
               if(snapshot.hasData){
                 var result = snapshot.data as List<Map<String, dynamic>>;
-                var thisMonthPrice = double.parse(result[0]['Money']);
-                var previousMonthPrice = double.parse(result[1]['Money']);
+                var thisMonthPrice = double.parse(result[0]['Amount']);
+                var previousMonthPrice = double.parse(result[1]['Amount']);
 
                 int diff = thisMonthPrice.round() - previousMonthPrice.round();
                 return Text.rich(
@@ -34,7 +34,7 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                           if(diff < 0)
                             detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff * -1)}]kWh 감소'),
                           if(diff >= 0)
-                            detailPageTheme.makeHeaderText('[$diff]kWh 증가')
+                            detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff)}]kWh 증가')
                         ]
                     ));
               }else{
