@@ -4,6 +4,9 @@ import '.././screens/factory/factory_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
+import 'dart:math';
 
 class lead_time extends StatefulWidget {
   @override
@@ -20,307 +23,219 @@ class _lead_time extends State<lead_time> {
     super.initState();
   }
 
-  List<Chart_Data>  getChartData(){
-    final List<Chart_Data>  getChartData = [
-      Chart_Data('LeadTIME', 2,3,4),
+  List<Chart_Data> getChartData() {
+    final List<Chart_Data> getChartData = [
+      Chart_Data('LeadTIME', 2, 3, 4),
     ];
     return getChartData;
   }
 
   @override
   Widget build(BuildContext context) {
-    //TextStyle ts = TextStyle(color:Colors.red);
+    List<ChartData> salesData = []; //
 
-    Widget textSection = Padding(
-            padding: EdgeInsets.fromLTRB(20.sp, 100.sp, 20.sp, 150.sp),
-            child: Column(
-              children: [
-                Text.rich(
-                  TextSpan(// default text style
-                    children: <TextSpan>[
-                      TextSpan(text: '개발 Lead-time',
-                        style:TextStyle(
-                          fontSize:120.sp,
-                          color: Colors.blue,
-                          letterSpacing: 5.0,
-                            fontFamily: 'applesdneoeb'
-                        ),),
-                      TextSpan(text: ' 은\n',
-                        style:TextStyle(
-                            fontSize: 60.sp,
-                            color: Colors.black,
-                            letterSpacing: 5.0,
-                            // fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneoeb'
-                        ),
-                      ),
-                      TextSpan(text: '총 ',
-                        style:TextStyle(
-                            fontSize: 60.sp,
-                            color: Colors.black,
-                            letterSpacing: 5.0,
-                            //  fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneoeb'),),
-                      TextSpan(text: ' 9일 ',
-                        style:TextStyle(
-                            fontSize:120.sp,
-                            color: Colors.blue,
-                            letterSpacing: 5.0,
-                            fontFamily: 'applesdneoeb'),),
-                      TextSpan(text: ' 소요되었어요\n',
-                        style:TextStyle(
-                            fontSize: 60.sp,
-                            color: Colors.black,
-                            letterSpacing: 5.0,
-                            fontFamily: 'applesdneoeb'),),
-                      TextSpan(text: '예정일까지 3일 남았어요.',
-                        style:TextStyle(
-                            fontSize: 60.sp,
-                            color: Colors.black,
-                            letterSpacing: 5.0,
-                            // fontWeight: FontWeight.bold,
-                            fontFamily: 'applesdneoeb'),),
-                    ],
-                  ),
-                ),
-              ],
-            )
-        );
-
-    Widget daySection =Padding(
-        padding: EdgeInsets.all(50.sp),
-        child: Column(
-            children:  <Widget>[
-              Text.rich(
-                TextSpan(// default text style
-                  children: <TextSpan>[
-                    TextSpan(text: '9 ', style:TextStyle(
-                        fontSize: 200.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneob'),),
-                    TextSpan(text: 'Days',
-                      style:TextStyle(
-                          fontSize: 90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                  ],
-                ),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('제조 Lead-time',
+              style: TextStyle(fontSize: 67.sp, color: Colors.white)),
+          centerTitle: true,
+          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
               ),
-              SizedBox(height: 15.0),
-            ]
-        )
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+        ),
+        body: SafeArea(
+            child: Center(
+                child: FutureBuilder(
+                    future: conn.sendQuery(
+                        'SELECT ProductName, ProductTime, CumulativeTime, DeliveryTime, StartDate, DueDate FROM LeadTime ORDER BY DueDate DESC;'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var result =
+                            snapshot.data as List<Map<String, dynamic>>;
 
-    );
+                        print('결과 : ${result.length}');
 
-    Widget chartSection=
-    Container(
-        width: 1000.w,
-        height: 300,
-        child:Center(
-            child: Container(
-                child: SfCartesianChart(
-                  tooltipBehavior: _toolTipBehavior,
-                  legend: Legend(
-                      isVisible: true,
-                      position: LegendPosition.bottom,
-                  ),
-                  primaryXAxis: CategoryAxis(
-                      edgeLabelPlacement: EdgeLabelPlacement.shift,
-                      isVisible: false
-                  ),
-                  //backgroundColor: Colors.white,
-                  primaryYAxis: NumericAxis(
-                    edgeLabelPlacement: EdgeLabelPlacement.shift,
-                    isVisible: false,
-                  ),
-                  series: <ChartSeries>[
-                    StackedBar100Series<Chart_Data, String>(
-                      name:'제품 소요시간',
-                      dataSource: chartData,
-                      xValueMapper: (Chart_Data sales, _) => sales.x,
-                      yValueMapper: (Chart_Data sales, _) => sales.y1,
+                        var today = DateTime.now();
+                        int dif = int.parse(today
+                            .difference(DateTime.parse(result[0]['DueDate']))
+                            .inDays
+                            .toString());
+                        dif *= -1;
 
-                      dataLabelSettings: DataLabelSettings(
-                          isVisible: true,
-                          textStyle: TextStyle(
-                            fontSize: 100.sp,
-                            color: Colors.white,
-                            fontFamily: 'applesdneob',),
-                          labelAlignment: ChartDataLabelAlignment.middle
-                      ),
+                        //Chart_Data('LeadTIME', double.parse(result[0]['ProductTime']), double.parse(result[0]['CumulativeTime']), double.parse(result[0]['DeliveryTime']));
+                        chartData.clear();
+                        chartData.add(Chart_Data(
+                            'LeadTIME',
+                            double.parse(result[0]['ProductTime']),
+                            double.parse(result[0]['CumulativeTime']),
+                            double.parse(result[0]['DeliveryTime'])));
 
-                    ),
-                    StackedBar100Series<Chart_Data, String>(
-                        name:'누적 소요시간',
-                        dataSource: chartData,
-                        xValueMapper: (Chart_Data sales, _) => sales.x,
-                        yValueMapper: (Chart_Data sales, _) => sales.y2,
-                        dataLabelSettings: DataLabelSettings(isVisible: true, textStyle: TextStyle(
-                          fontSize: 100.sp,
-                          color: Colors.white,
-                          fontFamily: 'applesdneob',)
-                            ,labelAlignment: ChartDataLabelAlignment.middle
-                        )
-                    ),
-                    StackedBar100Series<Chart_Data, String>(
-                      name:'납기 소요시간',
-                      dataSource: chartData,
-                      xValueMapper: (Chart_Data sales, _) => sales.x,
-                      yValueMapper: (Chart_Data sales, _) => sales.y3,
-                      dataLabelSettings: DataLabelSettings(isVisible: true, textStyle: TextStyle(
-                        fontSize: 100.sp,
-                        color: Colors.white,
-                        fontFamily: 'applesdneob',),
-                          labelAlignment: ChartDataLabelAlignment.middle
-                      ),
-                    )
-                  ],
-                  plotAreaBorderWidth: 0,//chart 테두리 삭제
-                  borderWidth: 30,
-                )
-            )
-        )
-    );
-
-
-    Widget daySection3 =Padding(
-        padding: EdgeInsets.fromLTRB(20.sp, 100.sp, 20.sp,100.sp),
-        child: Column(
-            children:  <Widget>[
-              Text.rich(
-                TextSpan(// default text style
-                  children: <TextSpan>[
-                    TextSpan(text: '예정일 ', style:TextStyle(
-                        fontSize: 100.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneol'),),
-
-                    TextSpan(text: 'D-3',
-                      style:TextStyle(
-                          fontSize: 100.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text.rich(
-                TextSpan(// default text style
-                  children: <TextSpan>[
-                    TextSpan(text: '제품 소요시간', style:TextStyle(
-                        fontSize:90.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneol'),),
-                    TextSpan(text: ' 3 ',
-                      style:TextStyle(
-                          fontSize: 90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                    TextSpan(text: 'Days',
-                      style:TextStyle(
-                          fontSize:90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Text.rich(
-                TextSpan(// default text style
-                  children: <TextSpan>[
-                    TextSpan(text: '누적 소요시간', style:TextStyle(
-                        fontSize: 90.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneol'),),
-                    TextSpan(text: ' 2 ',
-                      style:TextStyle(
-                          fontSize: 90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                    TextSpan(text: 'Days',
-                      style:TextStyle(
-                          fontSize:90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Text.rich(
-                TextSpan(// default text style
-                  children: <TextSpan>[
-                    TextSpan(text: '납기 소요시간', style:TextStyle(
-                        fontSize: 90.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'applesdneol'),),
-                    TextSpan(text: ' 3 ',
-                      style:TextStyle(
-                          fontSize:90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                    TextSpan(text: 'Days',
-                      style:TextStyle(
-                          fontSize:90.sp,
-                          color: Colors.black,
-                          letterSpacing: 1.0,
-                          fontFamily: 'applesdneob'),),
-                  ],
-                ),
-              )
-            ]
-        )
-
-    );
-
-    return MaterialApp(
-        home:Scaffold(
-          appBar: AppBar(
-            title: Text('개발 Lead-time',
-              style: TextStyle(fontSize: 67.sp,
-                  color: Colors.white,
-                  letterSpacing: 1.0,
-                  fontFamily: 'applesdneom'),),
-            centerTitle: true,
-            backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-            leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-              Navigator.of(context).pop();
-            }),
-          ),
-          body: SafeArea(
-              child:Center(
-                child: ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  //  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    textSection,
-                    daySection,
-                    chartSection,
-                    // daySection2, //error fixing
-                    SizedBox(height: 23,),
-                    daySection3
-                  ],
-                ),
-              )
-          ),
-        )
-    );
+                        return ListView(children: [
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  50.sp, 100.sp, 20.sp, 100.sp),
+                              child: Text.rich(TextSpan(children: [
+                                detailPageTheme.makeHeaderText(
+                                    '[${result[0]['ProductName']}] 제조에\n총 [${result[0]['CumulativeTime']}]일 소요되었어요.\n예정일까지 [${dif}]일 남았어요.'),
+                              ]))),
+                          SfCartesianChart(
+                            tooltipBehavior: _toolTipBehavior,
+                            legend: Legend(
+                              isVisible: true,
+                              position: LegendPosition.bottom,
+                            ),
+                            primaryXAxis: CategoryAxis(
+                                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                isVisible: false),
+                            //backgroundColor: Colors.white,
+                            primaryYAxis: NumericAxis(
+                              edgeLabelPlacement: EdgeLabelPlacement.shift,
+                              isVisible: false,
+                            ),
+                            series: <ChartSeries>[
+                              StackedBar100Series<Chart_Data, String>(
+                                name: '제품 소요시간',
+                                dataSource: chartData,
+                                xValueMapper: (Chart_Data sales, _) => sales.x,
+                                yValueMapper: (Chart_Data sales, _) => sales.y1,
+                                dataLabelSettings: DataLabelSettings(
+                                    isVisible: true,
+                                    textStyle: TextStyle(
+                                      fontSize: 100.sp,
+                                      color: Colors.white,
+                                      fontFamily: 'applesdneob',
+                                    ),
+                                    labelAlignment:
+                                        ChartDataLabelAlignment.middle),
+                              ),
+                              StackedBar100Series<Chart_Data, String>(
+                                  name: '누적 소요시간',
+                                  dataSource: chartData,
+                                  xValueMapper: (Chart_Data sales, _) =>
+                                      sales.x,
+                                  yValueMapper: (Chart_Data sales, _) =>
+                                      sales.y2,
+                                  dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      textStyle: TextStyle(
+                                        fontSize: 100.sp,
+                                        color: Colors.white,
+                                        fontFamily: 'applesdneob',
+                                      ),
+                                      labelAlignment:
+                                          ChartDataLabelAlignment.middle)),
+                              StackedBar100Series<Chart_Data, String>(
+                                name: '납기 소요시간',
+                                dataSource: chartData,
+                                xValueMapper: (Chart_Data sales, _) => sales.x,
+                                yValueMapper: (Chart_Data sales, _) => sales.y3,
+                                dataLabelSettings: DataLabelSettings(
+                                    isVisible: true,
+                                    textStyle: TextStyle(
+                                      fontSize: 100.sp,
+                                      color: Colors.white,
+                                      fontFamily: 'applesdneob',
+                                    ),
+                                    labelAlignment:
+                                        ChartDataLabelAlignment.middle),
+                              )
+                            ],
+                            plotAreaBorderWidth: 0,
+                            //chart 테두리 삭제
+                            borderWidth: 30,
+                          ),
+                          Column(children: <Widget>[
+                            Text.rich(
+                              TextSpan(
+                                // default text style
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '예정일 D-${dif}',
+                                    style: TextStyle(
+                                        fontSize: 100.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'applesdneol'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
+                            Text.rich(
+                              TextSpan(
+                                // default text style
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '제품 소요시간 ${result[0]['ProductTime']} Days',
+                                    style: TextStyle(
+                                        fontSize: 90.sp,
+                                        color: Colors.black,
+                                        letterSpacing: 1.0,
+                                        fontFamily: 'applesdneob'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Text.rich(
+                              TextSpan(
+                                // default text style
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '누적 소요시간 ${result[0]['CumulativeTime']} Days',
+                                    style: TextStyle(
+                                        fontSize: 90.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'applesdneol'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Text.rich(
+                              TextSpan(
+                                // default text style
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '납기 소요시간 ${result[0]['DeliveryTime']} Days',
+                                    style: TextStyle(
+                                        fontSize: 90.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'applesdneol'),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ])
+                        ]);
+                      } else
+                        return Text('불러오는 중');
+                    }))));
   }
 }
 
 class Chart_Data {
-  Chart_Data(this.x, this.y1,this.y2,this.y3);
+  Chart_Data(this.x, this.y1, this.y2, this.y3);
+
   final String x;
-  final double y1; final double y2; final double y3;
+  final double y1;
+  final double y2;
+  final double y3;
+}
+
+class ChartData {
+  ChartData(this.x, this.y, this.y2, this.y3);
+
+  String? x;
+  int y;
+  int y2;
+  int y3;
 }
