@@ -414,16 +414,16 @@ Future<void> machine() async {
   final regressor_2 = regressor.retrain(samples_2017);
   print('Regression coefficients: ${regressor_2.coefficients}');
 
-  final regressor_3 = regressor.retrain(samples_2018);
+  final regressor_3 = regressor_2.retrain(samples_2018);
   print('Regression coefficients: ${regressor_3.coefficients}');
 
-  final regressor_4 = regressor.retrain(samples_2019);
+  final regressor_4 = regressor_3.retrain(samples_2019);
   print('Regression coefficients: ${regressor_4.coefficients}');
 
-  final regressor_5 = regressor.retrain(samples_2020);
+  final regressor_5 = regressor_4.retrain(samples_2020);
   print('Regression coefficients: ${regressor_5.coefficients}');
 
-  final prediction = regressor.predict(unlabel);
+  final prediction = regressor_5.predict(unlabel);
   print(prediction);
   print(prediction.rows);
 
