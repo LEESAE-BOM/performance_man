@@ -397,16 +397,7 @@ Future<void> machine() async {
   final samples_2020 = DataFrame.fromRawCsv(rawCsvContent5, headerExists: true);
 
   final targetName = 'profit';
-  final regressor = LinearRegressor(
-      samples_2016, targetName, iterationsLimit: 1000,
-      initialLearningRate: 0.0005,
-      batchSize: 1,
-      fitIntercept: true,
-      interceptScale: 3.0,
-      learningRateType: LearningRateType.constant);
   final knnregressor= KnnRegressor(samples_2016, targetName, 3);
-
-  print('Regression coefficients: ${regressor.coefficients}');
 
   final regressor_2 = knnregressor.retrain(samples_2017);
   //print('Regression coefficients: ${regressor_2.coefficients}');
