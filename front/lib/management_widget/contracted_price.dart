@@ -192,6 +192,7 @@ class _contracted_price extends State<contracted_price> {
                                 ] + table.getTableRows(
                                     convertor: (row) {
                                       row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                      row['Backlog'] = '${detailPageTheme.money.format(double.parse(row['Backlog']))} 원';
                                       return row;
                                     }
                                 ).sublist(0, min(selectOptions[dropDownValue] as int, result.length))
