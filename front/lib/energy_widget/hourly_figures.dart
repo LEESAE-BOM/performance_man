@@ -292,7 +292,7 @@ class _hourly_figures extends State<hourly_figures> {
                                           padding: EdgeInsets.fromLTRB(
                                               40.sp, 100.sp, 40.sp, 40.sp),
                                           child: Text(
-                                            '월별 시간대별 전력 사용량',
+                                            '월별 전력 사용량',
                                             style: TextStyle(
                                               fontSize: 55.sp,
                                               color: Colors.black,
