@@ -7,8 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ml_algo/ml_algo.dart';
 import 'package:ml_dataframe/ml_dataframe.dart';
 
-late List<double> dataset_2019=[0,0,0,0,0,0,0,0,0,0,0,0];
-late List<double> dataset_2020=[0,0,0,0,0,0,0,0,0,0,0,0];
+
 late List<double> dataset=[0,0,0,0,0,0,0,0,0,0,0,0];
 
 class expected_profit extends StatefulWidget{
@@ -51,9 +50,6 @@ class _expected_profit extends State<expected_profit> {
 
   @override
   Widget build(BuildContext context) {
-
-      for(int i=0;i<12;i++)
-        print(dataset[i]+2);
       Widget textSection = Padding(
           padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
           child: Column(
@@ -151,18 +147,18 @@ class _expected_profit extends State<expected_profit> {
                 FastLineSeries<SalesData, String>(
                     name: '2019',
                     dataSource: [
-                      SalesData('1월',dataset_2019[0]),
-                      SalesData('2월', dataset_2019[1]),
-                      SalesData('3월', dataset_2019[2]),
-                      SalesData('4월', dataset_2019[3]),
-                      SalesData('5월', dataset_2019[4]),
-                      SalesData('6월', dataset_2019[5]),
-                      SalesData('7월', dataset_2019[6]),
-                      SalesData('8월', dataset_2019[7]),
-                      SalesData('9월', dataset_2019[8]),
-                      SalesData('10월', dataset_2019[9]),
-                      SalesData('11월', dataset_2019[10]),
-                      SalesData('12월', dataset_2019[11])
+                      SalesData('1월',112055324),
+                      SalesData('2월', 144332877),
+                      SalesData('3월',169684265 ),
+                      SalesData('4월', 190801135),
+                      SalesData('5월', 180346212),
+                      SalesData('6월',158219214 ),
+                      SalesData('7월', 149806721),
+                      SalesData('8월',128057382 ),
+                      SalesData('9월', 122655578),
+                      SalesData('10월',144528087),
+                      SalesData('11월',154452175 ),
+                      SalesData('12월',171232146 )
                     ],
                     xValueMapper: (SalesData sales, _) => sales.month,
                     yValueMapper: (SalesData sales, _) => sales.sales,
@@ -174,18 +170,18 @@ class _expected_profit extends State<expected_profit> {
                     name: '2020',
                     dataSource: [
                       // Bind data source
-                      SalesData('1월',dataset_2020[0]),
-                      SalesData('2월', dataset_2020[1]),
-                      SalesData('3월', dataset_2020[2]),
-                      SalesData('4월', dataset_2020[3]),
-                      SalesData('5월', dataset_2020[4]),
-                      SalesData('6월', dataset_2020[5]),
-                      SalesData('7월', dataset_2020[6]),
-                      SalesData('8월', dataset_2020[7]),
-                      SalesData('9월', dataset_2020[8]),
-                      SalesData('10월', dataset_2020[9]),
-                      SalesData('11월', dataset_2020[10]),
-                      SalesData('12월', dataset_2020[11])
+                      SalesData('1월',100049203),
+                      SalesData('2월', 134537682),
+                      SalesData('3월', 159208312),
+                      SalesData('4월', 143136461),
+                      SalesData('5월', 163892124),
+                      SalesData('6월', 166342516),
+                      SalesData('7월', 139849054),
+                      SalesData('8월', 130964543),
+                      SalesData('9월',128758433 ),
+                      SalesData('10월',137845232 ),
+                      SalesData('11월',149234798 ),
+                      SalesData('12월',157564323 )
                     ],
                     xValueMapper: (SalesData sales, _) => sales.month,
                     yValueMapper: (SalesData sales, _) => sales.sales,
@@ -404,44 +400,32 @@ Future<void> machine() async {
   final regressor = LinearRegressor(
       samples_2016, targetName, iterationsLimit: 1000,
       initialLearningRate: 0.0005,
-      batchSize: 5,
+      batchSize: 1,
       fitIntercept: true,
       interceptScale: 3.0,
       learningRateType: LearningRateType.constant);
+  final knnregressor= KnnRegressor(samples_2016, targetName, 3);
 
   print('Regression coefficients: ${regressor.coefficients}');
 
-  final regressor_2 = regressor.retrain(samples_2017);
-  print('Regression coefficients: ${regressor_2.coefficients}');
+  final regressor_2 = knnregressor.retrain(samples_2017);
+  //print('Regression coefficients: ${regressor_2.coefficients}');
 
   final regressor_3 = regressor_2.retrain(samples_2018);
-  print('Regression coefficients: ${regressor_3.coefficients}');
+  //print('Regression coefficients: ${regressor_3.coefficients}');
 
   final regressor_4 = regressor_3.retrain(samples_2019);
-  print('Regression coefficients: ${regressor_4.coefficients}');
+  //print('Regression coefficients: ${regressor_4.coefficients}');
 
   final regressor_5 = regressor_4.retrain(samples_2020);
-  print('Regression coefficients: ${regressor_5.coefficients}');
+  //print('Regression coefficients: ${regressor_5.coefficients}');
 
-  final prediction = regressor_5.predict(unlabel);
-  print(prediction);
-  print(prediction.rows);
+  final kprediction = regressor_5.predict(unlabel);
+  print(kprediction);
+  print(kprediction.rows);
 
   for(int k=0;k<12;k++) {
-    String i = prediction.rows.elementAt(k).toString();
+    String i = kprediction.rows.elementAt(k).toString();
     dataset[k] = double.parse(i.substring(1, i.length - 1));
   }
-
-  final prediction_2019 = regressor_3.predict(unlabel);
-  for(int k=0;k<12;k++) {
-    String i = prediction_2019.rows.elementAt(k).toString();
-    dataset_2019[k] = double.parse(i.substring(1, i.length - 1));
-  }
-
-  final prediction_2020 = regressor_4.predict(unlabel);
-  for(int k=0;k<12;k++) {
-    String i = prediction_2020.rows.elementAt(k).toString();
-    dataset_2020[k] = double.parse(i.substring(1, i.length - 1));
-  }
-
 }
