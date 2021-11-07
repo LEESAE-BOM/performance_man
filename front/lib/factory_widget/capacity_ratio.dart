@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '.././screens/factory/factory_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/detail_page.dart';
+import 'package:flutter_app/theme.dart';
 
 class capacity_ratio extends StatefulWidget {
   @override
@@ -11,433 +14,137 @@ class capacity_ratio extends StatefulWidget {
 }
 
 class _capacity_ratio extends State<capacity_ratio> {
-  final List<String> _valueList =['최근 1개월','최근 3개월','최근 6개월','최근 12개월'];
-  String? _selectedValue='최근 3개월';
-
-  late List<Chart_Data>? _chart_Data;
-  late List<Chart_Data>? _chart_Data2;
-  late List<Chart_Data>? _chart_Data3;
   late TooltipBehavior _toolTipBehavior;
-
-  var today=DateTime.now();
-  DateFormat formatter=DateFormat('yyyy년 MM월 dd일');
-
+  Map<String, int> selectOptions = {
+    '최근 6개월': 6,
+    '최근 12개월': 12,
+    '전체보기': detailPageTheme.maxTableRow,
+  };
+  var dropDownValue = '최근 6개월';
 
   void initState() {
-    _chart_Data = getChartData();
-    _chart_Data2 = getChartData2();
-    _chart_Data3 = getChartData3();
     _toolTipBehavior = TooltipBehavior();
     super.initState();
-  }
-
-  List<Chart_Data>  getChartData(){
-    final List<Chart_Data>  getChartData = [
-      Chart_Data('Completed', 43, Colors.lightBlue),
-      Chart_Data('unCompleted', 57,  Colors.lightBlueAccent),
-    ];
-    return getChartData;
-  }
-
-  List<Chart_Data>  getChartData2(){
-    final List<Chart_Data>  getChartData = [
-      Chart_Data('Completed', 74, Colors.lightBlue),
-      Chart_Data('unCompleted', 26, Colors.lightBlueAccent),
-    ];
-    return getChartData;
-  }
-
-  List<Chart_Data>  getChartData3(){
-    final List<Chart_Data>  getChartData = [
-      Chart_Data('Completed', 74, Colors.lightBlue),
-      Chart_Data('unCompleted', 26, Colors.lightBlueAccent),
-    ];
-    return getChartData;
   }
 
   @override
   Widget build(BuildContext context) {
 
-    Widget textSection = Padding(
-            padding: EdgeInsets.fromLTRB(80.sp, 100.sp, 0, 50.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text.rich(
-                  TextSpan(// default text style
-                    children: <TextSpan>[
-                      TextSpan(text: formatter.format(today),
-                        style:TextStyle(
-                            fontSize: 60.sp,
-                            color: Colors.black,
-                            letterSpacing: 4.0,
-                            fontFamily: 'applesdneoeb'
-                        ),),
-                      TextSpan(text: '의\n',
-                        style:TextStyle(
-                            fontSize: 60.sp,
-                            color: Colors.black,
-                            letterSpacing: 4.0,
-                            fontFamily: 'applesdneoeb'
-                        ),),
-                      TextSpan(text: '설비 가동율',
-                        style:TextStyle(
-                          fontSize:110.sp,
-                          color: Colors.blue,
-                          letterSpacing: 3.0,
-                          fontFamily: 'applesdneoeb',),),
-                      TextSpan(text: '은 ',
-                        style:TextStyle(
-                            fontSize: 40.sp,
-                            color: Colors.black,
-                            letterSpacing: 5.0,
-                            fontFamily: 'applesdneoeb'),),
-                      TextSpan(text: '37%',
-                        style:TextStyle(
-                            fontSize:110.sp,
-                            color: Colors.blue,
-                            letterSpacing: 3.0,
-                            fontFamily: 'applesdneoeb'),),
-                      TextSpan(text: ' 이에요',
-                        style:TextStyle(
-                            fontSize: 40.sp,
-                            color: Colors.black,
-                            letterSpacing: 1.0,
-                            fontFamily: 'applesdneoeb'),),
-                    ],
-                  ),
-                ),
-              ],
-            ));
+    return DetailPage().make(
+      context: context,
+      title: '설비가동률',
+      content: FutureBuilder(
+          future: conn.sendQuery('SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var result = snapshot.data as List<Map<String, dynamic>>;
+              var goal = double.parse(result[0]['Goal']);
+              var achievement = double.parse(result[0]['Achievement']);
+              var achieveRate = (achievement / goal) * 100;
+              var table = MySQLTable(snapshot.data, ['날짜', '목표치', '달성치']);
 
-    Widget chartSection=
-    Container(
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                  width: 360.w,
-                  height: 200,
-                  child:
-                  Center(
-                      child: SfCircularChart(
-                          tooltipBehavior: _toolTipBehavior,
-                          annotations: <CircularChartAnnotation>[
-                            CircularChartAnnotation(
-                                height: '140%', // Setting height and width for the circular chart annotation
-                                width: '140%',
-                                widget: Container(
-                                    child: PhysicalModel(
-                                        child: Container(),
-                                        shape: BoxShape.circle,
-                                        elevation: 10,
-                                        shadowColor: Colors.black,
-                                        color: Colors.white)
-                                )
-                            ),
+              List<ChartData> capacityData = [
+                ChartData('complete', achieveRate),
+                ChartData('uncomplete', 100 - achieveRate)
+              ];
 
-                            CircularChartAnnotation(
-                                widget: Container(
-                                    child: Text('일간\n43%',
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(0, 0, 0, 0.5),
-                                            fontSize: 65.sp,
-                                            fontFamily: 'applesdneoeb'
-                                        )
-                                    )
-                                )
-                            ),
-                          ],
-
-                          series: <CircularSeries>[
-                            DoughnutSeries<Chart_Data, String>(
-                                dataSource: _chart_Data,
-                                xValueMapper: (Chart_Data data, _) => data.x,
-                                yValueMapper: (Chart_Data data, _) => data.y,
-                                pointColorMapper:(Chart_Data data,  _) => data.color,
-                                // Radius of doughnut
-                                radius: '95%'
-                            )
-                          ]
-                      ))),
-              Container(
-                  width: 360.w,
-                  height: 200,
-                  child: Center(child:
-                  SfCircularChart(
-                      tooltipBehavior: _toolTipBehavior,
-                      annotations: <CircularChartAnnotation>[
-                        CircularChartAnnotation(
-                            height: '140%', // Setting height and width for the circular chart annotation
-                            width: '140%',
-                            widget: Container(
-                                child: PhysicalModel(
-                                    child: Container(),
-                                    shape: BoxShape.circle,
-                                    elevation: 10,
-                                    shadowColor: Colors.black,
-                                    color: Colors.white
-                                ))),
-
-                        CircularChartAnnotation(
-                            widget: Container(
-                                child: Text('주간\n73%',
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(0, 0, 0, 0.5),
-                                        fontSize: 65.sp,
-                                        fontFamily: 'applesdneoeb'
-                                    )
-                                )
-                            )
+              return ListView(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
+                        child: Text.rich(
+                            detailPageTheme.makeHeaderText('오늘까지 설비가동룰은\n[${achieveRate.round()}%] 입니다.'),
                         )
-                      ],
-                      series: <CircularSeries>[
-                        DoughnutSeries<Chart_Data, String>(
-                            dataSource: _chart_Data2,
-                            xValueMapper: (Chart_Data data, _) => data.x,
-                            yValueMapper: (Chart_Data data, _) => data.y,
-                            pointColorMapper:(Chart_Data data,  _) => data.color,
-                            // Radius of doughnut
-                            radius: '95%'
-                        )
-                      ]
-                  )
-                  )
-              ),
-              Container(
-                  width: 360.w,
-                  height: 200,
-                  child: Center(child:
-                  SfCircularChart(
-                      annotations: <CircularChartAnnotation>[
-                        CircularChartAnnotation(
-                            height: '140%', // Setting height and width for the circular chart annotation
-                            width: '140%',
-                            widget: Container(
-                                child: PhysicalModel(
-                                    child: Container(),
-                                    shape: BoxShape.circle,
-                                    elevation: 10,
-                                    shadowColor: Colors.black,
-                                    color: Colors.white
-                                ))),
-
-                        CircularChartAnnotation(
-                            widget: Container(
-                                child: Text('월간\n73%',
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(0, 0, 0, 0.5),
-                                        fontSize: 65.sp,
-                                        fontFamily: 'applesdneoeb'
-                                    )
-                                )
-                            )
-                        )
-                      ],
-                      series: <CircularSeries>[
-                        DoughnutSeries<Chart_Data, String>(
-                            dataSource: _chart_Data3,
-                            xValueMapper: (Chart_Data data, _) => data.x,
-                            yValueMapper: (Chart_Data data, _) => data.y,
-                            pointColorMapper:(Chart_Data data,  _) => data.color,
-                            // Radius of doughnut
-                            radius: '95%'
-                        )
-                      ]
-                  )))
-
-            ]
-        )
-
-    );
-
-    Widget datatableSection1= Padding(
-        padding:  EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
-        child: Center(
-            child: Container(
-                width: 1020.w,
-                child: Theme(
-                    data: Theme.of(context).copyWith(
-                        dividerColor: Colors.black12
                     ),
-                    child: DataTable(
-                      columnSpacing: 0,
-                      horizontalMargin: 0,
-                      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.black12),
-                      columns: [
-                        DataColumn(
-                          label: Container(
-                            width: 1020.w * .3,
-                            alignment: Alignment.center,
-                            child:
-                            Text('월',
-                              style: TextStyle(
-                                  fontSize: 45.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'
-                              ),
-                            ),
+                    SfCircularChart(
+                        tooltipBehavior: _toolTipBehavior,
+                        annotations: <CircularChartAnnotation>[
+                          CircularChartAnnotation(
+                              height: '140%', // Setting height and width for the circular chart annotation
+                              width: '140%',
+                              widget: Container(
+                                  child: PhysicalModel(
+                                      child: Container(),
+                                      shape: BoxShape.circle,
+                                      elevation: 10,
+                                      shadowColor: Colors.black,
+                                      color: Colors.white
+                                  )
+                              )
                           ),
-                          // numeric: true,
-                        ),
-                        DataColumn(
-                            label:
-                            Container(
-                              width: 1020.w * .7,
-                              alignment: Alignment.center,
-                              child: Text('설비 완료율',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'
-                                ),
-                              ),
-                            )
-                        ),
-                      ],
-                      rows: [
-                        DataRow(
-                            cells: [
-                              DataCell(Text('')),
-                              DataCell(
-                                  Container(
-                                      width: 1020.w * .6,
-                                      alignment: Alignment.centerRight,
-                                      child:DropdownButton(
-                                        value:_selectedValue,
-                                        items: _valueList.map(
-                                              (String value){
-                                            return DropdownMenuItem(
-                                                value:value,
-                                                child: Text(value)
-                                            );
-                                          },
-                                        ).toList(),
-                                        onChanged: (String? value){
-                                          setState((){
-                                            _selectedValue=value;
-                                          });
-                                        },
+                          CircularChartAnnotation(
+                              widget: Container(
+                                  child: Text(
+                                      '${achieveRate.round()}%',
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                                          fontSize: 71.sp,
+                                          fontFamily: 'applesdneob'
                                       )
                                   )
                               )
-                            ]
-                        ),
-                        DataRow(
-                            cells: [
-                              DataCell(
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child:Text('2021.08',
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'),)
-                                  )
-                              ),
-                              DataCell(
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child:Text('14',
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'),
-                                      )
-                                  )
-                              ),
-                            ]
-                        ),
-                        DataRow(
-                            cells: [
-                              DataCell(
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Text('2021.09',
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'
-                                        ),
-                                      )
-                                  )
-                              ),
-                              DataCell(
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child:Text('84',
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'),))
-                              ),
-                            ]
-                        ),
-                        DataRow(
-                            cells: [
-                              DataCell(
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Text('2021.10',
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'
-                                        ),
-                                      )
-                                  )
-                              ),
-                              DataCell(
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child:Text('72',
-                                        style: TextStyle(
-                                            fontSize: 45.sp,
-                                            color: Colors.black54,
-                                            fontFamily: 'applesdneoeb'),))
-                              ),
-                            ]
-                        )
-                      ],
+                          )
+                        ],
+                        series: <CircularSeries>[
+                          DoughnutSeries<ChartData, String>(
+                              dataSource: capacityData,
+                              xValueMapper: (ChartData data, _) => data.x,
+                              yValueMapper: (ChartData data, _) => data.y,
+                              radius: '95%'
+                          )
+                        ]
+                    ),
+                    Table(
+                        border: TableBorder(
+                            horizontalInside: BorderSide(width: 1,
+                                color: Colors.black38,
+                                style: BorderStyle.solid)),
+                        children: <TableRow>[
+                          table.getTableHeader(),
+                          TableRow(
+                              children: [
+                                TableCell(
+                                  child: Text(''),
+                                ),
+                                TableCell(
+                                  child: Text(''),
+                                ),
+                                TableCell(
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 50.sp),
+                                      child: DropdownButton(
+                                        value: dropDownValue,
+                                        items: <DropdownMenuItem<String>>[
+                                          for(var val in selectOptions.keys)
+                                            DropdownMenuItem(
+                                                value: val,
+                                                child: Text(val)
+                                            )
+                                        ],
+                                        onChanged: (String? val) {
+                                          setState(() { dropDownValue = val!; });
+                                        },
+                                        isExpanded: true,
+                                      ),
+                                    )
+                                )
+                              ]
+                          )
+                        ] + table.getTableRows().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
                     )
-                )
-            )
-        )
-    );
-
-    return MaterialApp(
-        home:Scaffold(
-            appBar: AppBar(
-              title: Text('설비가동율',
-                style: TextStyle(fontSize: 67.sp,
-                    color: Colors.white,
-                    letterSpacing: 1.0,
-                    fontFamily: 'applesdneoeb'),),
-              centerTitle: true,
-              backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-              leading: IconButton(icon: Icon(Icons.arrow_back,color:Colors.white,), onPressed: (){
-                Navigator.of(context).pop();
-              }),
-            ),
-            body:SafeArea(
-              child:Center(
-                child: ListView(
-                  children: [
-                    textSection,
-                    chartSection,
-                    datatableSection1,
-                  ],
-                ),
-              ),
-            )
-        )
+                  ]
+              );
+            } else
+              return Text('불러오는 중');
+          }
+      )
     );
   }
 }
 
-class Chart_Data {
-  Chart_Data(this.x, this.y, this.color);
-  final String x;
-  final double y;
-  final Color color;
+class ChartData {
+  ChartData(this.x, this.y);
+  String x;
+  double y;
 }

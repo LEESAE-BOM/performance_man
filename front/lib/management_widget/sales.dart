@@ -19,7 +19,7 @@ class _sales extends State<sales> {
   Map<String, int> selectOptions = {
     '최근 6개월': 6,
     '최근 12개월': 12,
-    '전체보기': 300,
+    '전체보기': detailPageTheme.maxTableRow,
   };
   var dropDownValue = '최근 6개월';
   List<ChartData> salesData = [];
