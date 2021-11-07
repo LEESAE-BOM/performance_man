@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ml_algo/ml_algo.dart';
 import 'package:ml_dataframe/ml_dataframe.dart';
 
+late List<double> dataset_2019=[0,0,0,0,0,0,0,0,0,0,0,0];
+late List<double> dataset_2020=[0,0,0,0,0,0,0,0,0,0,0,0];
 late List<double> dataset=[0,0,0,0,0,0,0,0,0,0,0,0];
 
 class expected_profit extends StatefulWidget{
@@ -149,18 +151,18 @@ class _expected_profit extends State<expected_profit> {
                 FastLineSeries<SalesData, String>(
                     name: '2019',
                     dataSource: [
-                      SalesData('1월', 3.5),
-                      SalesData('2월', 2.8),
-                      SalesData('3월', 3.4),
-                      SalesData('4월', 3.2),
-                      SalesData('5월', 4.0),
-                      SalesData('6월', 4.4),
-                      SalesData('7월', 3.8),
-                      SalesData('8월', 4.9),
-                      SalesData('9월', 5.2),
-                      SalesData('10월', 3.8),
-                      SalesData('11월', 4.9),
-                      SalesData('12월', 5.2),
+                      SalesData('1월',dataset_2019[0]),
+                      SalesData('2월', dataset_2019[1]),
+                      SalesData('3월', dataset_2019[2]),
+                      SalesData('4월', dataset_2019[3]),
+                      SalesData('5월', dataset_2019[4]),
+                      SalesData('6월', dataset_2019[5]),
+                      SalesData('7월', dataset_2019[6]),
+                      SalesData('8월', dataset_2019[7]),
+                      SalesData('9월', dataset_2019[8]),
+                      SalesData('10월', dataset_2019[9]),
+                      SalesData('11월', dataset_2019[10]),
+                      SalesData('12월', dataset_2019[11])
                     ],
                     xValueMapper: (SalesData sales, _) => sales.month,
                     yValueMapper: (SalesData sales, _) => sales.sales,
@@ -172,18 +174,18 @@ class _expected_profit extends State<expected_profit> {
                     name: '2020',
                     dataSource: [
                       // Bind data source
-                      SalesData('1월', 2.6),
-                      SalesData('2월', 2.0),
-                      SalesData('3월', 1.8),
-                      SalesData('4월', 2.5),
-                      SalesData('5월', 1.6),
-                      SalesData('6월', 2.3),
-                      SalesData('7월', 2.0),
-                      SalesData('8월', 2.4),
-                      SalesData('9월', 1.9),
-                      SalesData('10월', 2.3),
-                      SalesData('11월', 2.0),
-                      SalesData('12월', 2.4)
+                      SalesData('1월',dataset_2020[0]),
+                      SalesData('2월', dataset_2020[1]),
+                      SalesData('3월', dataset_2020[2]),
+                      SalesData('4월', dataset_2020[3]),
+                      SalesData('5월', dataset_2020[4]),
+                      SalesData('6월', dataset_2020[5]),
+                      SalesData('7월', dataset_2020[6]),
+                      SalesData('8월', dataset_2020[7]),
+                      SalesData('9월', dataset_2020[8]),
+                      SalesData('10월', dataset_2020[9]),
+                      SalesData('11월', dataset_2020[10]),
+                      SalesData('12월', dataset_2020[11])
                     ],
                     xValueMapper: (SalesData sales, _) => sales.month,
                     yValueMapper: (SalesData sales, _) => sales.sales,
@@ -315,59 +317,6 @@ class _expected_profit extends State<expected_profit> {
                         ),
                       ],
                     ),
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '현금성 자산',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 45.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              child: Text(
-                                '',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 45.sp),
-                              )),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '단기 금융 상품',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 45.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Container(
-                              child: Text(
-                                '',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              )),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -481,6 +430,18 @@ Future<void> machine() async {
   for(int k=0;k<12;k++) {
     String i = prediction.rows.elementAt(k).toString();
     dataset[k] = double.parse(i.substring(1, i.length - 1));
+  }
+
+  final prediction_2019 = regressor_3.predict(unlabel);
+  for(int k=0;k<12;k++) {
+    String i = prediction_2019.rows.elementAt(k).toString();
+    dataset_2019[k] = double.parse(i.substring(1, i.length - 1));
+  }
+
+  final prediction_2020 = regressor_4.predict(unlabel);
+  for(int k=0;k<12;k++) {
+    String i = prediction_2020.rows.elementAt(k).toString();
+    dataset_2020[k] = double.parse(i.substring(1, i.length - 1));
   }
 
 }
