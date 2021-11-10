@@ -1,3 +1,6 @@
+## replace worK
+ios>Runner>Assets.xcassets>AppIcon.appiconset 들어가서 교체
+
 ## iTunesArtwork & iTunesArtwork@2x (App Icon) file extension:
 
 PNG extension is prepended to these two files - 
