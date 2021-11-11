@@ -149,20 +149,20 @@ class WidgetBoxTheme{
   EdgeInsets widgetBoxPadding = EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w);
 
   Image safeIcon = Image.asset(
-    'image/safe.png',
-    width: 20.w,
+    'image/safe_light.png',
+    width: 100.w,
     height: 20.w,
   );
 
   Image warningIcon = Image.asset(
-    'image/warning.png',
-    width: 20.w,
+    'image/warning_light.png',
+    width: 100.w,
     height: 20.w,
   );
 
   Image dangerIcon = Image.asset(
-    'image/danger.png',
-    width: 20.w,
+    'image/danger_light.png',
+    width: 100.w,
     height: 20.w,
   );
 
