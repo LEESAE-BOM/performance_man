@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/energy_widget/hourly_figures.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
+import 'package:flutter_app/box_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //작은 위젯
 class Hourly_Figures_Widget extends StatefulWidget {
@@ -11,113 +15,91 @@ class Hourly_Figures_Widget extends StatefulWidget {
 
 class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   @override
-  late List<Sales_Data> _Sales_Data;
+  List<Chart_Data> _chart_Data = [];
+  List<_SplineAreaData1> Energyusage_time = [];
 
   void initState() {
-    _Sales_Data = getChartData();
+    for (double i = 1; i <= 24; i++)
+      Energyusage_time.add(_SplineAreaData1('$i시', 0, 0));
+    for (double i = 1; i < 24; i += 2)
+      _chart_Data.add(
+          Chart_Data('$i시~${i + 1}시', 1, Color.fromRGBO(226, 226, 226, 1)));
     super.initState();
   }
 
-  List<Sales_Data> getChartData() {
-    final List<Sales_Data> getChartData = [
-      Sales_Data('12~01', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('01~02', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('02~03', 1,Color.fromRGBO(226,226,226,1)),
-      Sales_Data('03~04', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('04~05', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('05~06', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('06~07', 1,Color.fromRGBO(226,226,226,1)),
-      Sales_Data('07~08', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('08~09', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('09~10', 1, Color.fromRGBO(225,72,72,1)),
-      Sales_Data('10~11', 1, Color.fromRGBO(226,226,226,1)),
-      Sales_Data('11~12', 1, Color.fromRGBO(226,226,226,1)),
-    ];
-    return getChartData;
-  }
-
   Widget build(BuildContext context) {
-    Widget chartSection = Center(
-        child: SfCircularChart(
-            onChartTouchInteractionDown: (_Hourly_Figures_Widget) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => hourly_figures()));
-            },
-            annotations: <CircularChartAnnotation>[
-      CircularChartAnnotation(
-          widget: Container(
-              child: Text('9시~10시',
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 32.sp,
-                      fontFamily: 'applesdneoeb'))))
-    ],
-            series: <CircularSeries>[
-      // Renders doughnut chart
-      DoughnutSeries<Sales_Data, String>(
-          radius: '100%',
-          dataSource: _Sales_Data,
-          pointColorMapper: (Sales_Data data, _) => data.color,
-          xValueMapper: (Sales_Data data, _) => data.x,
-          yValueMapper: (Sales_Data data, _) => data.y,
-      ),
-      // explode: true
-    ]));
-    return GestureDetector(
+    return BoxWidget('시간별 에너지', 'safe', 'wide').make(
         onTap: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => hourly_figures()));
         },
-        child: Container(
-            width: 510.w,
-            height: 400.w,
-            decoration: BoxDecoration(
-              //color: Colors.white,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            child: Column(children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
-                child: Row(
-                  children: [
-                    Text(
-                      '시간별 에너지',
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 35.w,
-                          fontFamily: 'applesdneom'),
-                    ),
-                    SizedBox(width: 10.w),
-                    Image.asset(
-                      'image/safe.png',
-                      width: 20.w,
-                      height: 20.w,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 510.w,
-                height: 310.w,
-                child: chartSection,
-              )
-            ])));
+        dbRelatedContentBuilder: FutureBuilder(
+            future: conn.sendQuery(
+                'SELECT UseDate,HOUR(UseTime) as UseTime,Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;;'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var result = snapshot.data as List<Map<String, dynamic>>;
+
+                for (var row in result) {
+                  int toDate1 = int.parse(row['UseTime']);
+                  String energyStr = row['Amount'];
+                  energyStr = energyStr.substring(0, energyStr.length - 3);
+
+                  String energyStr1 = row['Amount'];
+                  energyStr1 = energyStr1.substring(0, energyStr1.length - 3);
+
+                  Energyusage_time[toDate1 - 1].y1 = double.parse(energyStr);
+                  Energyusage_time[toDate1 - 1].y2 = double.parse(energyStr1);
+                }
+
+                int max = 0;
+                for (int i = 1; i < 24; i++) {
+                  if (Energyusage_time[max].y2 < Energyusage_time[i].y2) {
+                    max = i;
+                  }
+                }
+                _chart_Data[((max / 2) as int) - 3].color =
+                    Color.fromRGBO(225, 72, 72, 1);
+                return Container(
+                  child: SfCircularChart(annotations: <CircularChartAnnotation>[
+                    CircularChartAnnotation(
+                        widget: Container(
+                            child: Text('${max}시~${max + 1}시',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 50.sp,
+                                    fontFamily: 'applesdneom'))))
+                  ], series: <CircularSeries>[
+                    // Renders doughnut chart
+                    DoughnutSeries<Chart_Data, String>(
+                        dataSource: _chart_Data,
+                        pointColorMapper: (Chart_Data data, _) => data.color,
+                        xValueMapper: (Chart_Data data, _) => data.x,
+                        yValueMapper: (Chart_Data data, _) => data.y,
+                        radius: '100%'
+                        // explode: true
+                        )
+                  ]),
+                );
+              } else {
+                return Text.rich(TextSpan(text: '불러오는 중'));
+              }
+            }));
   }
 }
 
-class Sales_Data {
-  Sales_Data(this.x, this.y, this.color);
+class Chart_Data {
+  Chart_Data(this.x, this.y, this.color);
 
   final String x;
   final double y;
-  final Color color;
+  Color color;
+}
+
+class _SplineAreaData1 {
+  _SplineAreaData1(this.x, this.y1, this.y2);
+
+  String? x;
+  double y1;
+  double y2;
 }
