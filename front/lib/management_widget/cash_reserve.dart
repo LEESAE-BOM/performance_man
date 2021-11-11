@@ -262,7 +262,7 @@ class _cash_reserve extends State<cash_reserve> {
                               child: Text.rich(
                                   TextSpan(
                                       children: [
-                                        detailPageTheme.makeHeaderText('$year년 [현금 보유액]은\n[${detailPageTheme.money.format(result_thisYearPrice)}]원 입니다.'),
+                                        detailPageTheme.makeHeaderText('이번 년도 [현금 보유액]은\n[${detailPageTheme.money.format(result_thisYearPrice)}]원 입니다.'),
                                         if(previousYearPrice != '0.00')
                                           detailPageTheme.makeHeaderText('\n전년대비 [${incrementRate.round()}%]'),
                                         if(diff < 0)

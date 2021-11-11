@@ -727,7 +727,7 @@ class _labor_ratio extends State<labor_ratio> {
                                 child: Text.rich(
                                     TextSpan(
                                         children: [
-                                          detailPageTheme.makeHeaderText('$thisYear년 $thisMonth월은\n'),
+                                          detailPageTheme.makeHeaderText('이번 달은\n'),
                                           if(IDLBRRate > DCLBRRate)
                                             detailPageTheme.makeHeaderText('[간접인건비]가 '),
                                           if(IDLBRRate <= DCLBRRate)
