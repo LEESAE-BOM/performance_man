@@ -693,7 +693,7 @@ class _labor_ratio extends State<labor_ratio> {
                     builder: (context, snapshot){
                       if(snapshot.hasData){
                         var result = snapshot.data as List<Map<String, dynamic>>;
-                        var table = MySQLTable(result, ['날짜', '분류', '금액']);
+                        var table = ResultSet(result, ['날짜', '분류', '금액']);
                         double totalDCLBR = 0;
                         double totalIDLBR = 0;
                         double IDLBRRate = 0;
@@ -775,8 +775,8 @@ class _labor_ratio extends State<labor_ratio> {
                                       color: Colors.black38,
                                       style: BorderStyle.solid)),
                               children: <TableRow>[
-                                table.getTableHeader()
-                              ] + table.getTableRows(
+                                table.getTableHeaderWidget()
+                              ] + table.getTableRowWidgets(
                                   convertor: (row){
                                     if(row['MoneyCategory'] == 'IDLBR') row['MoneyCategory'] = '간접';
                                     else if(row['MoneyCategory'] == 'DCLBR') row['MoneyCategory'] = '직접';

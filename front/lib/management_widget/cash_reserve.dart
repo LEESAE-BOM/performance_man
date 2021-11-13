@@ -236,7 +236,7 @@ class _cash_reserve extends State<cash_reserve> {
                         var year = '';
                         var thisYearPrice = '0.00';
                         var previousYearPrice = '0.00';
-                        var table = MySQLTable(snapshot.data, ['연도', '금액']);
+                        var table = ResultSet(snapshot.data, ['연도', '금액']);
 
                         if(result.length > 0){
                           year = result[0]['Year'];
@@ -299,7 +299,7 @@ class _cash_reserve extends State<cash_reserve> {
                             Table(
                               border: detailPageTheme.tableBorderStyle,
                               children: [
-                                table.getTableHeader(),
+                                table.getTableHeaderWidget(),
                                 TableRow(
                                     children: [
                                       TableCell(
@@ -327,7 +327,7 @@ class _cash_reserve extends State<cash_reserve> {
                                       )
                                     ]
                                 )
-                              ] + table.getTableRows(
+                              ] + table.getTableRowWidgets(
                                   convertor: (row) {
                                     row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                                     return row;

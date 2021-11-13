@@ -39,7 +39,7 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                 builder: (context, snapshot){
                   if(snapshot.hasData) {
                     var result = snapshot.data as List<Map<String, dynamic>>;
-                    var table = MySQLTable(result, ['날짜', '기업', '계약금액', '외주금액']);
+                    var table = ResultSet(result, ['날짜', '기업', '계약금액', '외주금액']);
                     double contractPrice = 0;
                     double outsourcePrice = 0;
                     double rate = 0;
@@ -97,8 +97,8 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                         Table(
                           border: detailPageTheme.tableBorderStyle,
                           children: <TableRow>[
-                            table.getTableHeader()
-                          ] + table.getTableRows(
+                            table.getTableHeaderWidget()
+                          ] + table.getTableRowWidgets(
                               convertor: (row){
                             row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                             row['OS'] = '${detailPageTheme.money.format(double.parse(row['OS']))} 원';

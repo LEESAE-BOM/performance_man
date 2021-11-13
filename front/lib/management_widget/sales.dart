@@ -64,7 +64,7 @@ class _sales extends State<sales> {
                         var result = snapshot.data as List<Map<String, dynamic>>;
                         var thisMonthPrice = double.parse(result[0]['Money']);
                         var previousMonthPrice = double.parse(result[1]['Money']);
-                        var table = MySQLTable(snapshot.data, ['날짜', '금액']);
+                        var table = ResultSet(snapshot.data, ['날짜', '금액']);
 
                         int diff = thisMonthPrice.round() - previousMonthPrice.round();
 
@@ -153,7 +153,7 @@ class _sales extends State<sales> {
                                           color: Colors.black38,
                                           style: BorderStyle.solid)),
                                   children: <TableRow>[
-                                    table.getTableHeader(),
+                                    table.getTableHeaderWidget(),
                                     TableRow(
                                         children: [
                                           TableCell(
@@ -181,7 +181,7 @@ class _sales extends State<sales> {
                                           )
                                         ]
                                     )
-                                  ] + table.getTableRows(
+                                  ] + table.getTableRowWidgets(
                                     convertor: (row) {
                                       row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                                       return row;

@@ -64,7 +64,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                         double.parse(result[0]['Productivity']);
                         var previousMonthProductivity =
                         double.parse(result[1]['Productivity']);
-                        var table = MySQLTable(snapshot.data, ['날짜', '노동생산성']);
+                        var table = ResultSet(snapshot.data, ['날짜', '노동생산성']);
 
                         int diff = thisMonthProductivity.round() -
                             previousMonthProductivity.round();
@@ -130,7 +130,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       color: Colors.black38,
                                       style: BorderStyle.solid)),
                               children: <TableRow>[
-                                table.getTableHeader(),
+                                table.getTableHeaderWidget(),
                                 TableRow(children: [
                                   TableCell(
                                     child: Text(''),
@@ -156,7 +156,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                                       ))
                                 ])
                               ] +
-                                  table.getTableRows(convertor: (row) {
+                                  table.getTableRowWidgets(convertor: (row) {
                                     row['Productivity'] =
                                     '${detailPageTheme.money.format(double.parse(row['Productivity']))}';
                                     return row;

@@ -4,6 +4,7 @@ import '.././components/energy_widget/hourly_figures_widget.dart';
 import '.././components/energy_widget/energy_fee_widget.dart';
 import '.././components/energy_widget/monthly_figures_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/mysql_connect.dart';
 
 class Energy_Screen extends StatelessWidget {
   @override
@@ -23,37 +24,40 @@ class Energy_Screen extends StatelessWidget {
             child:Column(
                 children:[
                   Container(
-                      alignment: Alignment.center,
-                      height:450.w,
-                      child:RichText(
-                        text: TextSpan(children: <TextSpan>[
-                          TextSpan(
-                            text: '이번 달 전력 사용량\n',
-                            style: TextStyle(
-                              fontSize: 65.w,
-                              color: Colors.white,
-                              letterSpacing: 1.w,
-                              fontFamily: 'applesdneob',
-                            ),
-                          ),
-                          TextSpan(
-                            text: '13,588',
-                            style: TextStyle(
-                                fontSize: 130.w,
-                                color: Colors.white,
-                                letterSpacing: 5.w,
-                                fontFamily: 'applesdneob'),
-                          ),
-                          TextSpan(
-                            text: ' kWh',
-                            style: TextStyle(
-                                fontSize: 65.w,
-                                color: Colors.white,
-                                letterSpacing: 1.w,
-                                fontFamily: 'applesdneob'),
-                          ),
-                        ]),
-                      )
+                    alignment: Alignment.center,
+                    height: 450.w,
+                    child: FutureBuilder(
+                        future: conn.sendQuery('SELECT UseDate, Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var result = snapshot.data as List<Map<String, dynamic>>;
+                            var thisMonthPrice = double.parse(result[0]['Amount']);
+
+                            return RichText(
+                                text: TextSpan(
+                                  text:
+                                  '이번 달 전기 사용량\n${thisMonthPrice.round()}kWh',
+                                  style: TextStyle(
+                                    fontSize: 65.w,
+                                    color: Colors.white,
+                                    letterSpacing: 1.w,
+                                    fontFamily: 'applesdneob',
+                                  ),
+                                ));
+                          } else {
+                            return RichText(
+                              text: TextSpan(
+                                text: "...",
+                                style: TextStyle(
+                                  fontSize: 65.w,
+                                  color: Colors.white,
+                                  letterSpacing: 1.w,
+                                  fontFamily: 'applesdneob',
+                                ),
+                              ),
+                            );
+                          }
+                        }),
                   ),
                   Container(
                       alignment: Alignment.topCenter,
