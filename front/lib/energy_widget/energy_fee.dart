@@ -230,7 +230,7 @@ class _energy_fee extends State<energy_fee> {
                             var previousMonthPrice =
                                 double.parse(result[1]['Money']);
                             var table =
-                                MySQLTable(snapshot.data, ['구분', '요금현황']);
+                                ResultSet(snapshot.data, ['구분', '요금현황']);
 
                             int diff = thisMonthPrice.round() -
                                 previousMonthPrice.round();

@@ -67,7 +67,7 @@ class _contracted_price extends State<contracted_price> {
                       var result = snapshot.data as List<Map<String, dynamic>>;
                       var thisMonthPrice = result[0]['Money'];
                       var previousMonthPrice = result[1]['Money'];
-                      var table = MySQLTable(snapshot.data, ['날짜', '기업', '금액', '수주 잔고 금액']);
+                      var table = ResultSet(snapshot.data, ['날짜', '기업', '금액', '수주 잔고 금액']);
 
                       int result_thisMonthPrice = double.parse(thisMonthPrice).round();
 
@@ -155,7 +155,7 @@ class _contracted_price extends State<contracted_price> {
                             Table(
                                 border: detailPageTheme.tableBorderStyle,
                                 children: <TableRow>[
-                                  table.getTableHeader(),
+                                  table.getTableHeaderWidget(),
                                   TableRow(
                                       children: [
                                         TableCell(
@@ -189,7 +189,7 @@ class _contracted_price extends State<contracted_price> {
                                         )
                                       ]
                                   )
-                                ] + table.getTableRows(
+                                ] + table.getTableRowWidgets(
                                     convertor: (row) {
                                       row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                                       row['Backlog'] = '${detailPageTheme.money.format(double.parse(row['Backlog']))} 원';

@@ -59,8 +59,6 @@ class _lead_time extends State<lead_time> {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
 
-                        print('결과 : ${result.length}');
-
                         var today = DateTime.now();
                         int dif = int.parse(today
                             .difference(DateTime.parse(result[0]['DueDate']))

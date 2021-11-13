@@ -68,7 +68,7 @@ class _monthly_figures extends State<monthly_figures> {
                         var thisMonthUse = double.parse(result[0]['Amount']);
                         var previousMonthUse =
                             double.parse(result[1]['Amount']);
-                        var table = MySQLTable(snapshot.data, ['날짜', '전력 사용량']);
+                        var table = ResultSet(snapshot.data, ['날짜', '전력 사용량']);
 
                         int diff =
                             thisMonthUse.round() - previousMonthUse.round();
@@ -168,7 +168,7 @@ class _monthly_figures extends State<monthly_figures> {
                                         color: Colors.black38,
                                         style: BorderStyle.solid)),
                                 children: <TableRow>[
-                                      table.getTableHeader(),
+                                      table.getTableHeaderWidget(),
                                       TableRow(children: [
                                         TableCell(
                                           child: Text(''),
@@ -196,7 +196,7 @@ class _monthly_figures extends State<monthly_figures> {
                                         ))
                                       ])
                                     ] +
-                                    table.getTableRows(convertor: (row) {
+                                    table.getTableRowWidgets(convertor: (row) {
                                       row['Amount'] =
                                           '${detailPageTheme.money.format(double.parse(row['Amount']))} kWh';
                                       return row;

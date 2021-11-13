@@ -40,7 +40,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                 var goal = double.parse(result[0]['Goal']);
                 var achievement = double.parse(result[0]['Achievement']);
                 var achieveRate = (achievement / goal) * 100;
-                var table = MySQLTable(snapshot.data, ['날짜', '목표치', '달성치']);
+                var table = ResultSet(snapshot.data, ['날짜', '목표치', '달성치']);
 
                 List<ChartData> developmentData = [
                   ChartData('complete', achieveRate),
@@ -99,7 +99,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                   color: Colors.black38,
                                   style: BorderStyle.solid)),
                           children: <TableRow>[
-                            table.getTableHeader(),
+                            table.getTableHeaderWidget(),
                             TableRow(
                                 children: [
                                   TableCell(
@@ -130,7 +130,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                   )
                                 ]
                             )
-                          ] + table.getTableRows().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
+                          ] + table.getTableRowWidgets().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
                       )
                     ]
                 );

@@ -13,6 +13,18 @@ class MySQLConnector{
     return [for(var row in jsonData.data.sublist(1)) Map<String, dynamic>.from(row)];
   }
 
+  Future<List<List<Map<String, dynamic>>>> sendQueries(List<String> queries) async {
+    List<List<Map<String, dynamic>>> result = [];
+    for(var query in queries) {
+      var formedQuery = FormData.fromMap({'qry': query});
+      var jsonData = await Dio().post(webServerURL, data: formedQuery);
+      result.add([
+        for(var row in jsonData.data.sublist(1)) Map<String, dynamic>.from(row)
+      ]);
+    }
+    return result;
+  }
+
   void insertSalesData({date, amount}){
     sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'SALES\');');
   }
@@ -34,20 +46,29 @@ class MySQLConnector{
   }
 }
 
-class MySQLTable{
+class ResultSet{
   String tableName = '';
   List<Map<String, dynamic>> rows = [];
   List<String> userDefinedColumnNames = [];
   DetailPageTheme detailPageTheme = DetailPageTheme();
 
-  MySQLTable(data, [userDefinedColumnNames]){
+  ResultSet(data, [userDefinedColumnNames]){
     for(var row in data)
       this.rows.add(Map.of(row));
     if(userDefinedColumnNames != null)
       this.userDefinedColumnNames = userDefinedColumnNames;
   }
 
-  TableRow getTableHeader(){
+  bool isEmpty(){
+    if(rows.length == 0) return true;
+    return false;
+  }
+
+  List<String> getColumnNames(){
+    return [for(var col in rows[0].keys) col];
+  }
+
+  TableRow getTableHeaderWidget(){
     return TableRow(
       children: <Widget>[
         for(String column in userDefinedColumnNames)
@@ -62,7 +83,7 @@ class MySQLTable{
     );
   }
 
-  List<TableRow> getTableRows({convertor}){
+  List<TableRow> getTableRowWidgets({convertor}){
     if(convertor == null)
       convertor = (row){ return row; };
 
