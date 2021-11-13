@@ -33,14 +33,14 @@ class _development_completion_rate extends State<development_completion_rate>{
         context: context,
         title: '개발완료율',
         content: FutureBuilder(
-            future: conn.sendQuery('SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY RecordedDate DESC;'),
+            future: conn.sendQuery('SELECT Label, RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY Achievement/Goal DESC;'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var result = snapshot.data as List<Map<String, dynamic>>;
                 var goal = double.parse(result[0]['Goal']);
                 var achievement = double.parse(result[0]['Achievement']);
                 var achieveRate = (achievement / goal) * 100;
-                var table = ResultSet(snapshot.data, ['날짜', '목표치', '달성치']);
+                var table = ResultSet(snapshot.data, ['프로젝트명', '시작일', '목표치', '달성치']);
 
                 List<ChartData> developmentData = [
                   ChartData('complete', achieveRate),
@@ -52,7 +52,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                       Padding(
                           padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
                           child: Text.rich(
-                            detailPageTheme.makeHeaderText('현재까지 개발 완료율은\n[${achieveRate.round()}%] 입니다.'),
+                            detailPageTheme.makeHeaderText('현재까지 ${result[0]['Label']} 개발 완료율은\n[${achieveRate.round()}%] 입니다.'),
                           )
                       ),
                       SfCircularChart(
@@ -102,6 +102,9 @@ class _development_completion_rate extends State<development_completion_rate>{
                             table.getTableHeaderWidget(),
                             TableRow(
                                 children: [
+                                  TableCell(
+                                    child: Text(''),
+                                  ),
                                   TableCell(
                                     child: Text(''),
                                   ),

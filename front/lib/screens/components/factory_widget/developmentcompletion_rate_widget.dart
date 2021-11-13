@@ -35,7 +35,7 @@ class _Developmentcompletion_Rate_Widget extends State<Developmentcompletion_Rat
         },
         dbRelatedContentBuilder: FutureBuilder(
             future: conn.sendQuery(
-                'SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY RecordedDate DESC;'),
+                'SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY Achievement/Goal DESC;'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var result = snapshot.data as List<Map<String, dynamic>>;
