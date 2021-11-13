@@ -18,6 +18,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
   List<ChartData> cashData = [];
   @override
   Widget build(BuildContext context) {
+    bool isScrolling = false;
     return BoxWidget('현금보유액', 'safe', 'wide').make(
       onTap: () {
         Navigator.of(context)
@@ -32,9 +33,18 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               cashData.add(ChartData(double.parse(result[i]['Year']), double.parse(result[i]['Money'])));
 
             return SfCartesianChart(
-                onChartTouchInteractionDown: (_Cash_Reserve_Widget) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => cash_reserve()));
+                onChartTouchInteractionMove: (_Cash_Reserve_Widget){
+                  isScrolling = true;
+                },
+                onChartTouchInteractionUp: (_Cash_Reserve_Widget) {
+                  if(isScrolling == false) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => cash_reserve()));
+                  }
+                  isScrolling = false;
+                },
+                onChartTouchInteractionDown: (_Cash_Reserve_Widget){
+                  isScrolling = false;
                 },
                 primaryXAxis: CategoryAxis(
                   majorGridLines: MajorGridLines(width: 0),

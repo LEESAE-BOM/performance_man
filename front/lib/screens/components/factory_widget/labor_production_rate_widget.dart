@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/factory_widget/labor_production_rate.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
-import 'package:intl/intl.dart';
 import 'dart:math';
 
 //큰 위젯
@@ -14,9 +12,9 @@ class Labor_Production_Rate_Widget extends StatefulWidget {
       _Labor_Production_Rate_Widget();
 }
 
-class _Labor_Production_Rate_Widget
-    extends State<Labor_Production_Rate_Widget> {
+class _Labor_Production_Rate_Widget extends State<Labor_Production_Rate_Widget> {
   List<ChartData> laborData = [];
+  bool isScrolling = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +30,24 @@ class _Labor_Production_Rate_Widget
             if (snapshot.hasData) {
               var result = snapshot.data as List<Map<String, dynamic>>;
 
-              print('결과 : ${result.length}');
-
               for (int i = 0; i < min(result.length, 12); i++)
                 laborData.add(ChartData(double.parse(result[i]['Month']),
                     double.parse(result[i]['Productivity'])));
 
               return SfCartesianChart(
-                onChartTouchInteractionDown: (_Labor_Production_Rate_Widget) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => labor_production_rate()));
+                onChartTouchInteractionMove: (_Labor_Production_Rate_Widget){
+                  isScrolling = true;
                 },
-
-
+                onChartTouchInteractionUp: (_Labor_Production_Rate_Widget) {
+                  if(isScrolling == false) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => labor_production_rate()));
+                  }
+                  isScrolling = false;
+                },
+                onChartTouchInteractionDown: (_Labor_Production_Rate_Widget){
+                  isScrolling = false;
+                },
                 primaryXAxis: NumericAxis(
                     edgeLabelPlacement: EdgeLabelPlacement.shift,
                     isVisible: true),

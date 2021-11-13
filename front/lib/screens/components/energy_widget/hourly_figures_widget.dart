@@ -26,6 +26,8 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   }
 
   Widget build(BuildContext context) {
+    bool isScrolling = false;
+
     return BoxWidget('시간별 에너지', 'safe', 'narrow').make(
         onTap: () {
           Navigator.of(context)
@@ -59,25 +61,44 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                 _chart_Data[(max / 2).round() - 3].color =
                     Color.fromRGBO(225, 72, 72, 1);
                 return Container(
-                  child: SfCircularChart(annotations: <CircularChartAnnotation>[
-                    CircularChartAnnotation(
-                        widget: Container(
-                            child: Text('${max}시~${max + 1}시',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 50.sp,
-                                    fontFamily: 'applesdneom'))))
-                  ], series: <CircularSeries>[
-                    // Renders doughnut chart
-                    DoughnutSeries<Chart_Data, String>(
-                        dataSource: _chart_Data,
-                        pointColorMapper: (Chart_Data data, _) => data.color,
-                        xValueMapper: (Chart_Data data, _) => data.x,
-                        yValueMapper: (Chart_Data data, _) => data.y,
-                        radius: '100%'
-                        // explode: true
+                  child: SfCircularChart(
+                      onChartTouchInteractionMove: (_Hourly_Figures_Widget){
+                        isScrolling = true;
+                      },
+                      onChartTouchInteractionUp: (_Hourly_Figures_Widget){
+                        if(isScrolling == false){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => hourly_figures()));
+                        }
+                        isScrolling = false;
+                      },
+                      onChartTouchInteractionDown: (_Hourly_Figures_Widget){
+                        isScrolling = false;
+                      },
+                      annotations: <CircularChartAnnotation>[
+                        CircularChartAnnotation(
+                            widget: Container(
+                                child: Text(
+                                    '${max}시~${max + 1}시',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 50.sp,
+                                        fontFamily: 'applesdneom'
+                                    )
+                                )
+                            )
                         )
-                  ]),
+                      ],
+                      series: <CircularSeries>[
+                        DoughnutSeries<Chart_Data, String>(
+                            dataSource: _chart_Data,
+                            pointColorMapper: (Chart_Data data, _) => data.color,
+                            xValueMapper: (Chart_Data data, _) => data.x,
+                            yValueMapper: (Chart_Data data, _) => data.y,
+                            radius: '100%'
+                        )
+                      ]
+                  ),
                 );
               } else {
                 return Text.rich(TextSpan(text: '불러오는 중'));

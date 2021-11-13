@@ -90,7 +90,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                     ),
                     SizedBox(width: 10.w),
                     Image.asset(
-                      'image/danger.png',
+                      'image/danger_light.png',
                       width: 20.w,
                       height: 20.w,
                     ),

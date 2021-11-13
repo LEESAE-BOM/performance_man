@@ -13,6 +13,7 @@ class Outsourcing_Ratio_Widget extends StatefulWidget {
 
 class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
   List<ChartData> outsourcingData = [];
+  bool isScrolling = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +46,18 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
               outsourcingData.add(ChartData(' ', 100 - rate.round()));
 
               return SfCircularChart(
-                  onChartTouchInteractionDown: (_Outsourcing_Ratio_Widget) {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => outsourcing_ratio()));
+                  onChartTouchInteractionMove: (_Outsourcing_Ratio_Widget){
+                    isScrolling = true;
+                  },
+                  onChartTouchInteractionUp: (_Outsourcing_Ratio_Widget) {
+                    if(isScrolling == false){
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) => outsourcing_ratio()));
+                    }
+                    isScrolling = false;
+                  },
+                  onChartTouchInteractionDown: (_Outsourcing_Ratio_Widget){
+                    isScrolling = false;
                   },
                   palette: <Color>[
                     Colors.blue,
