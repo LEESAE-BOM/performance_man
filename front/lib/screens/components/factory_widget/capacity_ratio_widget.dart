@@ -21,6 +21,8 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
 
   @override
   Widget build(BuildContext context) {
+    bool isScrolling = false;
+
     return BoxWidget('설비가동률', 'danger', 'narrow').make(
         onTap: () {
           Navigator.of(context)
@@ -43,9 +45,18 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
 
                 return SfCircularChart(
                     tooltipBehavior: _toolTipBehavior,
-                    onChartTouchInteractionDown: (_Capacity_Ratio_Widget) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => capacity_ratio()));
+                    onChartTouchInteractionMove: (_Capacity_Ratio_Widget){
+                      isScrolling = true;
+                    },
+                    onChartTouchInteractionUp: (_Capacity_Ratio_Widget) {
+                      if(isScrolling == false) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => capacity_ratio()));
+                      }
+                      isScrolling = false;
+                    },
+                    onChartTouchInteractionDown: (_Capacity_Ratio_Widget){
+                      isScrolling = false;
                     },
                     series: <CircularSeries>[
                       DoughnutSeries<ChartData, String>(

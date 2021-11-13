@@ -12,6 +12,8 @@ class Labor_Ratio_Widget extends StatefulWidget {
 }
 
 class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
+  bool isScrolling = false;
+
   @override
   Widget build(BuildContext context) {
     List<ChartData> laborData = [];
@@ -52,9 +54,18 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
               laborData.add(ChartData('간접인건비', IDLBRRate, '${IDLBRRate.round()}%'));
 
               return SfCircularChart(
-                  onChartTouchInteractionDown: (_Labor_Ratio_Widget) {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => labor_ratio()));
+                  onChartTouchInteractionMove: (_Labor_Ratio_Widget){
+                    isScrolling = true;
+                  },
+                  onChartTouchInteractionUp: (_Labor_Ratio_Widget) {
+                    if(isScrolling == false) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => labor_ratio()));
+                    }
+                    isScrolling = false;
+                  },
+                  onChartTouchInteractionDown: (_Labor_Ratio_Widget){
+                    isScrolling = false;
                   },
                   palette: <Color>[
                     Colors.indigo,

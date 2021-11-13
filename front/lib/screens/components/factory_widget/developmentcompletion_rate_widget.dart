@@ -26,6 +26,8 @@ class _Developmentcompletion_Rate_Widget extends State<Developmentcompletion_Rat
 
   @override
   Widget build(BuildContext context) {
+    bool isScrolling = false;
+
     return BoxWidget("개발완료율", "safe", "wide").make(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -47,10 +49,18 @@ class _Developmentcompletion_Rate_Widget extends State<Developmentcompletion_Rat
 
                 return SfCartesianChart(
                   tooltipBehavior: _toolTipBehavior,
-                  onChartTouchInteractionDown:
-                      (_Developmentcompletion_Rate_Widget) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => development_completion_rate()));
+                  onChartTouchInteractionMove: (_Developmentcompletion_Rate_Widget){
+                    isScrolling = true;
+                  },
+                  onChartTouchInteractionUp: (_Developmentcompletion_Rate_Widget) {
+                    if(isScrolling == false) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => development_completion_rate()));
+                    }
+                    isScrolling = false;
+                  },
+                  onChartTouchInteractionDown: (_Developmentcompletion_Rate_Widget){
+                    isScrolling = false;
                   },
                   palette: <Color>[
                     Colors.teal,
