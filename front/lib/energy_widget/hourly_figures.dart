@@ -15,7 +15,6 @@ class hourly_figures extends StatefulWidget {
 
 class _hourly_figures extends State<hourly_figures> {
   late List<Chart_Data3> _chart_Data2;
-  late List<Chart_Data> _chart_Data3;
 
   late ZoomPanBehavior _zoomPanBehavior;
 
@@ -34,7 +33,6 @@ class _hourly_figures extends State<hourly_figures> {
 
   void initState() {
     _chart_Data2 = getChartData2();
-    _chart_Data3 = getChartData3();
 
     _zoomPanBehavior = ZoomPanBehavior(
         // Enables pinch zooming
@@ -78,37 +76,6 @@ class _hourly_figures extends State<hourly_figures> {
 
   @override
   Widget build(BuildContext context) {
-    /* Widget chartSection3 = Container(
-        width: 1000.w,
-        height: 250,
-        child: SfCircularChart(annotations: <CircularChartAnnotation>[
-          CircularChartAnnotation(
-              widget: Container(
-                child: Text(
-                  String.fromCharCode(0xe190),
-                  style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.blue,
-                      letterSpacing: 5.0,
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'applesdneob'),
-                ),
-              ))
-        ], series: <CircularSeries>[
-          // Renders doughnut chart
-          DoughnutSeries<Chart_Data, String>(
-              dataSource: _chart_Data3,
-              pointColorMapper: (Chart_Data data, _) => data.color,
-              xValueMapper: (Chart_Data data, _) => data.x,
-              yValueMapper: (Chart_Data data, _) => data.y,
-              startAngle: 270,
-              // Starting angle of doughnut
-              endAngle: 90,
-              radius: '110%' // Ending angle of doughnut
-            //strokeWidth: 20,
-            // explode: true
-          )
-        ], borderWidth: 1)); */
 
     return Scaffold(
         appBar: AppBar(
