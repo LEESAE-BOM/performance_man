@@ -77,7 +77,12 @@ flutter:
     - image/logo.png
     - image/logo_white.png
     - image/logo_color.png
-    - image/energy_chart.jpg
+    - image/energychart01.png
+    - image/energychart02.png
+    - image/energychart03.png
+    - image/energychart04.png
+    - image/energychart05.png
+    - image/energychart06.png
 
 
 flutter_native_splash:
