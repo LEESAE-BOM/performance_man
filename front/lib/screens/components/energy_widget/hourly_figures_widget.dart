@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/energy_widget/hourly_figures.dart';
 import 'package:flutter_app/mysql_connect.dart';
-import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/box_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //작은 위젯
@@ -28,7 +26,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   }
 
   Widget build(BuildContext context) {
-    return BoxWidget('시간별 에너지', 'safe', 'wide').make(
+    return BoxWidget('시간별 에너지', 'safe', 'narrow').make(
         onTap: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => hourly_figures()));
@@ -58,7 +56,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                     max = i;
                   }
                 }
-                _chart_Data[((max / 2) as int) - 3].color =
+                _chart_Data[(max / 2).round() - 3].color =
                     Color.fromRGBO(225, 72, 72, 1);
                 return Container(
                   child: SfCircularChart(annotations: <CircularChartAnnotation>[

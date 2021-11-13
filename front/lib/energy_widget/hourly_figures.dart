@@ -4,7 +4,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'dart:math';
 
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
@@ -19,7 +18,6 @@ class _hourly_figures extends State<hourly_figures> {
   late List<Chart_Data> _chart_Data3;
 
   late ZoomPanBehavior _zoomPanBehavior;
-  late TooltipBehavior _toolTipBehavior;
 
   List<Chart_Data> _chart_Data = [];
   List<_SplineAreaData> Energyusage = [];
@@ -28,8 +26,6 @@ class _hourly_figures extends State<hourly_figures> {
   void initState() {
     _chart_Data2 = getChartData2();
     _chart_Data3 = getChartData3();
-
-    _toolTipBehavior = TooltipBehavior(enable: true);
 
     _zoomPanBehavior = ZoomPanBehavior(
       // Enables pinch zooming
@@ -72,7 +68,7 @@ class _hourly_figures extends State<hourly_figures> {
 
   @override
   Widget build(BuildContext context) {
-    Widget chartSection3 = Container(
+    /* Widget chartSection3 = Container(
         width: 1000.w,
         height: 250,
         child: SfCircularChart(annotations: <CircularChartAnnotation>[
@@ -102,7 +98,7 @@ class _hourly_figures extends State<hourly_figures> {
             //strokeWidth: 20,
             // explode: true
           )
-        ], borderWidth: 1));
+        ], borderWidth: 1)); */
 
     return Scaffold(
         appBar: AppBar(
@@ -132,7 +128,6 @@ class _hourly_figures extends State<hourly_figures> {
                         snapshot.data as List<Map<String, dynamic>>;
                         var thisYear =
                             DateTime.parse(result[0]['UseDate']).year; //2019년
-                        int thisHour = int.parse(result[0]['UseTime']);
 
                         for (var row in result) {
                           DateTime toDate = DateTime.parse(row['UseDate']);
@@ -169,7 +164,7 @@ class _hourly_figures extends State<hourly_figures> {
                             max = i;
                           }
                         }
-                        _chart_Data[((max/2) as int)-3].color=Color.fromRGBO(225, 72, 72, 1);
+                        _chart_Data[(max/2).round()-3].color=Color.fromRGBO(225, 72, 72, 1);
 
                         return ListView(children: <Widget>[
                           Padding(
@@ -181,13 +176,16 @@ class _hourly_figures extends State<hourly_figures> {
                               ]))),
                           Column(children: <Widget>[
                             CarouselSlider(
-                                height: 400,
-                                autoPlay: false,
-                                pauseAutoPlayOnTouch: Duration(seconds: 10),
-                                aspectRatio: 3.0,
-                                items: <Widget>[
-                                  ListView(children: <Widget>[
-                                    Container(
+                              options: CarouselOptions(
+                                  height: 400,
+                                  autoPlay: false,
+                                  aspectRatio: 3.0,
+                                  initialPage: 0,
+                              ),
+                                items: [
+                                  ListView(
+                                      children: <Widget>[
+                                        Container(
                                         width: 1080.w,
                                         height: 250,
                                         child: SfCircularChart(annotations: <
@@ -218,7 +216,7 @@ class _hourly_figures extends State<hourly_figures> {
                                             // explode: true
                                           )
                                         ])),
-                                    Center(
+                                        Center(
                                         child: Container(
                                             width: 1080.w,
                                             height: 120,
@@ -269,8 +267,9 @@ class _hourly_figures extends State<hourly_figures> {
                                               plotAreaBorderWidth: 0,
                                             )))
                                   ]),
-                                  ListView(children: <Widget>[
-                                    Stack(
+                                  ListView(
+                                      children: <Widget>[
+                                        Stack(
                                         alignment: Alignment.center,
                                         children: <Widget>[
                                           Image.asset(
@@ -289,7 +288,7 @@ class _hourly_figures extends State<hourly_figures> {
                                                 ))
                                           ])
                                         ]),
-                                    Padding(
+                                        Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             100.sp, 0, 100.sp, 0),
                                         child: Column(children: <Widget>[
