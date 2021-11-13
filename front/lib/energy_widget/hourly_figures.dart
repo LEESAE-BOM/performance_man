@@ -23,12 +23,21 @@ class _hourly_figures extends State<hourly_figures> {
   List<_SplineAreaData> Energyusage = [];
   List<_SplineAreaData1> Energyusage_time = [];
 
+  List<String> imageList=[
+    'image/energychart01.png',
+    'image/energychart02.png',
+    'image/energychart03.png',
+    'image/energychart04.png',
+    'image/energychart05.png',
+    'image/energychart06.png',
+  ];
+
   void initState() {
     _chart_Data2 = getChartData2();
     _chart_Data3 = getChartData3();
 
     _zoomPanBehavior = ZoomPanBehavior(
-      // Enables pinch zooming
+        // Enables pinch zooming
         enablePinching: true,
         zoomMode: ZoomMode.x,
         enablePanning: true,
@@ -39,8 +48,9 @@ class _hourly_figures extends State<hourly_figures> {
     for (double i = 1; i <= 24; i++)
       Energyusage_time.add(_SplineAreaData1('$i시', 0, 0));
 
-    for (double i = 1; i <24; i+=2)
-      _chart_Data.add(Chart_Data('$i시~${i+1}시', 1, Color.fromRGBO(226, 226, 226, 1)));
+    for (double i = 1; i < 24; i += 2)
+      _chart_Data.add(
+          Chart_Data('$i시~${i + 1}시', 1, Color.fromRGBO(226, 226, 226, 1)));
 
     super.initState();
   }
@@ -125,9 +135,11 @@ class _hourly_figures extends State<hourly_figures> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result =
-                        snapshot.data as List<Map<String, dynamic>>;
+                            snapshot.data as List<Map<String, dynamic>>;
                         var thisYear =
                             DateTime.parse(result[0]['UseDate']).year; //2019년
+
+                        String chart_image='';
 
                         for (var row in result) {
                           DateTime toDate = DateTime.parse(row['UseDate']);
@@ -164,7 +176,23 @@ class _hourly_figures extends State<hourly_figures> {
                             max = i;
                           }
                         }
-                        _chart_Data[(max/2).round()-3].color=Color.fromRGBO(225, 72, 72, 1);
+                        _chart_Data[(max / 2).round() - 3].color =
+                            Color.fromRGBO(225, 72, 72, 1);
+
+                        if(Energyusage_time[max].y2<1000){
+                          chart_image=imageList[0];
+                        }else if(Energyusage_time[max].y2<2000){
+                          chart_image=imageList[1];}
+                        else if(Energyusage_time[max].y2<3000){
+                          chart_image=imageList[2];}
+                        else if(Energyusage_time[max].y2<4000){
+                          chart_image=imageList[3];}
+                        else if(Energyusage_time[max].y2<5000){
+                          chart_image=imageList[4];}
+                        else{
+                          chart_image=imageList[5];}
+
+
 
                         return ListView(children: <Widget>[
                           Padding(
@@ -176,16 +204,15 @@ class _hourly_figures extends State<hourly_figures> {
                               ]))),
                           Column(children: <Widget>[
                             CarouselSlider(
-                              options: CarouselOptions(
+                                options: CarouselOptions(
                                   height: 400,
                                   autoPlay: false,
                                   aspectRatio: 3.0,
                                   initialPage: 0,
-                              ),
+                                ),
                                 items: [
-                                  ListView(
-                                      children: <Widget>[
-                                        Container(
+                                  ListView(children: <Widget>[
+                                    Container(
                                         width: 1080.w,
                                         height: 250,
                                         child: SfCircularChart(annotations: <
@@ -198,42 +225,42 @@ class _hourly_figures extends State<hourly_figures> {
                                                           color: Colors.red,
                                                           fontSize: 60.sp,
                                                           fontFamily:
-                                                          'applesdneom'))))
+                                                              'applesdneom'))))
                                         ], series: <CircularSeries>[
                                           // Renders doughnut chart
                                           DoughnutSeries<Chart_Data, String>(
                                               dataSource: _chart_Data,
                                               pointColorMapper:
                                                   (Chart_Data data, _) =>
-                                              data.color,
+                                                      data.color,
                                               xValueMapper:
                                                   (Chart_Data data, _) =>
-                                              data.x,
+                                                      data.x,
                                               yValueMapper:
                                                   (Chart_Data data, _) =>
-                                              data.y,
+                                                      data.y,
                                               radius: '100%'
-                                            // explode: true
-                                          )
+                                              // explode: true
+                                              )
                                         ])),
-                                        Center(
+                                    Center(
                                         child: Container(
                                             width: 1080.w,
                                             height: 120,
                                             child: SfCartesianChart(
                                               primaryXAxis: CategoryAxis(
                                                   edgeLabelPlacement:
-                                                  EdgeLabelPlacement.shift,
+                                                      EdgeLabelPlacement.shift,
                                                   majorGridLines:
-                                                  MajorGridLines(width: 0),
+                                                      MajorGridLines(width: 0),
                                                   axisLine: AxisLine(width: 0),
                                                   majorTickLines:
-                                                  MajorTickLines(width: 0),
+                                                      MajorTickLines(width: 0),
                                                   isVisible: true),
                                               primaryYAxis: NumericAxis(
                                                 isVisible: false,
                                                 majorGridLines:
-                                                MajorGridLines(width: 0),
+                                                    MajorGridLines(width: 0),
                                                 axisLine: AxisLine(width: 0),
                                               ),
                                               series: <ChartSeries>[
@@ -243,52 +270,45 @@ class _hourly_figures extends State<hourly_figures> {
                                                     trackColor: Colors.black12,
                                                     pointColorMapper:
                                                         (Chart_Data3 data, _) =>
-                                                    data.color,
+                                                            data.color,
                                                     xValueMapper:
                                                         (Chart_Data3 data, _) =>
-                                                    data.x,
+                                                            data.x,
                                                     yValueMapper:
                                                         (Chart_Data3 data, _) =>
-                                                    data.y1,
+                                                            data.y1,
                                                     dataLabelSettings:
-                                                    DataLabelSettings(
+                                                        DataLabelSettings(
                                                       isVisible: true,
                                                       textStyle: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 35.sp),
                                                       labelAlignment:
-                                                      ChartDataLabelAlignment
-                                                          .top,
+                                                          ChartDataLabelAlignment
+                                                              .top,
                                                     ),
                                                     borderRadius:
-                                                    BorderRadius.circular(
-                                                        5)),
+                                                        BorderRadius.circular(
+                                                            5)),
                                               ],
                                               plotAreaBorderWidth: 0,
                                             )))
                                   ]),
-                                  ListView(
-                                      children: <Widget>[
-                                        Stack(
+                                  ListView(children: <Widget>[
+                                    Stack(
                                         alignment: Alignment.center,
                                         children: <Widget>[
                                           Image.asset(
-                                            'image/energy_chart.jpg',
+                                            chart_image,
                                             width: 1080.w,
                                             height: 200,
-                                          ),
-                                          Column(children: [
-                                            SizedBox(height: 60),
-                                            Transform.rotate(
-                                                angle: 360,
-                                                child: Icon(
-                                                  Icons.west,
-                                                  color: Colors.black54,
-                                                  size: 35.0,
-                                                ))
-                                          ])
+                                          )
+
                                         ]),
-                                        Padding(
+                                    SizedBox(
+                                      height: 50,
+                                    ),
+                                    Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             100.sp, 0, 100.sp, 0),
                                         child: Column(children: <Widget>[
@@ -298,8 +318,8 @@ class _hourly_figures extends State<hourly_figures> {
                                               height: 17,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      3), //모서리를 둥글게
+                                                      BorderRadius.circular(
+                                                          3), //모서리를 둥글게
                                                   color: Colors.black12), //테두리
                                             ),
                                             Text(' 정상')
@@ -313,8 +333,8 @@ class _hourly_figures extends State<hourly_figures> {
                                               height: 17,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      3), //모서리를 둥글게
+                                                      BorderRadius.circular(
+                                                          3), //모서리를 둥글게
                                                   color: Colors.green), //테두리
                                             ),
                                             Text(' 준비 (4,500이상 ~ 5,500미만)')
@@ -328,10 +348,10 @@ class _hourly_figures extends State<hourly_figures> {
                                               height: 17,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      3), //모서리를 둥글게
+                                                      BorderRadius.circular(
+                                                          3), //모서리를 둥글게
                                                   color:
-                                                  Colors.lightGreen), //테두리
+                                                      Colors.lightGreen), //테두리
                                             ),
                                             Text(' 관심 (3,500이상 ~ 4,500미만)')
                                           ]),
@@ -344,10 +364,10 @@ class _hourly_figures extends State<hourly_figures> {
                                               height: 17,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      3), //모서리를 둥글게
+                                                      BorderRadius.circular(
+                                                          3), //모서리를 둥글게
                                                   color:
-                                                  Colors.amberAccent), //테두리
+                                                      Colors.amberAccent), //테두리
                                             ),
                                             Text(' 주의 (2,500이상 ~ 3,500미만)')
                                           ]),
@@ -360,8 +380,8 @@ class _hourly_figures extends State<hourly_figures> {
                                               height: 17,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      3), //모서리를 둥글게
+                                                      BorderRadius.circular(
+                                                          3), //모서리를 둥글게
                                                   color: Colors.orange), //테두리
                                             ),
                                             Text(' 경계 (1,500이상 ~ 2,500미만)')
@@ -375,8 +395,8 @@ class _hourly_figures extends State<hourly_figures> {
                                               height: 17,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      3), //모서리를 둥글게
+                                                      BorderRadius.circular(
+                                                          3), //모서리를 둥글게
                                                   color: Colors.red), //테두리
                                             ),
                                             Text(' 심각 (1,500미만)')
@@ -407,25 +427,25 @@ class _hourly_figures extends State<hourly_figures> {
                                     zoomPanBehavior: _zoomPanBehavior,
                                     series: <ChartSeries>[
                                       SplineAreaSeries<_SplineAreaData1,
-                                          String>(
+                                              String>(
                                           dataSource: Energyusage_time,
                                           // Type of spline
                                           splineType: SplineType.cardinal,
                                           cardinalSplineTension: 0.9,
                                           xValueMapper:
                                               (_SplineAreaData1 energy, _) =>
-                                          energy.x,
+                                                  energy.x,
                                           yValueMapper:
                                               (_SplineAreaData1 energy, _) =>
-                                          energy.y1)
+                                                  energy.y1)
                                     ],
                                     primaryXAxis: CategoryAxis(
                                       edgeLabelPlacement:
-                                      EdgeLabelPlacement.shift,
+                                          EdgeLabelPlacement.shift,
                                     ),
                                     primaryYAxis: NumericAxis(
                                         edgeLabelPlacement:
-                                        EdgeLabelPlacement.shift,
+                                            EdgeLabelPlacement.shift,
                                         numberFormat: NumberFormat.compact())))
                           ])
                         ]);
@@ -476,7 +496,3 @@ class Chart_Data3 {
   final double y1;
   final Color color;
 }
-
-
-
-
