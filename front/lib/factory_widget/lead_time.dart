@@ -17,6 +17,14 @@ class _lead_time extends State<lead_time> {
   late List<Chart_Data> chartData;
   late TooltipBehavior _toolTipBehavior;
 
+  late ZoomPanBehavior _zoomPanBehavior;
+  Map<String, int> selectOptions = {
+    '진행중': 1,
+    '전체보기': 300,
+  };
+  var dropDownValue = '진행중';
+  List<ChartData> salesData = [];
+
   void initState() {
     chartData = getChartData();
     _toolTipBehavior = TooltipBehavior();
@@ -58,7 +66,13 @@ class _lead_time extends State<lead_time> {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
+                        var table = MySQLTable(snapshot.data,
+                            ['이름', '소요', '누적', '납기', '시작', '예정']);
 
+                        print('결과 : ${result.length}');
+
+
+                        
                         var today = DateTime.now();
                         int dif = int.parse(today
                             .difference(DateTime.parse(result[0]['DueDate']))
@@ -148,71 +162,20 @@ class _lead_time extends State<lead_time> {
                             //chart 테두리 삭제
                             borderWidth: 30,
                           ),
-                          Column(children: <Widget>[
-                            Text.rich(
-                              TextSpan(
-                                // default text style
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: '예정일 D-${dif}',
-                                    style: TextStyle(
-                                        fontSize: 100.sp,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'applesdneol'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 20.0),
-                            Text.rich(
-                              TextSpan(
-                                // default text style
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: '제품 소요시간 ${result[0]['ProductTime']} Days',
-                                    style: TextStyle(
-                                        fontSize: 90.sp,
-                                        color: Colors.black,
-                                        letterSpacing: 1.0,
-                                        fontFamily: 'applesdneob'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10.0),
-                            Text.rich(
-                              TextSpan(
-                                // default text style
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: '누적 소요시간 ${result[0]['CumulativeTime']} Days',
-                                    style: TextStyle(
-                                        fontSize: 90.sp,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'applesdneol'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10.0),
-                            Text.rich(
-                              TextSpan(
-                                // default text style
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: '납기 소요시간 ${result[0]['DeliveryTime']} Days',
-                                    style: TextStyle(
-                                        fontSize: 90.sp,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'applesdneol'),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ])
+                          Table(
+                              border: TableBorder(
+                                  horizontalInside: BorderSide(
+                                      width: 1,
+                                      color: Colors.black38,
+                                      style: BorderStyle.solid)),
+
+                              children: <TableRow>[
+                                    table.getTableHeader(),
+                                  ] +
+                                  table.getTableRows(convertor: (row) {
+
+                                    return row;
+                                  }))
                         ]);
                       } else
                         return Text('불러오는 중');
