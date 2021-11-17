@@ -4,7 +4,6 @@ import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 
@@ -27,7 +26,6 @@ class _sales extends State<sales> {
   @override
   void initState() {
     _zoomPanBehavior = ZoomPanBehavior(
-      // Enables pinch zooming
         enablePinching: true,
         zoomMode: ZoomMode.x,
         enablePanning: true,
@@ -110,8 +108,8 @@ class _sales extends State<sales> {
                                   ],
                                   primaryXAxis: CategoryAxis(),
                                   primaryYAxis: NumericAxis(
-                                    // Y axis labels will be rendered with currency format
-                                      numberFormat: NumberFormat.compact()),
+                                      numberFormat: NumberFormat.compact(locale:"ko_KR" ),
+                                  ),
                                   legend: Legend(
                                       isVisible: true,
                                       // Legend will be placed at the left
