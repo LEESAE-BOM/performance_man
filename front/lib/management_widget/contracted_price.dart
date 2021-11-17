@@ -175,6 +175,7 @@ class _contracted_price extends State<contracted_price> {
                                     ),
                                     TableCell(
                                         child: Container(
+                                          alignment: Alignment.centerRight,
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 50.sp),
                                       child: DropdownButton(
@@ -182,14 +183,14 @@ class _contracted_price extends State<contracted_price> {
                                         items: <DropdownMenuItem<String>>[
                                           for (var val in selectOptions.keys)
                                             DropdownMenuItem(
-                                                value: val, child: Text(val))
+                                                value: val, child: Text(val,style: TextStyle(fontSize: 28.w,)))
                                         ],
                                         onChanged: (String? val) {
                                           setState(() {
                                             dropDownValue = val!;
                                           });
                                         },
-                                        isExpanded: true,
+                            
                                       ),
                                     ))
                                   ])
