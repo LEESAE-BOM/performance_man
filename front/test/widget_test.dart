@@ -51,13 +51,13 @@ class _Home extends State<Home> {
               future: connector.sendQuery(selectOptions[dropDownValue]),
               builder: (context, snapshot){
                 if(snapshot.hasData){
-                  var table = sql.MySQLTable(snapshot.data, ['아이디', '비번']);
-                  TableRow header = table.getTableHeader();
+                  var table = sql.ResultSet(snapshot.data, ['아이디', '비번']);
+                  TableRow header = table.getTableHeaderWidget();
                   return Table(
                       border: TableBorder(horizontalInside: BorderSide(width: 1, color: Colors.black38, style: BorderStyle.solid)),
                       children: <TableRow>[
                         header,
-                      ] + table.getTableRows()
+                      ] + table.getTableRowWidgets()
                   );
                 }else{
                   return Text('...');
