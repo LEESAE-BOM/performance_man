@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
+import 'dart:math';
 
 class energy_fee extends StatefulWidget {
   @override
@@ -12,33 +12,22 @@ class energy_fee extends StatefulWidget {
 }
 
 class _energy_fee extends State<energy_fee> {
-  final List<String> _valueList = [
-    '1월',
-    '2월',
-    '3월',
-    '4월',
-    '5월',
-    '6월',
-    '7월',
-    '8월',
-    '9월',
-    '10월',
-    '11월',
-    '12월'
-  ];
-  String? _selectedValue = '10월';
+  Map<String, int> selectOptions = {
+    '최근 6개월': 6,
+    '최근 12개월': 12,
+    '전체보기': detailPageTheme.maxTableRow,
+  };
+  var dropDownValue = '최근 6개월';
+
   late List<Chart_Data>? _chart_Data;
   late List<Chart_Data>? _chart_Data2;
-  late List<Chart_Data3> _chart_Data3;
   late TooltipBehavior _toolTipBehavior;
   List<ChartData> salesData = [];
 
   void initState() {
     _chart_Data = getChartData();
     _chart_Data2 = getChartData2();
-    _chart_Data3 = getChartData3();
     _toolTipBehavior = TooltipBehavior();
-    for (int i = 1; i <= 12; i++) salesData.add(ChartData('$i월', 0, 0, 0));
     super.initState();
   }
 
@@ -58,249 +47,62 @@ class _energy_fee extends State<energy_fee> {
     return getChartData;
   }
 
-  List<Chart_Data3> getChartData3() {
-    final List<Chart_Data3> getChartData = [
-      Chart_Data3('당일누적요금', 780, Color.fromRGBO(43, 63, 107, 1)),
-      Chart_Data3('당월누적요금', 560, Color.fromRGBO(43, 63, 107, 1)),
-      Chart_Data3('전월요금', 300, Color.fromRGBO(43, 63, 107, 1)),
-    ];
-    return getChartData;
-  }
-
   @override
   Widget build(BuildContext context) {
-    Widget datatableSection1 = Padding(
-        padding: EdgeInsets.fromLTRB(30.w, 100.sp, 30.w, 0),
-        child: Center(
-            child: Container(
-                width: double.infinity,
-                child: Theme(
-                    data: Theme.of(context)
-                        .copyWith(dividerColor: Colors.black12),
-                    child: DataTable(
-                      columnSpacing: 0,
-                      horizontalMargin: 0,
-                      headingRowColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.black12),
-                      columns: [
-                        DataColumn(
-                          label: Container(
-                            alignment: Alignment.center,
-                            width: 1020.w * .3,
-                            child: Text(
-                              '구분',
-                              style: TextStyle(
-                                  fontSize: 45.sp,
-                                  color: Colors.black54,
-                                  fontFamily: 'applesdneoeb'),
-                            ),
-                          ),
-                          // numeric: true,
-                        ),
-                        DataColumn(
-                            label: Container(
-                          alignment: Alignment.center,
-                          width: 1020.w * .7,
-                          child: Text(
-                            '요금현황',
-                            style: TextStyle(
-                                fontSize: 45.sp,
-                                color: Colors.black54,
-                                fontFamily: 'applesdneoeb'),
-                          ),
-                        )),
-                      ],
-                      rows: [
-                        DataRow(cells: [
-                          DataCell(Text('')),
-                          DataCell(Container(
-                              width: 1020.w * .6,
-                              alignment: Alignment.centerRight,
-                              child: DropdownButton(
-                                value: _selectedValue,
-                                items: _valueList.map(
-                                  (String value) {
-                                    return DropdownMenuItem(
-                                        value: value, child: Text(value));
-                                  },
-                                ).toList(),
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    _selectedValue = value;
-                                  });
-                                },
-                              )))
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '전월요금',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              ))),
-                          DataCell(Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '54,000원',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              ))),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '당월누적요금',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              ))),
-                          DataCell(Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '165,000원',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              ))),
-                        ]),
-                      ],
-                    )))));
-
-    //Widget chartSection= const ();
-
-    //Widget dataSection=();
-
     return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                '요금 현황',
-                style: TextStyle(fontSize: 67.sp, fontFamily: 'applesdneom'),
+        appBar: AppBar(
+          title: Text('요금 현황',
+              style: TextStyle(fontSize: 67.sp, color: Colors.white)),
+          centerTitle: true,
+          backgroundColor: Color.fromRGBO(43, 63, 107, 1),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
               ),
-              centerTitle: true,
-              backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-              leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-            ),
-            body: SafeArea(
-                child: Center(
-                    child: FutureBuilder(
-                        future: conn.sendQuery(
-                            'SELECT MoneyDate, Money * 1000 as Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var result =
-                                snapshot.data as List<Map<String, dynamic>>;
-                            var thisMonthPrice =
-                                double.parse(result[0]['Money']);
-                            var previousMonthPrice =
-                                double.parse(result[1]['Money']);
-                            var table =
-                                ResultSet(snapshot.data, ['구분', '요금현황']);
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+        ),
+        body: SafeArea(
+            child: Center(
+                child: FutureBuilder(
+                    future: conn.sendQuery(
+                        'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var result =
+                            snapshot.data as List<Map<String, dynamic>>;
+                        var thisMonthPrice = double.parse(result[0]['Money']);
+                        var table = ResultSet(snapshot.data, ['구분', '요금현황']);
 
-                            int diff = thisMonthPrice.round() -
-                                previousMonthPrice.round();
+                        int thisYear =
+                            DateTime.parse(result[0]['MoneyDate']).year;
 
-                            int thisYear =
-                                DateTime.parse(result[0]['MoneyDate']).year;
-
-                            for (var row in result) {
-                              DateTime toDate =
-                                  DateTime.parse(row['MoneyDate']);
-                              int term = thisYear - toDate.year;
-                              String moneyStr = row['Money'];
-                              if (term == 0) {
-                                salesData[toDate.month - 1].y = int.parse(
-                                    moneyStr.substring(0, moneyStr.length - 3));
-                              } else if (term == 1) {
-                                salesData[toDate.month - 1].y2 = int.parse(
-                                    moneyStr.substring(0, moneyStr.length - 3));
-                              } else if (term == 2) {
-                                salesData[toDate.month - 1].y3 = int.parse(
-                                    moneyStr.substring(0, moneyStr.length - 3));
-                              } else if (term <= 3) break;
-                            }
-                            return ListView(
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(
-                                        50.sp, 100.sp, 20.sp, 100.sp),
-                                    child: Text.rich(TextSpan(children: [
-                                      detailPageTheme.makeHeaderText(
-                                          '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원] 입니다.'),
-                                    ]))),
-                                Container(
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                      Container(
-                                          width: 540.w,
-                                          height: 200,
-                                          child: SfCircularChart(
-                                              tooltipBehavior: _toolTipBehavior,
-                                              annotations: <
-                                                  CircularChartAnnotation>[
-                                                CircularChartAnnotation(
-                                                    height: '110%',
-                                                    // Setting height and width for the circular chart annotation
-                                                    width: '110%',
-                                                    widget: Container(
-                                                        child: PhysicalModel(
-                                                            child: Container(),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            elevation: 10,
-                                                            color:
-                                                                Colors.white))),
-                                                CircularChartAnnotation(
-                                                    widget: Container(
-                                                        child: Text(
-                                                            '43000\n /63000',
-                                                            style: TextStyle(
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                        0.5),
-                                                                fontSize: 45.sp,
-                                                                fontFamily:
-                                                                    'applesdneoeb')))),
-                                              ],
-                                              series: <CircularSeries>[
-                                                DoughnutSeries<Chart_Data,
-                                                        String>(
-                                                    dataSource: _chart_Data,
-                                                    xValueMapper:
-                                                        (Chart_Data data, _) =>
-                                                            data.x,
-                                                    yValueMapper:
-                                                        (Chart_Data data, _) =>
-                                                            data.y,
-                                                    pointColorMapper:
-                                                        (Chart_Data data, _) =>
-                                                            data.color,
-                                                    // Radius of doughnut
-                                                    radius: '80%')
-                                              ])),
-                                      Container(
-                                          width: 540.w,
-                                          height: 200,
-                                          child: SfCircularChart(annotations: <
+                        return ListView(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme.makeHeaderText(
+                                      '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원] 입니다.'),
+                                ]))),
+                            Container(
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                  Container(
+                                      width: 540.w,
+                                      height: 200,
+                                      child: SfCircularChart(
+                                          tooltipBehavior: _toolTipBehavior,
+                                          title: ChartTitle(
+                                              text: '<월별>',
+                                              // Aligns the chart title to left
+                                              alignment: ChartAlignment.center,),
+                                          annotations: <
                                               CircularChartAnnotation>[
                                             CircularChartAnnotation(
                                                 height: '110%',
@@ -311,12 +113,11 @@ class _energy_fee extends State<energy_fee> {
                                                         child: Container(),
                                                         shape: BoxShape.circle,
                                                         elevation: 10,
-                                                        // shadowColor: Colors.black,
                                                         color: Colors.white))),
                                             CircularChartAnnotation(
                                                 widget: Container(
                                                     child: Text(
-                                                        '18250kwh\n/50000kwh',
+                                                        '${detailPageTheme.money.format(thisMonthPrice)}원\n /63000',
                                                         style: TextStyle(
                                                             color:
                                                                 Color.fromRGBO(
@@ -324,12 +125,13 @@ class _energy_fee extends State<energy_fee> {
                                                                     0,
                                                                     0,
                                                                     0.5),
-                                                            fontSize: 43.sp,
+                                                            fontSize: 45.sp,
                                                             fontFamily:
-                                                                'applesdneoeb'))))
-                                          ], series: <CircularSeries>[
+                                                                'applesdneoeb')))),
+                                          ],
+                                          series: <CircularSeries>[
                                             DoughnutSeries<Chart_Data, String>(
-                                                dataSource: _chart_Data2,
+                                                dataSource: _chart_Data,
                                                 xValueMapper:
                                                     (Chart_Data data, _) =>
                                                         data.x,
@@ -340,15 +142,107 @@ class _energy_fee extends State<energy_fee> {
                                                     (Chart_Data data, _) =>
                                                         data.color,
                                                 // Radius of doughnut
-                                                radius: '80%')
-                                          ]))
-                                    ])),
-                                datatableSection1,
-                              ],
-                            );
-                          } else
-                            return Text('불러오는 중');
-                        }))));
+                                                radius: '85%')
+                                          ])),
+                                  Container(
+                                      width: 540.w,
+                                      height: 200,
+                                      child: SfCircularChart(
+                                          title: ChartTitle(
+                                            text: '<월별 누적>',
+                                            // Aligns the chart title to left
+                                            alignment: ChartAlignment.center,),
+                                          annotations: <
+                                          CircularChartAnnotation>[
+                                        CircularChartAnnotation(
+                                            height: '110%',
+                                            // Setting height and width for the circular chart annotation
+                                            width: '110%',
+                                            widget: Container(
+                                                child: PhysicalModel(
+                                                    child: Container(),
+                                                    shape: BoxShape.circle,
+                                                    elevation: 10,
+                                                    // shadowColor: Colors.black,
+                                                    color: Colors.white))),
+                                        CircularChartAnnotation(
+                                            widget: Container(
+                                                child: Text(
+                                                    '18250kwh\n/50000kwh',
+                                                    style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            0, 0, 0, 0.5),
+                                                        fontSize: 43.sp,
+                                                        fontFamily:
+                                                            'applesdneoeb'))))
+                                      ], series: <CircularSeries>[
+                                        DoughnutSeries<Chart_Data, String>(
+                                            dataSource: _chart_Data2,
+                                            xValueMapper:
+                                                (Chart_Data data, _) => data.x,
+                                            yValueMapper:
+                                                (Chart_Data data, _) => data.y,
+                                            pointColorMapper:
+                                                (Chart_Data data, _) =>
+                                                    data.color,
+                                            // Radius of doughnut
+                                            radius: '80%')
+                                      ]))
+                                ])),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              child: Table(
+                                  border: TableBorder(
+                                      horizontalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.black38,
+                                          style: BorderStyle.solid)),
+                                  children: <TableRow>[
+                                        table.getTableHeaderWidget(),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Text(''),
+                                          ),
+                                          TableCell(
+                                              child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50.sp),
+                                            child: DropdownButton(
+                                              value: dropDownValue,
+                                              items: <DropdownMenuItem<String>>[
+                                                for (var val
+                                                    in selectOptions.keys)
+                                                  DropdownMenuItem(
+                                                      value: val,
+                                                      child: Text(val))
+                                              ],
+                                              onChanged: (String? val) {
+                                                setState(() {
+                                                  dropDownValue = val!;
+                                                });
+                                              },
+                                              isExpanded: true,
+                                            ),
+                                          ))
+                                        ])
+                                      ] +
+                                      table.getTableRowWidgets(
+                                          convertor: (row) {
+                                        row['Money'] =
+                                            '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                        return row;
+                                      }).sublist(
+                                          0,
+                                          min(
+                                              result.length,
+                                              selectOptions[dropDownValue]
+                                                  as int))),
+                            )
+                          ],
+                        );
+                      } else
+                        return Text('불러오는 중');
+                    }))));
   }
 }
 
