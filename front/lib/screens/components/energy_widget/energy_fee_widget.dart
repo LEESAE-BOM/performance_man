@@ -20,7 +20,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
         },
         dbRelatedContentBuilder: FutureBuilder(
             future: conn.sendQuery(
-                'SELECT MoneyDate, Money * 1000 as Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
+                'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var result = snapshot.data as List<Map<String, dynamic>>;
