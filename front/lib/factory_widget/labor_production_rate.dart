@@ -107,10 +107,6 @@ class _labor_production_rate extends State<labor_production_rate> {
                               primaryYAxis: NumericAxis(
                                 // Y axis labels will be rendered with currency format
                                   numberFormat: NumberFormat.compact()),
-                              legend: Legend(
-                                  isVisible: true,
-                                  // Legend will be placed at the left
-                                  position: LegendPosition.bottom),
                               series: <CartesianSeries>[
                                 ColumnSeries<ChartData, String>(
                                   name: '$thisYear',
