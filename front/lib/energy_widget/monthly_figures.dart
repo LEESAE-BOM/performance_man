@@ -175,6 +175,7 @@ class _monthly_figures extends State<monthly_figures> {
                                         ),
                                         TableCell(
                                             child: Container(
+                                              alignment: Alignment.centerRight,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 50.sp),
                                           child: DropdownButton(
@@ -191,7 +192,6 @@ class _monthly_figures extends State<monthly_figures> {
                                                 dropDownValue = val!;
                                               });
                                             },
-                                            isExpanded: true,
                                           ),
                                         ))
                                       ])
