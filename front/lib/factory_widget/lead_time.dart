@@ -61,7 +61,7 @@ class _lead_time extends State<lead_time> {
             child: Center(
                 child: FutureBuilder(
                     future: conn.sendQuery(
-                        'SELECT ProductName, ProductTime, CumulativeTime, DeliveryTime, StartDate, DueDate FROM LeadTime ORDER BY DueDate DESC;'),
+                        'SELECT ProductName, ProductTime, CumulativeTime, DeliveryTime, StartDate, DueDate FROM LeadTime ORDER BY DueDate ASC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result =
