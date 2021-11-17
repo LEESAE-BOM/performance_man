@@ -21,7 +21,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
         },
         dbRelatedContentBuilder: FutureBuilder(
             future: conn.sendQuery(
-                'SELECT DueDate as dueDate FROM LeadTime ORDER BY DueDate DESC;'),
+                'SELECT DueDate as dueDate FROM LeadTime ORDER BY DueDate ASC;'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var result = snapshot.data as List<Map<String, dynamic>>;
