@@ -111,6 +111,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                                 ),
                                 TableCell(
                                     child: Container(
+                                      alignment: Alignment.centerRight,
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 50.sp),
                                       child: DropdownButton(
@@ -125,7 +126,6 @@ class _capacity_ratio extends State<capacity_ratio> {
                                         onChanged: (String? val) {
                                           setState(() { dropDownValue = val!; });
                                         },
-                                        isExpanded: true,
                                       ),
                                     )
                                 )

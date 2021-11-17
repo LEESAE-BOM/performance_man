@@ -137,6 +137,7 @@ class _labor_production_rate extends State<labor_production_rate> {
                                   ),
                                   TableCell(
                                       child: Container(
+                                        alignment: Alignment.centerRight,
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 50.sp),
                                         child: DropdownButton(
@@ -151,7 +152,6 @@ class _labor_production_rate extends State<labor_production_rate> {
                                               dropDownValue = val!;
                                             });
                                           },
-                                          isExpanded: true,
                                         ),
                                       ))
                                 ])

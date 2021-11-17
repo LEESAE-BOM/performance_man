@@ -113,6 +113,7 @@ class _development_completion_rate extends State<development_completion_rate>{
                                   ),
                                   TableCell(
                                       child: Container(
+                                        alignment: Alignment.centerRight,
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 50.sp),
                                         child: DropdownButton(
@@ -121,13 +122,12 @@ class _development_completion_rate extends State<development_completion_rate>{
                                             for(var val in selectOptions.keys)
                                               DropdownMenuItem(
                                                   value: val,
-                                                  child: Text(val)
+                                                  child: Text(val,style: TextStyle(fontSize: 28.w,))
                                               )
                                           ],
                                           onChanged: (String? val) {
                                             setState(() { dropDownValue = val!; });
                                           },
-                                          isExpanded: true,
                                         ),
                                       )
                                   )
