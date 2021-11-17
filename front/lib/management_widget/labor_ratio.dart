@@ -38,7 +38,7 @@ class _labor_ratio extends State<labor_ratio> {
     super.initState();
   }
 
-  List<ChartData> laborRate = [ChartData('간접인건비', 0), ChartData('직접인건비', 0)];
+  List<ChartData> laborRate = [];
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +96,7 @@ class _labor_ratio extends State<labor_ratio> {
                             totalIDLBR += double.parse(result[i]['Money']);
                         }
 
+                        laborRate.clear();
                         IDLBRRate =
                             (totalIDLBR / (totalIDLBR + totalDCLBR)) * 100;
                         DCLBRRate =
@@ -103,8 +104,10 @@ class _labor_ratio extends State<labor_ratio> {
                         diff = max(IDLBRRate.round(), DCLBRRate.round()) -
                             min(IDLBRRate.round(), DCLBRRate.round());
 
-                        laborRate[0].y = IDLBRRate;
-                        laborRate[1].y = DCLBRRate;
+                        laborRate.add(ChartData(
+                            '직접인건비', DCLBRRate, '${DCLBRRate.round()}%'));
+                        laborRate.add(ChartData(
+                            '간접인건비', IDLBRRate, '${IDLBRRate.round()}%'));
 
                         return ListView(
                           children: [
@@ -145,12 +148,13 @@ class _labor_ratio extends State<labor_ratio> {
                                               data.x,
                                           yValueMapper: (ChartData data, _) =>
                                               data.y,
+                                          dataLabelMapper:
+                                              (ChartData data, _) => data.text,
                                           dataLabelSettings: DataLabelSettings(
                                               isVisible: true,
-                                              // Positioning the data label
-                                              labelPosition:
-                                                  ChartDataLabelPosition
-                                                      .outside),
+                                              textStyle: TextStyle(
+                                                  fontSize: 50.w,
+                                                  fontFamily: 'applesdneob')),
                                           radius: '100%'),
                                     ])),
                             Padding(
@@ -201,7 +205,12 @@ class _labor_ratio extends State<labor_ratio> {
                                       row['Money'] =
                                           '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                                       return row;
-                                    }).sublist(0, min(result.length, selectOptions[dropDownValue] as int)),
+                                    }).sublist(
+                                        0,
+                                        min(
+                                            result.length,
+                                            selectOptions[dropDownValue]
+                                                as int)),
                               ),
                             )
                           ],
@@ -222,10 +231,11 @@ class _labor_ratio extends State<labor_ratio> {
 }
 
 class ChartData {
-  ChartData(this.x, this.y);
+  ChartData(this.x, this.y, this.text);
 
   final String x;
-  double y;
+  final double y;
+  final String text;
 }
 
 class laborData {
