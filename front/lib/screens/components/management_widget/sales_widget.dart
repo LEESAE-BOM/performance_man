@@ -15,8 +15,7 @@ class _Sales_Widget extends State<Sales_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder(
+    return FutureBuilder(
           future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE MoneyCategory = \'SALES\' ORDER BY MoneyDate DESC;'),
            builder:  (context, snapshot) {
             if (snapshot.hasData){
@@ -36,9 +35,6 @@ class _Sales_Widget extends State<Sales_Widget> {
                       future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE MoneyCategory = \'SALES\' ORDER BY MoneyDate DESC;'),
                       builder: (context, snapshot){
                         if(snapshot.hasData){
-                          var result = snapshot.data as List<Map<String, dynamic>>;
-                          int money = double.parse(result[0]['Money']).round();
-                          state='safe';
                           return Text.rich(detailPageTheme.makeHeaderText('이번달 매출금액은\n[${detailPageTheme.money.format(money)}]원입니다.'));
                         }else{
                           return Text.rich(TextSpan(text: '불러오는 중'));
@@ -51,7 +47,6 @@ class _Sales_Widget extends State<Sales_Widget> {
               return Text.rich(TextSpan(text: '불러오는 중'));
             }
           }
-      ),
     );
   }
 
