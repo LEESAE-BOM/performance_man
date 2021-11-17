@@ -3,6 +3,7 @@ import 'package:flutter_app/management_widget/expected_profit.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ml_algo/ml_algo.dart';
+import 'package:intl/intl.dart';
 import 'package:ml_dataframe/ml_dataframe.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_app/box_widget.dart';
@@ -43,6 +44,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
             ),
             primaryYAxis: NumericAxis(
               majorGridLines: MajorGridLines(width: 0),
+              numberFormat: NumberFormat.compact(locale:"ko_KR" ),
             ),
             plotAreaBorderWidth: 0,
             series: <CartesianSeries>[
