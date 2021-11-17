@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/theme.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +46,7 @@ class _expected_profit extends State<expected_profit> {
     super.initState();
 
   }
-
+  var f = NumberFormat("###,###,###,#### 만원");
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +144,9 @@ class _expected_profit extends State<expected_profit> {
                 isVisible: true,
                 // Legend will be placed at the left
                 position: LegendPosition.bottom),
+            primaryYAxis: NumericAxis(
+              // Y axis labels will be rendered with currency format
+                numberFormat: NumberFormat.compact()),
             series: <CartesianSeries>[
               FastLineSeries<SalesData, String>(
                   name: '2019',
@@ -291,7 +295,7 @@ class _expected_profit extends State<expected_profit> {
                         Container(
                             alignment: Alignment.center,
                             child: Text(
-                              dataset[row1].toString(),
+                              '${detailPageTheme.money.format(double.parse(dataset[row1].toString()))}원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -320,7 +324,7 @@ class _expected_profit extends State<expected_profit> {
                         Container(
                             alignment: Alignment.center,
                             child: Text(
-                              dataset[row2].toString(),
+                              '${detailPageTheme.money.format(double.parse(dataset[row2].toString()))}원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
@@ -349,7 +353,35 @@ class _expected_profit extends State<expected_profit> {
                         Container(
                             alignment: Alignment.center,
                             child: Text(
-                              dataset[row3].toString(),
+                              '${detailPageTheme.money.format(double.parse(dataset[row3].toString()))}원',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: Colors.black54,
+                                  fontFamily: 'applesdneoeb'),
+                            )),
+                      ),
+                    ],
+                  ),DataRow(
+                    cells: <DataCell>[
+                      DataCell(
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            _selectedValue.toString(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 45.sp,
+                                color: Colors.black54,
+                                fontFamily: 'applesdneoeb'),
+                          ),
+                        ),
+                      ),
+                      DataCell(
+                        Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '${detailPageTheme.money.format(double.parse((dataset[row1]+dataset[row2]+dataset[row3]).toString()))}원',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 45.sp,
