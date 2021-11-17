@@ -55,9 +55,8 @@ class _hourly_figures extends State<hourly_figures> {
 
   List<Chart_Data3> getChartData2() {
     final List<Chart_Data3> getChartData = [
-      Chart_Data3('운영예비(율)', 18113, Colors.teal),
-      Chart_Data3('공급예비(율)', 17216, Colors.amberAccent),
-      Chart_Data3('최대부하', 21700, Colors.red),
+      Chart_Data3('공급예비(율)', 17216, Colors.teal),
+      Chart_Data3('최대부하', 21700, Colors.amberAccent),
     ];
     return getChartData;
   }
@@ -146,15 +145,15 @@ class _hourly_figures extends State<hourly_figures> {
                         _chart_Data[(max / 2).round() - 3].color =
                             Color.fromRGBO(225, 72, 72, 1);
 
-                        if(Energyusage_time[max].y2<1000){
+                        if(Energyusage_time[max].y2<20000){
                           chart_image=imageList[0];
-                        }else if(Energyusage_time[max].y2<2000){
+                        }else if(Energyusage_time[max].y2<40000){
                           chart_image=imageList[1];}
-                        else if(Energyusage_time[max].y2<3000){
+                        else if(Energyusage_time[max].y2<60000){
                           chart_image=imageList[2];}
-                        else if(Energyusage_time[max].y2<4000){
+                        else if(Energyusage_time[max].y2<80000){
                           chart_image=imageList[3];}
-                        else if(Energyusage_time[max].y2<5000){
+                        else if(Energyusage_time[max].y2<100000){
                           chart_image=imageList[4];}
                         else{
                           chart_image=imageList[5];}
@@ -304,7 +303,7 @@ class _hourly_figures extends State<hourly_figures> {
                                                           3), //모서리를 둥글게
                                                   color: Colors.green), //테두리
                                             ),
-                                            Text(' 준비 (4,500이상 ~ 5,500미만)')
+                                            Text(' 준비 (20,000이상 ~ 40,000미만)')
                                           ]),
                                           SizedBox(
                                             height: 5.0,
@@ -320,7 +319,7 @@ class _hourly_figures extends State<hourly_figures> {
                                                   color:
                                                       Colors.lightGreen), //테두리
                                             ),
-                                            Text(' 관심 (3,500이상 ~ 4,500미만)')
+                                            Text(' 관심 (40,000이상 ~ 60,000미만)')
                                           ]),
                                           SizedBox(
                                             height: 5.0,
@@ -336,7 +335,7 @@ class _hourly_figures extends State<hourly_figures> {
                                                   color:
                                                       Colors.amberAccent), //테두리
                                             ),
-                                            Text(' 주의 (2,500이상 ~ 3,500미만)')
+                                            Text(' 주의 (60,000이상 ~ 80,000미만)')
                                           ]),
                                           SizedBox(
                                             height: 5.0,
@@ -351,7 +350,7 @@ class _hourly_figures extends State<hourly_figures> {
                                                           3), //모서리를 둥글게
                                                   color: Colors.orange), //테두리
                                             ),
-                                            Text(' 경계 (1,500이상 ~ 2,500미만)')
+                                            Text(' 경계 (80,000이상 ~ 100,000미만)')
                                           ]),
                                           SizedBox(
                                             height: 5.0,
@@ -366,7 +365,7 @@ class _hourly_figures extends State<hourly_figures> {
                                                           3), //모서리를 둥글게
                                                   color: Colors.red), //테두리
                                             ),
-                                            Text(' 심각 (1,500미만)')
+                                            Text(' 심각 (100,000이상)')
                                           ]),
                                           SizedBox(
                                             height: 5.0,
