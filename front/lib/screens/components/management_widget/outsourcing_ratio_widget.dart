@@ -60,8 +60,9 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                     isScrolling = false;
                   },
                   palette: <Color>[
-                    Colors.blue,
-                    Colors.grey,
+
+                    Color.fromRGBO(211, 211, 211, 1),
+                    Color.fromRGBO(111, 166, 223, 1),
                   ],
                   series: <CircularSeries>[
                     PieSeries<ChartData, String>(
@@ -72,7 +73,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
                         dataLabelMapper: (ChartData data, _) => '${data.y}%',
                         dataLabelSettings: DataLabelSettings(
                             isVisible: true,
-                            textStyle: TextStyle(fontSize: 50.w, fontFamily: 'applesdneob')
+                            textStyle: TextStyle(fontSize: 50.w, color: Colors.black,fontFamily: 'applesdneob')
                         )
                     ),
                   ]
