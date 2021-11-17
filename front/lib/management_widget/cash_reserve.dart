@@ -146,6 +146,7 @@ class _cash_reserve extends State<cash_reserve> {
                                     ),
                                     TableCell(
                                         child: Container(
+                                          alignment: Alignment.centerRight,
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 50.sp),
                                       child: DropdownButton(
@@ -160,7 +161,7 @@ class _cash_reserve extends State<cash_reserve> {
                                             dropDownValue = val!;
                                           });
                                         },
-                                        isExpanded: true,
+                                
                                       ),
                                     ))
                                   ])
