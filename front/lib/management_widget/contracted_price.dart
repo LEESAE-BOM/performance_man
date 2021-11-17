@@ -130,10 +130,10 @@ class _contracted_price extends State<contracted_price> {
                                 position: LegendPosition.bottom),
                             series: <CartesianSeries>[
                               ColumnSeries<ChartData, String>(
-                                name: '$thisYear',
+                                name: '${thisYear - 2}',
                                 dataSource: contractData,
                                 xValueMapper: (ChartData sales, _) => sales.x,
-                                yValueMapper: (ChartData sales, _) => sales.y,
+                                yValueMapper: (ChartData sales, _) => sales.y3,
                               ),
                               ColumnSeries<ChartData, String>(
                                 name: '${thisYear - 1}',
@@ -142,10 +142,10 @@ class _contracted_price extends State<contracted_price> {
                                 yValueMapper: (ChartData sales, _) => sales.y2,
                               ),
                               ColumnSeries<ChartData, String>(
-                                name: '${thisYear - 2}',
+                                name: '$thisYear',
                                 dataSource: contractData,
                                 xValueMapper: (ChartData sales, _) => sales.x,
-                                yValueMapper: (ChartData sales, _) => sales.y3,
+                                yValueMapper: (ChartData sales, _) => sales.y,
                               ),
                               LineSeries<ChartData, String>(
                                   name: '$thisYear',
@@ -183,7 +183,7 @@ class _contracted_price extends State<contracted_price> {
                                         items: <DropdownMenuItem<String>>[
                                           for (var val in selectOptions.keys)
                                             DropdownMenuItem(
-                                                value: val, child: Text(val,style: TextStyle(fontSize: 28.w,)))
+                                                value: val, child: Text(val,style: TextStyle(fontSize: 25.w,)))
                                         ],
                                         onChanged: (String? val) {
                                           setState(() {
