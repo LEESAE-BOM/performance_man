@@ -28,7 +28,7 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   Widget build(BuildContext context) {
     bool isScrolling = false;
 
-    return BoxWidget('시간별 에너지', 'safe', 'narrow').make(
+    return BoxWidget('시간별 에너지', 'warning', 'narrow').make(
         onTap: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => hourly_figures()));
