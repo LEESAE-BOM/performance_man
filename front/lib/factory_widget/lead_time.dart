@@ -97,11 +97,12 @@ class _lead_time extends State<lead_time> {
                                     '[${result[0]['ProductName']}] 제조에\n총 [${result[0]['CumulativeTime']}]일 소요되었어요.\n예정일까지 [${dif}]일 남았어요.'),
                               ]))),
                           SfCartesianChart(
+                            palette: <Color>[
+                              Colors.indigo,
+                              Colors.blue,
+                              Colors.lightBlueAccent,
+                            ],
                             tooltipBehavior: _toolTipBehavior,
-                            legend: Legend(
-                              isVisible: true,
-                              position: LegendPosition.bottom,
-                            ),
                             primaryXAxis: CategoryAxis(
                                 edgeLabelPlacement: EdgeLabelPlacement.shift,
                                 isVisible: false),
@@ -109,6 +110,10 @@ class _lead_time extends State<lead_time> {
                             primaryYAxis: NumericAxis(
                               edgeLabelPlacement: EdgeLabelPlacement.shift,
                               isVisible: false,
+                            ),
+                            legend: Legend(
+                              isVisible: true,
+                              position: LegendPosition.bottom,
                             ),
                             series: <ChartSeries>[
                               StackedBar100Series<Chart_Data, String>(
