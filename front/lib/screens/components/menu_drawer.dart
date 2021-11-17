@@ -87,7 +87,7 @@ class _Menu_Drawer extends State<Menu_Drawer> {
                     },
                   ),
                   ListTile(
-                    title: Text('추정수익률'),
+                    title: Text('예상수익'),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => expected_profit()));
