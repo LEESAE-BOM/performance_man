@@ -151,6 +151,7 @@ class _sales extends State<sales> {
                                             ),
                                             TableCell(
                                                 child: Container(
+                                                  alignment: Alignment.centerRight,
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 50.sp),
                                                   child: DropdownButton(
@@ -165,7 +166,7 @@ class _sales extends State<sales> {
                                                     onChanged: (String? val) {
                                                       setState(() { dropDownValue = val!; });
                                                     },
-                                                    isExpanded: true,
+                                                
                                                   ),
                                                 )
                                             )
