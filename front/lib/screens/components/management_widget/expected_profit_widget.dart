@@ -28,6 +28,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
   @override
   Widget build(BuildContext context) {
     bool isScrolling = false;
+    var state = 'danger';
 
     final List<SalesData> chartdata = [
       SalesData('1분기', dataset1[0]+dataset1[1]+dataset1[2]),
@@ -60,8 +61,20 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
             ]),
       ),
     );
+    var money=dataset1[0]+dataset1[1]+dataset1[2]+
+        dataset1[3]+dataset1[4]+dataset1[5]+
+        dataset1[6]+dataset1[7]+dataset1[8]+
+        dataset1[9]+dataset1[10]+dataset1[11];
+    if(money>1600000000)
+      state='safe';
+    else if(money>1200000000){
+      state='warning';
+    }
+    else {
+      state='danger';
+    }
 
-    return BoxWidget('예상수익', 'safe', 'wide').make(
+    return BoxWidget('예상수익', state, 'wide').make(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => expected_profit())

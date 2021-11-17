@@ -13,24 +13,46 @@ class Contracted_Price_Widget extends StatefulWidget {
 class _Contracted_Price_Widget extends State<Contracted_Price_Widget> {
   @override
   Widget build(BuildContext context) {
-    return BoxWidget('계약금액', 'safe', 'wide').make(
-      onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => contracted_price()));
-      },
-      dbRelatedContentBuilder: FutureBuilder(
-          future: conn.sendQuery('SELECT Price * 1000 as Money FROM Contract ORDER BY ContractDate DESC;'),
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              var result = snapshot.data as List<Map<String, dynamic>>;
-              int money = double.parse(result[0]['Money']).round();
-              
-              return Text.rich(detailPageTheme.makeHeaderText('이번달 [계약금액]은\n[${detailPageTheme.money.format(money)}]원입니다.'));
-            }else{
-              return Text.rich(TextSpan(text: '불러오는 중'));
+    var state = 'danger';
+    return FutureBuilder(
+        future: conn.sendQuery('SELECT Price * 1000 as Money FROM Contract ORDER BY ContractDate DESC;'),
+        builder: (context, snapshot){
+          if(snapshot.hasData) {
+            var result = snapshot.data as List<Map<String, dynamic>>;
+            int money = double.parse(result[0]['Money']).round();
+
+            if(money>14000000000)
+              state='safe';
+            else if(money>11000000000){
+              state='warning';
             }
+            else {
+              state='danger';
+            }
+            return BoxWidget('계약금액', state, 'wide').make(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => contracted_price()));
+                },
+                dbRelatedContentBuilder: FutureBuilder(
+                    future: conn.sendQuery(
+                        'SELECT Price * 1000 as Money FROM Contract ORDER BY ContractDate DESC;'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text.rich(detailPageTheme.makeHeaderText(
+                            '이번달 [계약금액]은\n[${detailPageTheme.money.format(
+                                money)}]원입니다.'));
+                      } else {
+                        return Text.rich(TextSpan(text: '불러오는 중'));
+                      }
+                    }
+                )
+            );
           }
-      )
+          else {
+            return Text.rich(TextSpan(text: '불러오는 중'));
+          }
+        }
     );
   }
 }
