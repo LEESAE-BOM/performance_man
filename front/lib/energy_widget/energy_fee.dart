@@ -171,26 +171,6 @@ class _energy_fee extends State<energy_fee> {
                                     fontFamily: 'applesdneoeb'),
                               ))),
                         ]),
-                        DataRow(cells: [
-                          DataCell(Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '당일 누적요금',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              ))),
-                          DataCell(Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '125,000원',
-                                style: TextStyle(
-                                    fontSize: 45.sp,
-                                    color: Colors.black54,
-                                    fontFamily: 'applesdneoeb'),
-                              ))),
-                        ])
                       ],
                     )))));
 
@@ -198,8 +178,7 @@ class _energy_fee extends State<energy_fee> {
 
     //Widget dataSection=();
 
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
             appBar: AppBar(
               title: Text(
                 '요금 현황',
@@ -369,7 +348,7 @@ class _energy_fee extends State<energy_fee> {
                             );
                           } else
                             return Text('불러오는 중');
-                        })))));
+                        }))));
   }
 }
 
