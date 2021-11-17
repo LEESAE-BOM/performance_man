@@ -62,7 +62,7 @@ class Energy_Screen extends StatelessWidget {
                   Container(
                       alignment: Alignment.topCenter,
                       height:100.w,
-                      child:Text('안전: 3 경고: 0 위험: 0'
+                      child:Text('안전: 2 경고: 1 위험: 0'
                         ,style: TextStyle(
                           fontSize: 52.w,
                           color: Colors.white,
