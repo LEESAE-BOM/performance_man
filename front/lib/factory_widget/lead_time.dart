@@ -66,7 +66,7 @@ class _lead_time extends State<lead_time> {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
-                        var table = MySQLTable(snapshot.data,
+                        var table = ResultSet(snapshot.data,
                             ['이름', '소요', '누적', '납기', '시작', '예정']);
 
                         print('결과 : ${result.length}');
@@ -170,9 +170,9 @@ class _lead_time extends State<lead_time> {
                                       style: BorderStyle.solid)),
 
                               children: <TableRow>[
-                                    table.getTableHeader(),
+                                    table.getTableHeaderWidget(),
                                   ] +
-                                  table.getTableRows(convertor: (row) {
+                                  table.getTableRowWidgets(convertor: (row) {
 
                                     return row;
                                   }))
