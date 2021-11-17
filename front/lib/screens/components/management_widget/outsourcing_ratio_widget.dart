@@ -43,7 +43,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
 
               outsourcingData.clear();
               outsourcingData.add(ChartData('외주비용', rate.round()));
-              outsourcingData.add(ChartData(' ', 100 - rate.round()));
+              outsourcingData.add(ChartData('자체제작', 100 - rate.round()));
 
               return SfCircularChart(
                   onChartTouchInteractionMove: (_Outsourcing_Ratio_Widget){
