@@ -78,7 +78,7 @@ class _expected_profit extends State<expected_profit> {
                 isVisible: true,
                 // Legend will be placed at the left
                 position: LegendPosition.bottom),
-            primaryYAxis: NumericAxis(numberFormat: NumberFormat.compact()),
+            primaryYAxis: NumericAxis(numberFormat: NumberFormat.compact(locale:"ko_KR" ),),
             series: <CartesianSeries>[
               FastLineSeries<SalesData, String>(
                   name: '2019',
