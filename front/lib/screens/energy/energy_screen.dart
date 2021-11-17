@@ -5,6 +5,7 @@ import '.././components/energy_widget/energy_fee_widget.dart';
 import '.././components/energy_widget/monthly_figures_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
 
 class Energy_Screen extends StatelessWidget {
   @override
@@ -34,16 +35,9 @@ class Energy_Screen extends StatelessWidget {
                             var thisMonthPrice = double.parse(result[0]['Amount']);
 
                             return RichText(
-                                text: TextSpan(
-                                  text:
-                                  '이번 달 전기 사용량\n${thisMonthPrice.round()}kWh',
-                                  style: TextStyle(
-                                    fontSize: 65.w,
-                                    color: Colors.white,
-                                    letterSpacing: 1.w,
-                                    fontFamily: 'applesdneob',
-                                  ),
-                                ));
+                                text: detailPageTheme.makeMainHeaderText(
+                                    '이번 달 전기 사용량\n[${thisMonthPrice.round()}]kWh'),
+                              );
                           } else {
                             return RichText(
                               text: TextSpan(
