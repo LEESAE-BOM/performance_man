@@ -31,6 +31,8 @@ class _energy_fee extends State<energy_fee> {
     super.initState();
   }
 
+  List<ChartData> energy_fee = [];
+  List<ChartData> energy_fee1 = [];
   List<Chart_Data> getChartData() {
     final List<Chart_Data> getChartData = [
       Chart_Data('Completed', 43, Color.fromRGBO(43, 63, 107, 1)),
@@ -75,9 +77,29 @@ class _energy_fee extends State<energy_fee> {
                             snapshot.data as List<Map<String, dynamic>>;
                         var thisMonthPrice = double.parse(result[0]['Money']);
                         var table = ResultSet(snapshot.data, ['구분', '요금현황']);
+                        double sum=0;
+                        double MonthRate = 0;
+                        double Month_Rate = 0;
+                        int i=1;
 
                         int thisYear =
                             DateTime.parse(result[0]['MoneyDate']).year;
+
+                        for (var row in result) {
+                          if(i>12) break;
+                          String moneyStr = row['Money'];
+                          sum+=double.parse(moneyStr.substring(0,moneyStr.length - 3));
+                          i++;
+                        }
+
+                        MonthRate =
+                            (thisMonthPrice / 20000000) * 100;
+                        Month_Rate =
+                            (sum / 500000000) * 100;
+                        energy_fee.add(ChartData(
+                            MonthRate,1-MonthRate));
+                        energy_fee1.add(ChartData(
+                            Month_Rate, 1-Month_Rate));
 
                         return ListView(
                           children: [
@@ -95,7 +117,7 @@ class _energy_fee extends State<energy_fee> {
                                     children: <Widget>[
                                   Container(
                                       width: 540.w,
-                                      height: 200,
+                                      height: 300,
                                       child: SfCircularChart(
                                           tooltipBehavior: _toolTipBehavior,
                                           title: ChartTitle(
@@ -117,7 +139,7 @@ class _energy_fee extends State<energy_fee> {
                                             CircularChartAnnotation(
                                                 widget: Container(
                                                     child: Text(
-                                                        '${detailPageTheme.money.format(thisMonthPrice)}원\n /63000',
+                                                        '${detailPageTheme.money.format(thisMonthPrice)}원\n /20,000,000원',
                                                         style: TextStyle(
                                                             color:
                                                                 Color.fromRGBO(
@@ -130,23 +152,20 @@ class _energy_fee extends State<energy_fee> {
                                                                 'applesdneoeb')))),
                                           ],
                                           series: <CircularSeries>[
-                                            DoughnutSeries<Chart_Data, String>(
-                                                dataSource: _chart_Data,
+                                            DoughnutSeries<ChartData, double>(
+                                                dataSource: energy_fee,
                                                 xValueMapper:
-                                                    (Chart_Data data, _) =>
+                                                    (ChartData data, _) =>
                                                         data.x,
                                                 yValueMapper:
-                                                    (Chart_Data data, _) =>
+                                                    (ChartData data, _) =>
                                                         data.y,
-                                                pointColorMapper:
-                                                    (Chart_Data data, _) =>
-                                                        data.color,
                                                 // Radius of doughnut
                                                 radius: '85%')
                                           ])),
                                   Container(
                                       width: 540.w,
-                                      height: 200,
+                                      height: 300,
                                       child: SfCircularChart(
                                           title: ChartTitle(
                                             text: '<월별 누적>',
@@ -162,13 +181,13 @@ class _energy_fee extends State<energy_fee> {
                                                 child: PhysicalModel(
                                                     child: Container(),
                                                     shape: BoxShape.circle,
-                                                    elevation: 10,
+                                                    elevation: 30,
                                                     // shadowColor: Colors.black,
                                                     color: Colors.white))),
                                         CircularChartAnnotation(
                                             widget: Container(
                                                 child: Text(
-                                                    '18250kwh\n/50000kwh',
+                                                    '${detailPageTheme.money.format(sum)}원\n/500,000,000원',
                                                     style: TextStyle(
                                                         color: Color.fromRGBO(
                                                             0, 0, 0, 0.5),
@@ -176,17 +195,14 @@ class _energy_fee extends State<energy_fee> {
                                                         fontFamily:
                                                             'applesdneoeb'))))
                                       ], series: <CircularSeries>[
-                                        DoughnutSeries<Chart_Data, String>(
-                                            dataSource: _chart_Data2,
+                                        DoughnutSeries<ChartData, double>(
+                                            dataSource: energy_fee1,
                                             xValueMapper:
-                                                (Chart_Data data, _) => data.x,
+                                                (ChartData data, _) => data.x,
                                             yValueMapper:
-                                                (Chart_Data data, _) => data.y,
-                                            pointColorMapper:
-                                                (Chart_Data data, _) =>
-                                                    data.color,
+                                                (ChartData data, _) => data.y,
                                             // Radius of doughnut
-                                            radius: '80%')
+                                            radius: '85%')
                                       ]))
                                 ])),
                             Padding(
@@ -263,10 +279,8 @@ class Chart_Data3 {
 }
 
 class ChartData {
-  ChartData(this.x, this.y, this.y2, this.y3);
+  ChartData(this.x, this.y);
 
-  String? x;
-  int y;
-  int y2;
-  int y3;
+  double x;
+  double y;
 }
