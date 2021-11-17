@@ -173,7 +173,8 @@ class _lead_time extends State<lead_time> {
                                     table.getTableHeaderWidget(),
                                   ] +
                                   table.getTableRowWidgets(convertor: (row) {
-
+                                    row['StartDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['StartDate'])).toString();
+                                    row['DueDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['DueDate'])).toString();
                                     return row;
                                   }))
                         ]);
