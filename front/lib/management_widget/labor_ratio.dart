@@ -176,6 +176,7 @@ class _labor_ratio extends State<labor_ratio> {
                                         ),
                                         TableCell(
                                             child: Container(
+                                              alignment: Alignment.centerRight,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 50.sp),
                                           child: DropdownButton(
@@ -192,7 +193,7 @@ class _labor_ratio extends State<labor_ratio> {
                                                 dropDownValue = val!;
                                               });
                                             },
-                                            isExpanded: true,
+                                           
                                           ),
                                         ))
                                       ])
