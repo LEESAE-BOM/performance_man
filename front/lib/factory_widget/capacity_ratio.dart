@@ -126,6 +126,7 @@ class _capacity_ratio extends State<capacity_ratio> {
                                         onChanged: (String? val) {
                                           setState(() { dropDownValue = val!; });
                                         },
+                                        isExpanded: true,
                                       ),
                                     )
                                 )
