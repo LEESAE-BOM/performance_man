@@ -6,6 +6,7 @@ import '.././components/factory_widget/labor_production_rate_widget.dart';
 import '.././components/factory_widget/lead_time_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/theme.dart';
 
 class Factory_Screen extends StatelessWidget {
   @override
@@ -36,16 +37,9 @@ class Factory_Screen extends StatelessWidget {
                         var achieveRate = (achievement / goal) * 100;
 
                         return RichText(
-                            text: TextSpan(
-                              text:
-                              '현재까지\n개발완료율 ${achieveRate.round()}% 달성',
-                              style: TextStyle(
-                                fontSize: 65.w,
-                                color: Colors.white,
-                                letterSpacing: 1.w,
-                                fontFamily: 'applesdneob',
-                              ),
-                            ));
+                            text: detailPageTheme.makeMainHeaderText(
+                                '현재까지\n개발완료율 [${achieveRate.round()}]% 달성.'),
+                        );
                       } else {
                         return RichText(
                           text: TextSpan(
