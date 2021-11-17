@@ -49,11 +49,12 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 primaryXAxis: CategoryAxis(
                   majorGridLines: MajorGridLines(width: 0),
                   labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
+
                 ),
                 primaryYAxis: NumericAxis(
                   majorGridLines: MajorGridLines(width: 0),
                   edgeLabelPlacement: EdgeLabelPlacement.shift,
-                  numberFormat: NumberFormat.compact(),
+                  numberFormat: NumberFormat.compact(locale:"ko_KR" ),
                   labelStyle: TextStyle(fontFamily:'applesdneom', fontSize:35.w),
                 ),
                 plotAreaBorderWidth:0,
