@@ -81,7 +81,7 @@ class DetailPageTheme{
   );
 
   TextStyle tableRowStyle = TextStyle(
-      fontSize: 35.w,
+      fontSize: 32.w,
       color: Colors.black87,
   );
 
