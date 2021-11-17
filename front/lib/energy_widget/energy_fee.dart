@@ -205,6 +205,7 @@ class _energy_fee extends State<energy_fee> {
                                           ),
                                           TableCell(
                                               child: Container(
+                                                alignment: Alignment.centerRight,
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 50.sp),
                                             child: DropdownButton(
@@ -221,7 +222,6 @@ class _energy_fee extends State<energy_fee> {
                                                   dropDownValue = val!;
                                                 });
                                               },
-                                              isExpanded: true,
                                             ),
                                           ))
                                         ])
