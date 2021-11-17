@@ -50,6 +50,7 @@ class _expected_profit extends State<expected_profit> {
 
   @override
   Widget build(BuildContext context) {
+    var result=dataset[0]+dataset[1]+dataset[2]+dataset[3]+dataset[4]+dataset[5]+dataset[6]+dataset[7]+dataset[8]+dataset[9]+dataset[10]+dataset[11];
 
     Widget textSection = Padding(
         padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
@@ -58,78 +59,11 @@ class _expected_profit extends State<expected_profit> {
             children: <Widget>[
               Text.rich(
                   TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: '이번 년도',
-                            style: TextStyle(
-                              fontSize: 65.sp,
-                              letterSpacing: 2.0,
-                              fontFamily: 'applesdneoeb',
-                              color: Colors.black,
-                            )),
-                        TextSpan(
-                          text: '예상 수익',
-                          style: TextStyle(
-                            fontSize: 90.sp,
-                            color: Colors.blue,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                          ),
-                        ),
-                        TextSpan(
-                          text: '은\n',
-                          style: TextStyle(
-                            fontSize: 65.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '303,650,990원 ',
-                          style: TextStyle(
-                            fontSize: 90.sp,
-                            color: Colors.blue,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                          ),
-                        ),
-                        TextSpan(
-                          text: '이에요.\n',
-                          style: TextStyle(
-                            fontSize: 65.sp,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                            text: '전월 대비 ',
-                            style: TextStyle(
-                              fontSize: 65.sp,
-                              letterSpacing: 2.0,
-                              fontFamily: 'applesdneoeb',
-                              color: Colors.black,
-                            )
-                        ),
-                        TextSpan(
-                          text: '14% 하락',
-                          style: TextStyle(
-                            fontSize: 90.sp,
-                            color: Colors.blue,
-                            letterSpacing: 2.0,
-                            fontFamily: 'applesdneoeb',
-                          ),
-                        ),
-                        TextSpan(
-                            text: '했어요.',
-                            style: TextStyle(
-                              fontSize: 65.sp,
-                              letterSpacing: 2.0,
-                              color: Colors.black,
-                              fontFamily: 'applesdneoeb',
-                            )),
-                      ]))
+                      children: [
+                        detailPageTheme.makeHeaderText('이번년도 [예상수익]은 \n [${detailPageTheme.money.format(result)}원] 입니다.'),
+                           ]
+                  )
+              )
             ]));
 
     Widget chartSection = Center(
@@ -144,9 +78,7 @@ class _expected_profit extends State<expected_profit> {
                 isVisible: true,
                 // Legend will be placed at the left
                 position: LegendPosition.bottom),
-            primaryYAxis: NumericAxis(
-              // Y axis labels will be rendered with currency format
-                numberFormat: NumberFormat.compact()),
+            primaryYAxis: NumericAxis(numberFormat: NumberFormat.compact()),
             series: <CartesianSeries>[
               FastLineSeries<SalesData, String>(
                   name: '2019',
@@ -197,7 +129,7 @@ class _expected_profit extends State<expected_profit> {
     );
 
     Widget datatableSection = Padding(
-        padding: EdgeInsets.fromLTRB(30.w, 100.sp,30.w, 0),
+        padding: EdgeInsets.fromLTRB(10.w, 0,10.w, 0),
         child:Center(
           child: Container(
             width: 1020.w,
@@ -401,7 +333,7 @@ class _expected_profit extends State<expected_profit> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            '추정수익률',
+            '예상수익',
             style: TextStyle(color: Colors.white,fontSize: 67.sp,),
           ),
           centerTitle: true,
