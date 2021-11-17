@@ -186,14 +186,14 @@ class _labor_ratio extends State<labor_ratio> {
                                                   in selectOptions.keys)
                                                 DropdownMenuItem(
                                                     value: val,
-                                                    child: Text(val))
+                                                    child: Text(val,style: TextStyle(fontSize: 35.w,),))
                                             ],
                                             onChanged: (String? val) {
                                               setState(() {
                                                 dropDownValue = val!;
                                               });
                                             },
-                                           
+                                           isExpanded: true,
                                           ),
                                         ))
                                       ])

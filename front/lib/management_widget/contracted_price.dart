@@ -190,7 +190,7 @@ class _contracted_price extends State<contracted_price> {
                                             dropDownValue = val!;
                                           });
                                         },
-                            
+                                        isExpanded: true,
                                       ),
                                     ))
                                   ])
