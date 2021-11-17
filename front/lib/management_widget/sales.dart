@@ -72,7 +72,7 @@ class _sales extends State<sales> {
 
                         for (var row in result) {
                           DateTime toDate = DateTime.parse(row['MoneyDate']);
-                          int term = thisYear - toDate.year;
+                          int term = thisYear-toDate.year;
                           String moneyStr = row['Money'];
                           if (term == 0) {
                             salesData[toDate.month - 1].y = int.parse(moneyStr.substring(0, moneyStr.length - 3));
@@ -94,9 +94,9 @@ class _sales extends State<sales> {
                                           children: [
                                             detailPageTheme.makeHeaderText('이번 달 매출금액은\n[${detailPageTheme.money.format(thisMonthPrice)}원] 입니다.\n전월 대비\n'),
                                             if(diff < 0)
-                                              detailPageTheme.makeHeaderText('[${diff * -1}]원 감소했어요.'),
+                                              detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff * -1)}]원 감소했어요.'),
                                             if(diff >= 0)
-                                              detailPageTheme.makeHeaderText('[$diff]원 증가했어요.')
+                                              detailPageTheme.makeHeaderText('[${detailPageTheme.money.format(diff)}]원 증가했어요.')
                                           ]
                                       )
                                   )
@@ -118,10 +118,10 @@ class _sales extends State<sales> {
                                       position: LegendPosition.bottom),
                                   series: <CartesianSeries>[
                                     ColumnSeries<ChartData, String>(
-                                      name: '$thisYear',
+                                      name: '${thisYear-2}',
                                       dataSource: salesData,
                                       xValueMapper: (ChartData sales, _) => sales.x,
-                                      yValueMapper: (ChartData sales, _) => sales.y,
+                                      yValueMapper: (ChartData sales, _) => sales.y3,
                                     ),
                                     ColumnSeries<ChartData, String>(
                                       name: '${thisYear-1}',
@@ -130,63 +130,56 @@ class _sales extends State<sales> {
                                       yValueMapper: (ChartData sales, _) => sales.y2,
                                     ),
                                     ColumnSeries<ChartData, String>(
-                                      name: '${thisYear-2}',
+                                      name: '$thisYear',
                                       dataSource: salesData,
                                       xValueMapper: (ChartData sales, _) => sales.x,
-                                      yValueMapper: (ChartData sales, _) => sales.y2,
+                                      yValueMapper: (ChartData sales, _) => sales.y,
                                     ),
-                                    LineSeries<ChartData, String>(
-                                        name: '$thisYear',
-                                        color: Colors.teal,
-                                        dataSource: salesData,
-                                        xValueMapper: (ChartData sales, _) => sales.x,
-                                        yValueMapper: (ChartData sales, _) => sales.y,
-                                        dataLabelSettings: DataLabelSettings(
-                                          // Renders the data label
-                                            isVisible: true),
-                                        markerSettings: MarkerSettings(isVisible: true))
                                   ]
                               ),
-                              Table(
-                                  border: TableBorder(
-                                      horizontalInside: BorderSide(width: 1,
-                                          color: Colors.black38,
-                                          style: BorderStyle.solid)),
-                                  children: <TableRow>[
-                                    table.getTableHeaderWidget(),
-                                    TableRow(
-                                        children: [
-                                          TableCell(
-                                            child: Text(''),
-                                          ),
-                                          TableCell(
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 50.sp),
-                                                child: DropdownButton(
-                                                  value: dropDownValue,
-                                                  items: <DropdownMenuItem<String>>[
-                                                    for(var val in selectOptions.keys)
-                                                      DropdownMenuItem(
-                                                          value: val,
-                                                          child: Text(val)
-                                                      )
-                                                  ],
-                                                  onChanged: (String? val) {
-                                                    setState(() { dropDownValue = val!; });
-                                                  },
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                          )
-                                        ]
-                                    )
-                                  ] + table.getTableRowWidgets(
-                                    convertor: (row) {
-                                      row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                                      return row;
-                                    }
-                                  ).sublist(0, min(result.length, selectOptions[dropDownValue] as int))
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                                child: Table(
+                                    border: TableBorder(
+                                        horizontalInside: BorderSide(width: 1,
+                                            color: Colors.black38,
+                                            style: BorderStyle.solid)),
+                                    children: <TableRow>[
+                                      table.getTableHeaderWidget(),
+                                      TableRow(
+                                          children: [
+                                            TableCell(
+                                              child: Text(''),
+                                            ),
+                                            TableCell(
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 50.sp),
+                                                  child: DropdownButton(
+                                                    value: dropDownValue,
+                                                    items: <DropdownMenuItem<String>>[
+                                                      for(var val in selectOptions.keys)
+                                                        DropdownMenuItem(
+                                                            value: val,
+                                                            child: Text(val)
+                                                        )
+                                                    ],
+                                                    onChanged: (String? val) {
+                                                      setState(() { dropDownValue = val!; });
+                                                    },
+                                                    isExpanded: true,
+                                                  ),
+                                                )
+                                            )
+                                          ]
+                                      )
+                                    ] + table.getTableRowWidgets(
+                                      convertor: (row) {
+                                        row['Money'] = '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                        return row;
+                                      }
+                                    ).sublist(0, min(result.length, selectOptions[dropDownValue] as int))
+                                ),
                               )
                             ]
                         );
