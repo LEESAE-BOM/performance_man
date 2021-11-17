@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ml_algo/ml_algo.dart';
 import 'package:ml_dataframe/ml_dataframe.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_app/box_widget.dart';
 
 late List<double> dataset1=[0,0,0,0,0,0,0,0,0,0,0,0];
 //큰 위젯
@@ -25,6 +26,8 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
   }
   @override
   Widget build(BuildContext context) {
+    bool isScrolling = false;
+
     final List<SalesData> chartdata = [
       SalesData('1분기', dataset1[0]+dataset1[1]+dataset1[2]),
       SalesData('2분기',dataset1[3]+dataset1[4]+dataset1[5] ),
@@ -56,49 +59,15 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
       ),
     );
 
-    return GestureDetector(
+    return BoxWidget('예상수익', 'safe', 'wide').make(
         onTap: () {
-         Navigator.of(context).push(MaterialPageRoute(builder: (context) => expected_profit()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => expected_profit())
+          );
           //Navigator.of(context).pushNamed(,arguments: dataset);
         },
-        child: Container(
-            width: 1040.w,
-            height: 400.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            child: Column(children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(top: 20.w, bottom: 10.w, left: 35.w),
-                child: Row(
-                  children: [
-                    Text(
-                      '추정수익률',
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 35.w,
-                          fontFamily: 'applesdneom'),
-                    ),
-                    SizedBox(width: 10.w),
-                    Image.asset(
-                      'image/danger_light.png',
-                      width: 20.w,
-                      height: 20.w,
-                    ),
-                  ],
-                ),
-              ),
-              Container(width: 1060.w, height: 310.w, child: chartSection)
-            ])));
+        dbRelatedContentBuilder: chartSection
+    );
   }
 }
 
