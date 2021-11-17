@@ -100,10 +100,10 @@ class _monthly_figures extends State<monthly_figures> {
                                       '이번 달의 전력사용량은\n[${detailPageTheme.money.format(thisMonthUse)}kWh] 입니다.\n전월 대비\n'),
                                   if (diff < 0)
                                     detailPageTheme.makeHeaderText(
-                                        '[${detailPageTheme.money.format(diff * -1)}]kWh 감소했어요.'),
+                                        '[${detailPageTheme.money.format(diff * -1)}kWh] 감소했습니다.'),
                                   if (diff >= 0)
                                     detailPageTheme.makeHeaderText(
-                                        '[${detailPageTheme.money.format(diff)}]kWh 증가했어요.')
+                                        '[${detailPageTheme.money.format(diff)}]kWh] 증가했습니다.')
                                 ]))),
                             SfCartesianChart(
                               zoomPanBehavior: _zoomPanBehavior,
