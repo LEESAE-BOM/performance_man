@@ -58,6 +58,10 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                     onChartTouchInteractionDown: (_Capacity_Ratio_Widget){
                       isScrolling = false;
                     },
+                    palette: <Color>[
+                      Color.fromRGBO(105, 168, 248, 0),
+                      Color.fromRGBO(253, 122, 93, 0),
+                    ],
                     series: <CircularSeries>[
                       DoughnutSeries<ChartData, String>(
                           radius: '100%',
