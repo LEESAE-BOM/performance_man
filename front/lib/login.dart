@@ -90,49 +90,51 @@ class _login_flow extends State<login_flow> {
     );
 
     return Scaffold(
-      resizeToAvoidBottomInset : false,
-      body: Center(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-                SizedBox(
-                  width: 250.0,
-                  height: 200.0,
-                  child: Image.asset('image/logo_color.png'),
-                ),
-                SizedBox(height: 20.0),
-                emailField,
-                SizedBox(height: 8.0),
-                passwordField,
-                SizedBox(height: 8.0),
-                Row(
-                  children: <Widget>[
-                    SizedBox(height:5.0,width:5.0),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 14,
-                      height: 14,
-                      color: Colors.black26,
-                      child: Checkbox(value: _isChecked,
-                          //checkColor:Colors.orange,
-                          //hoverColor:Colors.red,
-                          activeColor: Colors.black38 ,
-                          onChanged: (value){setState(() {_isChecked = value!;});})
-                    ),
-                    SizedBox(width:10.0),
-                    Text('로그인 상태 유지',style: TextStyle(fontSize: 12, fontFamily: 'applesdneob',color: Colors.black54)),
-                  ],
-                ),
-                SizedBox(height: 50.0),
-                loginButon,
-                SizedBox(height: 15.0,),
-              ],
+      resizeToAvoidBottomInset : true,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 50.0),
+                  SizedBox(
+                    width: 250.0,
+                    height: 200.0,
+                    child: Image.asset('image/logo_color.png'),
+                  ),
+                  SizedBox(height: 20.0),
+                  emailField,
+                  SizedBox(height: 8.0),
+                  passwordField,
+                  SizedBox(height: 15.0),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(height:5.0,width:5.0),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 14,
+                        height: 14,
+                        color: Colors.black26,
+                        child: Checkbox(value: _isChecked,
+                            //checkColor:Colors.orange,
+                            //hoverColor:Colors.red,
+                            activeColor: Colors.black38 ,
+                            onChanged: (value){setState(() {_isChecked = value!;});})
+                      ),
+                      SizedBox(width:19.0),
+                      Text('로그인 상태 유지',style: TextStyle(fontSize: 12, fontFamily: 'applesdneob',color: Colors.black54)),
+                    ],
+                  ),
+                  SizedBox(height: 15.0),
+                  loginButon,
+                  SizedBox(height: 15.0,),
+                ],
+              ),
             ),
           ),
         ),
