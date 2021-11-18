@@ -59,7 +59,7 @@ class Factory_Screen extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   height: 100.w,
                   child: Text(
-                    '안전: 3 경고: 0 위험: 1',
+                    '안전: 2 경고: 1 위험: 1',
                     style: TextStyle(
                       fontSize: 52.w,
                       color: Colors.white,
