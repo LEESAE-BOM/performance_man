@@ -12,91 +12,97 @@ class Labor_Production_Rate_Widget extends StatefulWidget {
       _Labor_Production_Rate_Widget();
 }
 
-class _Labor_Production_Rate_Widget extends State<Labor_Production_Rate_Widget> {
+class _Labor_Production_Rate_Widget
+    extends State<Labor_Production_Rate_Widget> {
   List<ChartData> laborData = [];
-  bool isScrolling = false;
+  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
-    return BoxWidget('노동생산성', 'safe', 'wide').make(
-        onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => labor_production_rate()));
-        },
-        dbRelatedContentBuilder: FutureBuilder(
-          future: conn.sendQuery(
-              'SELECT MONTH(RecordedDate) as Month, Productivity FROM Productivity ORDER BY RecordedDate;'),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              var result = snapshot.data as List<Map<String, dynamic>>;
+    bool isScrolling = false;
+    return FutureBuilder(
+        future: conn.sendQuery(
+            'SELECT RecordedDate, Productivity FROM Productivity ORDER BY RecordedDate DESC;'),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var result = snapshot.data as List<Map<String, dynamic>>;
+            var thisMonthProductivity = double.parse(result[0]['Productivity']);
+            var previousMonthProductivity =
+            double.parse(result[1]['Productivity']);
 
-              for (int i = 0; i < min(result.length, 12); i++)
-                laborData.add(ChartData(double.parse(result[i]['Month']),
-                    double.parse(result[i]['Productivity'])));
+            int diff = thisMonthProductivity.round() -
+                previousMonthProductivity.round();
 
-              return SfCartesianChart(
-                onChartTouchInteractionMove: (_Labor_Production_Rate_Widget){
-                  isScrolling = true;
+            if (diff > -2)
+              state = 'safe';
+            else if (diff < -10)
+              state = 'warning';
+            else
+              state = 'danger';
+
+            return BoxWidget('노동생산성', state, 'wide').make(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => labor_production_rate()));
                 },
-                onChartTouchInteractionUp: (_Labor_Production_Rate_Widget) {
-                  if(isScrolling == false) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => labor_production_rate()));
-                  }
-                  isScrolling = false;
-                },
-                onChartTouchInteractionDown: (_Labor_Production_Rate_Widget){
-                  isScrolling = false;
-                },
-                primaryXAxis: NumericAxis(
-                    edgeLabelPlacement: EdgeLabelPlacement.shift,
-                    isVisible: true),
+                dbRelatedContentBuilder: FutureBuilder(
+                    future: conn.sendQuery(
+                        'SELECT MONTH(RecordedDate) as Month, Productivity FROM Productivity ORDER BY RecordedDate;'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var result = snapshot.data as List<Map<String, dynamic>>;
 
-                primaryYAxis: NumericAxis(
-                    isVisible: true,
-                    edgeLabelPlacement: EdgeLabelPlacement.shift),
-
-                series: <ChartSeries>[
-                  AreaSeries<ChartData, double>(
-                    dataSource: laborData,
-                    xValueMapper: (ChartData labors, _) => labors.x,
-                    yValueMapper: (ChartData labors, _) => labors.y,
-                    dataLabelSettings: DataLabelSettings(isVisible: true),
-                    enableTooltip: true,
-                    color: Colors.indigo,
-                  ),
-                ],
-
-                plotAreaBorderWidth: 0,
-
-              );
-
-            } else {
-              return Text('불러오는 중');
-            }
-          },
-        ));
+                        for (int i = 0; i < min(result.length, 12); i++) {
+                          laborData.add(ChartData(
+                              double.parse(result[i]['Month']),
+                              double.parse(result[i]['Productivity'])));
+                        }
+                        return SfCartesianChart(
+                          onChartTouchInteractionMove:
+                              (_Labor_Production_Rate_Widget) {
+                            isScrolling = true;
+                          },
+                          onChartTouchInteractionUp:
+                              (_Labor_Production_Rate_Widget) {
+                            if (isScrolling == false) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      labor_production_rate()));
+                            }
+                            isScrolling = false;
+                          },
+                          onChartTouchInteractionDown:
+                              (_Labor_Production_Rate_Widget) {
+                            isScrolling = false;
+                          },
+                          primaryXAxis: NumericAxis(
+                              edgeLabelPlacement: EdgeLabelPlacement.shift,
+                              isVisible: true),
+                          primaryYAxis: NumericAxis(
+                              isVisible: true,
+                              edgeLabelPlacement: EdgeLabelPlacement.shift),
+                          series: <ChartSeries>[
+                            AreaSeries<ChartData, double>(
+                              dataSource: laborData,
+                              xValueMapper: (ChartData labors, _) => labors.x,
+                              yValueMapper: (ChartData labors, _) => labors.y,
+                              dataLabelSettings:
+                              DataLabelSettings(isVisible: true),
+                              enableTooltip: true,
+                              color: Colors.indigo,
+                            ),
+                          ],
+                          plotAreaBorderWidth: 0,
+                        );
+                      } else {
+                        return Text.rich(TextSpan(text: '불러오는 중'));
+                      }
+                    }));
+          } else {
+            return Text.rich(TextSpan(text: '불러오는 중'));
+          }
+        });
   }
-
-  /*late List<Chart_Data> _chartData;
-
-  void initState() {
-    _chartData = getChartData();
-
-    super.initState();
-  }
-
-  List<Chart_Data> getChartData() {
-    final List<Chart_Data> chartData = [
-      Chart_Data(4, 60),
-      Chart_Data(5, 51),
-      Chart_Data(6, 152),
-      Chart_Data(7, 202),
-      Chart_Data(8, 259),
-      Chart_Data(9, 500)
-    ];
-    return chartData;
-  }*/
 }
 
 class ChartData {
