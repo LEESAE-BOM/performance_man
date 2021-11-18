@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/factory_widget/labor_production_rate.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -54,7 +55,7 @@ class _Labor_Production_Rate_Widget
 
                         for (int i = 0; i < min(result.length, 12); i++) {
                           laborData.add(ChartData(
-                              double.parse(result[i]['Month']),
+                              '${double.parse(result[i]['Month'])}월',
                               double.parse(result[i]['Productivity'])));
                         }
                         return SfCartesianChart(
@@ -75,20 +76,21 @@ class _Labor_Production_Rate_Widget
                               (_Labor_Production_Rate_Widget) {
                             isScrolling = false;
                           },
-                          primaryXAxis: NumericAxis(
+                          primaryXAxis: CategoryAxis(
                               edgeLabelPlacement: EdgeLabelPlacement.shift,
+                              majorGridLines: MajorGridLines(width: 0),
                               isVisible: true),
                           primaryYAxis: NumericAxis(
                               isVisible: true,
-                              edgeLabelPlacement: EdgeLabelPlacement.shift),
+                              edgeLabelPlacement: EdgeLabelPlacement.shift,
+                            majorGridLines: MajorGridLines(width: 0)),
                           series: <ChartSeries>[
-                            AreaSeries<ChartData, double>(
+                            AreaSeries<ChartData, String>(
                               dataSource: laborData,
                               xValueMapper: (ChartData labors, _) => labors.x,
                               yValueMapper: (ChartData labors, _) => labors.y,
                               dataLabelSettings:
-                              DataLabelSettings(isVisible: true),
-                              enableTooltip: true,
+                              DataLabelSettings(isVisible: true,labelAlignment: ChartDataLabelAlignment.top),
                               color: Colors.indigo,
                             ),
                           ],
@@ -108,6 +110,6 @@ class _Labor_Production_Rate_Widget
 class ChartData {
   ChartData(this.x, this.y);
 
-  double x;
+  String? x;
   double y;
 }
