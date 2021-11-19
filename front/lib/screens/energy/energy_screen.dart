@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 
+List<String> state = ['safe','safe', 'safe'];
+
 class Energy_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,17 +55,37 @@ class Energy_Screen extends StatelessWidget {
                           }
                         }),
                   ),
-                  Container(
-                      alignment: Alignment.topCenter,
-                      height:100.w,
-                      child:Text('안전: 2 경고: 1 위험: 0'
-                        ,style: TextStyle(
-                          fontSize: 52.w,
-                          color: Colors.white,
-                          letterSpacing: 3.w,
-                          fontFamily: 'applesdneol',
-                        ),
-                      )
+                  FutureBuilder(
+                      future: _fetch2(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData == false) {
+                          return CircularProgressIndicator();
+                        }
+                        else if (snapshot.hasError) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Error: ${snapshot.error}',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          );
+                        }
+                        else {
+                          return Container(
+                              alignment: Alignment.topCenter,
+                              height: 100.w,
+                              child: Text(
+                                snapshot.data.toString(),
+                                style: TextStyle(
+                                  fontSize: 52.w,
+                                  color: Colors.white,
+                                  letterSpacing: 3.w,
+                                  fontFamily: 'applesdneol',
+                                ),
+                              )
+                          );
+                        }
+                      }
                   )
                 ]
             )
@@ -88,4 +110,20 @@ class Energy_Screen extends StatelessWidget {
       ],
     ));
   }
+}
+Future<String> _fetch2() async {
+  await Future.delayed(Duration(seconds: 3));
+
+  List<int> stat_num = [0,0,0];
+
+  for(var i=0;i<3;i++){
+    if(state[i]=='safe')
+      stat_num[0]=stat_num[0]+1;
+    else if(state[i]=='warning')
+      stat_num[1]=stat_num[1]+1;
+    else if(state[i]=='danger')
+      stat_num[2]=stat_num[2]+1;
+  }
+
+  return '안전: ${stat_num[0]} 경고:${stat_num[1]} 위험:${stat_num[2]}';
 }
