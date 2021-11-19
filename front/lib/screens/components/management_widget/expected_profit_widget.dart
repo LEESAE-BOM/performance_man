@@ -40,6 +40,19 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
     Widget chartSection = Center(
       child: Container(
         child: SfCartesianChart(
+            onChartTouchInteractionMove: (_Expected_Profit_Widget) {
+              isScrolling = true;
+            },
+            onChartTouchInteractionUp: (_Expected_Profit_Widget) {
+              if (isScrolling == false) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => expected_profit()));
+              }
+              isScrolling = false;
+            },
+            onChartTouchInteractionDown: (_Expected_Profit_Widget) {
+              isScrolling = false;
+            },
             primaryXAxis: CategoryAxis(
               majorGridLines: MajorGridLines(width: 0),
             ),
