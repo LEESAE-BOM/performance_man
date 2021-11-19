@@ -76,6 +76,8 @@ class _login_flow extends State<login_flow> {
               password: 1234
              */
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+            _emailTextController.text = '';
+            _passwordTextController.text = '';
           }
           else{
             showToast();
