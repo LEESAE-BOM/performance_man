@@ -3,7 +3,7 @@ import 'package:flutter_app/energy_widget/energy_fee.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/box_widget.dart';
-
+import 'package:flutter_app/screens/energy/energy_screen.dart';
 //작은 위젯
 class Energy_Fee_Widget extends StatefulWidget {
   @override
@@ -11,7 +11,6 @@ class Energy_Fee_Widget extends StatefulWidget {
 }
 
 class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
-  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +24,14 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
             var thisMonthPrice = double.parse(result[0]['Money']);
 
             if (thisMonthPrice < 10000000)
-              state = 'safe';
+              state[0] = 'safe';
             else if (thisMonthPrice < 20000000) {
-              state = 'warning';
+              state[0] = 'warning';
             } else {
-              state = 'danger';
+              state[0] = 'danger';
             }
 
-            return BoxWidget('요금 현황', state, 'wide').make(
+            return BoxWidget('요금 현황', state[0], 'wide').make(
                 onTap: () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => energy_fee()));

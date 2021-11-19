@@ -4,7 +4,7 @@ import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_app/screens/energy/energy_screen.dart';
 //작은 위젯
 class Hourly_Figures_Widget extends StatefulWidget {
   @override
@@ -12,8 +12,6 @@ class Hourly_Figures_Widget extends StatefulWidget {
 }
 
 class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
-
-  var state = 'danger';
 
   @override
   List<Chart_Data> _chart_Data = [];
@@ -61,20 +59,18 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                 max = i;
               }
             }
-
-
             _chart_Data[(max / 2).round() - 3].color =
                 Color.fromRGBO(225, 72, 72, 1);
 
             if (Energyusage_time[max].y2 < 40000)
-              state = 'safe';
+              state[1] = 'safe';
             else if (Energyusage_time[max].y2 < 60000) {
-              state = 'warning';
+              state[1] = 'warning';
             } else {
-              state = 'danger';
+              state[1] = 'danger';
             }
 
-            return BoxWidget('시간별 에너지', state, 'narrow').make(
+            return BoxWidget('시간별 에너지', state[1], 'narrow').make(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => hourly_figures()));
@@ -84,10 +80,6 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                         'SELECT UseDate,HOUR(UseTime) as UseTime,Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        var result =
-                            snapshot.data as List<Map<String, dynamic>>;
-
-
                         return Container(
                           child: SfCircularChart(
                               onChartTouchInteractionMove:

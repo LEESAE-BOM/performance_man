@@ -4,6 +4,7 @@ import 'package:flutter_app/energy_widget/monthly_figures.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/box_widget.dart';
+import 'package:flutter_app/screens/energy/energy_screen.dart';
 
 class Monthly_Figures_Widget extends StatefulWidget {
   @override
@@ -11,8 +12,6 @@ class Monthly_Figures_Widget extends StatefulWidget {
 }
 
 class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
-
-  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +25,14 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
             var previousMonthPrice = double.parse(result[1]['Amount']);
 
             if (thisMonthPrice < 50000)
-              state = 'safe';
+              state[2] = 'safe';
             else if (thisMonthPrice < 70000) {
-              state = 'warning';
+              state[2] = 'warning';
             } else {
-              state = 'danger';
+              state[2] = 'danger';
             }
 
-            return BoxWidget('월별 에너지', state, 'narrow').make(
+            return BoxWidget('월별 에너지', state[2], 'narrow').make(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => monthly_figures()));
