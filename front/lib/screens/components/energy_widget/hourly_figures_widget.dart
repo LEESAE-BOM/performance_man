@@ -12,6 +12,9 @@ class Hourly_Figures_Widget extends StatefulWidget {
 }
 
 class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
+
+  var state = 'danger';
+
   @override
   List<Chart_Data> _chart_Data = [];
   List<_SplineAreaData1> Energyusage_time = [];
@@ -28,82 +31,110 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
   Widget build(BuildContext context) {
     bool isScrolling = false;
 
-    return BoxWidget('시간별 에너지', 'warning', 'narrow').make(
-        onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => hourly_figures()));
-        },
-        dbRelatedContentBuilder: FutureBuilder(
-            future: conn.sendQuery(
-                'SELECT UseDate,HOUR(UseTime) as UseTime,Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;;'),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                var result = snapshot.data as List<Map<String, dynamic>>;
+    return FutureBuilder(
+        future: conn.sendQuery(
+            'SELECT UseDate,HOUR(UseTime) as UseTime,Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var result = snapshot.data as List<Map<String, dynamic>>;
 
-                for (var row in result) {
-                  int toDate1 = int.parse(row['UseTime']);
-                  String energyStr = row['Amount'];
-                  energyStr = energyStr.substring(0, energyStr.length - 3);
+            for (var row in result) {
+              int toDate1 = int.parse(row['UseTime']);
+              String energyStr = row['Amount'];
+              energyStr =
+                  energyStr.substring(0, energyStr.length - 3);
 
-                  String energyStr1 = row['Amount'];
-                  energyStr1 = energyStr1.substring(0, energyStr1.length - 3);
+              String energyStr1 = row['Amount'];
+              energyStr1 =
+                  energyStr1.substring(0, energyStr1.length - 3);
 
-                  Energyusage_time[toDate1 - 1].y1 = double.parse(energyStr);
-                  Energyusage_time[toDate1 - 1].y2 = double.parse(energyStr1);
-                }
+              Energyusage_time[toDate1 - 1].y1 =
+                  double.parse(energyStr);
+              Energyusage_time[toDate1 - 1].y2 =
+                  double.parse(energyStr1);
+            }
 
-                int max = 0;
-                for (int i = 1; i < 24; i++) {
-                  if (Energyusage_time[max].y2 < Energyusage_time[i].y2) {
-                    max = i;
-                  }
-                }
-                _chart_Data[(max / 2).round() - 3].color =
-                    Color.fromRGBO(225, 72, 72, 1);
-                return Container(
-                  child: SfCircularChart(
-                      onChartTouchInteractionMove: (_Hourly_Figures_Widget){
-                        isScrolling = true;
-                      },
-                      onChartTouchInteractionUp: (_Hourly_Figures_Widget){
-                        if(isScrolling == false){
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => hourly_figures()));
-                        }
-                        isScrolling = false;
-                      },
-                      onChartTouchInteractionDown: (_Hourly_Figures_Widget){
-                        isScrolling = false;
-                      },
-                      annotations: <CircularChartAnnotation>[
-                        CircularChartAnnotation(
-                            widget: Container(
-                                child: Text(
-                                    '${max}시~${max + 1}시',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 50.sp,
-                                        fontFamily: 'applesdneom'
-                                    )
-                                )
-                            )
-                        )
-                      ],
-                      series: <CircularSeries>[
-                        DoughnutSeries<Chart_Data, String>(
-                            dataSource: _chart_Data,
-                            pointColorMapper: (Chart_Data data, _) => data.color,
-                            xValueMapper: (Chart_Data data, _) => data.x,
-                            yValueMapper: (Chart_Data data, _) => data.y,
-                            radius: '100%'
-                        )
-                      ]
-                  ),
-                );
-              } else {
-                return Text.rich(TextSpan(text: '불러오는 중'));
+            int max = 0;
+            for (int i = 1; i < 24; i++) {
+              if (Energyusage_time[max].y2 <
+                  Energyusage_time[i].y2) {
+                max = i;
               }
-            }));
+            }
+
+
+            _chart_Data[(max / 2).round() - 3].color =
+                Color.fromRGBO(225, 72, 72, 1);
+
+            if (Energyusage_time[max].y2 < 40000)
+              state = 'safe';
+            else if (Energyusage_time[max].y2 < 60000) {
+              state = 'warning';
+            } else {
+              state = 'danger';
+            }
+
+            return BoxWidget('시간별 에너지', state, 'narrow').make(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => hourly_figures()));
+                },
+                dbRelatedContentBuilder: FutureBuilder(
+                    future: conn.sendQuery(
+                        'SELECT UseDate,HOUR(UseTime) as UseTime,Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var result =
+                            snapshot.data as List<Map<String, dynamic>>;
+
+
+                        return Container(
+                          child: SfCircularChart(
+                              onChartTouchInteractionMove:
+                                  (_Hourly_Figures_Widget) {
+                                isScrolling = true;
+                              },
+                              onChartTouchInteractionUp:
+                                  (_Hourly_Figures_Widget) {
+                                if (isScrolling == false) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => hourly_figures()));
+                                }
+                                isScrolling = false;
+                              },
+                              onChartTouchInteractionDown:
+                                  (_Hourly_Figures_Widget) {
+                                isScrolling = false;
+                              },
+                              annotations: <CircularChartAnnotation>[
+                                CircularChartAnnotation(
+                                    widget: Container(
+                                        child: Text('${max}시~${max + 1}시',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 50.sp,
+                                                fontFamily: 'applesdneom'))))
+                              ],
+                              series: <CircularSeries>[
+                                DoughnutSeries<Chart_Data, String>(
+                                    dataSource: _chart_Data,
+                                    pointColorMapper: (Chart_Data data, _) =>
+                                        data.color,
+                                    xValueMapper: (Chart_Data data, _) =>
+                                        data.x,
+                                    yValueMapper: (Chart_Data data, _) =>
+                                        data.y,
+                                    radius: '100%')
+                              ]),
+                        );
+                      } else {
+                        return Text.rich(TextSpan(text: '불러오는 중'));
+                      }
+                    }));
+          } else {
+            return Text.rich(TextSpan(text: '불러오는 중'));
+          }
+        });
   }
 }
 
