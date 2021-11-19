@@ -142,6 +142,7 @@ class _development_completion_rate extends State<development_completion_rate> {
                           child: Container(
                               padding:
                               EdgeInsets.fromLTRB(50.sp, 25.sp, 50.sp, 25.sp),
+                              margin: EdgeInsets.zero,
                               width: 1040.w,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -157,19 +158,18 @@ class _development_completion_rate extends State<development_completion_rate> {
                               ),
                               child: Column(
                                 children: [
-                                  Container(
-                                    padding: EdgeInsets.fromLTRB(0, 25.sp, 0, 0),
+                                  SizedBox(
+                                    height: 20.w,
                                   ),
                                   Text('${data.x}',
                                       style: TextStyle(fontSize: 50.w)),
-                                  Container(
-                                    padding: EdgeInsets.fromLTRB(0, 25.sp, 0, 0),
+                                  SizedBox(
+                                    height: 20.w,
                                   ),
                                   Text('${data.y.round()}% 완수',
                                       style: TextStyle(fontSize: 40.w)),
                                   Container(
-                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                      height: 70.w,
+                                      height: 75.w,
                                       child: SfCartesianChart(
                                           tooltipBehavior: _toolTipBehavior,
                                           onChartTouchInteractionMove:
