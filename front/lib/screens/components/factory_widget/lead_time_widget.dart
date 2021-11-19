@@ -4,6 +4,7 @@ import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_app/screens/factory/factory_screen.dart';
 
 //작은 위젯
 class Lead_Time_Widget extends StatefulWidget {
@@ -12,7 +13,6 @@ class Lead_Time_Widget extends StatefulWidget {
 }
 
 class _Lead_Time_Widget extends State<Lead_Time_Widget> {
-  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,13 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
             dif *= -1;
 
             if (dif < 10)
-              state = 'danger';
+              state[3] = 'danger';
             else if (dif < 20)
-              state = 'warning';
+              state[3] = 'warning';
             else
-              state = 'safe';
+              state[3] = 'safe';
 
-            return BoxWidget('제조 Lead-time', state, 'narrow').make(
+            return BoxWidget('제조 Lead-time', state[3], 'narrow').make(
                 onTap: () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => lead_time()));

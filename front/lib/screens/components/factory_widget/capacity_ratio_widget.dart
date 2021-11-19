@@ -4,6 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
+import 'package:flutter_app/screens/factory/factory_screen.dart';
 
 class Capacity_Ratio_Widget extends StatefulWidget {
   @override
@@ -12,8 +13,6 @@ class Capacity_Ratio_Widget extends StatefulWidget {
 
 class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
   late TooltipBehavior _toolTipBehavior;
-
-  var state = 'danger';
 
   void initState() {
     _toolTipBehavior = TooltipBehavior();
@@ -35,13 +34,13 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
             var achieveRate = (achievement / goal) * 100;
 
             if (achieveRate > 70)
-              state = 'safe';
+              state[0] = 'safe';
             else if (achieveRate > 50)
-              state = 'warning';
+              state[0] = 'warning';
             else
-              state = 'danger';
+              state[0] = 'danger';
 
-            return BoxWidget('설비가동률', state, 'narrow').make(
+            return BoxWidget('설비가동률', state[0], 'narrow').make(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => capacity_ratio()));
@@ -52,6 +51,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result = snapshot.data as List<Map<String, dynamic>>;
+                        print(result.length);
                         var goal = double.parse(result[0]['Goal']);
                         var achievement =
                             double.parse(result[0]['Achievement']);

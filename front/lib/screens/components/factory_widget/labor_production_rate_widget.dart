@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
 import 'dart:math';
+import 'package:flutter_app/screens/factory/factory_screen.dart';
 
 //큰 위젯
 class Labor_Production_Rate_Widget extends StatefulWidget {
@@ -16,7 +17,6 @@ class Labor_Production_Rate_Widget extends StatefulWidget {
 class _Labor_Production_Rate_Widget
     extends State<Labor_Production_Rate_Widget> {
   List<ChartData> laborData = [];
-  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,13 @@ class _Labor_Production_Rate_Widget
                 previousMonthProductivity.round();
 
             if (diff > -2)
-              state = 'safe';
+              state[2] = 'safe';
             else if (diff < -10)
-              state = 'warning';
+              state[2] = 'warning';
             else
-              state = 'danger';
+              state[2] = 'danger';
 
-            return BoxWidget('노동생산성', state, 'wide').make(
+            return BoxWidget('노동생산성', state[2], 'wide').make(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => labor_production_rate()));

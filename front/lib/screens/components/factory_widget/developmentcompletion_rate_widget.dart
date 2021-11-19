@@ -5,6 +5,7 @@ import 'package:flutter_app/factory_widget/development_completion_rate.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
+import 'package:flutter_app/screens/factory/factory_screen.dart';
 
 //큰 위젯
 class Developmentcompletion_Rate_Widget extends StatefulWidget {
@@ -16,7 +17,6 @@ class Developmentcompletion_Rate_Widget extends StatefulWidget {
 class _Developmentcompletion_Rate_Widget
     extends State<Developmentcompletion_Rate_Widget> {
   late TooltipBehavior _toolTipBehavior;
-  var state = 'safe';
 
   void initState() {
     _toolTipBehavior = TooltipBehavior();
@@ -37,13 +37,13 @@ class _Developmentcompletion_Rate_Widget
             var achieveRate = double.parse(result[0]['Rate']) * 100;
 
             if (achieveRate > 80)
-              state = 'safe';
+              state[1] = 'safe';
             else if (achieveRate > 50)
-              state = 'warning';
+              state[1] = 'warning';
             else
-              state = 'danger';
+              state[1] = 'danger';
 
-            return BoxWidget("개발완료율", state, "wide").make(
+            return BoxWidget("개발완료율", state[1], "wide").make(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => development_completion_rate()));
