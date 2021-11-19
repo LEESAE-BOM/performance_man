@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
-
+import 'package:flutter_app/screens/management/management_screen.dart';
 //작은 위젯
 class Labor_Ratio_Widget extends StatefulWidget {
   @override
@@ -17,7 +17,6 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
   @override
   Widget build(BuildContext context) {
     List<ChartData> laborData = [];
-    var state = 'danger';
 
     return FutureBuilder(
         future: conn.sendQuery('SELECT RecordedDate, Category, Money * 1000 as Money FROM Money WHERE Category like \'%LBR\' ORDER BY RecordedDate DESC;'),
@@ -55,12 +54,12 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
             DCLBRRate = (totalDCLBR / (totalIDLBR + totalDCLBR)) * 100;
 
             if( IDLBRRate>= DCLBRRate)
-              state='safe';
+              state[3]='safe';
             else if( IDLBRRate>= DCLBRRate-10)
-              state='warning';
+              state[3]='warning';
             else
-              state='danger';
-            return BoxWidget('인건비율', 'warning', 'narrow').make(
+              state[3]='danger';
+            return BoxWidget('인건비율', state[3], 'narrow').make(
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) => labor_ratio()));

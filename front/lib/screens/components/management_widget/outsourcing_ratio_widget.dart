@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
-
+import 'package:flutter_app/screens/management/management_screen.dart';
 //작은 위젯
 class Outsourcing_Ratio_Widget extends StatefulWidget {
   @override
@@ -14,8 +14,6 @@ class Outsourcing_Ratio_Widget extends StatefulWidget {
 class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
   List<ChartData> outsourcingData = [];
   bool isScrolling = false;
-
-  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +41,13 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
             rate = (outsourcePrice / contractPrice) * 100;
 
             if(rate<5)
-              state='safe';
+              state[4]='safe';
             else if(rate<7)
-              state='warning';
+              state[4]='warning';
             else
-              state='danger';
+              state[4]='danger';
 
-            return BoxWidget('외주비율', state, 'narrow').make(
+            return BoxWidget('외주비율', state[4], 'narrow').make(
                 onTap: () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => outsourcing_ratio()));

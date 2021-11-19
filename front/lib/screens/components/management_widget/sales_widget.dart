@@ -3,15 +3,13 @@ import 'package:flutter_app/management_widget/sales.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/box_widget.dart';
-
+import 'package:flutter_app/screens/management/management_screen.dart';
 class Sales_Widget extends StatefulWidget {
   @override
   _Sales_Widget createState() => _Sales_Widget();
 }
 
 class _Sales_Widget extends State<Sales_Widget> {
-
-  var state = 'danger';
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +20,14 @@ class _Sales_Widget extends State<Sales_Widget> {
               var result = snapshot.data as List<Map<String, dynamic>>;
               int money = double.parse(result[0]['Money']).round();
               if(money>19000000000)
-                state='safe';
+                state[5]='safe';
               else if(money>17000000000){
-                state='warning';
+                state[5]='warning';
               }
               else {
-                state='danger';
+                state[5]='danger';
               }
-              return BoxWidget('매출금액', state , 'wide').make(
+              return BoxWidget('매출금액', state[5] , 'wide').make(
                   onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => sales()));},
                   dbRelatedContentBuilder: FutureBuilder(
                       future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE Category = \'SALES\' ORDER BY RecordedDate DESC;'),

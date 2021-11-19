@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
+import 'package:flutter_app/screens/management/management_screen.dart';
 
 //작은 위젯
 class Cash_Reserve_Widget extends StatefulWidget {
@@ -16,7 +17,7 @@ class Cash_Reserve_Widget extends StatefulWidget {
 
 class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
   List<ChartData> cashData = [];
-  var state = 'danger';
+
   @override
   Widget build(BuildContext context) {
     bool isScrolling = false;
@@ -29,14 +30,14 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
               cashData.add(ChartData(double.parse(result[i]['Year']),
                   double.parse(result[i]['Money'])));
             if(double.parse(result[2]['Year'])>200000000000)
-              state='safe';
+              state[0]='safe';
             else if(double.parse(result[2]['Year'])>170000000000){
-              state='warning';
+              state[0]='warning';
             }
             else {
-              state='danger';
+              state[0]='danger';
             }
-            return BoxWidget('현금보유액', state, 'wide').make(
+            return BoxWidget('현금보유액', state[0], 'wide').make(
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) => cash_reserve()));

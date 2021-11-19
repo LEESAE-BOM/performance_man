@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:ml_dataframe/ml_dataframe.dart';
 import 'package:flutter_app/box_widget.dart';
 import 'package:flutter_app/mysql_connect.dart';
+import 'package:flutter_app/screens/management/management_screen.dart';
 
 late List<double> dataset1=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //큰 위젯
@@ -27,7 +28,6 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
   @override
   Widget build(BuildContext context) {
     bool isScrolling = false;
-    var state = 'danger';
 
     final List<SalesData> chartdata = [
       SalesData('1분기', dataset1[0]+dataset1[1]+dataset1[2]),
@@ -54,7 +54,7 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
                   xValueMapper: (SalesData sales, _) => sales.month,
                   yValueMapper: (SalesData sales, _) => sales.sales,
                   dataLabelSettings: DataLabelSettings(
-                      // Renders the data label
+                    // Renders the data label
                       isVisible: true),
                   markerSettings: MarkerSettings(isVisible: true)),
             ]),
@@ -65,15 +65,15 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
         dataset1[6]+dataset1[7]+dataset1[8]+
         dataset1[9]+dataset1[10]+dataset1[11];
     if(money>1600000000)
-      state='safe';
+      state[2]='safe';
     else if(money>1200000000){
-      state='warning';
+      state[2]='warning';
     }
     else {
-      state='danger';
+      state[2]='danger';
     }
 
-    return BoxWidget('예상수익', state, 'wide').make(
+    return BoxWidget('예상수익', state[2], 'wide').make(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => expected_profit())
