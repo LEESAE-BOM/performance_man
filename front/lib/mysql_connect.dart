@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/theme.dart';
+import 'package:ml_dataframe/ml_dataframe.dart';
 
 class MySQLConnector{
   String webServerURL = 'http://teamflow.dothome.co.kr/doQuery.php';
@@ -25,24 +26,92 @@ class MySQLConnector{
     return result;
   }
 
+  Future<DataFrame> getSalesData(year) async {
+    var result = await sendQuery("SELECT Year(RecordedDate) year, Month(RecordedDate) month, Money * 1000 profit FROM Money WHERE (Category=\'SALES\') AND (Year(RecordedDate)='$year');");
+    var header = ['month', 'profit'];
+    var data = [
+      header,
+      for(var row in result)
+        [row['month'], double.parse(row['profit'])]
+    ];
+
+    return DataFrame(data);
+  }
+
   void insertSalesData({date, amount}){
-    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'SALES\');');
+    sendQuery('INSERT INTO Money (RecordedDate, Money, Category) VALUES (\'$date\', $amount, \'SALES\');');
   }
 
   void insertCashData({date, amount}){
-    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'MONEY\');');
+    sendQuery('INSERT INTO Money (RecordedDate, Money, Category) VALUES (\'$date\', $amount, \'MONEY\');');
   }
 
   void insertDirectLaborCost({date, amount}){
-    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'DCLBR\');');
+    sendQuery('INSERT INTO Money (RecordedDate, Money, Category) VALUES (\'$date\', $amount, \'DCLBR\');');
   }
 
   void insertIndirectLaborCost({date, amount}){
-    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'IDLBR\');');
+    sendQuery('INSERT INTO Money (RecordedDate, Money, Category) VALUES (\'$date\', $amount, \'IDLBR\');');
   }
 
   void insertEnergyFee({date, amount}){
-    sendQuery('INSERT INTO Money (MoneyDate, Money, MoneyCategory) VALUES (\'$date\', $amount, \'EGFEE\');');
+    sendQuery('INSERT INTO Money (RecordedDate, Money, Category) VALUES (\'$date\', $amount, \'EGFEE\');');
+  }
+
+  void setSalesGoal({year, quarter, amount}){
+    String month = '01';
+    switch(quarter){
+      case 1:
+        month = '01';
+        break;
+      case 2:
+        month = '04';
+        break;
+      case 3:
+        month = '07';
+        break;
+      case 4:
+        month = '10';
+    }
+    sendQuery('INSERT INTO Money (RecordedDate, Money, Category) VALUES (\'$year-$month-01\', $amount, \'GSALE\');');
+  }
+
+  void insertContractInfo({date, company, price, backlog, outsourcing}){
+    sendQuery('INSERT INTO Contract (ContractDate, Company, Price, Backlog, Outsourcing) VALUES (\'$date\', \'$company\', $price, $backlog, $outsourcing);');
+  }
+
+  void updateBacklogValue({date, company, backlog}){
+    sendQuery('UPDATE Contract SET Backlog=$backlog WHERE ContractDate = \'$date\' AND Company=\'$company\';');
+  }
+
+  void updateOutsourcingValue({date, company, outsourcing}){
+    sendQuery('UPDATE Contract SET Outsourcing=$outsourcing WHERE ContractDate = \'$date\' AND Company=\'$company\';');
+  }
+
+  void insertEnergyUse({date, time, amount}){
+    sendQuery('INSERT INTO EnergyUse (UseDate, UseTime, Amount) VALUES (\'$date\', \'$time\', $amount);');
+  }
+
+  void insertLeadTime({productName, productTime, cumulativeTime, deliveryTime, startDate, dueDate}){
+    sendQuery('INSERT INTO LeadTime (ProductName, ProductTime, CumulativeTime, DeliveryTime, StartDate, DueDate) VALUES (\'$productName\', $productTime, $cumulativeTime, $deliveryTime, \'$startDate\', \'$dueDate\');');
+  }
+
+  void insertProject({goal, label, startDate}){
+    sendQuery('INSERT INTO CompletionGoal (Goal, Label, StartDate) VALUES ($goal, \'$label\', \'$startDate\');');
+  }
+
+  void insertProjectCompletionValue({label, completionValue, date}){
+    var result = sendQuery('SELECT ID FROM CompletionGoal WHERE Label=\'$label\'') as List<Map<String, dynamic>>;
+    var targetID = result[0]['ID'];
+    sendQuery('INSERT INTO CompletionRate (ID, Achievement, RecordedDate, Category) VALUES ($targetID, \'$completionValue\', \'$date\', \'DVLCM\');');
+  }
+
+  void insertCapacityRate({completionRate, date}){
+    sendQuery('INSERT INTO CompletionRate (Achievement, RecordedDate, Category) VALUES ($completionRate, \'$date\', \'OPRCM\');');
+  }
+
+  void insertProductivityValue({date, productivity}){
+    sendQuery('INSERT INTO CompletionRate (RecordedDate, Productivity) VALUES (\'$date\', $productivity);');
   }
 }
 

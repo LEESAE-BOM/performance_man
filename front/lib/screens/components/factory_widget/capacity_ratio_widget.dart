@@ -52,7 +52,6 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result = snapshot.data as List<Map<String, dynamic>>;
-                        print(result.length);
                         var goal = double.parse(result[0]['Goal']);
                         var achievement =
                             double.parse(result[0]['Achievement']);

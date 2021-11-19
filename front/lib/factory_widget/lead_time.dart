@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '.././screens/factory/factory_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
-import 'dart:math';
 
 class lead_time extends StatefulWidget {
   @override
@@ -17,7 +15,6 @@ class _lead_time extends State<lead_time> {
   late List<Chart_Data> chartData;
   late TooltipBehavior _toolTipBehavior;
 
-  late ZoomPanBehavior _zoomPanBehavior;
   Map<String, int> selectOptions = {
     '진행중': 1,
     '전체보기': 300,
@@ -40,8 +37,6 @@ class _lead_time extends State<lead_time> {
 
   @override
   Widget build(BuildContext context) {
-    List<ChartData> salesData = []; //
-
     return Scaffold(
         appBar: AppBar(
           title: Text('제조 Lead-time',
@@ -69,10 +64,6 @@ class _lead_time extends State<lead_time> {
                         var table = ResultSet(snapshot.data,
                             ['이름', '소요', '누적', '납기', '시작', '예정']);
 
-                        print('결과 : ${result.length}');
-
-
-                        
                         var today = DateTime.now();
                         int dif = int.parse(today
                             .difference(DateTime.parse(result[0]['DueDate']))

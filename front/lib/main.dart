@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/login.dart';
 import 'package:flutter/services.dart';
-import './theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
