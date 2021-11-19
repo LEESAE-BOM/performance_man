@@ -3,7 +3,6 @@ import 'package:flutter_app/management_widget/cash_reserve.dart';
 import 'package:flutter_app/management_widget/contracted_price.dart';
 import 'package:flutter_app/management_widget/expected_profit.dart';
 import 'package:flutter_app/management_widget/labor_ratio.dart';
-import 'package:flutter_app/management_widget/order_amount.dart';
 import 'package:flutter_app/management_widget/outsourcing_ratio.dart';
 import 'package:flutter_app/management_widget/sales.dart';
 import 'package:flutter_app/factory_widget/capacity_ratio.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_app/factory_widget/lead_time.dart';
 import 'package:flutter_app/energy_widget/monthly_figures.dart';
 import 'package:flutter_app/energy_widget/hourly_figures.dart';
 import 'package:flutter_app/energy_widget/energy_fee.dart';
-import 'package:flutter_app/login.dart';
 import 'package:flutter/cupertino.dart';
 
 class MenuDrawer extends StatelessWidget {
