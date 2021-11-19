@@ -164,8 +164,6 @@ class DetailPageTheme{
 
   }
 
-
-
   TextSpan makeMainHeaderText(String txt){
     List<Map<String, String>> parsed = [];
 
