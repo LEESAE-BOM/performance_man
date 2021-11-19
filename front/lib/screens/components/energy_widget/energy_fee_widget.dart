@@ -11,28 +11,49 @@ class Energy_Fee_Widget extends StatefulWidget {
 }
 
 class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
+  var state = 'danger';
+
   @override
   Widget build(BuildContext context) {
-    return BoxWidget('요금 현황', 'safe', 'wide').make(
-        onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => energy_fee()));
-        },
-        dbRelatedContentBuilder: FutureBuilder(
-            future: conn.sendQuery(
-                'SELECT RecordedDate, Money FROM Money WHERE Category=\'EGFEE\' ORDER BY RecordedDate DESC;'),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                var result = snapshot.data as List<Map<String, dynamic>>;
-                var thisMonthPrice = double.parse(result[0]['Money']);
+    return FutureBuilder(
+        future: conn.sendQuery(
+          //'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
+            'SELECT RecordedDate, Money FROM Money WHERE Category=\'EGFEE\' ORDER BY RecordedDate DESC;'),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var result = snapshot.data as List<Map<String, dynamic>>;
+            var thisMonthPrice = double.parse(result[0]['Money']);
 
-                return Text.rich(TextSpan(children: [
-                  detailPageTheme.makeHeaderText(
-                      '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
-                ]));
-              } else {
-                return Text.rich(TextSpan(text: '불러오는 중'));
-              }
-            }));
+            if (thisMonthPrice < 10000000)
+              state = 'safe';
+            else if (thisMonthPrice < 20000000) {
+              state = 'warning';
+            } else {
+              state = 'danger';
+            }
+
+            return BoxWidget('요금 현황', state, 'wide').make(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => energy_fee()));
+                },
+                dbRelatedContentBuilder: FutureBuilder(
+                    future: conn.sendQuery(
+                      //'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
+                        'SELECT RecordedDate, Money FROM Money WHERE Category=\'EGFEE\' ORDER BY RecordedDate DESC;'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text.rich(TextSpan(children: [
+                          detailPageTheme.makeHeaderText(
+                              '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
+                        ]));
+                      } else {
+                        return Text.rich(TextSpan(text: '불러오는 중'));
+                      }
+                    }));
+          } else {
+            return Text.rich(TextSpan(text: '불러오는 중'));
+          }
+        });
   }
 }
