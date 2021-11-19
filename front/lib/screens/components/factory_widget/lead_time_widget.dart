@@ -3,6 +3,7 @@ import 'package:flutter_app/factory_widget/lead_time.dart';
 import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //작은 위젯
 class Lead_Time_Widget extends StatefulWidget {
@@ -46,7 +47,7 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Text.rich(
-                            detailPageTheme.makeHeaderText('[${dif}]days]'));
+                            detailPageTheme.makeLeadText('[${dif}]days]'));
                       } else {
                         return Text.rich(TextSpan(text: '불러오는 중'));
                       }
