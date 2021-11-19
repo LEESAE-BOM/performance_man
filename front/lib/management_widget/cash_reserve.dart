@@ -119,6 +119,9 @@ class _cash_reserve extends State<cash_reserve> {
                                       numberFormat:
                                           NumberFormat.compact(locale: "ko_KR"),
                                     ),
+                                    palette: <Color>[
+                                      Colors.teal,
+                                    ],
                                     series: <ChartSeries>[
                                       BarSeries<ChartData, String>(
                                         dataSource: cashData,

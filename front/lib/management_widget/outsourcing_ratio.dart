@@ -70,6 +70,10 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                         width: 1000.w,
                         height: 300,
                         child: SfCircularChart(
+                            palette: <Color>[
+                              Color.fromRGBO(211, 211, 211, 1),
+                              Color.fromRGBO(111, 166, 223, 1),
+                            ],
                             title: ChartTitle(
                                 text: '$thisYear',
                                 textStyle: TextStyle(

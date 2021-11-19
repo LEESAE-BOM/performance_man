@@ -59,6 +59,13 @@ class DetailPageTheme{
       //letterSpacing: 1.5
   );
 
+  TextStyle LeadText = TextStyle(
+    fontSize: 140.w,
+    color: Colors.blue,
+    fontFamily: 'applesdneoeb',
+    //letterSpacing: 1.5
+  );
+
   TextStyle mainWeightText = TextStyle(
     fontSize: 110.w,
     color: Colors.white,
@@ -106,6 +113,31 @@ class DetailPageTheme{
 
   NumberFormat money = NumberFormat.simpleCurrency(locale: "ko_KR", name: "", decimalDigits: 0);
 
+  TextSpan makeLeadText(String txt){
+    List<Map<String, String>> parsed = [];
+
+    for(String tmp in txt.split('[')){
+      if(tmp.contains(']')){
+        parsed.add({tmp.split(']')[0]: 'big'});
+        if(tmp.split(']').length > 0)
+          parsed.add({tmp.split(']')[1]: 'small'});
+      }else{
+        parsed.add({tmp: 'small'});
+      }
+    }
+
+    return TextSpan(
+        children: <InlineSpan>[
+          for(var textWithSize in parsed)
+            if(textWithSize.containsValue('big'))
+              TextSpan(text: textWithSize.keys.toList()[0], style: LeadText)
+            else
+              TextSpan(text: textWithSize.keys.toList()[0], style: normalText)
+        ]
+    );
+  }
+
+
   TextSpan makeHeaderText(String txt){
     List<Map<String, String>> parsed = [];
 
@@ -128,7 +160,11 @@ class DetailPageTheme{
               TextSpan(text: textWithSize.keys.toList()[0], style: normalText)
         ]
     );
+
+
   }
+
+
 
   TextSpan makeMainHeaderText(String txt){
     List<Map<String, String>> parsed = [];
