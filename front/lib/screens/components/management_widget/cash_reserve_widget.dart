@@ -21,7 +21,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
   Widget build(BuildContext context) {
     bool isScrolling = false;
     return FutureBuilder(
-        future: conn.sendQuery('SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year;'),
+        future: conn.sendQuery('SELECT YEAR(RecordedDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE Category=\'MONEY\' GROUP BY Year ORDER BY Year;'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
@@ -43,7 +43,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                 },
                 dbRelatedContentBuilder: FutureBuilder(
                   future: conn.sendQuery(
-                      'SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year;'),
+                      'SELECT YEAR(RecordedDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE Category=\'MONEY\' GROUP BY Year ORDER BY Year;'),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return SfCartesianChart(

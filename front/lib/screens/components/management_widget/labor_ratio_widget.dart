@@ -20,7 +20,7 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
     var state = 'danger';
 
     return FutureBuilder(
-        future: conn.sendQuery('SELECT MoneyDate, MoneyCategory, Money * 1000 as Money FROM Money WHERE MoneyCategory like \'%LBR\' ORDER BY MoneyDate DESC;'),
+        future: conn.sendQuery('SELECT RecordedDate, Category, Money * 1000 as Money FROM Money WHERE Category like \'%LBR\' ORDER BY RecordedDate DESC;'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
@@ -30,23 +30,23 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
             double DCLBRRate = 0;
 
             int thisYear = DateTime
-                .parse(result[0]['MoneyDate'])
+                .parse(result[0]['RecordedDate'])
                 .year;
             int thisMonth = DateTime
-                .parse(result[0]['MoneyDate'])
+                .parse(result[0]['RecordedDate'])
                 .month;
 
             for (int i = 0; i < result.length; i++) {
               int year = DateTime
-                  .parse(result[i]['MoneyDate'])
+                  .parse(result[i]['RecordedDate'])
                   .year;
               int month = DateTime
-                  .parse(result[i]['MoneyDate'])
+                  .parse(result[i]['RecordedDate'])
                   .month;
               if (thisYear == year && thisMonth == month)
-                if (result[i]['MoneyCategory'] == 'DCLBR')
+                if (result[i]['Category'] == 'DCLBR')
                   totalDCLBR += double.parse(result[i]['Money']);
-                else if (result[i]['MoneyCategory'] == 'IDLBR')
+                else if (result[i]['Category'] == 'IDLBR')
                   totalIDLBR += double.parse(result[i]['Money']);
             }
 
@@ -67,14 +67,13 @@ class _Labor_Ratio_Widget extends State<Labor_Ratio_Widget> {
                 },
                 dbRelatedContentBuilder: FutureBuilder(
                     future: conn.sendQuery(
-                        'SELECT MoneyDate, MoneyCategory, Money * 1000 as Money FROM Money WHERE MoneyCategory like \'%LBR\' ORDER BY MoneyDate DESC;'),
+                        'SELECT RecordedDate, Category, Money * 1000 as Money FROM Money WHERE Category like \'%LBR\' ORDER BY RecordedDate DESC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        laborData.add(
-                            ChartData('직접인건비', DCLBRRate, '${DCLBRRate.round()}%'));
-                        laborData.add(
-                            ChartData('간접인건비', IDLBRRate, '${IDLBRRate.round()}%'));
-
+                        laborData = [
+                          ChartData('직접인건비', DCLBRRate, '${DCLBRRate.round()}%'),
+                          ChartData('간접인건비', IDLBRRate, '${IDLBRRate.round()}%')
+                        ];
                         return SfCircularChart(
                             onChartTouchInteractionMove: (_Labor_Ratio_Widget) {
                               isScrolling = true;

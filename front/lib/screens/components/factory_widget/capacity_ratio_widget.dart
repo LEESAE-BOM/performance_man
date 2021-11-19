@@ -26,7 +26,7 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
 
     return FutureBuilder(
         future: conn.sendQuery(
-            'SELECT Goal, Achievement FROM CompletionRate WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
+            'SELECT Goal, Achievement FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
@@ -48,11 +48,11 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                 },
                 dbRelatedContentBuilder: FutureBuilder(
                     future: conn.sendQuery(
-                        'SELECT Goal, Achievement FROM CompletionRate WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
+                        'SELECT Goal, Achievement FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        var result =
-                            snapshot.data as List<Map<String, dynamic>>;
+                        var result = snapshot.data as List<Map<String, dynamic>>;
+                        print(result.length);
                         var goal = double.parse(result[0]['Goal']);
                         var achievement =
                             double.parse(result[0]['Achievement']);

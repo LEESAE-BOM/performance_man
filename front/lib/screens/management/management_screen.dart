@@ -31,8 +31,8 @@ class Management_Screen extends StatelessWidget {
                 height: 450.w,
                 child: FutureBuilder(
                     future: conn.sendQueries([
-                      'SELECT * FROM Money WHERE MoneyCategory=\'GSALE\' ORDER BY MoneyDate DESC;',
-                      'SELECT YEAR(MoneyDate) AS Year, MONTH(MoneyDate) AS Month, SUM(Money) AS Sum FROM Money WHERE MoneyCategory=\'SALES\' GROUP BY Year, Month ORDER BY Year DESC, Month DESC;'
+                      'SELECT * FROM Money WHERE Category=\'GSALE\' ORDER BY RecordedDate DESC;',
+                      'SELECT YEAR(RecordedDate) AS Year, MONTH(RecordedDate) AS Month, SUM(Money) AS Sum FROM Money WHERE Category=\'SALES\' GROUP BY Year, Month ORDER BY Year DESC, Month DESC;'
                     ]),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -45,7 +45,7 @@ class Management_Screen extends StatelessWidget {
                         double sum = 0;
 
                         switch (
-                            DateTime.parse(resultQ1[0]['MoneyDate']).month) {
+                            DateTime.parse(resultQ1[0]['RecordedDate']).month) {
                           case 1:
                             quarter = 1;
                             break;
@@ -62,7 +62,7 @@ class Management_Screen extends StatelessWidget {
 
                         while (i < resultQ2.length) {
                           sum += double.parse(resultQ2[i]['Sum']);
-                          if (DateTime.parse(resultQ1[0]['MoneyDate']).month ==
+                          if (DateTime.parse(resultQ1[0]['RecordedDate']).month ==
                               int.parse(resultQ2[i]['Month'])) break;
                           i++;
                         }

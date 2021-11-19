@@ -16,7 +16,7 @@ class _Sales_Widget extends State<Sales_Widget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-          future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE MoneyCategory = \'SALES\' ORDER BY MoneyDate DESC;'),
+          future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE Category = \'SALES\' ORDER BY RecordedDate DESC;'),
            builder:  (context, snapshot) {
             if (snapshot.hasData){
               var result = snapshot.data as List<Map<String, dynamic>>;
@@ -32,7 +32,7 @@ class _Sales_Widget extends State<Sales_Widget> {
               return BoxWidget('매출금액', state , 'wide').make(
                   onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => sales()));},
                   dbRelatedContentBuilder: FutureBuilder(
-                      future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE MoneyCategory = \'SALES\' ORDER BY MoneyDate DESC;'),
+                      future: conn.sendQuery('SELECT Money * 1000 as Money FROM Money WHERE Category = \'SALES\' ORDER BY RecordedDate DESC;'),
                       builder: (context, snapshot){
                         if(snapshot.hasData){
                           return Text.rich(detailPageTheme.makeHeaderText('이번달 매출금액은\n[${detailPageTheme.money.format(money)}]원입니다.'));

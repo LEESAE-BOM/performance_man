@@ -13,11 +13,9 @@ class labor_ratio extends StatefulWidget {
 }
 
 class _labor_ratio extends State<labor_ratio> {
-  late TooltipBehavior _tooltipBehavior;
   var today = DateTime.now();
   DateFormat formatter = DateFormat('yyyy년 MM월');
 
-  late ZoomPanBehavior _zoomPanBehavior;
   Map<String, int> selectOptions = {
     '최근 6개월': 12,
     '최근 12개월': 24,
@@ -31,10 +29,6 @@ class _labor_ratio extends State<labor_ratio> {
 
   @override
   void initState() {
-    _tooltipBehavior = TooltipBehavior(
-      enable: true,
-      activationMode: ActivationMode.longPress,
-    );
     super.initState();
   }
 
@@ -65,7 +59,7 @@ class _labor_ratio extends State<labor_ratio> {
               Center(
                 child: FutureBuilder(
                     future: conn.sendQuery(
-                        'SELECT MoneyDate, MoneyCategory, Money * 1000 as Money FROM Money WHERE MoneyCategory like \'%LBR\' ORDER BY MoneyDate DESC;'),
+                        'SELECT RecordedDate, Category, Money * 1000 as Money FROM Money WHERE Category like \'%LBR\' ORDER BY RecordedDate DESC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result =
@@ -78,21 +72,21 @@ class _labor_ratio extends State<labor_ratio> {
                         int diff = 0;
 
                         int thisYear =
-                            DateTime.parse(result[0]['MoneyDate']).year;
+                            DateTime.parse(result[0]['RecordedDate']).year;
                         int thisMonth =
-                            DateTime.parse(result[0]['MoneyDate']).month;
+                            DateTime.parse(result[0]['RecordedDate']).month;
 
                         for (int i = 0; i < result.length; i++) {
                           int year =
-                              DateTime.parse(result[i]['MoneyDate']).year;
+                              DateTime.parse(result[i]['RecordedDate']).year;
                           int month =
-                              DateTime.parse(result[i]['MoneyDate']).month;
+                              DateTime.parse(result[i]['RecordedDate']).month;
                           if (thisYear == year &&
                               thisMonth == month) if (result[i]
-                                  ['MoneyCategory'] ==
+                                  ['Category'] ==
                               'DCLBR')
                             totalDCLBR += double.parse(result[i]['Money']);
-                          else if (result[i]['MoneyCategory'] == 'IDLBR')
+                          else if (result[i]['Category'] == 'IDLBR')
                             totalIDLBR += double.parse(result[i]['Money']);
                         }
 
@@ -199,10 +193,10 @@ class _labor_ratio extends State<labor_ratio> {
                                       ])
                                     ] +
                                     table.getTableRowWidgets(convertor: (row) {
-                                      if (row['MoneyCategory'] == 'IDLBR')
-                                        row['MoneyCategory'] = '간접';
-                                      else if (row['MoneyCategory'] == 'DCLBR')
-                                        row['MoneyCategory'] = '직접';
+                                      if (row['Category'] == 'IDLBR')
+                                        row['Category'] = '간접';
+                                      else if (row['Category'] == 'DCLBR')
+                                        row['Category'] = '직접';
                                       row['Money'] =
                                           '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
                                       return row;

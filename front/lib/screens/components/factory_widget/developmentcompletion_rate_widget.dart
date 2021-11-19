@@ -16,12 +16,10 @@ class Developmentcompletion_Rate_Widget extends StatefulWidget {
 class _Developmentcompletion_Rate_Widget
     extends State<Developmentcompletion_Rate_Widget> {
   late TooltipBehavior _toolTipBehavior;
-  List<ChartData> developmentData = [];
   var state = 'safe';
 
   void initState() {
     _toolTipBehavior = TooltipBehavior();
-    for (int i = 1; i <= 12; i++) developmentData.add(ChartData('$i월', 0));
     super.initState();
   }
 
@@ -31,13 +29,12 @@ class _Developmentcompletion_Rate_Widget
 
     return FutureBuilder(
         future: conn.sendQuery(
-            'SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY Achievement/Goal DESC;'),
+            'SELECT Label, RecordedDate, Achievement/Goal Rate FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'DVLCM\' ORDER BY Label, Achievement/Goal DESC;'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            var goal = double.parse(result[0]['Goal']);
-            var achievement = double.parse(result[0]['Achievement']);
-            var achieveRate = (achievement / goal) * 100;
+            var label = result[0]['Label'];
+            var achieveRate = double.parse(result[0]['Rate']) * 100;
 
             if (achieveRate > 80)
               state = 'safe';
@@ -53,19 +50,15 @@ class _Developmentcompletion_Rate_Widget
                 },
                 dbRelatedContentBuilder: FutureBuilder(
                     future: conn.sendQuery(
-                        'SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY Achievement/Goal DESC;'),
+                        'SELECT Label, Year(RecordedDate) Year, Month(RecordedDate) Month, MAX(Achievement/Goal) Rate FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'DVLCM\' GROUP BY Label, Year, Month ORDER BY Label, Year, Month;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
-                        var thisMonth =
-                            DateTime.parse(result[0]['RecordedDate']).month;
-
-                        for (int i = 1; i < min(thisMonth, result.length); i++)
-                          developmentData[thisMonth - i].data =
-                              double.parse(result[i]['Achievement']) /
-                                  double.parse(result[i]['Goal']) *
-                                  100;
+                        List<ChartData> developmentData = [
+                          for(int i=max(0, result.length - 12); i<result.length && result[i]['Label'] == label; i++)
+                            ChartData('${result[i]['Month']}월', double.parse(result[i]['Rate']) * 100)
+                        ];
 
                         return SfCartesianChart(
                           tooltipBehavior: _toolTipBehavior,
@@ -97,9 +90,9 @@ class _Developmentcompletion_Rate_Widget
                                 yValueMapper: (ChartData sales, _) =>
                                     sales.data,
                                 dataLabelSettings:
-                                    DataLabelSettings(isVisible: true),
+                                    DataLabelSettings(isVisible: false),
                                 markerSettings: MarkerSettings(
-                                    isVisible: true,
+                                    isVisible: false,
                                     color: Colors.teal,
                                     borderColor: Colors.white)),
                           ],

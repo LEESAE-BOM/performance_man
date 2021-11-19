@@ -56,7 +56,7 @@ class _sales extends State<sales> {
         body: SafeArea(
             child:Center(
                 child: FutureBuilder(
-                    future: conn.sendQuery('SELECT MoneyDate, Money * 1000 as Money FROM Money WHERE MoneyCategory=\'SALES\' ORDER BY MoneyDate DESC;'),
+                    future: conn.sendQuery('SELECT RecordedDate, Money * 1000 as Money FROM Money WHERE Category=\'SALES\' ORDER BY RecordedDate DESC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result = snapshot.data as List<Map<String, dynamic>>;
@@ -66,10 +66,10 @@ class _sales extends State<sales> {
 
                         int diff = thisMonthPrice.round() - previousMonthPrice.round();
 
-                        int thisYear = DateTime.parse(result[0]['MoneyDate']).year;
+                        int thisYear = DateTime.parse(result[0]['RecordedDate']).year;
 
                         for (var row in result) {
-                          DateTime toDate = DateTime.parse(row['MoneyDate']);
+                          DateTime toDate = DateTime.parse(row['RecordedDate']);
                           int term = thisYear-toDate.year;
                           String moneyStr = row['Money'];
                           if (term == 0) {

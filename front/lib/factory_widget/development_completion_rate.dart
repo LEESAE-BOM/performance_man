@@ -15,12 +15,8 @@ class development_completion_rate extends StatefulWidget {
 
 class _development_completion_rate extends State<development_completion_rate>{
   late TooltipBehavior _toolTipBehavior;
-  Map<String, int> selectOptions = {
-    '최근 6개월': 6,
-    '최근 12개월': 12,
-    '전체보기': detailPageTheme.maxTableRow,
-  };
-  var dropDownValue = '최근 6개월';
+  int index = 0;
+  String detailLabel = '';
 
   void initState() {
     _toolTipBehavior = TooltipBehavior();
@@ -29,125 +25,160 @@ class _development_completion_rate extends State<development_completion_rate>{
 
   @override
   Widget build(BuildContext context) {
+    bool isScrolling = false;
+
     return DetailPage().make(
         context: context,
         title: '개발완료율',
         content: FutureBuilder(
-            future: conn.sendQuery('SELECT Label, RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY Achievement/Goal DESC;'),
+            future: conn.sendQuery(
+              'SELECT Label, Goal, MAX(Achievement) as Achievement FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'DVLCM\' GROUP BY Label, Goal ORDER BY MAX(Achievement)/Goal DESC;',
+            ),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                var result = snapshot.data as List<Map<String, dynamic>>;
-                var goal = double.parse(result[0]['Goal']);
-                var achievement = double.parse(result[0]['Achievement']);
+                var resultQ1 = snapshot.data as List<Map<String, dynamic>>;
+                detailLabel = resultQ1[index]['Label'];
+
+                var goal = double.parse(resultQ1[index]['Goal']);
+                var achievement = double.parse(resultQ1[index]['Achievement']);
                 var achieveRate = (achievement / goal) * 100;
-                var table = ResultSet(snapshot.data, ['프로젝트명', '시작일', '목표치', '달성치']);
 
-                List<ChartData> developmentData = [
-                  ChartData('complete', achieveRate),
-                  ChartData('uncomplete', 100 - achieveRate)
+                List<ChartData> simpleDevData = [
+                  for (int i = index+1; i < resultQ1.length; i++)
+                    ChartData(
+                        resultQ1[i]['Label'],
+                        (double.parse(resultQ1[i]['Achievement']) /
+                            double.parse(resultQ1[i]['Goal'])) *
+                            100,
+                        i),
+                  for (int i = 0; i < index; i++)
+                    ChartData(
+                        resultQ1[i]['Label'],
+                        (double.parse(resultQ1[i]['Achievement']) /
+                            double.parse(resultQ1[i]['Goal'])) *
+                            100,
+                        i)
                 ];
+                return ListView(children: [
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(50.sp, 50.sp, 50.sp, 25.sp),
+                      child: Text.rich(
+                        detailPageTheme.makeHeaderText(
+                            '현재까지\n[$detailLabel] 개발 완료율은\n[${achieveRate.round()}%] 입니다.'),
+                      )),
+                  FutureBuilder(
+                      future: conn.sendQuery('SELECT YEAR(RecordedDate) Year, MONTH(RecordedDate) Month, MAX(Achievement/Goal) Rate FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Label=\'$detailLabel\' GROUP BY Year, Month ORDER BY Year, Month;'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var resultQ2 = snapshot.data as List<Map<String, dynamic>>;
 
-                return ListView(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
-                          child: Text.rich(
-                            detailPageTheme.makeHeaderText('현재까지 ${result[0]['Label']} 개발 완료율은\n[${achieveRate.round()}%] 입니다.'),
-                          )
-                      ),
-                      SfCircularChart(
-                          tooltipBehavior: _toolTipBehavior,
-                          annotations: <CircularChartAnnotation>[
-                            CircularChartAnnotation(
-                                height: '140%', // Setting height and width for the circular chart annotation
-                                width: '140%',
-                                widget: Container(
-                                    child: PhysicalModel(
-                                        child: Container(),
-                                        shape: BoxShape.circle,
-                                        elevation: 10,
-                                        shadowColor: Colors.black,
-                                        color: Colors.white
-                                    )
+                          List<ChartData> devData = [
+                            for(int i=max(0, resultQ2.length - 12); i<resultQ2.length; i++)
+                              ChartData(resultQ2[i]['Year'] + '-' + resultQ2[i]['Month'],
+                                  (double.parse(resultQ2[i]['Rate'])) *
+                                      100,
+                                  index)
+                          ];
+
+                          return Padding(
+                              padding: EdgeInsets.fromLTRB(50.sp, 25.sp, 50.sp, 50.sp),
+                              child: SfCartesianChart(
+                                palette: <Color>[
+                                  Colors.teal,
+                                ],
+                                series: <ChartSeries>[
+                                  StackedLineSeries<ChartData, String>(
+                                      dataSource: devData,
+                                      xValueMapper: (ChartData data, _) => data.x,
+                                      yValueMapper: (ChartData data, _) => data.y,
+                                      dataLabelSettings: DataLabelSettings(
+                                          isVisible: true,
+                                          showCumulativeValues: true
+                                      ),
+                                      markerSettings: MarkerSettings(
+                                          isVisible: true,
+                                          color: Colors.teal,
+                                          borderColor: Colors.white)),
+                                ],
+                                primaryXAxis: CategoryAxis(
+                                  majorGridLines: MajorGridLines(width: 0),
+                                ),
+                                primaryYAxis: NumericAxis(
+                                  majorGridLines: MajorGridLines(width: 0),
+                                ),
+                                plotAreaBorderWidth: 0,
+                              )
+                          );
+                        } else {
+                          return Text('진행 상황을 불러오는 중');
+                        }
+                      }),
+                  for (var data in simpleDevData)
+                    Stack(
+                      children: [
+                        Container(
+                          height: 100,
+                          child: SfCartesianChart(
+                              tooltipBehavior: _toolTipBehavior,
+                              onChartTouchInteractionMove:
+                                  (_development_completion_rate) {
+                                isScrolling = true;
+                              },
+                              onChartTouchInteractionUp:
+                                  (_development_completion_rate) {
+                                if (isScrolling == false)
+                                  setState(() {
+                                    index = data.idx;
+                                    detailLabel = data.x;
+                                  });
+                                isScrolling = false;
+                              },
+                              onChartTouchInteractionDown:
+                                  (_development_completion_rate) {
+                                isScrolling = false;
+                              },
+                              primaryXAxis: CategoryAxis(
+                                  edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                  isVisible: false),
+                              primaryYAxis: NumericAxis(
+                                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                isVisible: false,
+                              ),
+                              plotAreaBorderWidth: 0,
+                              series: <ChartSeries>[
+                                StackedBar100Series<ChartData, String>(
+                                  dataSource: [data],
+                                  xValueMapper: (ChartData data, _) => data.x,
+                                  yValueMapper: (ChartData data, _) => data.y,
+                                ),
+                                StackedBar100Series<ChartData, String>(
+                                  dataSource: [data],
+                                  xValueMapper: (ChartData data, _) => data.x,
+                                  yValueMapper: (ChartData data, _) =>
+                                  100 - data.y,
                                 )
-                            ),
-                            CircularChartAnnotation(
-                                widget: Container(
-                                    child: Text(
-                                        '${achieveRate.round()}%',
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(0, 0, 0, 0.5),
-                                            fontSize: 71.sp,
-                                            fontFamily: 'applesdneob'
-                                        )
-                                    )
-                                )
-                            )
-                          ],
-                          series: <CircularSeries>[
-                            DoughnutSeries<ChartData, String>(
-                                dataSource: developmentData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y,
-                                radius: '95%'
-                            )
-                          ]
-                      ),
-                      Table(
-                          border: TableBorder(
-                              horizontalInside: BorderSide(width: 1,
-                                  color: Colors.black38,
-                                  style: BorderStyle.solid)),
-                          children: <TableRow>[
-                            table.getTableHeaderWidget(),
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Text(''),
-                                  ),
-                                  TableCell(
-                                    child: Text(''),
-                                  ),
-                                  TableCell(
-                                    child: Text(''),
-                                  ),
-                                  TableCell(
-                                      child: Container(
-                                        alignment: Alignment.centerRight,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 50.sp),
-                                        child: DropdownButton(
-                                          value: dropDownValue,
-                                          items: <DropdownMenuItem<String>>[
-                                            for(var val in selectOptions.keys)
-                                              DropdownMenuItem(
-                                                  value: val,
-                                                  child: Text(val,style: TextStyle(fontSize: 25.w,))
-                                              )
-                                          ],
-                                          onChanged: (String? val) {
-                                            setState(() { dropDownValue = val!; });
-                                          },
-                                          isExpanded: true,
-                                        ),
-                                      )
-                                  )
-                                ]
-                            )
-                          ] + table.getTableRowWidgets().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
-                      )
-                    ]
-                );
+                              ]),
+                        ),
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                                margin: EdgeInsets.all(25),
+                                child: Text(
+                                    data.x,
+                                    style: TextStyle(fontSize: 40.w))))
+                      ],
+                    ),
+                ]);
               } else
                 return Text('불러오는 중');
-            }
-        )
-    );
+            }));
   }
 }
 
 class ChartData {
-  ChartData(this.x, this.y);
+  ChartData(this.x, this.y, this.idx);
+
   String x;
   double y;
+  int idx;
 }

@@ -19,14 +19,10 @@ class _energy_fee extends State<energy_fee> {
   };
   var dropDownValue = '최근 6개월';
 
-  late List<Chart_Data>? _chart_Data;
-  late List<Chart_Data>? _chart_Data2;
   late TooltipBehavior _toolTipBehavior;
   List<ChartData> salesData = [];
 
   void initState() {
-    _chart_Data = getChartData();
-    _chart_Data2 = getChartData2();
     _toolTipBehavior = TooltipBehavior();
     super.initState();
   }
@@ -70,7 +66,7 @@ class _energy_fee extends State<energy_fee> {
             child: Center(
                 child: FutureBuilder(
                     future: conn.sendQuery(
-                        'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
+                        'SELECT RecordedDate, Money FROM Money WHERE Category=\'EGFEE\' ORDER BY RecordedDate DESC;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result =
@@ -81,9 +77,6 @@ class _energy_fee extends State<energy_fee> {
                         double MonthRate = 0;
                         double Month_Rate = 0;
                         int i=1;
-
-                        int thisYear =
-                            DateTime.parse(result[0]['MoneyDate']).year;
 
                         for (var row in result) {
                           if(i>12) break;

@@ -55,17 +55,15 @@ class _cash_reserve extends State<cash_reserve> {
             Center(
               child: FutureBuilder(
                   future: conn.sendQuery(
-                      'SELECT YEAR(MoneyDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE MoneyCategory=\'MONEY\' GROUP BY Year ORDER BY Year DESC;'),
+                      'SELECT YEAR(RecordedDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE Category=\'MONEY\' GROUP BY Year ORDER BY Year DESC;'),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var result = snapshot.data as List<Map<String, dynamic>>;
-                      var year = '';
                       var thisYearPrice = '0.00';
                       var previousYearPrice = '0.00';
                       var table = ResultSet(snapshot.data, ['연도', '금액']);
 
-                      if (result.length > 0) {
-                        year = result[0]['Year'];
+                      if (result.length > 1) {
                         thisYearPrice = result[0]['Money'];
                       }
 

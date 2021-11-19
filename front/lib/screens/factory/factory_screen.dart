@@ -28,17 +28,16 @@ class Factory_Screen extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 450.w,
                 child: FutureBuilder(
-                    future: conn.sendQuery('SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'DVLCM\' ORDER BY RecordedDate DESC;'),
+                    future: conn.sendQuery('SELECT Label, MAX(Achievement/Goal) Rate FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'DVLCM\' GROUP BY Label;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result = snapshot.data as List<Map<String, dynamic>>;
-                        var goal = double.parse(result[0]['Goal']);
-                        var achievement = double.parse(result[0]['Achievement']);
-                        var achieveRate = (achievement / goal) * 100;
+                        var label = result[0]['Label'];
+                        var achieveRate = double.parse(result[0]['Rate']) * 100;
 
                         return RichText(
                             text: detailPageTheme.makeMainHeaderText(
-                                '현재까지\n개발완료율 [${achieveRate.round()}]% 달성.'),
+                                '현재까지\n${label}\n개발완료율 [${achieveRate.round()}]% 달성.'),
                         );
                       } else {
                         return RichText(

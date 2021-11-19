@@ -34,7 +34,7 @@ class _capacity_ratio extends State<capacity_ratio> {
       context: context,
       title: '설비가동률',
       content: FutureBuilder(
-          future: conn.sendQuery('SELECT RecordedDate, Goal, Achievement FROM CompletionRate WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
+          future: conn.sendQuery('SELECT RecordedDate, Goal, Achievement FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var result = snapshot.data as List<Map<String, dynamic>>;
