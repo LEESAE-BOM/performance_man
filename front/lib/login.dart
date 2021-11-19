@@ -112,25 +112,6 @@ class _login_flow extends State<login_flow> {
                   SizedBox(height: 8.0),
                   passwordField,
                   SizedBox(height: 15.0),
-                  Row(
-                    children: <Widget>[
-                      SizedBox(height:5.0,width:5.0),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 14,
-                        height: 14,
-                        color: Colors.black26,
-                        child: Checkbox(value: _isChecked,
-                            //checkColor:Colors.orange,
-                            //hoverColor:Colors.red,
-                            activeColor: Colors.black38 ,
-                            onChanged: (value){setState(() {_isChecked = value!;});})
-                      ),
-                      SizedBox(width:19.0),
-                      Text('로그인 상태 유지',style: TextStyle(fontSize: 12, fontFamily: 'applesdneob',color: Colors.black54)),
-                    ],
-                  ),
-                  SizedBox(height: 15.0),
                   loginButon,
                   SizedBox(height: 15.0,),
                 ],
