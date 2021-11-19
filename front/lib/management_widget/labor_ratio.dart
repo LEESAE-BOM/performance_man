@@ -152,7 +152,7 @@ class _labor_ratio extends State<labor_ratio> {
                                           radius: '100%'),
                                     ])),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
                               child: Table(
                                 border: TableBorder(
                                     horizontalInside: BorderSide(

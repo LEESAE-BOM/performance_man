@@ -94,45 +94,48 @@ class _capacity_ratio extends State<capacity_ratio> {
                           )
                         ]
                     ),
-                    Table(
-                        border: TableBorder(
-                            horizontalInside: BorderSide(width: 1,
-                                color: Colors.black38,
-                                style: BorderStyle.solid)),
-                        children: <TableRow>[
-                          table.getTableHeaderWidget(),
-                          TableRow(
-                              children: [
-                                TableCell(
-                                  child: Text(''),
-                                ),
-                                TableCell(
-                                  child: Text(''),
-                                ),
-                                TableCell(
-                                    child: Container(
-                                      alignment: Alignment.centerRight,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 50.sp),
-                                      child: DropdownButton(
-                                        value: dropDownValue,
-                                        items: <DropdownMenuItem<String>>[
-                                          for(var val in selectOptions.keys)
-                                            DropdownMenuItem(
-                                                value: val,
-                                                child: Text(val)
-                                            )
-                                        ],
-                                        onChanged: (String? val) {
-                                          setState(() { dropDownValue = val!; });
-                                        },
-                                        isExpanded: true,
-                                      ),
-                                    )
-                                )
-                              ]
-                          )
-                        ] + table.getTableRowWidgets().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
+                      child: Table(
+                          border: TableBorder(
+                              horizontalInside: BorderSide(width: 1,
+                                  color: Colors.black38,
+                                  style: BorderStyle.solid)),
+                          children: <TableRow>[
+                            table.getTableHeaderWidget(),
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Text(''),
+                                  ),
+                                  TableCell(
+                                    child: Text(''),
+                                  ),
+                                  TableCell(
+                                      child: Container(
+                                        alignment: Alignment.centerRight,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 50.sp),
+                                        child: DropdownButton(
+                                          value: dropDownValue,
+                                          items: <DropdownMenuItem<String>>[
+                                            for(var val in selectOptions.keys)
+                                              DropdownMenuItem(
+                                                  value: val,
+                                                  child: Text(val)
+                                              )
+                                          ],
+                                          onChanged: (String? val) {
+                                            setState(() { dropDownValue = val!; });
+                                          },
+                                          isExpanded: true,
+                                        ),
+                                      )
+                                  )
+                                ]
+                            )
+                          ] + table.getTableRowWidgets().sublist(0, min(result.length, selectOptions[dropDownValue] as int))
+                      ),
                     )
                   ]
               );

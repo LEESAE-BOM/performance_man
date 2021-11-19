@@ -137,44 +137,47 @@ class _cash_reserve extends State<cash_reserve> {
                                       ),
                                     ])),
                           ),
-                          Table(
-                            border: detailPageTheme.tableBorderStyle,
-                            children: [
-                                  table.getTableHeaderWidget(),
-                                  TableRow(children: [
-                                    TableCell(
-                                      child: Text(''),
-                                    ),
-                                    TableCell(
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 50.sp),
-                                      child: DropdownButton(
-                                        value: dropDownValue,
-                                        items: <DropdownMenuItem<String>>[
-                                          for (var val in selectOptions.keys)
-                                            DropdownMenuItem(
-                                                value: val, child: Text(val))
-                                        ],
-                                        onChanged: (String? val) {
-                                          setState(() {
-                                            dropDownValue = val!;
-                                          });
-                                        },
-                                
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
+                            child: Table(
+                              border: detailPageTheme.tableBorderStyle,
+                              children: [
+                                    table.getTableHeaderWidget(),
+                                    TableRow(children: [
+                                      TableCell(
+                                        child: Text(''),
                                       ),
-                                    ))
-                                  ])
-                                ] +
-                                table.getTableRowWidgets(convertor: (row) {
-                                  row['Money'] =
-                                      '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                                  return row;
-                                }).sublist(
-                                    0,
-                                    min(selectOptions[dropDownValue] as int,
-                                        table.rows.length)),
+                                      TableCell(
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 50.sp),
+                                        child: DropdownButton(
+                                          value: dropDownValue,
+                                          items: <DropdownMenuItem<String>>[
+                                            for (var val in selectOptions.keys)
+                                              DropdownMenuItem(
+                                                  value: val, child: Text(val))
+                                          ],
+                                          onChanged: (String? val) {
+                                            setState(() {
+                                              dropDownValue = val!;
+                                            });
+                                          },
+
+                                        ),
+                                      ))
+                                    ])
+                                  ] +
+                                  table.getTableRowWidgets(convertor: (row) {
+                                    row['Money'] =
+                                        '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                    return row;
+                                  }).sublist(
+                                      0,
+                                      min(selectOptions[dropDownValue] as int,
+                                          table.rows.length)),
+                            ),
                           )
                         ],
                       );

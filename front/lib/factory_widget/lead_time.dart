@@ -158,21 +158,24 @@ class _lead_time extends State<lead_time> {
                             //chart 테두리 삭제
                             borderWidth: 30,
                           ),
-                          Table(
-                              border: TableBorder(
-                                  horizontalInside: BorderSide(
-                                      width: 1,
-                                      color: Colors.black38,
-                                      style: BorderStyle.solid)),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
+                            child: Table(
+                                border: TableBorder(
+                                    horizontalInside: BorderSide(
+                                        width: 1,
+                                        color: Colors.black38,
+                                        style: BorderStyle.solid)),
 
-                              children: <TableRow>[
-                                    table.getTableHeaderWidget(),
-                                  ] +
-                                  table.getTableRowWidgets(convertor: (row) {
-                                    row['StartDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['StartDate'])).toString();
-                                    row['DueDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['DueDate'])).toString();
-                                    return row;
-                                  }))
+                                children: <TableRow>[
+                                      table.getTableHeaderWidget(),
+                                    ] +
+                                    table.getTableRowWidgets(convertor: (row) {
+                                      row['StartDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['StartDate'])).toString();
+                                      row['DueDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['DueDate'])).toString();
+                                      return row;
+                                    })),
+                          )
                         ]);
                       } else
                         return Text('불러오는 중');

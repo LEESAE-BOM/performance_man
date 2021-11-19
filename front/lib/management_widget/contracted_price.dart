@@ -159,52 +159,55 @@ class _contracted_price extends State<contracted_price> {
                                   markerSettings:
                                       MarkerSettings(isVisible: true))
                             ]),
-                        Table(
-                            border: detailPageTheme.tableBorderStyle,
-                            children: <TableRow>[
-                                  table.getTableHeaderWidget(),
-                                  TableRow(children: [
-                                    TableCell(
-                                      child: Text(''),
-                                    ),
-                                    TableCell(
-                                      child: Text(''),
-                                    ),
-                                    TableCell(
-                                      child: Text(''),
-                                    ),
-                                    TableCell(
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 50.sp),
-                                      child: DropdownButton(
-                                        value: dropDownValue,
-                                        items: <DropdownMenuItem<String>>[
-                                          for (var val in selectOptions.keys)
-                                            DropdownMenuItem(
-                                                value: val, child: Text(val,style: TextStyle(fontSize: 25.w,)))
-                                        ],
-                                        onChanged: (String? val) {
-                                          setState(() {
-                                            dropDownValue = val!;
-                                          });
-                                        },
-                                        isExpanded: true,
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
+                          child: Table(
+                              border: detailPageTheme.tableBorderStyle,
+                              children: <TableRow>[
+                                    table.getTableHeaderWidget(),
+                                    TableRow(children: [
+                                      TableCell(
+                                        child: Text(''),
                                       ),
-                                    ))
-                                  ])
-                                ] +
-                                table.getTableRowWidgets(convertor: (row) {
-                                  row['Money'] =
-                                      '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                                  row['Backlog'] =
-                                      '${detailPageTheme.money.format(double.parse(row['Backlog']))} 원';
-                                  return row;
-                                }).sublist(
-                                    0,
-                                    min(selectOptions[dropDownValue] as int,
-                                        result.length)))
+                                      TableCell(
+                                        child: Text(''),
+                                      ),
+                                      TableCell(
+                                        child: Text(''),
+                                      ),
+                                      TableCell(
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 50.sp),
+                                        child: DropdownButton(
+                                          value: dropDownValue,
+                                          items: <DropdownMenuItem<String>>[
+                                            for (var val in selectOptions.keys)
+                                              DropdownMenuItem(
+                                                  value: val, child: Text(val,style: TextStyle(fontSize: 25.w,)))
+                                          ],
+                                          onChanged: (String? val) {
+                                            setState(() {
+                                              dropDownValue = val!;
+                                            });
+                                          },
+                                          isExpanded: true,
+                                        ),
+                                      ))
+                                    ])
+                                  ] +
+                                  table.getTableRowWidgets(convertor: (row) {
+                                    row['Money'] =
+                                        '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                    row['Backlog'] =
+                                        '${detailPageTheme.money.format(double.parse(row['Backlog']))} 원';
+                                    return row;
+                                  }).sublist(
+                                      0,
+                                      min(selectOptions[dropDownValue] as int,
+                                          result.length))),
+                        )
                       ]);
                     } else
                       return Text('불러오는 중');

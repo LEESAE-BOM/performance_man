@@ -212,7 +212,7 @@ class _energy_fee extends State<energy_fee> {
                                       ]))
                                 ])),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
                               child: Table(
                                   border: TableBorder(
                                       horizontalInside: BorderSide(

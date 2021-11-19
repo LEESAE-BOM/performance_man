@@ -97,16 +97,19 @@ class _outsourcing_ratio extends State<outsourcing_ratio> {
                                           fontSize: 50.w,
                                           fontFamily: 'applesdneob')))
                             ])),
-                    Table(
-                      border: detailPageTheme.tableBorderStyle,
-                      children: <TableRow>[table.getTableHeaderWidget()] +
-                          table.getTableRowWidgets(convertor: (row) {
-                            row['Money'] =
-                                '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                            row['OS'] =
-                                '${detailPageTheme.money.format(double.parse(row['OS']))} 원';
-                            return row;
-                          }),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
+                      child: Table(
+                        border: detailPageTheme.tableBorderStyle,
+                        children: <TableRow>[table.getTableHeaderWidget()] +
+                            table.getTableRowWidgets(convertor: (row) {
+                              row['Money'] =
+                                  '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                              row['OS'] =
+                                  '${detailPageTheme.money.format(double.parse(row['OS']))} 원';
+                              return row;
+                            }),
+                      ),
                     )
                   ],
                 );
