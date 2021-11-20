@@ -90,9 +90,9 @@ class _Developmentcompletion_Rate_Widget
                                 yValueMapper: (ChartData sales, _) =>
                                     sales.data,
                                 dataLabelSettings:
-                                    DataLabelSettings(isVisible: false),
+                                    DataLabelSettings(isVisible: true),
                                 markerSettings: MarkerSettings(
-                                    isVisible: false,
+                                    isVisible: true,
                                     color: Colors.teal,
                                     borderColor: Colors.white)),
                           ],
