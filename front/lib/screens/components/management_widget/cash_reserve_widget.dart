@@ -26,12 +26,13 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            for (int i = 0; i < min(result.length, 3); i++)
+            for (int i = 1; i <= min(result.length, 3); i++){
               cashData.add(ChartData((double.parse(result[i]['Year'])).round(),
                   double.parse(result[i]['Money'])));
-            if(double.parse(result[2]['Year'])>200000000000)
+            }
+            if(double.parse(result[3]['Year'])>200000000000)
               state[0]='safe';
-            else if(double.parse(result[2]['Year'])>170000000000){
+            else if(double.parse(result[3]['Year'])>170000000000){
               state[0]='warning';
             }
             else {
