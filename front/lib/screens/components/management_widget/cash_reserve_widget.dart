@@ -27,7 +27,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
             for (int i = 0; i < min(result.length, 3); i++)
-              cashData.add(ChartData(double.parse(result[i]['Year']),
+              cashData.add(ChartData((double.parse(result[i]['Year'])).round(),
                   double.parse(result[i]['Money'])));
             if(double.parse(result[2]['Year'])>200000000000)
               state[0]='safe';
@@ -80,7 +80,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                             Colors.teal,
                           ],
                           series: <ChartSeries>[
-                            BarSeries<ChartData, double>(
+                            BarSeries<ChartData, int>(
                                 dataSource: cashData,
                                 xValueMapper: (ChartData cash, _) => cash.x,
                                 yValueMapper: (ChartData cash, _) => cash.y,
@@ -106,6 +106,6 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
 class ChartData {
   ChartData(this.x, this.y);
 
-  double x;
+  int x;
   double y;
 }
