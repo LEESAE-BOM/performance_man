@@ -120,16 +120,14 @@ class _expected_profit extends State<expected_profit> {
                       chartData_prev_perMonth = [
                         [
                           for (idx = 0;
-                              idx < result.length &&
-                                  result[idx]['Year'] == '${thisYear - 1}';
+                              idx < result.length && result[idx]['Year'] == '${thisYear - 1}';
                               idx++)
                             SalesData(result[idx]['Month'] + '월',
                                 double.parse(result[idx]['Money']))
                         ],
                         [
                           for (;
-                              idx < result.length &&
-                                  result[idx]['Year'] == '${thisYear - 2}';
+                              idx < result.length && result[idx]['Year'] == '${thisYear - 2}';
                               idx++)
                             SalesData(result[idx]['Month'] + '월',
                                 double.parse(result[idx]['Money']))
@@ -193,8 +191,8 @@ class _expected_profit extends State<expected_profit> {
                                   ),
                                   series: <CartesianSeries>[
                                     FastLineSeries<SalesData, String>(
-                                        name: '${thisYear - 1}',
-                                        dataSource: chartData_prev[0],
+                                        name: '${thisYear - 2}',
+                                        dataSource: chartData_prev[1],
                                         xValueMapper: (SalesData sales, _) =>
                                             sales.month,
                                         yValueMapper: (SalesData sales, _) =>
@@ -207,8 +205,8 @@ class _expected_profit extends State<expected_profit> {
                                             color: Colors.lightBlueAccent,
                                             borderColor: Colors.white)),
                                     FastLineSeries<SalesData, String>(
-                                        name: '${thisYear - 2}',
-                                        dataSource: chartData_prev[1],
+                                        name: '${thisYear - 1}',
+                                        dataSource: chartData_prev[0],
                                         xValueMapper: (SalesData sales, _) =>
                                             sales.month,
                                         yValueMapper: (SalesData sales, _) =>
@@ -226,32 +224,22 @@ class _expected_profit extends State<expected_profit> {
                                           // Bind data source
                                           SalesData(
                                               '1분기',
-                                              dataset[0] +
-                                                  dataset[1] +
-                                                  dataset[2]),
+                                              dataset[0] + dataset[1] + dataset[2]),
                                           SalesData(
                                               '2분기',
-                                              dataset[3] +
-                                                  dataset[4] +
-                                                  dataset[5]),
+                                              dataset[3] + dataset[4] + dataset[5]),
                                           SalesData(
                                               '3분기',
-                                              dataset[6] +
-                                                  dataset[7] +
-                                                  dataset[8]),
+                                              dataset[6] + dataset[7] + dataset[8]),
                                           SalesData(
                                               '4분기',
-                                              dataset[9] +
-                                                  dataset[10] +
-                                                  dataset[11])
+                                              dataset[9] + dataset[10] + dataset[11])
                                         ],
                                         xValueMapper: (SalesData sales, _) =>
                                             sales.month,
                                         yValueMapper: (SalesData sales, _) =>
                                             sales.sales,
-                                        dataLabelSettings: DataLabelSettings(
-                                            // Renders the data label
-                                            isVisible: true),
+
                                         markerSettings: MarkerSettings(
                                             isVisible: true,
                                             color: Colors.blueAccent,
