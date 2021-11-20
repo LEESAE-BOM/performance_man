@@ -37,28 +37,47 @@ class _Expected_Profit_Widget extends State<Expected_Profit_Widget> {
     ];
 
     Widget chartSection = Center(
-      child: Container(
-        child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(
-              majorGridLines: MajorGridLines(width: 0),
-            ),
-            primaryYAxis: NumericAxis(
-              majorGridLines: MajorGridLines(width: 0),
-              numberFormat: NumberFormat.compact(locale:"ko_KR" ),
-            ),
-            plotAreaBorderWidth: 0,
-            series: <CartesianSeries>[
-              FastLineSeries<SalesData, String>(
-                  name: '2021',
-                  dataSource: chartdata,
-                  xValueMapper: (SalesData sales, _) => sales.month,
-                  yValueMapper: (SalesData sales, _) => sales.sales,
-                  dataLabelSettings: DataLabelSettings(
-                    // Renders the data label
-                      isVisible: true),
-                  markerSettings: MarkerSettings(isVisible: true)),
-            ]),
-      ),
+        child: Container(
+            child: SfCartesianChart(
+                onChartTouchInteractionMove: (_Expected_Profit_Widget) {
+                  isScrolling = true;
+                },
+                onChartTouchInteractionUp: (_Expected_Profit_Widget) {
+                  if (isScrolling == false) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => expected_profit()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => expected_profit()));
+                  }
+                  isScrolling = false;
+                },
+                onChartTouchInteractionDown: (_Expected_Profit_Widget) {
+                  isScrolling = false;
+                },
+                primaryXAxis: CategoryAxis(
+                  majorGridLines: MajorGridLines(width: 0),
+                ),
+                primaryYAxis: NumericAxis(
+                  majorGridLines: MajorGridLines(width: 0),
+                  numberFormat: NumberFormat.compact(locale:"ko_KR" ),
+                ),
+                plotAreaBorderWidth: 0,
+                series: <CartesianSeries>[
+                FastLineSeries<SalesData, String>(
+                name: '2021',
+                dataSource: chartdata,
+                xValueMapper: (SalesData sales, _) => sales.month,
+                yValueMapper: (SalesData sales, _) => sales.sales,
+                dataLabelSettings: DataLabelSettings(
+                  // Renders the data label
+                    isVisible: true),
+            markerSettings: MarkerSettings(
+                isVisible: true,
+                color: Colors.blueAccent,
+                borderColor: Colors.white),
+            color: Colors.blueAccent),
+        ]),
+    ),
     );
     var money=dataset1[0]+dataset1[1]+dataset1[2]+
         dataset1[3]+dataset1[4]+dataset1[5]+
