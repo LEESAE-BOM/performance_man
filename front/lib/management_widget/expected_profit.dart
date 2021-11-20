@@ -175,6 +175,11 @@ class _expected_profit extends State<expected_profit> {
                               width: 1000.w,
                               height: 300,
                               child: SfCartesianChart(
+                                  palette: <Color>[
+                                    Colors.lightBlueAccent,
+                                    Colors.teal,
+                                    Colors.blueAccent,
+                                  ],
                                   primaryXAxis: CategoryAxis(),
                                   tooltipBehavior: _tooltipBehavior,
                                   zoomPanBehavior: _zoomPanBehavior,
@@ -197,8 +202,10 @@ class _expected_profit extends State<expected_profit> {
                                         dataLabelSettings: DataLabelSettings(
                                             // Renders the data label
                                             isVisible: true),
-                                        markerSettings:
-                                            MarkerSettings(isVisible: true)),
+                                        markerSettings: MarkerSettings(
+                                            isVisible: true,
+                                            color: Colors.lightBlueAccent,
+                                            borderColor: Colors.white)),
                                     FastLineSeries<SalesData, String>(
                                         name: '${thisYear - 2}',
                                         dataSource: chartData_prev[1],
@@ -209,8 +216,10 @@ class _expected_profit extends State<expected_profit> {
                                         dataLabelSettings: DataLabelSettings(
                                             // Renders the data label
                                             isVisible: true),
-                                        markerSettings:
-                                            MarkerSettings(isVisible: true)),
+                                        markerSettings: MarkerSettings(
+                                            isVisible: true,
+                                            color: Colors.teal,
+                                            borderColor: Colors.white)),
                                     FastLineSeries<SalesData, String>(
                                         name: '$thisYear',
                                         dataSource: [
@@ -243,8 +252,10 @@ class _expected_profit extends State<expected_profit> {
                                         dataLabelSettings: DataLabelSettings(
                                             // Renders the data label
                                             isVisible: true),
-                                        markerSettings:
-                                            MarkerSettings(isVisible: true)),
+                                        markerSettings: MarkerSettings(
+                                            isVisible: true,
+                                            color: Colors.blueAccent,
+                                            borderColor: Colors.white)),
                                   ]),
                             ),
                           ),
