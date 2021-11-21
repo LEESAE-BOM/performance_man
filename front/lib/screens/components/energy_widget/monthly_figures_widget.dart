@@ -12,7 +12,6 @@ class Monthly_Figures_Widget extends StatefulWidget {
 }
 
 class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -23,6 +22,8 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
             var result = snapshot.data as List<Map<String, dynamic>>;
             var thisMonthPrice = double.parse(result[0]['Amount']);
             var previousMonthPrice = double.parse(result[1]['Amount']);
+
+            int diff = thisMonthPrice.round() - previousMonthPrice.round();
 
             if (thisMonthPrice < 50000)
               state[2] = 'safe';
@@ -37,26 +38,15 @@ class _Monthly_Figures_Widget extends State<Monthly_Figures_Widget> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => monthly_figures()));
                 },
-                dbRelatedContentBuilder: FutureBuilder(
-                    future: conn.sendQuery(
-                        'SELECT UseDate, Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        int diff =
-                            thisMonthPrice.round() - previousMonthPrice.round();
-                        return Text.rich(TextSpan(children: [
-                          detailPageTheme.makeHeaderText('전월 대비\n'),
-                          if (diff < 0)
-                            detailPageTheme.makeHeaderText(
-                                '[${detailPageTheme.money.format(diff * -1)}] 감소'),
-                          if (diff >= 0)
-                            detailPageTheme.makeHeaderText(
-                                '[${detailPageTheme.money.format(diff)}] 증가')
-                        ]));
-                      } else {
-                        return Text.rich(TextSpan(text: '불러오는 중'));
-                      }
-                    }));
+                dbRelatedContentBuilder: Text.rich(TextSpan(children: [
+                  detailPageTheme.makeHeaderText('전월 대비\n'),
+                  if (diff < 0)
+                    detailPageTheme.makeHeaderText(
+                        '[${detailPageTheme.money.format(diff * -1)}] 감소'),
+                  if (diff >= 0)
+                    detailPageTheme.makeHeaderText(
+                        '[${detailPageTheme.money.format(diff)}] 증가')
+                ])));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

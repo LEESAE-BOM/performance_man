@@ -4,6 +4,7 @@ import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/box_widget.dart';
 import 'package:flutter_app/screens/energy/energy_screen.dart';
+
 //작은 위젯
 class Energy_Fee_Widget extends StatefulWidget {
   @override
@@ -11,12 +12,10 @@ class Energy_Fee_Widget extends StatefulWidget {
 }
 
 class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: conn.sendQuery(
-          //'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
             'SELECT RecordedDate, Money FROM Money WHERE Category=\'EGFEE\' ORDER BY RecordedDate DESC;'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -36,20 +35,10 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => energy_fee()));
                 },
-                dbRelatedContentBuilder: FutureBuilder(
-                    future: conn.sendQuery(
-                      //'SELECT MoneyDate, Money FROM Money WHERE MoneyCategory=\'EGFEE\' ORDER BY MoneyDate DESC;'),
-                        'SELECT RecordedDate, Money FROM Money WHERE Category=\'EGFEE\' ORDER BY RecordedDate DESC;'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text.rich(TextSpan(children: [
-                          detailPageTheme.makeHeaderText(
-                              '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
-                        ]));
-                      } else {
-                        return Text.rich(TextSpan(text: '불러오는 중'));
-                      }
-                    }));
+                dbRelatedContentBuilder: Text.rich(TextSpan(children: [
+                  detailPageTheme.makeHeaderText(
+                      '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
+                ])));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

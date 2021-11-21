@@ -5,6 +5,7 @@ import 'package:flutter_app/box_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/screens/energy/energy_screen.dart';
+
 //작은 위젯
 class Hourly_Figures_Widget extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class Hourly_Figures_Widget extends StatefulWidget {
 }
 
 class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
-
   @override
   List<Chart_Data> _chart_Data = [];
   List<_SplineAreaData1> Energyusage_time = [];
@@ -39,23 +39,18 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
             for (var row in result) {
               int toDate1 = int.parse(row['UseTime']);
               String energyStr = row['Amount'];
-              energyStr =
-                  energyStr.substring(0, energyStr.length - 3);
+              energyStr = energyStr.substring(0, energyStr.length - 3);
 
               String energyStr1 = row['Amount'];
-              energyStr1 =
-                  energyStr1.substring(0, energyStr1.length - 3);
+              energyStr1 = energyStr1.substring(0, energyStr1.length - 3);
 
-              Energyusage_time[toDate1 - 1].y1 =
-                  double.parse(energyStr);
-              Energyusage_time[toDate1 - 1].y2 =
-                  double.parse(energyStr1);
+              Energyusage_time[toDate1 - 1].y1 = double.parse(energyStr);
+              Energyusage_time[toDate1 - 1].y2 = double.parse(energyStr1);
             }
 
             int max = 0;
             for (int i = 1; i < 24; i++) {
-              if (Energyusage_time[max].y2 <
-                  Energyusage_time[i].y2) {
+              if (Energyusage_time[max].y2 < Energyusage_time[i].y2) {
                 max = i;
               }
             }
@@ -75,54 +70,40 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => hourly_figures()));
                 },
-                dbRelatedContentBuilder: FutureBuilder(
-                    future: conn.sendQuery(
-                        'SELECT UseDate,HOUR(UseTime) as UseTime,Amount * 1000 as Amount FROM EnergyUse ORDER BY UseDate DESC;'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          child: SfCircularChart(
-                              onChartTouchInteractionMove:
-                                  (_Hourly_Figures_Widget) {
-                                isScrolling = true;
-                              },
-                              onChartTouchInteractionUp:
-                                  (_Hourly_Figures_Widget) {
-                                if (isScrolling == false) {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => hourly_figures()));
-                                }
-                                isScrolling = false;
-                              },
-                              onChartTouchInteractionDown:
-                                  (_Hourly_Figures_Widget) {
-                                isScrolling = false;
-                              },
-                              annotations: <CircularChartAnnotation>[
-                                CircularChartAnnotation(
-                                    widget: Container(
-                                        child: Text('${max}시~${max + 1}시',
-                                            style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: 50.sp,
-                                                fontFamily: 'applesdneom'))))
-                              ],
-                              series: <CircularSeries>[
-                                DoughnutSeries<Chart_Data, String>(
-                                    dataSource: _chart_Data,
-                                    pointColorMapper: (Chart_Data data, _) =>
-                                        data.color,
-                                    xValueMapper: (Chart_Data data, _) =>
-                                        data.x,
-                                    yValueMapper: (Chart_Data data, _) =>
-                                        data.y,
-                                    radius: '100%')
-                              ]),
-                        );
-                      } else {
-                        return Text.rich(TextSpan(text: '불러오는 중'));
-                      }
-                    }));
+                dbRelatedContentBuilder: Container(
+                  child: SfCircularChart(
+                      onChartTouchInteractionMove: (_Hourly_Figures_Widget) {
+                        isScrolling = true;
+                      },
+                      onChartTouchInteractionUp: (_Hourly_Figures_Widget) {
+                        if (isScrolling == false) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => hourly_figures()));
+                        }
+                        isScrolling = false;
+                      },
+                      onChartTouchInteractionDown: (_Hourly_Figures_Widget) {
+                        isScrolling = false;
+                      },
+                      annotations: <CircularChartAnnotation>[
+                        CircularChartAnnotation(
+                            widget: Container(
+                                child: Text('${max}시~${max + 1}시',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 50.sp,
+                                        fontFamily: 'applesdneom'))))
+                      ],
+                      series: <CircularSeries>[
+                        DoughnutSeries<Chart_Data, String>(
+                            dataSource: _chart_Data,
+                            pointColorMapper: (Chart_Data data, _) =>
+                                data.color,
+                            xValueMapper: (Chart_Data data, _) => data.x,
+                            yValueMapper: (Chart_Data data, _) => data.y,
+                            radius: '100%')
+                      ]),
+                ));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }
