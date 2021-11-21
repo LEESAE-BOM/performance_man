@@ -55,7 +55,7 @@ class _Labor_Production_Rate_Widget
 
                         for (int i = 0; i < min(result.length, 12); i++) {
                           laborData.add(ChartData(
-                              '${double.parse(result[i]['Month'])}월',
+                              '${int.parse(result[i]['Month'])}월',
                               double.parse(result[i]['Productivity'])));
                         }
                         return SfCartesianChart(
