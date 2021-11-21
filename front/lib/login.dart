@@ -78,8 +78,8 @@ class _login_flow extends State<login_flow> {
         padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         onPressed: () async {
           // for Debug
-          List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'flow\' AND PASSWORD = \'1234\';');
-          //List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'${_emailTextController.text}\' AND PASSWORD = \'${_passwordTextController.text}\';');
+          //List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'flow\' AND PASSWORD = \'1234\';');
+          List<dynamic> result = await conn.sendQuery('SELECT * FROM USERS WHERE ID = \'${_emailTextController.text}\' AND PASSWORD = \'${_passwordTextController.text}\';');
           if(result.length == 1){
             /*
               account info
