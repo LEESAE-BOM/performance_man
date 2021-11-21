@@ -5,6 +5,7 @@ import './components/menu_drawer.dart'; //경로 수정
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/theme.dart';
+import 'package:flutter_app/session_manager.dart';
 
 class MainScreens extends StatefulWidget{
   @override
@@ -21,6 +22,7 @@ class _MainScreensState extends State<MainScreens>{
 
   @override
   Widget build(BuildContext context){
+
     return Scaffold(
       endDrawer: MenuDrawer(),
       appBar: AppBar(
@@ -34,7 +36,10 @@ class _MainScreensState extends State<MainScreens>{
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).pop();
+              loginSession.deleteValue("loginInfo").then((value)
+              {
+                Navigator.of(context).pop();
+              });
             }
             ),
       ),

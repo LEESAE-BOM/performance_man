@@ -111,6 +111,8 @@ class SalesData {
   final double sales;
 }
 Future<void> machine() async {
+  int thisYear = DateTime.now().year;
+
   final unlabel = DataFrame(<Iterable>[
     ['month', 'profit'],
     [1,],
@@ -127,12 +129,20 @@ Future<void> machine() async {
     [12,],
   ], headerExists: true);
 
-  final samples_2019 =  await conn.getSalesData(2019);
-  final samples_2020 = await conn.getSalesData(2020);
+  final samples = [
+    for(int i=1; i<6; i++)
+      await conn.getSalesData(thisYear - i)
+  ];
+
+  print(samples.length);
 
   final targetName = 'profit';
-  final knnregressor= KnnRegressor(samples_2019, targetName, 3);
-  final regressor = knnregressor.retrain(samples_2020);
+  final knnregressor= KnnRegressor(samples[0], targetName, 3);
+  var regressor = knnregressor.retrain(samples[1]);
+  for(int i=2; i<samples.length; i++) {
+    if(samples[i].rows.length != 12) break;
+    regressor = regressor.retrain(samples[i]);
+  }
 
   final kprediction = regressor.predict(unlabel);
 

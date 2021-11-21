@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import './screens/main_screens.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_app/session_manager.dart';
+
 
 class login_flow extends StatefulWidget {
   // This widget is the root of your application.
@@ -10,10 +12,12 @@ class login_flow extends StatefulWidget {
 }
 
 class _login_flow extends State<login_flow> {
+  bool _isChecked = false;
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
-  var _isChecked =false;
   //TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+
+  String? data;
 
   @override
   void dispose(){
@@ -35,6 +39,13 @@ class _login_flow extends State<login_flow> {
 
   @override
   Widget build(BuildContext context) {
+
+    loginSession.readValue("loginInfo").then((value){
+      if(loginSession.value != null){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+      }
+    });
+
     final emailField = TextField(
       obscureText: false,
       style:  TextStyle(fontSize: 17, fontFamily: 'applesdneol',color: Colors.black38),
@@ -75,7 +86,13 @@ class _login_flow extends State<login_flow> {
               ID: flow
               password: 1234
              */
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+            if(_isChecked == true){
+              loginSession.writeValue("loginInfo", "flow").then((value){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+              });
+            }else{
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreens()));
+            }
             _emailTextController.text = '';
             _passwordTextController.text = '';
           }
@@ -113,6 +130,25 @@ class _login_flow extends State<login_flow> {
                   emailField,
                   SizedBox(height: 8.0),
                   passwordField,
+                  SizedBox(height: 15.0),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(height:5.0,width:5.0),
+                      Container(
+                          alignment: Alignment.center,
+                          width: 14,
+                          height: 14,
+                          color: Colors.black26,
+                          child: Checkbox(value: _isChecked,
+                              //checkColor:Colors.orange,
+                              //hoverColor:Colors.red,
+                              activeColor: Colors.black38 ,
+                              onChanged: (value){setState(() {_isChecked = value!;});})
+                      ),
+                      SizedBox(width:19.0),
+                      Text('로그인 상태 유지',style: TextStyle(fontSize: 12, fontFamily: 'applesdneob',color: Colors.black54)),
+                    ],
+                  ),
                   SizedBox(height: 15.0),
                   loginButon,
                   SizedBox(height: 15.0,),

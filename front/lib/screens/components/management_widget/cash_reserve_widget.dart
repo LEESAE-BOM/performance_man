@@ -16,7 +16,7 @@ class Cash_Reserve_Widget extends StatefulWidget {
 }
 
 class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
-  List<ChartData> cashData = [];
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
     return FutureBuilder(
         future: conn.sendQuery('SELECT YEAR(RecordedDate) as Year, SUM(Money) * 1000 as Money FROM Money WHERE Category=\'MONEY\' GROUP BY Year ORDER BY Year;'),
         builder: (context, snapshot) {
+          List<ChartData> cashData = [];
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            for (int i = 1; i <= min(result.length, 3); i++){
-              cashData.add(ChartData((double.parse(result[i]['Year'])).round(),
-                  double.parse(result[i]['Money'])));
+            for (int i = result.length - min(result.length, 3); i < result.length; i++){
+              cashData.add(ChartData(result[i]['Year'], double.parse(result[i]['Money'])));
             }
-            if(double.parse(result[3]['Year'])>200000000000)
-              state[0]='safe';
-            else if(double.parse(result[3]['Year'])>170000000000){
+            if(double.parse(result[0]['Year'])>200000000000) {
+              state[0] = 'safe';
+            }else if(double.parse(result[0]['Year'])>170000000000){
               state[0]='warning';
             }
             else {
@@ -81,7 +81,7 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
                             Colors.teal,
                           ],
                           series: <ChartSeries>[
-                            BarSeries<ChartData, int>(
+                            BarSeries<ChartData, String>(
                                 dataSource: cashData,
                                 xValueMapper: (ChartData cash, _) => cash.x,
                                 yValueMapper: (ChartData cash, _) => cash.y,
@@ -107,6 +107,6 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
 class ChartData {
   ChartData(this.x, this.y);
 
-  int x;
+  String x;
   double y;
 }

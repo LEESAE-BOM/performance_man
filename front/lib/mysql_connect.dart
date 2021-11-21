@@ -100,10 +100,10 @@ class MySQLConnector{
     sendQuery('INSERT INTO CompletionGoal (Goal, Label, StartDate) VALUES ($goal, \'$label\', \'$startDate\');');
   }
 
-  void insertProjectCompletionValue({label, completionValue, date}){
-    var result = sendQuery('SELECT ID FROM CompletionGoal WHERE Label=\'$label\'') as List<Map<String, dynamic>>;
+  void insertProjectCompletionValue({label, completionValue, date}) async{
+    var result = await sendQuery('SELECT ID FROM CompletionGoal WHERE Label=\'$label\'');
     var targetID = result[0]['ID'];
-    sendQuery('INSERT INTO CompletionRate (ID, Achievement, RecordedDate, Category) VALUES ($targetID, \'$completionValue\', \'$date\', \'DVLCM\');');
+    sendQuery('INSERT INTO CompletionRate (ID, Achievement, RecordedDate, Category) VALUES ($targetID, $completionValue, \'$date\', \'DVLCM\');');
   }
 
   void insertCapacityRate({completionRate, date}){

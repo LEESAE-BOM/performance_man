@@ -17,11 +17,11 @@ class MyApp extends StatelessWidget {
         future: Init.instance.initialize(),
         builder: (context, AsyncSnapshot snapshot) {
           // Show splash screen while waiting for app resources to load:
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState != ConnectionState.done) {
             return MaterialApp(
                 debugShowCheckedModeBanner: false, home: Splash());
-          } else {
-            // Loading is done, return the app:
+          }
+          else {
             return ScreenUtilInit(
                 designSize: Size(1080, 1920),
                 builder: () => MaterialApp(
@@ -52,7 +52,6 @@ class Splash extends StatelessWidget {
 
 class Init {
   Init._();
-
   static final instance = Init._();
 
   Future initialize() async {
