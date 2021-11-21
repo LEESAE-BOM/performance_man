@@ -13,7 +13,6 @@ class Lead_Time_Widget extends StatefulWidget {
 }
 
 class _Lead_Time_Widget extends State<Lead_Time_Widget> {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -41,17 +40,8 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => lead_time()));
                 },
-                dbRelatedContentBuilder: FutureBuilder(
-                    future: conn.sendQuery(
-                        'SELECT DueDate as dueDate FROM LeadTime ORDER BY DueDate ASC;'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text.rich(
-                            detailPageTheme.makeLeadText('[${dif}]days]'));
-                      } else {
-                        return Text.rich(TextSpan(text: '불러오는 중'));
-                      }
-                    }));
+                dbRelatedContentBuilder:
+                    Text.rich(detailPageTheme.makeLeadText('[${dif}]days]')));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

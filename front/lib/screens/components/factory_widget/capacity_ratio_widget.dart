@@ -33,6 +33,11 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
             var achievement = double.parse(result[0]['Achievement']);
             var achieveRate = (achievement / goal) * 100;
 
+            List<ChartData> capacityData = [
+              ChartData('complete', achieveRate),
+              ChartData('uncomplete', 100 - achieveRate)
+            ];
+
             if (achieveRate > 70)
               state[0] = 'safe';
             else if (achieveRate > 50)
@@ -45,66 +50,41 @@ class _Capacity_Ratio_Widget extends State<Capacity_Ratio_Widget> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => capacity_ratio()));
                 },
-                dbRelatedContentBuilder: FutureBuilder(
-                    future: conn.sendQuery(
-                        'SELECT Goal, Achievement FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'OPRCM\' ORDER BY RecordedDate DESC;'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        var result = snapshot.data as List<Map<String, dynamic>>;
-                        print(result.length);
-                        var goal = double.parse(result[0]['Goal']);
-                        var achievement =
-                            double.parse(result[0]['Achievement']);
-                        var achieveRate = (achievement / goal) * 100;
-
-                        List<ChartData> capacityData = [
-                          ChartData('complete', achieveRate),
-                          ChartData('uncomplete', 100 - achieveRate)
-                        ];
-
-                        return SfCircularChart(
-                            tooltipBehavior: _toolTipBehavior,
-                            onChartTouchInteractionMove:
-                                (_Capacity_Ratio_Widget) {
-                              isScrolling = true;
-                            },
-                            onChartTouchInteractionUp:
-                                (_Capacity_Ratio_Widget) {
-                              if (isScrolling == false) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => capacity_ratio()));
-                              }
-                              isScrolling = false;
-                            },
-                            onChartTouchInteractionDown:
-                                (_Capacity_Ratio_Widget) {
-                              isScrolling = false;
-                            },
-                            palette: <Color>[
-                              Color.fromRGBO(105, 168, 248, 0),
-                              Color.fromRGBO(253, 122, 93, 0),
-                            ],
-                            series: <CircularSeries>[
-                              DoughnutSeries<ChartData, String>(
-                                  radius: '100%',
-                                  dataSource: capacityData,
-                                  xValueMapper: (ChartData data, _) => data.x,
-                                  yValueMapper: (ChartData data, _) => data.y,
-                                  dataLabelMapper: (ChartData data, _) =>
-                                      data.x,
-                                  dataLabelSettings: DataLabelSettings(
-                                      showCumulativeValues: false,
-                                      showZeroValue: false,
-                                      isVisible: true,
-                                      textStyle: TextStyle(
-                                          color: Colors.black87,
-                                          fontSize: 30.w,
-                                          fontFamily: 'applesdneob')))
-                            ]);
-                      } else {
-                        return Text.rich(TextSpan(text: '불러오는 중'));
+                dbRelatedContentBuilder: SfCircularChart(
+                    tooltipBehavior: _toolTipBehavior,
+                    onChartTouchInteractionMove: (_Capacity_Ratio_Widget) {
+                      isScrolling = true;
+                    },
+                    onChartTouchInteractionUp: (_Capacity_Ratio_Widget) {
+                      if (isScrolling == false) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => capacity_ratio()));
                       }
-                    }));
+                      isScrolling = false;
+                    },
+                    onChartTouchInteractionDown: (_Capacity_Ratio_Widget) {
+                      isScrolling = false;
+                    },
+                    palette: <Color>[
+                      Color.fromRGBO(105, 168, 248, 0),
+                      Color.fromRGBO(253, 122, 93, 0),
+                    ],
+                    series: <CircularSeries>[
+                      DoughnutSeries<ChartData, String>(
+                          radius: '100%',
+                          dataSource: capacityData,
+                          xValueMapper: (ChartData data, _) => data.x,
+                          yValueMapper: (ChartData data, _) => data.y,
+                          dataLabelMapper: (ChartData data, _) => data.x,
+                          dataLabelSettings: DataLabelSettings(
+                              showCumulativeValues: false,
+                              showZeroValue: false,
+                              isVisible: true,
+                              textStyle: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 30.w,
+                                  fontFamily: 'applesdneob')))
+                    ]));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }
