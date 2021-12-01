@@ -19,21 +19,29 @@ class _Sales_Widget extends State<Sales_Widget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            int money = double.parse(result[0]['Money']).round();
-            if (money > 19000000000)
-              state[5] = 'safe';
-            else if (money > 17000000000) {
-              state[5] = 'warning';
+            if (result.length > 0) {
+              int money = double.parse(result[0]['Money']).round();
+              if (money > 19000000000)
+                state[5] = 'safe';
+              else if (money > 17000000000) {
+                state[5] = 'warning';
+              } else {
+                state[5] = 'danger';
+              }
+              return BoxWidget('매출금액', state[5], 'wide').make(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => sales()));
+                  },
+                  dbRelatedContentBuilder: Text.rich(detailPageTheme.makeHeaderText(
+                      '이번달 매출금액은\n[${detailPageTheme.money.format(money)}]원입니다.')));
             } else {
-              state[5] = 'danger';
+              state[5] = 'none';
+              return BoxWidget('매출금액', state[5], 'wide').make(
+                  onTap: () {},
+                  dbRelatedContentBuilder:
+                      Text.rich(detailPageTheme.makeHeaderText('데이터가 없습니다.')));
             }
-            return BoxWidget('매출금액', state[5], 'wide').make(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => sales()));
-                },
-                dbRelatedContentBuilder: Text.rich(detailPageTheme.makeHeaderText(
-                    '이번달 매출금액은\n[${detailPageTheme.money.format(money)}]원입니다.')));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

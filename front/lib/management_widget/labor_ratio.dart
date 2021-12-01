@@ -64,152 +64,175 @@ class _labor_ratio extends State<labor_ratio> {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
-                        var table = ResultSet(result, ['날짜', '분류', '금액']);
-                        double totalDCLBR = 0;
-                        double totalIDLBR = 0;
-                        double IDLBRRate = 0;
-                        double DCLBRRate = 0;
-                        int diff = 0;
+                        if (result.length > 0) {
+                          var table = ResultSet(result, ['날짜', '분류', '금액']);
+                          double totalDCLBR = 0;
+                          double totalIDLBR = 0;
+                          double IDLBRRate = 0;
+                          double DCLBRRate = 0;
+                          int diff = 0;
 
-                        int thisYear =
-                            DateTime.parse(result[0]['RecordedDate']).year;
-                        int thisMonth =
-                            DateTime.parse(result[0]['RecordedDate']).month;
+                          int thisYear =
+                              DateTime.parse(result[0]['RecordedDate']).year;
+                          int thisMonth =
+                              DateTime.parse(result[0]['RecordedDate']).month;
 
-                        for (int i = 0; i < result.length; i++) {
-                          int year =
-                              DateTime.parse(result[i]['RecordedDate']).year;
-                          int month =
-                              DateTime.parse(result[i]['RecordedDate']).month;
-                          if (thisYear == year &&
-                              thisMonth == month) if (result[i]
-                                  ['Category'] ==
-                              'DCLBR')
-                            totalDCLBR += double.parse(result[i]['Money']);
-                          else if (result[i]['Category'] == 'IDLBR')
-                            totalIDLBR += double.parse(result[i]['Money']);
-                        }
+                          for (int i = 0; i < result.length; i++) {
+                            int year =
+                                DateTime.parse(result[i]['RecordedDate']).year;
+                            int month =
+                                DateTime.parse(result[i]['RecordedDate']).month;
+                            if (thisYear == year &&
+                                thisMonth ==
+                                    month) if (result[i]['Category'] == 'DCLBR')
+                              totalDCLBR += double.parse(result[i]['Money']);
+                            else if (result[i]['Category'] == 'IDLBR')
+                              totalIDLBR += double.parse(result[i]['Money']);
+                          }
 
-                        laborRate.clear();
-                        IDLBRRate =
-                            (totalIDLBR / (totalIDLBR + totalDCLBR)) * 100;
-                        DCLBRRate =
-                            (totalDCLBR / (totalIDLBR + totalDCLBR)) * 100;
-                        diff = max(IDLBRRate.round(), DCLBRRate.round()) -
-                            min(IDLBRRate.round(), DCLBRRate.round());
+                          laborRate.clear();
+                          IDLBRRate =
+                              (totalIDLBR / (totalIDLBR + totalDCLBR)) * 100;
+                          DCLBRRate =
+                              (totalDCLBR / (totalIDLBR + totalDCLBR)) * 100;
+                          diff = max(IDLBRRate.round(), DCLBRRate.round()) -
+                              min(IDLBRRate.round(), DCLBRRate.round());
 
-                        laborRate.add(ChartData(
-                            '직접인건비', DCLBRRate, '${DCLBRRate.round()}%'));
-                        laborRate.add(ChartData(
-                            '간접인건비', IDLBRRate, '${IDLBRRate.round()}%'));
+                          laborRate.add(ChartData(
+                              '직접인건비', DCLBRRate, '${DCLBRRate.round()}%'));
+                          laborRate.add(ChartData(
+                              '간접인건비', IDLBRRate, '${IDLBRRate.round()}%'));
 
-                        return ListView(
-                          children: [
+                          return ListView(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      80.sp, 100.sp, 20.sp, 100.sp),
+                                  child: Text.rich(TextSpan(children: [
+                                    detailPageTheme.makeHeaderText('이번 달은\n'),
+                                    if (IDLBRRate > DCLBRRate)
+                                      detailPageTheme
+                                          .makeHeaderText('[간접인건비]가 '),
+                                    if (IDLBRRate <= DCLBRRate)
+                                      detailPageTheme
+                                          .makeHeaderText('[직접인건비]가 '),
+                                    detailPageTheme
+                                        .makeHeaderText('[$diff%p] 높아요.'),
+                                  ]))),
+                              Container(
+                                  width: 1000.w,
+                                  height: 300,
+                                  child: SfCircularChart(
+                                      palette: <Color>[
+                                        Colors.indigo,
+                                        Colors.lightBlueAccent,
+                                      ],
+                                      title: ChartTitle(
+                                          text: '$thisYear',
+                                          textStyle: TextStyle(
+                                              fontSize: 100.sp,
+                                              fontWeight: FontWeight.bold)),
+                                      legend: Legend(
+                                          isVisible: true,
+                                          position: LegendPosition.bottom,
+                                          isResponsive: false),
+                                      series: <CircularSeries>[
+                                        // Render pie chart
+                                        PieSeries<ChartData, String>(
+                                            dataSource: laborRate,
+                                            xValueMapper: (ChartData data, _) =>
+                                                data.x,
+                                            yValueMapper: (ChartData data, _) =>
+                                                data.y,
+                                            dataLabelMapper:
+                                                (ChartData data, _) =>
+                                                    data.text,
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    isVisible: true,
+                                                    textStyle: TextStyle(
+                                                        fontSize: 50.w,
+                                                        fontFamily:
+                                                            'applesdneob')),
+                                            radius: '100%'),
+                                      ])),
+                              Padding(
+                                padding:
+                                    EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+                                child: Table(
+                                  border: TableBorder(
+                                      horizontalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.black38,
+                                          style: BorderStyle.solid)),
+                                  children: <TableRow>[
+                                        table.getTableHeaderWidget(),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Text(''),
+                                          ),
+                                          TableCell(
+                                            child: Text(''),
+                                          ),
+                                          TableCell(
+                                              child: Container(
+                                            alignment: Alignment.centerRight,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50.sp),
+                                            child: DropdownButton(
+                                              value: dropDownValue,
+                                              items: <DropdownMenuItem<String>>[
+                                                for (var val
+                                                    in selectOptions.keys)
+                                                  DropdownMenuItem(
+                                                      value: val,
+                                                      child: Text(
+                                                        val,
+                                                        style: TextStyle(
+                                                          fontSize: 35.w,
+                                                        ),
+                                                      ))
+                                              ],
+                                              onChanged: (String? val) {
+                                                setState(() {
+                                                  dropDownValue = val!;
+                                                });
+                                              },
+                                              isExpanded: true,
+                                            ),
+                                          ))
+                                        ])
+                                      ] +
+                                      table.getTableRowWidgets(
+                                          convertor: (row) {
+                                        if (row['Category'] == 'IDLBR')
+                                          row['Category'] = '간접';
+                                        else if (row['Category'] == 'DCLBR')
+                                          row['Category'] = '직접';
+                                        row['Money'] =
+                                            '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                        return row;
+                                      }).sublist(
+                                          0,
+                                          min(
+                                              result.length,
+                                              selectOptions[dropDownValue]
+                                                  as int)),
+                                ),
+                              )
+                            ],
+                          );
+                        } else {
+                          return ListView(children: [
                             Padding(
                                 padding: EdgeInsets.fromLTRB(
-                                    80.sp, 100.sp, 20.sp, 100.sp),
+                                    50.sp, 100.sp, 20.sp, 100.sp),
                                 child: Text.rich(TextSpan(children: [
-                                  detailPageTheme.makeHeaderText('이번 달은\n'),
-                                  if (IDLBRRate > DCLBRRate)
-                                    detailPageTheme.makeHeaderText('[간접인건비]가 '),
-                                  if (IDLBRRate <= DCLBRRate)
-                                    detailPageTheme.makeHeaderText('[직접인건비]가 '),
                                   detailPageTheme
-                                      .makeHeaderText('[$diff%p] 높아요.'),
-                                ]))),
-                            Container(
-                                width: 1000.w,
-                                height: 300,
-                                child: SfCircularChart(
-                                    palette: <Color>[
-                                      Colors.indigo,
-                                      Colors.lightBlueAccent,
-                                    ],
-                                    title: ChartTitle(
-                                        text: '$thisYear',
-                                        textStyle: TextStyle(
-                                            fontSize: 100.sp,
-                                            fontWeight: FontWeight.bold)),
-                                    legend: Legend(
-                                        isVisible: true,
-                                        position: LegendPosition.bottom,
-                                        isResponsive: false),
-                                    series: <CircularSeries>[
-                                      // Render pie chart
-                                      PieSeries<ChartData, String>(
-                                          dataSource: laborRate,
-                                          xValueMapper: (ChartData data, _) =>
-                                              data.x,
-                                          yValueMapper: (ChartData data, _) =>
-                                              data.y,
-                                          dataLabelMapper:
-                                              (ChartData data, _) => data.text,
-                                          dataLabelSettings: DataLabelSettings(
-                                              isVisible: true,
-                                              textStyle: TextStyle(
-                                                  fontSize: 50.w,
-                                                  fontFamily: 'applesdneob')),
-                                          radius: '100%'),
-                                    ])),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
-                              child: Table(
-                                border: TableBorder(
-                                    horizontalInside: BorderSide(
-                                        width: 1,
-                                        color: Colors.black38,
-                                        style: BorderStyle.solid)),
-                                children: <TableRow>[
-                                      table.getTableHeaderWidget(),
-                                      TableRow(children: [
-                                        TableCell(
-                                          child: Text(''),
-                                        ),
-                                        TableCell(
-                                          child: Text(''),
-                                        ),
-                                        TableCell(
-                                            child: Container(
-                                              alignment: Alignment.centerRight,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 50.sp),
-                                          child: DropdownButton(
-                                            value: dropDownValue,
-                                            items: <DropdownMenuItem<String>>[
-                                              for (var val
-                                                  in selectOptions.keys)
-                                                DropdownMenuItem(
-                                                    value: val,
-                                                    child: Text(val,style: TextStyle(fontSize: 35.w,),))
-                                            ],
-                                            onChanged: (String? val) {
-                                              setState(() {
-                                                dropDownValue = val!;
-                                              });
-                                            },
-                                           isExpanded: true,
-                                          ),
-                                        ))
-                                      ])
-                                    ] +
-                                    table.getTableRowWidgets(convertor: (row) {
-                                      if (row['Category'] == 'IDLBR')
-                                        row['Category'] = '간접';
-                                      else if (row['Category'] == 'DCLBR')
-                                        row['Category'] = '직접';
-                                      row['Money'] =
-                                          '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                                      return row;
-                                    }).sublist(
-                                        0,
-                                        min(
-                                            result.length,
-                                            selectOptions[dropDownValue]
-                                                as int)),
-                              ),
-                            )
-                          ],
-                        );
+                                      .makeHeaderText('저장된 데이터가 없습니다.'),
+                                ])))
+                          ]);
+                        }
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');
                       } else {

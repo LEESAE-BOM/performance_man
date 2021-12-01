@@ -59,128 +59,141 @@ class _cash_reserve extends State<cash_reserve> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var result = snapshot.data as List<Map<String, dynamic>>;
-                      var thisYearPrice = '0.00';
-                      var previousYearPrice = '0.00';
-                      var table = ResultSet(snapshot.data, ['연도', '금액']);
+                      if (result.length > 0) {
+                        var thisYearPrice = '0.00';
+                        var previousYearPrice = '0.00';
+                        var table = ResultSet(snapshot.data, ['연도', '금액']);
 
-                      if (result.length > 1) {
-                        thisYearPrice = result[0]['Money'];
-                      }
+                        if (result.length > 1) {
+                          thisYearPrice = result[0]['Money'];
+                        }
 
-                      int result_thisYearPrice =
-                          double.parse(thisYearPrice).round();
-                      if (result.length > 1)
-                        previousYearPrice = result[1]['Money'];
+                        int result_thisYearPrice =
+                            double.parse(thisYearPrice).round();
+                        if (result.length > 1)
+                          previousYearPrice = result[1]['Money'];
 
-                      int diff = int.parse(thisYearPrice.substring(
-                              0, thisYearPrice.length - 3)) -
-                          int.parse(previousYearPrice.substring(
-                              0, previousYearPrice.length - 3));
-                      double incrementRate = 0;
-                      if (previousYearPrice != '0.00')
-                        incrementRate = (diff /
-                                int.parse(previousYearPrice.substring(
-                                    0, previousYearPrice.length - 3))) *
-                            100;
-                      if (incrementRate < 0) incrementRate *= -1;
+                        int diff = int.parse(thisYearPrice.substring(
+                                0, thisYearPrice.length - 3)) -
+                            int.parse(previousYearPrice.substring(
+                                0, previousYearPrice.length - 3));
+                        double incrementRate = 0;
+                        if (previousYearPrice != '0.00')
+                          incrementRate = (diff /
+                                  int.parse(previousYearPrice.substring(
+                                      0, previousYearPrice.length - 3))) *
+                              100;
+                        if (incrementRate < 0) incrementRate *= -1;
 
-                      for (int i = 0; i < min(result.length, 3); i++)
-                        cashData.insert(
-                            0,
-                            ChartData(result[i]['Year'],
-                                double.parse(result[i]['Money'])));
+                        for (int i = 0; i < min(result.length, 3); i++)
+                          cashData.insert(
+                              0,
+                              ChartData(result[i]['Year'],
+                                  double.parse(result[i]['Money'])));
 
-                      return ListView(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                80.sp, 100.sp, 20.sp, 100.sp),
-                            child: Text.rich(TextSpan(children: [
-                              detailPageTheme.makeHeaderText(
-                                  '이번 년도 [현금 보유액]은\n[${detailPageTheme.money.format(result_thisYearPrice)}]원 입니다.'),
-                              if (previousYearPrice != '0.00')
+                        return ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  80.sp, 100.sp, 20.sp, 100.sp),
+                              child: Text.rich(TextSpan(children: [
                                 detailPageTheme.makeHeaderText(
-                                    '\n전년대비 [${incrementRate.round()}%]'),
-                              if (diff < 0)
-                                detailPageTheme.makeHeaderText(' [감소]했어요.'),
-                              if (diff >= 0)
-                                detailPageTheme.makeHeaderText(' [상승]했어요.'),
-                            ])),
-                          ),
-                          Center(
-                            child: Container(
-                                width: 1000.w,
-                                height: 300,
-                                child: SfCartesianChart(
-                                    primaryXAxis: CategoryAxis(),
-                                    primaryYAxis: NumericAxis(
-                                      edgeLabelPlacement:
-                                          EdgeLabelPlacement.shift,
-                                      numberFormat:
-                                          NumberFormat.compact(locale: "ko_KR"),
-                                    ),
-                                    palette: <Color>[
-                                      Colors.teal,
-                                    ],
-                                    series: <ChartSeries>[
-                                      BarSeries<ChartData, String>(
-                                        dataSource: cashData,
-                                        xValueMapper: (ChartData sales, _) =>
-                                            sales.x,
-                                        yValueMapper: (ChartData sales, _) =>
-                                            sales.y,
-                                        dataLabelSettings: DataLabelSettings(
-                                            // Renders the data label
-                                            isVisible: true),
-                                        width: 0.6,
-                                        spacing: 0.2,
-                                      ),
-                                    ])),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
-                            child: Table(
-                              border: detailPageTheme.tableBorderStyle,
-                              children: [
-                                    table.getTableHeaderWidget(),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Text(''),
-                                      ),
-                                      TableCell(
-                                          child: Container(
-                                            alignment: Alignment.centerRight,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 50.sp),
-                                        child: DropdownButton(
-                                          value: dropDownValue,
-                                          items: <DropdownMenuItem<String>>[
-                                            for (var val in selectOptions.keys)
-                                              DropdownMenuItem(
-                                                  value: val, child: Text(val))
-                                          ],
-                                          onChanged: (String? val) {
-                                            setState(() {
-                                              dropDownValue = val!;
-                                            });
-                                          },
-
-                                        ),
-                                      ))
-                                    ])
-                                  ] +
-                                  table.getTableRowWidgets(convertor: (row) {
-                                    row['Money'] =
-                                        '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                                    return row;
-                                  }).sublist(
-                                      0,
-                                      min(selectOptions[dropDownValue] as int,
-                                          table.rows.length)),
+                                    '이번 년도 [현금 보유액]은\n[${detailPageTheme.money.format(result_thisYearPrice)}]원 입니다.'),
+                                if (previousYearPrice != '0.00')
+                                  detailPageTheme.makeHeaderText(
+                                      '\n전년대비 [${incrementRate.round()}%]'),
+                                if (diff < 0)
+                                  detailPageTheme.makeHeaderText(' [감소]했어요.'),
+                                if (diff >= 0)
+                                  detailPageTheme.makeHeaderText(' [상승]했어요.'),
+                              ])),
                             ),
-                          )
-                        ],
-                      );
+                            Center(
+                              child: Container(
+                                  width: 1000.w,
+                                  height: 300,
+                                  child: SfCartesianChart(
+                                      primaryXAxis: CategoryAxis(),
+                                      primaryYAxis: NumericAxis(
+                                        edgeLabelPlacement:
+                                            EdgeLabelPlacement.shift,
+                                        numberFormat: NumberFormat.compact(
+                                            locale: "ko_KR"),
+                                      ),
+                                      palette: <Color>[
+                                        Colors.teal,
+                                      ],
+                                      series: <ChartSeries>[
+                                        BarSeries<ChartData, String>(
+                                          dataSource: cashData,
+                                          xValueMapper: (ChartData sales, _) =>
+                                              sales.x,
+                                          yValueMapper: (ChartData sales, _) =>
+                                              sales.y,
+                                          dataLabelSettings: DataLabelSettings(
+                                              // Renders the data label
+                                              isVisible: true),
+                                          width: 0.6,
+                                          spacing: 0.2,
+                                        ),
+                                      ])),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+                              child: Table(
+                                border: detailPageTheme.tableBorderStyle,
+                                children: [
+                                      table.getTableHeaderWidget(),
+                                      TableRow(children: [
+                                        TableCell(
+                                          child: Text(''),
+                                        ),
+                                        TableCell(
+                                            child: Container(
+                                          alignment: Alignment.centerRight,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 50.sp),
+                                          child: DropdownButton(
+                                            value: dropDownValue,
+                                            items: <DropdownMenuItem<String>>[
+                                              for (var val
+                                                  in selectOptions.keys)
+                                                DropdownMenuItem(
+                                                    value: val,
+                                                    child: Text(val))
+                                            ],
+                                            onChanged: (String? val) {
+                                              setState(() {
+                                                dropDownValue = val!;
+                                              });
+                                            },
+                                          ),
+                                        ))
+                                      ])
+                                    ] +
+                                    table.getTableRowWidgets(convertor: (row) {
+                                      row['Money'] =
+                                          '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                      return row;
+                                    }).sublist(
+                                        0,
+                                        min(selectOptions[dropDownValue] as int,
+                                            table.rows.length)),
+                              ),
+                            )
+                          ],
+                        );
+                      } else {
+                        return ListView(children: [
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  50.sp, 100.sp, 20.sp, 100.sp),
+                              child: Text.rich(TextSpan(children: [
+                                detailPageTheme
+                                    .makeHeaderText('저장된 데이터가 없습니다.'),
+                              ])))
+                        ]);
+                      }
                     } else {
                       return Text('불러오는 중');
                     }

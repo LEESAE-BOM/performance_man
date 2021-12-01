@@ -64,151 +64,172 @@ class _contracted_price extends State<contracted_price> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var result = snapshot.data as List<Map<String, dynamic>>;
-                      var thisMonthPrice = result[0]['Money'];
-                      var previousMonthPrice = result[1]['Money'];
-                      var table = ResultSet(
-                          snapshot.data, ['날짜', '기업', '금액', '수주 잔고 금액']);
+                      if (result.length > 0) {
+                        var thisMonthPrice = result[0]['Money'];
+                        var previousMonthPrice = result[1]['Money'];
+                        var table = ResultSet(
+                            snapshot.data, ['날짜', '기업', '금액', '수주 잔고 금액']);
 
-                      int result_thisMonthPrice =
-                          double.parse(thisMonthPrice).round();
+                        int result_thisMonthPrice =
+                            double.parse(thisMonthPrice).round();
 
-                      previousMonthPrice = previousMonthPrice.substring(
-                          0, previousMonthPrice.length - 3);
-                      int diff =
-                          result_thisMonthPrice - int.parse(previousMonthPrice);
+                        previousMonthPrice = previousMonthPrice.substring(
+                            0, previousMonthPrice.length - 3);
+                        int diff = result_thisMonthPrice -
+                            int.parse(previousMonthPrice);
 
-                      int thisYear =
-                          DateTime.parse(result[0]['ContractDate']).year;
+                        int thisYear =
+                            DateTime.parse(result[0]['ContractDate']).year;
 
-                      for (var row in result) {
-                        DateTime toDate = DateTime.parse(row['ContractDate']);
-                        int term = thisYear - toDate.year;
-                        String moneyStr = row['Money'];
-                        moneyStr = moneyStr.substring(0, moneyStr.length - 3);
-                        if (term == 0) {
-                          contractData[toDate.month - 1].y =
-                              int.parse(moneyStr);
-                        } else if (term == 1) {
-                          contractData[toDate.month - 1].y2 =
-                              int.parse(moneyStr);
-                        } else if (term == 2) {
-                          contractData[toDate.month - 1].y3 =
-                              int.parse(moneyStr);
-                        } else if (term <= 3) break;
-                      }
+                        for (var row in result) {
+                          DateTime toDate = DateTime.parse(row['ContractDate']);
+                          int term = thisYear - toDate.year;
+                          String moneyStr = row['Money'];
+                          moneyStr = moneyStr.substring(0, moneyStr.length - 3);
+                          if (term == 0) {
+                            contractData[toDate.month - 1].y =
+                                int.parse(moneyStr);
+                          } else if (term == 1) {
+                            contractData[toDate.month - 1].y2 =
+                                int.parse(moneyStr);
+                          } else if (term == 2) {
+                            contractData[toDate.month - 1].y3 =
+                                int.parse(moneyStr);
+                          } else if (term <= 3) break;
+                        }
 
-                      return ListView(children: [
-                        Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                50.sp, 100.sp, 20.sp, 100.sp),
-                            child: Text.rich(TextSpan(children: [
-                              detailPageTheme.makeHeaderText(
-                                  '이번 달 [계약금액]은\n[${detailPageTheme.money.format(result_thisMonthPrice)}원] 입니다.\n전월 대비\n'),
-                              if (diff < 0)
+                        return ListView(children: [
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  50.sp, 100.sp, 20.sp, 100.sp),
+                              child: Text.rich(TextSpan(children: [
                                 detailPageTheme.makeHeaderText(
-                                    '[${detailPageTheme.money.format(diff * -1)}]원 감소했어요.'),
-                              if (diff >= 0)
-                                detailPageTheme.makeHeaderText(
-                                    '[${detailPageTheme.money.format(diff)}]원 증가했어요.')
-                            ]))),
-                        SfCartesianChart(
-                            zoomPanBehavior: _zoomPanBehavior,
-                            palette: <Color>[
-                              Colors.blueAccent,
-                              Colors.lightBlueAccent,
-                              Colors.teal,
-                            ],
-                            primaryXAxis: CategoryAxis(),
-                            primaryYAxis: NumericAxis(
-                              // Y axis labels will be rendered with currency format
-                              numberFormat:
-                                  NumberFormat.compact(locale: "ko_KR"),
-                            ),
-                            legend: Legend(
-                                isVisible: true,
-                                // Legend will be placed at the left
-                                position: LegendPosition.bottom),
-                            series: <CartesianSeries>[
-                              ColumnSeries<ChartData, String>(
-                                name: '${thisYear - 2}',
-                                dataSource: contractData,
-                                xValueMapper: (ChartData sales, _) => sales.x,
-                                yValueMapper: (ChartData sales, _) => sales.y3,
+                                    '이번 달 [계약금액]은\n[${detailPageTheme.money.format(result_thisMonthPrice)}원] 입니다.\n전월 대비\n'),
+                                if (diff < 0)
+                                  detailPageTheme.makeHeaderText(
+                                      '[${detailPageTheme.money.format(diff * -1)}]원 감소했어요.'),
+                                if (diff >= 0)
+                                  detailPageTheme.makeHeaderText(
+                                      '[${detailPageTheme.money.format(diff)}]원 증가했어요.')
+                              ]))),
+                          SfCartesianChart(
+                              zoomPanBehavior: _zoomPanBehavior,
+                              palette: <Color>[
+                                Colors.blueAccent,
+                                Colors.lightBlueAccent,
+                                Colors.teal,
+                              ],
+                              primaryXAxis: CategoryAxis(),
+                              primaryYAxis: NumericAxis(
+                                // Y axis labels will be rendered with currency format
+                                numberFormat:
+                                    NumberFormat.compact(locale: "ko_KR"),
                               ),
-                              ColumnSeries<ChartData, String>(
-                                name: '${thisYear - 1}',
-                                dataSource: contractData,
-                                xValueMapper: (ChartData sales, _) => sales.x,
-                                yValueMapper: (ChartData sales, _) => sales.y2,
-                              ),
-                              ColumnSeries<ChartData, String>(
-                                name: '$thisYear',
-                                dataSource: contractData,
-                                xValueMapper: (ChartData sales, _) => sales.x,
-                                yValueMapper: (ChartData sales, _) => sales.y,
-                              ),
-                              LineSeries<ChartData, String>(
+                              legend: Legend(
+                                  isVisible: true,
+                                  // Legend will be placed at the left
+                                  position: LegendPosition.bottom),
+                              series: <CartesianSeries>[
+                                ColumnSeries<ChartData, String>(
+                                  name: '${thisYear - 2}',
+                                  dataSource: contractData,
+                                  xValueMapper: (ChartData sales, _) => sales.x,
+                                  yValueMapper: (ChartData sales, _) =>
+                                      sales.y3,
+                                ),
+                                ColumnSeries<ChartData, String>(
+                                  name: '${thisYear - 1}',
+                                  dataSource: contractData,
+                                  xValueMapper: (ChartData sales, _) => sales.x,
+                                  yValueMapper: (ChartData sales, _) =>
+                                      sales.y2,
+                                ),
+                                ColumnSeries<ChartData, String>(
                                   name: '$thisYear',
-                                  color: Colors.teal,
                                   dataSource: contractData,
                                   xValueMapper: (ChartData sales, _) => sales.x,
                                   yValueMapper: (ChartData sales, _) => sales.y,
-                                  dataLabelSettings: DataLabelSettings(
-                                      // Renders the data label
-                                      isVisible: true),
-                                  markerSettings:
-                                      MarkerSettings(isVisible: true))
-                            ]),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
-                          child: Table(
-                              border: detailPageTheme.tableBorderStyle,
-                              children: <TableRow>[
-                                    table.getTableHeaderWidget(),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Text(''),
-                                      ),
-                                      TableCell(
-                                        child: Text(''),
-                                      ),
-                                      TableCell(
-                                        child: Text(''),
-                                      ),
-                                      TableCell(
-                                          child: Container(
-                                            alignment: Alignment.centerRight,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 50.sp),
-                                        child: DropdownButton(
-                                          value: dropDownValue,
-                                          items: <DropdownMenuItem<String>>[
-                                            for (var val in selectOptions.keys)
-                                              DropdownMenuItem(
-                                                  value: val, child: Text(val,style: TextStyle(fontSize: 25.w,)))
-                                          ],
-                                          onChanged: (String? val) {
-                                            setState(() {
-                                              dropDownValue = val!;
-                                            });
-                                          },
-                                          isExpanded: true,
+                                ),
+                                LineSeries<ChartData, String>(
+                                    name: '$thisYear',
+                                    color: Colors.teal,
+                                    dataSource: contractData,
+                                    xValueMapper: (ChartData sales, _) =>
+                                        sales.x,
+                                    yValueMapper: (ChartData sales, _) =>
+                                        sales.y,
+                                    dataLabelSettings: DataLabelSettings(
+                                        // Renders the data label
+                                        isVisible: true),
+                                    markerSettings:
+                                        MarkerSettings(isVisible: true))
+                              ]),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+                            child: Table(
+                                border: detailPageTheme.tableBorderStyle,
+                                children: <TableRow>[
+                                      table.getTableHeaderWidget(),
+                                      TableRow(children: [
+                                        TableCell(
+                                          child: Text(''),
                                         ),
-                                      ))
-                                    ])
-                                  ] +
-                                  table.getTableRowWidgets(convertor: (row) {
-                                    row['Money'] =
-                                        '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
-                                    row['Backlog'] =
-                                        '${detailPageTheme.money.format(double.parse(row['Backlog']))} 원';
-                                    return row;
-                                  }).sublist(
-                                      0,
-                                      min(selectOptions[dropDownValue] as int,
-                                          result.length))),
-                        )
-                      ]);
+                                        TableCell(
+                                          child: Text(''),
+                                        ),
+                                        TableCell(
+                                          child: Text(''),
+                                        ),
+                                        TableCell(
+                                            child: Container(
+                                          alignment: Alignment.centerRight,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 50.sp),
+                                          child: DropdownButton(
+                                            value: dropDownValue,
+                                            items: <DropdownMenuItem<String>>[
+                                              for (var val
+                                                  in selectOptions.keys)
+                                                DropdownMenuItem(
+                                                    value: val,
+                                                    child: Text(val,
+                                                        style: TextStyle(
+                                                          fontSize: 25.w,
+                                                        )))
+                                            ],
+                                            onChanged: (String? val) {
+                                              setState(() {
+                                                dropDownValue = val!;
+                                              });
+                                            },
+                                            isExpanded: true,
+                                          ),
+                                        ))
+                                      ])
+                                    ] +
+                                    table.getTableRowWidgets(convertor: (row) {
+                                      row['Money'] =
+                                          '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                      row['Backlog'] =
+                                          '${detailPageTheme.money.format(double.parse(row['Backlog']))} 원';
+                                      return row;
+                                    }).sublist(
+                                        0,
+                                        min(selectOptions[dropDownValue] as int,
+                                            result.length))),
+                          )
+                        ]);
+                      } else {
+                        return ListView(children: [
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  50.sp, 100.sp, 20.sp, 100.sp),
+                              child: Text.rich(TextSpan(children: [
+                                detailPageTheme
+                                    .makeHeaderText('저장된 데이터가 없습니다.'),
+                              ])))
+                        ]);
+                      }
                     } else
                       return Text('불러오는 중');
                   }))),

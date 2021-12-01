@@ -28,6 +28,7 @@ class BoxWidget {
     if(this.state == 'safe') stateIcon = widgetBoxTheme.safeIcon;
     if(this.state == 'warning') stateIcon = widgetBoxTheme.warningIcon;
     if(this.state == 'danger') stateIcon = widgetBoxTheme.dangerIcon;
+    if(this.state == 'none') stateIcon = widgetBoxTheme.dangerIcon;
   }
 
   GestureDetector make({onTap, dbRelatedContentBuilder}){

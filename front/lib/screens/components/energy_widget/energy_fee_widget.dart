@@ -20,25 +20,32 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            var thisMonthPrice = double.parse(result[0]['Money']);
+            if (result.length > 0) {
+              var thisMonthPrice = double.parse(result[0]['Money']);
+              if (thisMonthPrice < 10000000)
+                state[0] = 'safe';
+              else if (thisMonthPrice < 20000000) {
+                state[0] = 'warning';
+              } else {
+                state[0] = 'danger';
+              }
 
-            if (thisMonthPrice < 10000000)
-              state[0] = 'safe';
-            else if (thisMonthPrice < 20000000) {
-              state[0] = 'warning';
+              return BoxWidget('요금 현황', state[0], 'wide').make(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => energy_fee()));
+                  },
+                  dbRelatedContentBuilder: Text.rich(TextSpan(children: [
+                    detailPageTheme.makeHeaderText(
+                        '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
+                  ])));
             } else {
-              state[0] = 'danger';
+              state[0] = 'none';
+              return BoxWidget('요금 현황', state[0], 'wide').make(
+                  onTap: () {},
+                  dbRelatedContentBuilder:
+                      Text.rich(detailPageTheme.makeHeaderText('데이터가 없습니다.')));
             }
-
-            return BoxWidget('요금 현황', state[0], 'wide').make(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => energy_fee()));
-                },
-                dbRelatedContentBuilder: Text.rich(TextSpan(children: [
-                  detailPageTheme.makeHeaderText(
-                      '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
-                ])));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

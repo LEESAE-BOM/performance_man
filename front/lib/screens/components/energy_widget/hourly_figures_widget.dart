@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/energy_widget/hourly_figures.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
+import 'package:flutter_app/theme.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/screens/energy/energy_screen.dart';
@@ -35,75 +36,82 @@ class _Hourly_Figures_Widget extends State<Hourly_Figures_Widget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
+            if (result.length > 0) {
+              for (var row in result) {
+                int toDate1 = int.parse(row['UseTime']);
+                String energyStr = row['Amount'];
+                energyStr = energyStr.substring(0, energyStr.length - 3);
 
-            for (var row in result) {
-              int toDate1 = int.parse(row['UseTime']);
-              String energyStr = row['Amount'];
-              energyStr = energyStr.substring(0, energyStr.length - 3);
+                String energyStr1 = row['Amount'];
+                energyStr1 = energyStr1.substring(0, energyStr1.length - 3);
 
-              String energyStr1 = row['Amount'];
-              energyStr1 = energyStr1.substring(0, energyStr1.length - 3);
-
-              Energyusage_time[toDate1 - 1].y1 = double.parse(energyStr);
-              Energyusage_time[toDate1 - 1].y2 = double.parse(energyStr1);
-            }
-
-            int max = 0;
-            for (int i = 1; i < 24; i++) {
-              if (Energyusage_time[max].y2 < Energyusage_time[i].y2) {
-                max = i;
+                Energyusage_time[toDate1 - 1].y1 = double.parse(energyStr);
+                Energyusage_time[toDate1 - 1].y2 = double.parse(energyStr1);
               }
-            }
-            _chart_Data[(max / 2).round() - 3].color =
-                Color.fromRGBO(225, 72, 72, 1);
 
-            if (Energyusage_time[max].y2 < 40000)
-              state[1] = 'safe';
-            else if (Energyusage_time[max].y2 < 60000) {
-              state[1] = 'warning';
+              int max = 0;
+              for (int i = 1; i < 24; i++) {
+                if (Energyusage_time[max].y2 < Energyusage_time[i].y2) {
+                  max = i;
+                }
+              }
+              _chart_Data[(max / 2).round() - 3].color =
+                  Color.fromRGBO(225, 72, 72, 1);
+
+              if (Energyusage_time[max].y2 < 40000)
+                state[1] = 'safe';
+              else if (Energyusage_time[max].y2 < 60000) {
+                state[1] = 'warning';
+              } else {
+                state[1] = 'danger';
+              }
+
+              return BoxWidget('시간별 에너지', state[1], 'narrow').make(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => hourly_figures()));
+                  },
+                  dbRelatedContentBuilder: Container(
+                    child: SfCircularChart(
+                        onChartTouchInteractionMove: (_Hourly_Figures_Widget) {
+                          isScrolling = true;
+                        },
+                        onChartTouchInteractionUp: (_Hourly_Figures_Widget) {
+                          if (isScrolling == false) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => hourly_figures()));
+                          }
+                          isScrolling = false;
+                        },
+                        onChartTouchInteractionDown: (_Hourly_Figures_Widget) {
+                          isScrolling = false;
+                        },
+                        annotations: <CircularChartAnnotation>[
+                          CircularChartAnnotation(
+                              widget: Container(
+                                  child: Text('${max}시~${max + 1}시',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 50.sp,
+                                          fontFamily: 'applesdneom'))))
+                        ],
+                        series: <CircularSeries>[
+                          DoughnutSeries<Chart_Data, String>(
+                              dataSource: _chart_Data,
+                              pointColorMapper: (Chart_Data data, _) =>
+                                  data.color,
+                              xValueMapper: (Chart_Data data, _) => data.x,
+                              yValueMapper: (Chart_Data data, _) => data.y,
+                              radius: '100%')
+                        ]),
+                  ));
             } else {
-              state[1] = 'danger';
+              state[1] = 'none';
+              return BoxWidget('시간별 에너지', state[1], 'narrow').make(
+                  onTap: () {},
+                  dbRelatedContentBuilder:
+                      Text.rich(detailPageTheme.makeHeaderText('데이터가 없습니다.')));
             }
-
-            return BoxWidget('시간별 에너지', state[1], 'narrow').make(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => hourly_figures()));
-                },
-                dbRelatedContentBuilder: Container(
-                  child: SfCircularChart(
-                      onChartTouchInteractionMove: (_Hourly_Figures_Widget) {
-                        isScrolling = true;
-                      },
-                      onChartTouchInteractionUp: (_Hourly_Figures_Widget) {
-                        if (isScrolling == false) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => hourly_figures()));
-                        }
-                        isScrolling = false;
-                      },
-                      onChartTouchInteractionDown: (_Hourly_Figures_Widget) {
-                        isScrolling = false;
-                      },
-                      annotations: <CircularChartAnnotation>[
-                        CircularChartAnnotation(
-                            widget: Container(
-                                child: Text('${max}시~${max + 1}시',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 50.sp,
-                                        fontFamily: 'applesdneom'))))
-                      ],
-                      series: <CircularSeries>[
-                        DoughnutSeries<Chart_Data, String>(
-                            dataSource: _chart_Data,
-                            pointColorMapper: (Chart_Data data, _) =>
-                                data.color,
-                            xValueMapper: (Chart_Data data, _) => data.x,
-                            yValueMapper: (Chart_Data data, _) => data.y,
-                            radius: '100%')
-                      ]),
-                ));
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

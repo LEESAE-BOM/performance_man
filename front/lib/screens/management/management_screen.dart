@@ -42,36 +42,49 @@ class Management_Screen extends StatelessWidget {
                             snapshot.data as List<List<Map<String, dynamic>>>;
                         var resultQ1 = result[0];
                         var resultQ2 = result[1];
-                        int quarter = 1;
-                        int i = 0;
-                        double sum = 0;
+                        if(resultQ1.isNotEmpty && resultQ2.isNotEmpty) {
+                          int quarter = 1;
+                          int i = 0;
+                          double sum = 0;
 
-                        switch (
-                            DateTime.parse(resultQ1[0]['RecordedDate']).month) {
-                          case 1:
-                            quarter = 1;
-                            break;
-                          case 4:
-                            quarter = 2;
-                            break;
-                          case 7:
-                            quarter = 3;
-                            break;
-                          case 10:
-                            quarter = 4;
-                            break;
-                        }
+                          switch (
+                          DateTime
+                              .parse(resultQ1[0]['RecordedDate'])
+                              .month) {
+                            case 1:
+                              quarter = 1;
+                              break;
+                            case 4:
+                              quarter = 2;
+                              break;
+                            case 7:
+                              quarter = 3;
+                              break;
+                            case 10:
+                              quarter = 4;
+                              break;
+                          }
 
-                        while (i < resultQ2.length) {
-                          sum += double.parse(resultQ2[i]['Sum']);
-                          if (DateTime.parse(resultQ1[0]['RecordedDate']).month ==
-                              int.parse(resultQ2[i]['Month'])) break;
-                          i++;
+                          while (i < resultQ2.length) {
+                            sum += double.parse(resultQ2[i]['Sum']);
+                            if (DateTime
+                                .parse(resultQ1[0]['RecordedDate'])
+                                .month ==
+                                int.parse(resultQ2[i]['Month'])) break;
+                            i++;
+                          }
+                          return RichText(
+                            text: detailPageTheme.makeMainHeaderText(
+                                '$quarter분기 매출금액\n목표 대비 [${(sum /
+                                    double.parse(resultQ1[0]['Money']) * 100)
+                                    .round()}]% 달성.'),
+                          );
+                        }else{
+                          return RichText(
+                            text: detailPageTheme.makeMainHeaderText(
+                                '데이터가 없습니다.'),
+                          );
                         }
-                        return RichText(
-                          text: detailPageTheme.makeMainHeaderText(
-                              '$quarter분기 매출금액\n목표 대비 [${(sum / double.parse(resultQ1[0]['Money']) * 100).round()}]% 달성.'),
-                        );
                       } else {
                         return RichText(
                           text: TextSpan(

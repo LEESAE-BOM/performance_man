@@ -25,7 +25,7 @@ class _labor_production_rate extends State<labor_production_rate> {
   @override
   void initState() {
     _zoomPanBehavior = ZoomPanBehavior(
-      // Enables pinch zooming
+        // Enables pinch zooming
         enablePinching: true,
         zoomMode: ZoomMode.x,
         enablePanning: true,
@@ -59,111 +59,129 @@ class _labor_production_rate extends State<labor_production_rate> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var result =
-                        snapshot.data as List<Map<String, dynamic>>;
-                        var thisMonthProductivity =
-                        double.parse(result[0]['Productivity']);
-                        var previousMonthProductivity =
-                        double.parse(result[1]['Productivity']);
-                        var table = ResultSet(snapshot.data, ['날짜', '노동생산성']);
+                            snapshot.data as List<Map<String, dynamic>>;
+                        if (result.length > 0) {
+                          var thisMonthProductivity =
+                              double.parse(result[0]['Productivity']);
+                          var previousMonthProductivity =
+                              double.parse(result[1]['Productivity']);
+                          var table = ResultSet(snapshot.data, ['날짜', '노동생산성']);
 
-                        int diff = thisMonthProductivity.round() -
-                            previousMonthProductivity.round();
+                          int diff = thisMonthProductivity.round() -
+                              previousMonthProductivity.round();
 
-                        int thisYear =
-                            DateTime.parse(result[0]['RecordedDate']).year;
+                          int thisYear =
+                              DateTime.parse(result[0]['RecordedDate']).year;
 
-                        for (var row in result) {
-                          DateTime toDate = DateTime.parse(row['RecordedDate']);
-                          int term = thisYear - toDate.year;
-                          String moneyStr = row['Productivity'];
+                          for (var row in result) {
+                            DateTime toDate =
+                                DateTime.parse(row['RecordedDate']);
+                            int term = thisYear - toDate.year;
+                            String moneyStr = row['Productivity'];
 
-                          if (term == 0)
-                            laborData[toDate.month - 1].y = int.parse(
-                                moneyStr.substring(0, moneyStr.length - 3));
-                        }
+                            if (term == 0)
+                              laborData[toDate.month - 1].y = int.parse(
+                                  moneyStr.substring(0, moneyStr.length - 3));
+                          }
 
-                        return ListView(children: [
-                          Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  50.sp, 100.sp, 20.sp, 100.sp),
-                              child: Text.rich(TextSpan(children: [
-                                detailPageTheme.makeHeaderText(
-                                    '이번 달 노동생산성은\n[${thisMonthProductivity}] 입니다.\n전월 대비\n'),
-                                if (diff < 0)
-                                  detailPageTheme
-                                      .makeHeaderText('[${diff * -1}] 감소했어요.'),
-                                if (diff >= 0)
-                                  detailPageTheme
-                                      .makeHeaderText('[$diff] 증가했어요.')
-                              ]))),
-                          SfCartesianChart(
-                              zoomPanBehavior: _zoomPanBehavior,
-                              palette: <Color>[
-                                Colors.blueAccent,
-                                Colors.lightBlueAccent,
-                                Colors.teal,
-                              ],
-                              primaryXAxis: CategoryAxis(),
-                              primaryYAxis: NumericAxis(
-                                // Y axis labels will be rendered with currency format
-                                  numberFormat: NumberFormat.compact()),
-                              series: <CartesianSeries>[
-                                ColumnSeries<ChartData, String>(
-                                  name: '$thisYear',
-                                  dataSource: laborData,
-                                  xValueMapper: (ChartData labors, _) =>
-                                  labors.x,
-                                  yValueMapper: (ChartData labors, _) =>
-                                  labors.y,
-                                  dataLabelSettings:
-                                  DataLabelSettings(isVisible: true),
-                                ),
-                              ]),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
-                            child: Table(
-                                border: TableBorder(
-                                    horizontalInside: BorderSide(
-                                        width: 1,
-                                        color: Colors.black38,
-                                        style: BorderStyle.solid)),
-                                children: <TableRow>[
-                                  table.getTableHeaderWidget(),
-                                  TableRow(children: [
-                                    TableCell(
-                                      child: Text(''),
-                                    ),
-                                    TableCell(
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 50.sp),
-                                          child: DropdownButton(
-                                            value: dropDownValue,
-                                            items: <DropdownMenuItem<String>>[
-                                              for (var val in selectOptions.keys)
-                                                DropdownMenuItem(
-                                                    value: val, child: Text(val))
-                                            ],
-                                            onChanged: (String? val) {
-                                              setState(() {
-                                                dropDownValue = val!;
-                                              });
-                                            },
+                          return ListView(children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme.makeHeaderText(
+                                      '이번 달 노동생산성은\n[${thisMonthProductivity}] 입니다.\n전월 대비\n'),
+                                  if (diff < 0)
+                                    detailPageTheme.makeHeaderText(
+                                        '[${diff * -1}] 감소했어요.'),
+                                  if (diff >= 0)
+                                    detailPageTheme
+                                        .makeHeaderText('[$diff] 증가했어요.')
+                                ]))),
+                            SfCartesianChart(
+                                zoomPanBehavior: _zoomPanBehavior,
+                                palette: <Color>[
+                                  Colors.blueAccent,
+                                  Colors.lightBlueAccent,
+                                  Colors.teal,
+                                ],
+                                primaryXAxis: CategoryAxis(),
+                                primaryYAxis: NumericAxis(
+                                    // Y axis labels will be rendered with currency format
+                                    numberFormat: NumberFormat.compact()),
+                                series: <CartesianSeries>[
+                                  ColumnSeries<ChartData, String>(
+                                    name: '$thisYear',
+                                    dataSource: laborData,
+                                    xValueMapper: (ChartData labors, _) =>
+                                        labors.x,
+                                    yValueMapper: (ChartData labors, _) =>
+                                        labors.y,
+                                    dataLabelSettings:
+                                        DataLabelSettings(isVisible: true),
+                                  ),
+                                ]),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+                              child: Table(
+                                  border: TableBorder(
+                                      horizontalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.black38,
+                                          style: BorderStyle.solid)),
+                                  children: <TableRow>[
+                                        table.getTableHeaderWidget(),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Text(''),
                                           ),
-                                        ))
-                                  ])
-                                ] +
-                                    table.getTableRowWidgets(convertor: (row) {
-                                      row['Productivity'] =
-                                      '${detailPageTheme.money.format(double.parse(row['Productivity']))}';
-                                      return row;
-                                    }).sublist(
-                                        0,
-                                        min(result.length,
-                                            selectOptions[dropDownValue] as int))),
-                          )
-                        ]);
+                                          TableCell(
+                                              child: Container(
+                                            alignment: Alignment.centerRight,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50.sp),
+                                            child: DropdownButton(
+                                              value: dropDownValue,
+                                              items: <DropdownMenuItem<String>>[
+                                                for (var val
+                                                    in selectOptions.keys)
+                                                  DropdownMenuItem(
+                                                      value: val,
+                                                      child: Text(val))
+                                              ],
+                                              onChanged: (String? val) {
+                                                setState(() {
+                                                  dropDownValue = val!;
+                                                });
+                                              },
+                                            ),
+                                          ))
+                                        ])
+                                      ] +
+                                      table.getTableRowWidgets(
+                                          convertor: (row) {
+                                        row['Productivity'] =
+                                            '${detailPageTheme.money.format(double.parse(row['Productivity']))}';
+                                        return row;
+                                      }).sublist(
+                                          0,
+                                          min(
+                                              result.length,
+                                              selectOptions[dropDownValue]
+                                                  as int))),
+                            )
+                          ]);
+                        } else {
+                          return ListView(children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme
+                                      .makeHeaderText('저장된 데이터가 없습니다.'),
+                                ])))
+                          ]);
+                        }
                       } else
                         return Text('불러오는 중');
                     }))));

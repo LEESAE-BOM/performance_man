@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/factory_widget/labor_production_rate.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -27,79 +27,91 @@ class _Labor_Production_Rate_Widget
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            var thisMonthProductivity = double.parse(result[0]['Productivity']);
-            var previousMonthProductivity =
-            double.parse(result[1]['Productivity']);
+            if (result.length > 0) {
+              var thisMonthProductivity =
+                  double.parse(result[0]['Productivity']);
+              var previousMonthProductivity =
+                  double.parse(result[1]['Productivity']);
 
-            int diff = thisMonthProductivity.round() -
-                previousMonthProductivity.round();
+              int diff = thisMonthProductivity.round() -
+                  previousMonthProductivity.round();
 
-            if (diff > -2)
-              state[2] = 'safe';
-            else if (diff < -10)
-              state[2] = 'warning';
-            else
-              state[2] = 'danger';
+              if (diff > -2)
+                state[2] = 'safe';
+              else if (diff < -10)
+                state[2] = 'warning';
+              else
+                state[2] = 'danger';
 
-            return BoxWidget('노동생산성', state[2], 'wide').make(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => labor_production_rate()));
-                },
-                dbRelatedContentBuilder: FutureBuilder(
-                    future: conn.sendQuery(
-                        'SELECT MONTH(RecordedDate) as Month, Productivity FROM Productivity ORDER BY RecordedDate;'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        var result = snapshot.data as List<Map<String, dynamic>>;
+              return BoxWidget('노동생산성', state[2], 'wide').make(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => labor_production_rate()));
+                  },
+                  dbRelatedContentBuilder: FutureBuilder(
+                      future: conn.sendQuery(
+                          'SELECT MONTH(RecordedDate) as Month, Productivity FROM Productivity ORDER BY RecordedDate;'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var result =
+                              snapshot.data as List<Map<String, dynamic>>;
 
-                        for (int i = 0; i < min(result.length, 12); i++) {
-                          laborData.add(ChartData(
-                              '${int.parse(result[i]['Month'])}월',
-                              double.parse(result[i]['Productivity'])));
+                          for (int i = 0; i < min(result.length, 12); i++) {
+                            laborData.add(ChartData(
+                                '${int.parse(result[i]['Month'])}월',
+                                double.parse(result[i]['Productivity'])));
+                          }
+                          return SfCartesianChart(
+                            onChartTouchInteractionMove:
+                                (_Labor_Production_Rate_Widget) {
+                              isScrolling = true;
+                            },
+                            onChartTouchInteractionUp:
+                                (_Labor_Production_Rate_Widget) {
+                              if (isScrolling == false) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        labor_production_rate()));
+                              }
+                              isScrolling = false;
+                            },
+                            onChartTouchInteractionDown:
+                                (_Labor_Production_Rate_Widget) {
+                              isScrolling = false;
+                            },
+                            primaryXAxis: CategoryAxis(
+                                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                majorGridLines: MajorGridLines(width: 0),
+                                isVisible: true),
+                            primaryYAxis: NumericAxis(
+                                isVisible: true,
+                                edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                majorGridLines: MajorGridLines(width: 0)),
+                            series: <ChartSeries>[
+                              AreaSeries<ChartData, String>(
+                                dataSource: laborData,
+                                xValueMapper: (ChartData labors, _) => labors.x,
+                                yValueMapper: (ChartData labors, _) => labors.y,
+                                dataLabelSettings: DataLabelSettings(
+                                    isVisible: true,
+                                    labelAlignment:
+                                        ChartDataLabelAlignment.top),
+                                color: Colors.indigo,
+                              ),
+                            ],
+                            plotAreaBorderWidth: 0,
+                          );
+                        } else {
+                          return Text.rich(TextSpan(text: '불러오는 중'));
                         }
-                        return SfCartesianChart(
-                          onChartTouchInteractionMove:
-                              (_Labor_Production_Rate_Widget) {
-                            isScrolling = true;
-                          },
-                          onChartTouchInteractionUp:
-                              (_Labor_Production_Rate_Widget) {
-                            if (isScrolling == false) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      labor_production_rate()));
-                            }
-                            isScrolling = false;
-                          },
-                          onChartTouchInteractionDown:
-                              (_Labor_Production_Rate_Widget) {
-                            isScrolling = false;
-                          },
-                          primaryXAxis: CategoryAxis(
-                              edgeLabelPlacement: EdgeLabelPlacement.shift,
-                              majorGridLines: MajorGridLines(width: 0),
-                              isVisible: true),
-                          primaryYAxis: NumericAxis(
-                              isVisible: true,
-                              edgeLabelPlacement: EdgeLabelPlacement.shift,
-                            majorGridLines: MajorGridLines(width: 0)),
-                          series: <ChartSeries>[
-                            AreaSeries<ChartData, String>(
-                              dataSource: laborData,
-                              xValueMapper: (ChartData labors, _) => labors.x,
-                              yValueMapper: (ChartData labors, _) => labors.y,
-                              dataLabelSettings:
-                              DataLabelSettings(isVisible: true,labelAlignment: ChartDataLabelAlignment.top),
-                              color: Colors.indigo,
-                            ),
-                          ],
-                          plotAreaBorderWidth: 0,
-                        );
-                      } else {
-                        return Text.rich(TextSpan(text: '불러오는 중'));
-                      }
-                    }));
+                      }));
+            } else {
+              state[2] = 'none';
+              return BoxWidget('노동생산성', state[2], 'wide').make(
+                  onTap: () {},
+                  dbRelatedContentBuilder:
+                      Text.rich(detailPageTheme.makeHeaderText('데이터가 없습니다.')));
+            }
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }

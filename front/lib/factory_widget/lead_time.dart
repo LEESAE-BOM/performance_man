@@ -61,74 +61,60 @@ class _lead_time extends State<lead_time> {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
-                        var table = ResultSet(snapshot.data,
-                            ['이름', '소요', '누적', '납기', '시작', '예정']);
+                        if (result.length > 0) {
+                          var table = ResultSet(snapshot.data,
+                              ['이름', '소요', '누적', '납기', '시작', '예정']);
 
-                        var today = DateTime.now();
-                        int dif = int.parse(today
-                            .difference(DateTime.parse(result[0]['DueDate']))
-                            .inDays
-                            .toString());
-                        dif *= -1;
+                          var today = DateTime.now();
+                          int dif = int.parse(today
+                              .difference(DateTime.parse(result[0]['DueDate']))
+                              .inDays
+                              .toString());
+                          dif *= -1;
 
-                        //Chart_Data('LeadTIME', double.parse(result[0]['ProductTime']), double.parse(result[0]['CumulativeTime']), double.parse(result[0]['DeliveryTime']));
-                        chartData.clear();
-                        chartData.add(Chart_Data(
-                            'LeadTIME',
-                            double.parse(result[0]['ProductTime']),
-                            double.parse(result[0]['CumulativeTime']),
-                            double.parse(result[0]['DeliveryTime'])));
+                          //Chart_Data('LeadTIME', double.parse(result[0]['ProductTime']), double.parse(result[0]['CumulativeTime']), double.parse(result[0]['DeliveryTime']));
+                          chartData.clear();
+                          chartData.add(Chart_Data(
+                              'LeadTIME',
+                              double.parse(result[0]['ProductTime']),
+                              double.parse(result[0]['CumulativeTime']),
+                              double.parse(result[0]['DeliveryTime'])));
 
-                        return ListView(children: [
-                          Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  50.sp, 100.sp, 20.sp, 100.sp),
-                              child: Text.rich(TextSpan(children: [
-                                detailPageTheme.makeHeaderText(
-                                    '[${result[0]['ProductName']}] 제조에\n총 [${result[0]['CumulativeTime']}]일 소요되었어요.\n예정일까지 [${dif}]일 남았어요.'),
-                              ]))),
-                          SfCartesianChart(
-                            palette: <Color>[
-                              Colors.indigo,
-                              Colors.blue,
-                              Colors.lightBlueAccent,
-                            ],
-                            tooltipBehavior: _toolTipBehavior,
-                            primaryXAxis: CategoryAxis(
+                          return ListView(children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme.makeHeaderText(
+                                      '[${result[0]['ProductName']}] 제조에\n총 [${result[0]['CumulativeTime']}]일 소요되었어요.\n예정일까지 [${dif}]일 남았어요.'),
+                                ]))),
+                            SfCartesianChart(
+                              palette: <Color>[
+                                Colors.indigo,
+                                Colors.blue,
+                                Colors.lightBlueAccent,
+                              ],
+                              tooltipBehavior: _toolTipBehavior,
+                              primaryXAxis: CategoryAxis(
+                                  edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                  isVisible: false),
+                              //backgroundColor: Colors.white,
+                              primaryYAxis: NumericAxis(
                                 edgeLabelPlacement: EdgeLabelPlacement.shift,
-                                isVisible: false),
-                            //backgroundColor: Colors.white,
-                            primaryYAxis: NumericAxis(
-                              edgeLabelPlacement: EdgeLabelPlacement.shift,
-                              isVisible: false,
-                            ),
-                            legend: Legend(
-                              isVisible: true,
-                              position: LegendPosition.bottom,
-                            ),
-                            series: <ChartSeries>[
-                              StackedBar100Series<Chart_Data, String>(
-                                name: '제품 소요시간',
-                                dataSource: chartData,
-                                xValueMapper: (Chart_Data sales, _) => sales.x,
-                                yValueMapper: (Chart_Data sales, _) => sales.y1,
-                                dataLabelSettings: DataLabelSettings(
-                                    isVisible: true,
-                                    textStyle: TextStyle(
-                                      fontSize: 100.sp,
-                                      color: Colors.white,
-                                      fontFamily: 'applesdneob',
-                                    ),
-                                    labelAlignment:
-                                        ChartDataLabelAlignment.middle),
+                                isVisible: false,
                               ),
-                              StackedBar100Series<Chart_Data, String>(
-                                  name: '누적 소요시간',
+                              legend: Legend(
+                                isVisible: true,
+                                position: LegendPosition.bottom,
+                              ),
+                              series: <ChartSeries>[
+                                StackedBar100Series<Chart_Data, String>(
+                                  name: '제품 소요시간',
                                   dataSource: chartData,
                                   xValueMapper: (Chart_Data sales, _) =>
                                       sales.x,
                                   yValueMapper: (Chart_Data sales, _) =>
-                                      sales.y2,
+                                      sales.y1,
                                   dataLabelSettings: DataLabelSettings(
                                       isVisible: true,
                                       textStyle: TextStyle(
@@ -137,46 +123,83 @@ class _lead_time extends State<lead_time> {
                                         fontFamily: 'applesdneob',
                                       ),
                                       labelAlignment:
-                                          ChartDataLabelAlignment.middle)),
-                              StackedBar100Series<Chart_Data, String>(
-                                name: '납기 소요시간',
-                                dataSource: chartData,
-                                xValueMapper: (Chart_Data sales, _) => sales.x,
-                                yValueMapper: (Chart_Data sales, _) => sales.y3,
-                                dataLabelSettings: DataLabelSettings(
-                                    isVisible: true,
-                                    textStyle: TextStyle(
-                                      fontSize: 100.sp,
-                                      color: Colors.white,
-                                      fontFamily: 'applesdneob',
-                                    ),
-                                    labelAlignment:
-                                        ChartDataLabelAlignment.middle),
-                              )
-                            ],
-                            plotAreaBorderWidth: 0,
-                            //chart 테두리 삭제
-                            borderWidth: 30,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
-                            child: Table(
-                                border: TableBorder(
-                                    horizontalInside: BorderSide(
-                                        width: 1,
-                                        color: Colors.black38,
-                                        style: BorderStyle.solid)),
-
-                                children: <TableRow>[
-                                      table.getTableHeaderWidget(),
-                                    ] +
-                                    table.getTableRowWidgets(convertor: (row) {
-                                      row['StartDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['StartDate'])).toString();
-                                      row['DueDate']=DateFormat('yy/MM/dd').format(DateTime.parse(row['DueDate'])).toString();
-                                      return row;
-                                    })),
-                          )
-                        ]);
+                                          ChartDataLabelAlignment.middle),
+                                ),
+                                StackedBar100Series<Chart_Data, String>(
+                                    name: '누적 소요시간',
+                                    dataSource: chartData,
+                                    xValueMapper: (Chart_Data sales, _) =>
+                                        sales.x,
+                                    yValueMapper: (Chart_Data sales, _) =>
+                                        sales.y2,
+                                    dataLabelSettings: DataLabelSettings(
+                                        isVisible: true,
+                                        textStyle: TextStyle(
+                                          fontSize: 100.sp,
+                                          color: Colors.white,
+                                          fontFamily: 'applesdneob',
+                                        ),
+                                        labelAlignment:
+                                            ChartDataLabelAlignment.middle)),
+                                StackedBar100Series<Chart_Data, String>(
+                                  name: '납기 소요시간',
+                                  dataSource: chartData,
+                                  xValueMapper: (Chart_Data sales, _) =>
+                                      sales.x,
+                                  yValueMapper: (Chart_Data sales, _) =>
+                                      sales.y3,
+                                  dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      textStyle: TextStyle(
+                                        fontSize: 100.sp,
+                                        color: Colors.white,
+                                        fontFamily: 'applesdneob',
+                                      ),
+                                      labelAlignment:
+                                          ChartDataLabelAlignment.middle),
+                                )
+                              ],
+                              plotAreaBorderWidth: 0,
+                              //chart 테두리 삭제
+                              borderWidth: 30,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+                              child: Table(
+                                  border: TableBorder(
+                                      horizontalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.black38,
+                                          style: BorderStyle.solid)),
+                                  children: <TableRow>[
+                                        table.getTableHeaderWidget(),
+                                      ] +
+                                      table.getTableRowWidgets(
+                                          convertor: (row) {
+                                        row['StartDate'] =
+                                            DateFormat('yy/MM/dd')
+                                                .format(DateTime.parse(
+                                                    row['StartDate']))
+                                                .toString();
+                                        row['DueDate'] = DateFormat('yy/MM/dd')
+                                            .format(
+                                                DateTime.parse(row['DueDate']))
+                                            .toString();
+                                        return row;
+                                      })),
+                            )
+                          ]);
+                        } else {
+                          return ListView(children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme
+                                      .makeHeaderText('저장된 데이터가 없습니다.'),
+                                ])))
+                          ]);
+                        }
                       } else
                         return Text('불러오는 중');
                     }))));

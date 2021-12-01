@@ -65,152 +65,172 @@ class _monthly_figures extends State<monthly_figures> {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
-                        var thisMonthUse = double.parse(result[0]['Amount']);
-                        var previousMonthUse =
-                            double.parse(result[1]['Amount']);
-                        var table = ResultSet(snapshot.data, ['날짜', '전력 사용량']);
+                        if (result.length > 0) {
+                          var thisMonthUse = double.parse(result[0]['Amount']);
+                          var previousMonthUse =
+                              double.parse(result[1]['Amount']);
+                          var table =
+                              ResultSet(snapshot.data, ['날짜', '전력 사용량']);
 
-                        int diff =
-                            thisMonthUse.round() - previousMonthUse.round();
-                        int thisYear =
-                            DateTime.parse(result[0]['UseDate']).year;
+                          int diff =
+                              thisMonthUse.round() - previousMonthUse.round();
+                          int thisYear =
+                              DateTime.parse(result[0]['UseDate']).year;
 
-                        for (var row in result) {
-                          DateTime toDate = DateTime.parse(row['UseDate']);
-                          int term = thisYear - toDate.year;
-                          String moneyStr = row['Amount'];
-                          if (term == 0) {
-                            monthlyusage[toDate.month - 1].y1 = double.parse(
-                                moneyStr.substring(0, moneyStr.length - 3));
-                          } else if (term == 1) {
-                            monthlyusage[toDate.month - 1].y2 = double.parse(
-                                moneyStr.substring(0, moneyStr.length - 3));
-                          } else if (term == 2) {
-                            monthlyusage[toDate.month - 1].y3 = double.parse(
-                                moneyStr.substring(0, moneyStr.length - 3));
-                          } else if (term <= 3) break;
-                        }
-                        return ListView(
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    50.sp, 100.sp, 20.sp, 100.sp),
-                                child: Text.rich(TextSpan(children: [
-                                  detailPageTheme.makeHeaderText(
-                                      '이번 달의 전력사용량은\n[${detailPageTheme.money.format(thisMonthUse)}kWh] 입니다.\n전월 대비\n'),
-                                  if (diff < 0)
+                          for (var row in result) {
+                            DateTime toDate = DateTime.parse(row['UseDate']);
+                            int term = thisYear - toDate.year;
+                            String moneyStr = row['Amount'];
+                            if (term == 0) {
+                              monthlyusage[toDate.month - 1].y1 = double.parse(
+                                  moneyStr.substring(0, moneyStr.length - 3));
+                            } else if (term == 1) {
+                              monthlyusage[toDate.month - 1].y2 = double.parse(
+                                  moneyStr.substring(0, moneyStr.length - 3));
+                            } else if (term == 2) {
+                              monthlyusage[toDate.month - 1].y3 = double.parse(
+                                  moneyStr.substring(0, moneyStr.length - 3));
+                            } else if (term <= 3) break;
+                          }
+                          return ListView(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      50.sp, 100.sp, 20.sp, 100.sp),
+                                  child: Text.rich(TextSpan(children: [
                                     detailPageTheme.makeHeaderText(
-                                        '[${detailPageTheme.money.format(diff * -1)}kWh] 감소했습니다.'),
-                                  if (diff >= 0)
-                                    detailPageTheme.makeHeaderText(
-                                        '[${detailPageTheme.money.format(diff)}]kWh] 증가했습니다.')
-                                ]))),
-                            SfCartesianChart(
-                              zoomPanBehavior: _zoomPanBehavior,
-                              tooltipBehavior: _toolTipBehavior,
-                              palette: <Color>[
-                                Colors.blueAccent,
-                                Colors.cyan,
-                                Colors.orangeAccent,
-                                Colors.amberAccent
-                              ],
-                              legend: Legend(
-                                  isVisible: true,
-                                  // Legend will be placed at the left
-                                  position: LegendPosition.top),
-                              primaryXAxis: CategoryAxis(),
-                              primaryYAxis: NumericAxis(
-                                  // Y axis labels will be rendered with currency format
-                                  numberFormat: NumberFormat.compact()),
-                              series: <CartesianSeries>[
-                                // Render column series
-                                ColumnSeries<ChartData, String>(
-                                    name: '${thisYear - 1}',
+                                        '이번 달의 전력사용량은\n[${detailPageTheme.money.format(thisMonthUse)}kWh] 입니다.\n전월 대비\n'),
+                                    if (diff < 0)
+                                      detailPageTheme.makeHeaderText(
+                                          '[${detailPageTheme.money.format(diff * -1)}kWh] 감소했습니다.'),
+                                    if (diff >= 0)
+                                      detailPageTheme.makeHeaderText(
+                                          '[${detailPageTheme.money.format(diff)}]kWh] 증가했습니다.')
+                                  ]))),
+                              SfCartesianChart(
+                                zoomPanBehavior: _zoomPanBehavior,
+                                tooltipBehavior: _toolTipBehavior,
+                                palette: <Color>[
+                                  Colors.blueAccent,
+                                  Colors.cyan,
+                                  Colors.orangeAccent,
+                                  Colors.amberAccent
+                                ],
+                                legend: Legend(
+                                    isVisible: true,
+                                    // Legend will be placed at the left
+                                    position: LegendPosition.top),
+                                primaryXAxis: CategoryAxis(),
+                                primaryYAxis: NumericAxis(
+                                    // Y axis labels will be rendered with currency format
+                                    numberFormat: NumberFormat.compact()),
+                                series: <CartesianSeries>[
+                                  // Render column series
+                                  ColumnSeries<ChartData, String>(
+                                      name: '${thisYear - 1}',
+                                      dataSource: monthlyusage,
+                                      xValueMapper: (ChartData data, _) =>
+                                          data.x,
+                                      yValueMapper: (ChartData data, _) =>
+                                          data.y2),
+                                  ColumnSeries<ChartData, String>(
+                                      name: '${thisYear}',
+                                      dataSource: monthlyusage,
+                                      xValueMapper: (ChartData data, _) =>
+                                          data.x,
+                                      yValueMapper: (ChartData data, _) =>
+                                          data.y1),
+                                  // Render line series
+                                  LineSeries<ChartData, String>(
+                                      name: '전 년도 최대전력',
+                                      dataSource: monthlyusage,
+                                      xValueMapper: (ChartData data, _) =>
+                                          data.x,
+                                      yValueMapper: (ChartData data, _) =>
+                                          data.y2,
+                                      dataLabelSettings: DataLabelSettings(
+                                          // Renders the data label
+                                          isVisible: false),
+                                      markerSettings:
+                                          MarkerSettings(isVisible: true)),
+                                  LineSeries<ChartData, String>(
+                                    name: '현 년도 최대전력',
                                     dataSource: monthlyusage,
                                     xValueMapper: (ChartData data, _) => data.x,
                                     yValueMapper: (ChartData data, _) =>
-                                        data.y2),
-                                ColumnSeries<ChartData, String>(
-                                    name: '${thisYear}',
-                                    dataSource: monthlyusage,
-                                    xValueMapper: (ChartData data, _) => data.x,
-                                    yValueMapper: (ChartData data, _) =>
-                                        data.y1),
-                                // Render line series
-                                LineSeries<ChartData, String>(
-                                    name: '전 년도 최대전력',
-                                    dataSource: monthlyusage,
-                                    xValueMapper: (ChartData data, _) => data.x,
-                                    yValueMapper: (ChartData data, _) =>
-                                        data.y2,
+                                        data.y1,
                                     dataLabelSettings: DataLabelSettings(
                                         // Renders the data label
                                         isVisible: false),
                                     markerSettings:
-                                        MarkerSettings(isVisible: true)),
-                                LineSeries<ChartData, String>(
-                                  name: '현 년도 최대전력',
-                                  dataSource: monthlyusage,
-                                  xValueMapper: (ChartData data, _) => data.x,
-                                  yValueMapper: (ChartData data, _) => data.y1,
-                                  dataLabelSettings: DataLabelSettings(
-                                      // Renders the data label
-                                      isVisible: false),
-                                  markerSettings:
-                                      MarkerSettings(isVisible: true),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10.w,0,10.w,10.w),
-                              child: Table(
-                                  border: TableBorder(
-                                      horizontalInside: BorderSide(
-                                          width: 1,
-                                          color: Colors.black38,
-                                          style: BorderStyle.solid)),
-                                  children: <TableRow>[
-                                        table.getTableHeaderWidget(),
-                                        TableRow(children: [
-                                          TableCell(
-                                            child: Text(''),
-                                          ),
-                                          TableCell(
-                                              child: Container(
-                                                alignment: Alignment.centerRight,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 50.sp),
-                                            child: DropdownButton(
-                                              value: dropDownValue,
-                                              items: <DropdownMenuItem<String>>[
-                                                for (var val
-                                                    in selectOptions.keys)
-                                                  DropdownMenuItem(
-                                                      value: val,
-                                                      child: Text(val))
-                                              ],
-                                              onChanged: (String? val) {
-                                                setState(() {
-                                                  dropDownValue = val!;
-                                                });
-                                              },
+                                        MarkerSettings(isVisible: true),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+                                child: Table(
+                                    border: TableBorder(
+                                        horizontalInside: BorderSide(
+                                            width: 1,
+                                            color: Colors.black38,
+                                            style: BorderStyle.solid)),
+                                    children: <TableRow>[
+                                          table.getTableHeaderWidget(),
+                                          TableRow(children: [
+                                            TableCell(
+                                              child: Text(''),
                                             ),
-                                          ))
-                                        ])
-                                      ] +
-                                      table.getTableRowWidgets(convertor: (row) {
-                                        row['Amount'] =
-                                            '${detailPageTheme.money.format(double.parse(row['Amount']))} kWh';
-                                        return row;
-                                      }).sublist(
-                                          0,
-                                          min(
-                                              result.length,
-                                              selectOptions[dropDownValue]
-                                                  as int))),
-                            )
-                          ],
-                        );
+                                            TableCell(
+                                                child: Container(
+                                              alignment: Alignment.centerRight,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 50.sp),
+                                              child: DropdownButton(
+                                                value: dropDownValue,
+                                                items: <
+                                                    DropdownMenuItem<String>>[
+                                                  for (var val
+                                                      in selectOptions.keys)
+                                                    DropdownMenuItem(
+                                                        value: val,
+                                                        child: Text(val))
+                                                ],
+                                                onChanged: (String? val) {
+                                                  setState(() {
+                                                    dropDownValue = val!;
+                                                  });
+                                                },
+                                              ),
+                                            ))
+                                          ])
+                                        ] +
+                                        table.getTableRowWidgets(
+                                            convertor: (row) {
+                                          row['Amount'] =
+                                              '${detailPageTheme.money.format(double.parse(row['Amount']))} kWh';
+                                          return row;
+                                        }).sublist(
+                                            0,
+                                            min(
+                                                result.length,
+                                                selectOptions[dropDownValue]
+                                                    as int))),
+                              )
+                            ],
+                          );
+                        } else {
+                          return ListView(children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme
+                                      .makeHeaderText('저장된 데이터가 없습니다.'),
+                                ])))
+                          ]);
+                        }
                       } else
                         return Text('불러오는 중');
                     }))));

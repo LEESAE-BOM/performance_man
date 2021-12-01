@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/theme.dart';
 
-List<String> state = ['safe','safe', 'safe','safe'];
+List<String> state = ['safe', 'safe', 'safe', 'safe'];
 
 class Factory_Screen extends StatelessWidget {
   @override
@@ -30,17 +30,27 @@ class Factory_Screen extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 450.w,
                 child: FutureBuilder(
-                    future: conn.sendQuery('SELECT Label, MAX(Achievement/Goal) Rate FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'DVLCM\' GROUP BY Label;'),
+                    future: conn.sendQuery(
+                        'SELECT Label, MAX(Achievement/Goal) Rate FROM CompletionRate NATURAL JOIN CompletionGoal WHERE Category=\'DVLCM\' GROUP BY Label;'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        var result = snapshot.data as List<Map<String, dynamic>>;
-                        var label = result[0]['Label'];
-                        var achieveRate = double.parse(result[0]['Rate']) * 100;
+                        var result =
+                            snapshot.data as List<Map<String, dynamic>>;
+                        if (result.isNotEmpty) {
+                          var label = result[0]['Label'];
+                          var achieveRate =
+                              double.parse(result[0]['Rate']) * 100;
 
-                        return RichText(
+                          return RichText(
                             text: detailPageTheme.makeMainHeaderText(
                                 '현재까지\n${label}\n개발완료율 [${achieveRate.round()}]% 달성.'),
-                        );
+                          );
+                        } else {
+                          return RichText(
+                            text: detailPageTheme
+                                .makeMainHeaderText('데이터가 없습니다.'),
+                          );
+                        }
                       } else {
                         return RichText(
                           text: TextSpan(
@@ -61,8 +71,7 @@ class Factory_Screen extends StatelessWidget {
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData == false) {
                       return CircularProgressIndicator();
-                    }
-                    else if (snapshot.hasError) {
+                    } else if (snapshot.hasError) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -70,8 +79,7 @@ class Factory_Screen extends StatelessWidget {
                           style: TextStyle(fontSize: 15),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       return Container(
                           alignment: Alignment.topCenter,
                           height: 100.w,
@@ -83,11 +91,9 @@ class Factory_Screen extends StatelessWidget {
                               letterSpacing: 3.w,
                               fontFamily: 'applesdneol',
                             ),
-                          )
-                      );
+                          ));
                     }
-                  }
-              )
+                  })
             ])),
         Padding(
           padding: EdgeInsets.fromLTRB(20.w, 20.w, 20.w, 20.w),
@@ -113,18 +119,18 @@ class Factory_Screen extends StatelessWidget {
     ));
   }
 }
+
 Future<String> _fetch1() async {
   await Future.delayed(Duration(seconds: 3));
 
-  List<int> stat_num = [0,0,0];
+  List<int> stat_num = [0, 0, 0];
 
-  for(var i=0;i<4;i++){
-    if(state[i]=='safe')
-      stat_num[0]=stat_num[0]+1;
-    else if(state[i]=='warning')
-      stat_num[1]=stat_num[1]+1;
-    else if(state[i]=='danger')
-      stat_num[2]=stat_num[2]+1;
+  for (var i = 0; i < 4; i++) {
+    if (state[i] == 'safe')
+      stat_num[0] = stat_num[0] + 1;
+    else if (state[i] == 'warning')
+      stat_num[1] = stat_num[1] + 1;
+    else if (state[i] == 'danger') stat_num[2] = stat_num[2] + 1;
   }
 
   return '안전: ${stat_num[0]} 경고:${stat_num[1]} 위험:${stat_num[2]}';
