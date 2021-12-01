@@ -43,9 +43,18 @@ class Splash extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0x2b3f6b).withOpacity(1.0),
       body: Center(
-          child: lightMode
-              ? Image.asset('image/logo_white.png')
-              : Image.asset('image/logo_white.png')),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+              children:[
+                lightMode
+                    ? Image.asset('image/logo_white.png')
+                    : Image.asset('image/logo_white.png'),
+                Text('측정하지 않으면 개선할 수 없다', style:TextStyle(
+                    fontSize:15, color:Colors.white)
+                )
+              ]
+          )
+      ),
     );
   }
 }
