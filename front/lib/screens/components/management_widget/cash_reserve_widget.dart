@@ -29,11 +29,9 @@ class _Cash_Reserve_Widget extends State<Cash_Reserve_Widget> {
             var result = snapshot.data as List<Map<String, dynamic>>;
             if (result.length > 0) {
               for (int i = 0; i < min(result.length, 3); i++) {
-                print(result[i]['Year']);
                 cashData.add(ChartData((int.parse(result[i]['Year'])),
                     double.parse(result[i]['Money'])));
               }
-              print('end');
               if (double.parse(result[0]['Year']) > 200000000000)
                 state[0] = 'safe';
               else if (double.parse(result[0]['Year']) > 170000000000) {

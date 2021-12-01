@@ -222,19 +222,25 @@ class WidgetBoxTheme{
 
   Image safeIcon = Image.asset(
     'image/safe_light.png',
-    width: 100.w,
+    width: 20.w,
     height: 20.w,
   );
 
   Image warningIcon = Image.asset(
     'image/warning_light.png',
-    width: 100.w,
+    width: 20.w,
     height: 20.w,
   );
 
   Image dangerIcon = Image.asset(
     'image/danger_light.png',
-    width: 100.w,
+    width: 20.w,
+    height: 20.w,
+  );
+
+  Image unknownIcon = Image.asset(
+    'image/off.png',
+    width: 20.w,
     height: 20.w,
   );
 

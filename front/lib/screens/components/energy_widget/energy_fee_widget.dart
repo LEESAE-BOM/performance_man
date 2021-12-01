@@ -37,7 +37,7 @@ class _Energy_Fee_Widget extends State<Energy_Fee_Widget> {
                   },
                   dbRelatedContentBuilder: Text.rich(TextSpan(children: [
                     detailPageTheme.makeHeaderText(
-                        '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]'),
+                        '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원]입니다.'),
                   ])));
             } else {
               state[0] = 'none';

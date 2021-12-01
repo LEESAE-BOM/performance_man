@@ -174,7 +174,6 @@ Future<String> _fetch() async {
   List<int> stat_num = [0,0,0];
 
   for(var i=0;i<6;i++){
-    print(state[i]);
     if(state[i]=='safe')
       stat_num[0]=stat_num[0]+1;
     else if(state[i]=='warning')

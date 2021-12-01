@@ -10,7 +10,6 @@ class BoxWidget {
   double insideWidth = 0.0;
   double insideHeight = 0.0;
   Image? stateIcon;
-  WidgetBoxTheme widgetBoxTheme = WidgetBoxTheme();
 
   BoxWidget(this.title, this.state, this.type){
     if(type == 'wide'){
@@ -28,7 +27,7 @@ class BoxWidget {
     if(this.state == 'safe') stateIcon = widgetBoxTheme.safeIcon;
     if(this.state == 'warning') stateIcon = widgetBoxTheme.warningIcon;
     if(this.state == 'danger') stateIcon = widgetBoxTheme.dangerIcon;
-    if(this.state == 'none') stateIcon = widgetBoxTheme.dangerIcon;
+    if(this.state == 'none') stateIcon = widgetBoxTheme.unknownIcon;
   }
 
   GestureDetector make({onTap, dbRelatedContentBuilder}){
@@ -45,6 +44,7 @@ class BoxWidget {
                     child: Row(
                       children: [
                         widgetBoxTheme.titleText(title),
+                        SizedBox(width: 10, height: 1),
                         stateIcon as Image
                       ],
                     ),
