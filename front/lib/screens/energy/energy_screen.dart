@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/screens/components/BaseAppBar.dart';
+import 'package:flutter_app/screens/components/menu_drawer.dart';
 import '.././components/energy_widget/hourly_figures_widget.dart';
 import '.././components/energy_widget/energy_fee_widget.dart';
 import '.././components/energy_widget/monthly_figures_widget.dart';
@@ -13,6 +15,8 @@ class Energy_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawer: MenuDrawer(),
+        appBar : BaseAppBar(appBar : AppBar(), title : '에너지'),
         body: ListView(
       children: [
         Container(

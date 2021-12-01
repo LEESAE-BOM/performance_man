@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/screens/components/BaseAppBar.dart';
+import 'package:flutter_app/screens/components/menu_drawer.dart';
 import '.././components/factory_widget/capacity_ratio_widget.dart';
 import '.././components/factory_widget/developmentcompletion_rate_widget.dart';
 import '.././components/factory_widget/labor_production_rate_widget.dart';
@@ -14,6 +16,8 @@ class Factory_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawer: MenuDrawer(),
+        appBar : BaseAppBar(appBar : AppBar(), title : '공장'),
         body: ListView(
       children: [
         Container(

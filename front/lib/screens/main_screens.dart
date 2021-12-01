@@ -24,25 +24,6 @@ class _MainScreensState extends State<MainScreens>{
   Widget build(BuildContext context){
 
     return Scaffold(
-      endDrawer: MenuDrawer(),
-      appBar: AppBar(
-        title: Text('FLOW',style: TextStyle(color: Colors.white,fontFamily: 'applesdneob'),),
-        centerTitle: true,
-        elevation: 0.0,
-        backgroundColor: Color.fromRGBO(43, 63, 107, 1),
-        leading: IconButton(
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              loginSession.deleteValue("loginInfo").then((value)
-              {
-                Navigator.of(context).pop();
-              });
-            }
-            ),
-      ),
       body: IndexedStack(
         index: _selectedIndex,
         children : [

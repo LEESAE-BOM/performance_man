@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/screens/components/BaseAppBar.dart';
+import 'package:flutter_app/screens/components/menu_drawer.dart';
 import '.././components/management_widget/sales_widget.dart';
 import '.././components/management_widget/cash_reserve_widget.dart';
 import '.././components/management_widget/contracted_price_widget.dart';
@@ -16,6 +18,8 @@ class Management_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawer: MenuDrawer(),
+        appBar : BaseAppBar(appBar : AppBar(), title : '경영'),
         body: ListView(
       children: [
         Container(
