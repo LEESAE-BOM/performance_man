@@ -256,6 +256,44 @@ class _expected_profit extends State<expected_profit> {
                                     ]),
                               ),
                             ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.symmetric(horizontal: 50.sp),
+                              child: DropdownButton(
+                                value: _selectedValue,
+                                items: _valueList.map(
+                                  (String value) {
+                                    return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                        ));
+                                  },
+                                ).toList(),
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    _selectedValue = value;
+                                    if (value == '1분기') {
+                                      row1 = 0;
+                                      row2 = 1;
+                                      row3 = 2;
+                                    } else if (value == '2분기') {
+                                      row1 = 3;
+                                      row2 = 4;
+                                      row3 = 5;
+                                    } else if (value == '3분기') {
+                                      row1 = 6;
+                                      row2 = 7;
+                                      row3 = 8;
+                                    } else if (value == '4분기') {
+                                      row1 = 9;
+                                      row2 = 10;
+                                      row3 = 11;
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
                             Padding(
                                 padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
                                 child: Center(
@@ -301,50 +339,6 @@ class _expected_profit extends State<expected_profit> {
                                           ),
                                         ],
                                         rows: <DataRow>[
-                                          DataRow(
-                                            cells: <DataCell>[
-                                              DataCell(Text('')),
-                                              DataCell(Container(
-                                                  width: 1020.w * 0.6,
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: DropdownButton(
-                                                    value: _selectedValue,
-                                                    items: _valueList.map(
-                                                      (String value) {
-                                                        return DropdownMenuItem(
-                                                            value: value,
-                                                            child: Text(value));
-                                                      },
-                                                    ).toList(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _selectedValue = value;
-                                                        if (value == '1분기') {
-                                                          row1 = 0;
-                                                          row2 = 1;
-                                                          row3 = 2;
-                                                        } else if (value ==
-                                                            '2분기') {
-                                                          row1 = 3;
-                                                          row2 = 4;
-                                                          row3 = 5;
-                                                        } else if (value ==
-                                                            '3분기') {
-                                                          row1 = 6;
-                                                          row2 = 7;
-                                                          row3 = 8;
-                                                        } else if (value ==
-                                                            '4분기') {
-                                                          row1 = 9;
-                                                          row2 = 10;
-                                                          row3 = 11;
-                                                        }
-                                                      });
-                                                    },
-                                                  )))
-                                            ],
-                                          ),
                                           DataRow(
                                             cells: <DataCell>[
                                               DataCell(

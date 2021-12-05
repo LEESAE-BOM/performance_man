@@ -144,6 +144,26 @@ class _sales extends State<sales> {
                                         sales.y,
                                   ),
                                 ]),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.symmetric(horizontal: 50.sp),
+                              child: DropdownButton(
+                                value: dropDownValue,
+                                items: <DropdownMenuItem<String>>[
+                                  for (var val in selectOptions.keys)
+                                    DropdownMenuItem(
+                                        value: val,
+                                        child: Text(
+                                          val,
+                                        ))
+                                ],
+                                onChanged: (String? val) {
+                                  setState(() {
+                                    dropDownValue = val!;
+                                  });
+                                },
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
                               child: Table(
@@ -154,32 +174,6 @@ class _sales extends State<sales> {
                                           style: BorderStyle.solid)),
                                   children: <TableRow>[
                                         table.getTableHeaderWidget(),
-                                        TableRow(children: [
-                                          TableCell(
-                                            child: Text(''),
-                                          ),
-                                          TableCell(
-                                              child: Container(
-                                            alignment: Alignment.centerRight,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 50.sp),
-                                            child: DropdownButton(
-                                              value: dropDownValue,
-                                              items: <DropdownMenuItem<String>>[
-                                                for (var val
-                                                    in selectOptions.keys)
-                                                  DropdownMenuItem(
-                                                      value: val,
-                                                      child: Text(val))
-                                              ],
-                                              onChanged: (String? val) {
-                                                setState(() {
-                                                  dropDownValue = val!;
-                                                });
-                                              },
-                                            ),
-                                          ))
-                                        ])
                                       ] +
                                       table.getTableRowWidgets(
                                           convertor: (row) {

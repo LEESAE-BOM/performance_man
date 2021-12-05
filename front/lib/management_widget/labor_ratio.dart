@@ -156,6 +156,27 @@ class _labor_ratio extends State<labor_ratio> {
                                                             'applesdneob')),
                                             radius: '100%'),
                                       ])),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 50.sp),
+                                child: DropdownButton(
+                                  value: dropDownValue,
+                                  items: <DropdownMenuItem<String>>[
+                                    for (var val in selectOptions.keys)
+                                      DropdownMenuItem(
+                                          value: val,
+                                          child: Text(
+                                            val,
+                                          ))
+                                  ],
+                                  onChanged: (String? val) {
+                                    setState(() {
+                                      dropDownValue = val!;
+                                    });
+                                  },
+                                ),
+                              ),
                               Padding(
                                 padding:
                                     EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
@@ -167,41 +188,6 @@ class _labor_ratio extends State<labor_ratio> {
                                           style: BorderStyle.solid)),
                                   children: <TableRow>[
                                         table.getTableHeaderWidget(),
-                                        TableRow(children: [
-                                          TableCell(
-                                            child: Text(''),
-                                          ),
-                                          TableCell(
-                                            child: Text(''),
-                                          ),
-                                          TableCell(
-                                              child: Container(
-                                            alignment: Alignment.centerRight,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 50.sp),
-                                            child: DropdownButton(
-                                              value: dropDownValue,
-                                              items: <DropdownMenuItem<String>>[
-                                                for (var val
-                                                    in selectOptions.keys)
-                                                  DropdownMenuItem(
-                                                      value: val,
-                                                      child: Text(
-                                                        val,
-                                                        style: TextStyle(
-                                                          fontSize: 35.w,
-                                                        ),
-                                                      ))
-                                              ],
-                                              onChanged: (String? val) {
-                                                setState(() {
-                                                  dropDownValue = val!;
-                                                });
-                                              },
-                                              isExpanded: true,
-                                            ),
-                                          ))
-                                        ])
                                       ] +
                                       table.getTableRowWidgets(
                                           convertor: (row) {
