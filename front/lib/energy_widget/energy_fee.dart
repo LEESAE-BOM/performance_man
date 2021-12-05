@@ -55,7 +55,7 @@ class _energy_fee extends State<energy_fee> {
                       if (snapshot.hasData) {
                         var result =
                             snapshot.data as List<Map<String, dynamic>>;
-                        if(result.length > 0) {
+                        if (result.length > 0) {
                           var thisMonthPrice = double.parse(result[0]['Money']);
                           var table = ResultSet(snapshot.data, ['구분', '요금현황']);
                           double sum = 0;
@@ -78,8 +78,8 @@ class _energy_fee extends State<energy_fee> {
                             energy_fee.add(ChartData('월간', MonthRate));
                             energy_fee.add(ChartData('월간', 100 - MonthRate));
                             energy_fee1.add(ChartData('월간누적', Month_Rate));
-                            energy_fee1.add(
-                                ChartData('월간누적', 100 - Month_Rate));
+                            energy_fee1
+                                .add(ChartData('월간누적', 100 - Month_Rate));
                           }
                           return ListView(
                             children: [
@@ -88,144 +88,145 @@ class _energy_fee extends State<energy_fee> {
                                       50.sp, 100.sp, 20.sp, 100.sp),
                                   child: Text.rich(TextSpan(children: [
                                     detailPageTheme.makeHeaderText(
-                                        '이번 달 전기요금 현황은\n[${detailPageTheme.money
-                                            .format(thisMonthPrice)}원] 입니다.'),
+                                        '이번 달 전기요금 현황은\n[${detailPageTheme.money.format(thisMonthPrice)}원] 입니다.'),
                                   ]))),
                               Container(
                                   child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                        Container(
-                                            width: 540.w,
-                                            height: 300,
-                                            child: SfCircularChart(
-                                                palette: <Color>[
-                                                  Color.fromRGBO(
-                                                      43, 63, 107, 1),
-                                                  Colors.grey
-                                                ],
-                                                tooltipBehavior: _toolTipBehavior,
-                                                title: ChartTitle(
-                                                  text: '<월별>',
-                                                  // Aligns the chart title to left
-                                                  alignment: ChartAlignment
-                                                      .center,
-                                                ),
-                                                annotations: <
-                                                    CircularChartAnnotation>[
-                                                  CircularChartAnnotation(
-                                                      height: '110%',
-                                                      // Setting height and width for the circular chart annotation
-                                                      width: '110%',
-                                                      widget: Container(
-                                                          child: PhysicalModel(
-                                                              child: Container(),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              elevation: 10,
-                                                              color: Colors
-                                                                  .white))),
-                                                  CircularChartAnnotation(
-                                                      widget: Container(
-                                                          child: Text(
-                                                              '${detailPageTheme
-                                                                  .money.format(
-                                                                  thisMonthPrice)}원\n /20,000,000원',
-                                                              style: TextStyle(
-                                                                  color:
-                                                                  Color
-                                                                      .fromRGBO(
+                                    Container(
+                                        width: 540.w,
+                                        height: 300,
+                                        child: SfCircularChart(
+                                            palette: <Color>[
+                                              Color.fromRGBO(43, 63, 107, 1),
+                                              Colors.grey
+                                            ],
+                                            tooltipBehavior: _toolTipBehavior,
+                                            title: ChartTitle(
+                                              text: '<월별>',
+                                              // Aligns the chart title to left
+                                              alignment: ChartAlignment.center,
+                                            ),
+                                            annotations: <
+                                                CircularChartAnnotation>[
+                                              CircularChartAnnotation(
+                                                  height: '110%',
+                                                  // Setting height and width for the circular chart annotation
+                                                  width: '110%',
+                                                  widget: Container(
+                                                      child: PhysicalModel(
+                                                          child: Container(),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          elevation: 10,
+                                                          color:
+                                                              Colors.white))),
+                                              CircularChartAnnotation(
+                                                  widget: Container(
+                                                      child: Text(
+                                                          '${detailPageTheme.money.format(thisMonthPrice)}원\n /20,000,000원',
+                                                          style: TextStyle(
+                                                              color: Color
+                                                                  .fromRGBO(
                                                                       0,
                                                                       0,
                                                                       0,
                                                                       0.5),
-                                                                  fontSize: 45
-                                                                      .sp,
-                                                                  fontFamily:
+                                                              fontSize: 45.sp,
+                                                              fontFamily:
                                                                   'applesdneoeb')))),
-                                                ],
-                                                series: <CircularSeries>[
-                                                  DoughnutSeries<
-                                                      ChartData,
-                                                      String>(
-                                                      dataSource: energy_fee,
-                                                      xValueMapper:
-                                                          (ChartData data, _) =>
-                                                      data.x,
-                                                      yValueMapper:
-                                                          (ChartData data, _) =>
-                                                      data.y1,
-                                                      // Radius of doughnut
-                                                      radius: '85%')
-                                                ])),
-                                        Container(
-                                            width: 540.w,
-                                            height: 300,
-                                            child: SfCircularChart(
-                                                palette: <Color>[
-                                                  Color.fromRGBO(
-                                                      43, 63, 107, 1),
-                                                  Colors.grey
-                                                ],
-                                                title: ChartTitle(
-                                                  text: '<월별 누적>',
-                                                  // Aligns the chart title to left
-                                                  alignment: ChartAlignment
-                                                      .center,
-                                                ),
-                                                annotations: <
-                                                    CircularChartAnnotation>[
-                                                  CircularChartAnnotation(
-                                                      height: '110%',
-                                                      // Setting height and width for the circular chart annotation
-                                                      width: '110%',
-                                                      widget: Container(
-                                                          child: PhysicalModel(
-                                                              child: Container(),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              elevation: 30,
-                                                              // shadowColor: Colors.black,
-                                                              color: Colors
-                                                                  .white))),
-                                                  CircularChartAnnotation(
-                                                      widget: Container(
-                                                          child: Text(
-                                                              '${detailPageTheme
-                                                                  .money.format(
-                                                                  sum)}원\n/500,000,000원',
-                                                              style: TextStyle(
-                                                                  color:
-                                                                  Color
-                                                                      .fromRGBO(
+                                            ],
+                                            series: <CircularSeries>[
+                                              DoughnutSeries<ChartData, String>(
+                                                  dataSource: energy_fee,
+                                                  xValueMapper:
+                                                      (ChartData data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData data, _) =>
+                                                          data.y1,
+                                                  // Radius of doughnut
+                                                  radius: '85%')
+                                            ])),
+                                    Container(
+                                        width: 540.w,
+                                        height: 300,
+                                        child: SfCircularChart(
+                                            palette: <Color>[
+                                              Color.fromRGBO(43, 63, 107, 1),
+                                              Colors.grey
+                                            ],
+                                            title: ChartTitle(
+                                              text: '<월별 누적>',
+                                              // Aligns the chart title to left
+                                              alignment: ChartAlignment.center,
+                                            ),
+                                            annotations: <
+                                                CircularChartAnnotation>[
+                                              CircularChartAnnotation(
+                                                  height: '110%',
+                                                  // Setting height and width for the circular chart annotation
+                                                  width: '110%',
+                                                  widget: Container(
+                                                      child: PhysicalModel(
+                                                          child: Container(),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          elevation: 30,
+                                                          // shadowColor: Colors.black,
+                                                          color:
+                                                              Colors.white))),
+                                              CircularChartAnnotation(
+                                                  widget: Container(
+                                                      child: Text(
+                                                          '${detailPageTheme.money.format(sum)}원\n/500,000,000원',
+                                                          style: TextStyle(
+                                                              color: Color
+                                                                  .fromRGBO(
                                                                       0,
                                                                       0,
                                                                       0,
                                                                       0.5),
-                                                                  fontSize: 43
-                                                                      .sp,
-                                                                  fontFamily:
+                                                              fontSize: 43.sp,
+                                                              fontFamily:
                                                                   'applesdneoeb'))))
-                                                ],
-                                                series: <CircularSeries>[
-                                                  DoughnutSeries<
-                                                      ChartData,
-                                                      String>(
-                                                      dataSource: energy_fee1,
-                                                      xValueMapper:
-                                                          (ChartData data, _) =>
-                                                      data.x,
-                                                      yValueMapper:
-                                                          (ChartData data, _) =>
-                                                      data.y1,
-                                                      // Radius of doughnut
-                                                      radius: '85%')
-                                                ]))
-                                      ])),
+                                            ],
+                                            series: <CircularSeries>[
+                                              DoughnutSeries<ChartData, String>(
+                                                  dataSource: energy_fee1,
+                                                  xValueMapper:
+                                                      (ChartData data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData data, _) =>
+                                                          data.y1,
+                                                  // Radius of doughnut
+                                                  radius: '85%')
+                                            ]))
+                                  ])),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 50.sp),
+                                child: DropdownButton(
+                                  value: dropDownValue,
+                                  items: <DropdownMenuItem<String>>[
+                                    for (var val in selectOptions.keys)
+                                      DropdownMenuItem(
+                                          value: val, child: Text(val))
+                                  ],
+                                  onChanged: (String? val) {
+                                    setState(() {
+                                      dropDownValue = val!;
+                                    });
+                                  },
+                                ),
+                              ),
                               Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    10.w, 0, 10.w, 10.w),
+                                padding:
+                                    EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
                                 child: Table(
                                     border: TableBorder(
                                         horizontalInside: BorderSide(
@@ -233,63 +234,32 @@ class _energy_fee extends State<energy_fee> {
                                             color: Colors.black38,
                                             style: BorderStyle.solid)),
                                     children: <TableRow>[
-                                      table.getTableHeaderWidget(),
-                                      TableRow(children: [
-                                        TableCell(
-                                          child: Text(''),
-                                        ),
-                                        TableCell(
-                                            child: Container(
-                                              alignment: Alignment.centerRight,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 50.sp),
-                                              child: DropdownButton(
-                                                value: dropDownValue,
-                                                items: <
-                                                    DropdownMenuItem<String>>[
-                                                  for (var val
-                                                  in selectOptions.keys)
-                                                    DropdownMenuItem(
-                                                        value: val,
-                                                        child: Text(val))
-                                                ],
-                                                onChanged: (String? val) {
-                                                  setState(() {
-                                                    dropDownValue = val!;
-                                                  });
-                                                },
-                                              ),
-                                            ))
-                                      ])
-                                    ] +
+                                          table.getTableHeaderWidget(),
+                                        ] +
                                         table.getTableRowWidgets(
                                             convertor: (row) {
-                                              row['Money'] =
-                                              '${detailPageTheme.money.format(
-                                                  double.parse(
-                                                      row['Money']))} 원';
-                                              return row;
-                                            }).sublist(
+                                          row['Money'] =
+                                              '${detailPageTheme.money.format(double.parse(row['Money']))} 원';
+                                          return row;
+                                        }).sublist(
                                             0,
                                             min(
                                                 result.length,
                                                 selectOptions[dropDownValue]
-                                                as int))),
+                                                    as int))),
                               )
                             ],
                           );
-                        }else{
-                          return ListView(
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(50.sp, 100.sp, 20.sp, 100.sp),
-                                    child: Text.rich(TextSpan(children: [
-                                      detailPageTheme.makeHeaderText('저장된 데이터가 없습니다.'),
-                                    ])
-                                    )
-                                )
-                              ]
-                          );
+                        } else {
+                          return ListView(children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    50.sp, 100.sp, 20.sp, 100.sp),
+                                child: Text.rich(TextSpan(children: [
+                                  detailPageTheme
+                                      .makeHeaderText('저장된 데이터가 없습니다.'),
+                                ])))
+                          ]);
                         }
                       } else
                         return Text('불러오는 중');
