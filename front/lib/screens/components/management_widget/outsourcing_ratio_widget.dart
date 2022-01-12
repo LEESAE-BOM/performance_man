@@ -26,7 +26,7 @@ class _Outsourcing_Ratio_Widget extends State<Outsourcing_Ratio_Widget> {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
             if (result.length > 0) {
-              int thisYear = DateTime.now().year;
+              int thisYear = 2021;
               double contractPrice = 0;
               double outsourcePrice = 0;
               double rate = 0;
