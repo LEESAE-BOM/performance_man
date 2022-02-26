@@ -3,7 +3,6 @@ import 'package:flutter_app/factory_widget/lead_time.dart';
 import 'package:flutter_app/theme.dart';
 import 'package:flutter_app/mysql_connect.dart';
 import 'package:flutter_app/box_widget.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/screens/factory/factory_screen.dart';
 
 //작은 위젯
@@ -21,27 +20,35 @@ class _Lead_Time_Widget extends State<Lead_Time_Widget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var result = snapshot.data as List<Map<String, dynamic>>;
-            var today = DateTime.now();
-            int dif = int.parse(today
-                .difference(DateTime.parse(result[0]['dueDate']))
-                .inDays
-                .toString());
-            dif *= -1;
+            if (result.length > 0) {
+              var today = DateTime.now();
+              int dif = int.parse(today
+                  .difference(DateTime.parse(result[0]['dueDate']))
+                  .inDays
+                  .toString());
+              dif *= -1;
 
-            if (dif < 10)
-              state[3] = 'danger';
-            else if (dif < 20)
-              state[3] = 'warning';
-            else
-              state[3] = 'safe';
+              if (dif < 10)
+                state[3] = 'danger';
+              else if (dif < 20)
+                state[3] = 'warning';
+              else
+                state[3] = 'safe';
 
-            return BoxWidget('제조 Lead-time', state[3], 'narrow').make(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => lead_time()));
-                },
-                dbRelatedContentBuilder:
-                    Text.rich(detailPageTheme.makeLeadText('[${dif}]days]')));
+              return BoxWidget('제조 Lead-time', state[3], 'narrow').make(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => lead_time()));
+                  },
+                  dbRelatedContentBuilder:
+                      Text.rich(detailPageTheme.makeLeadText('[${dif}]days]')));
+            } else {
+              state[3] = 'none';
+              return BoxWidget('제조 Lead-time', state[3], 'narrow').make(
+                  onTap: () {},
+                  dbRelatedContentBuilder:
+                      Text.rich(detailPageTheme.makeHeaderText('데이터가 없습니다.')));
+            }
           } else {
             return Text.rich(TextSpan(text: '불러오는 중'));
           }
